@@ -58,5 +58,5 @@ public class Constants {
     /**
      * 管理路径
      */
-    public static final String ADMIN_SUFFIX = "cmsmanager/anchorcms/index.do";
+    public static final String MANAGER_SUFFIX = "manager/anchorcms/index.do";
 }

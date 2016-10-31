@@ -22,13 +22,13 @@ import static com.anchorcms.common.web.Constants.UTF8;
  * @Date 2016-10-31
  * @Desc string工具类，提供静态方法，不可被实例化
  */
-public class StrUtils {
+public class StrUtil {
     /**
      * @Author 阁楼麻雀
      * @Date 2016-10-31 10:20
      * @Desc 禁止实例化
      */
-    private StrUtils() {
+    private StrUtil() {
     }
 
 

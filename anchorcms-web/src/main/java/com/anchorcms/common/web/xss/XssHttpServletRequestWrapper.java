@@ -1,6 +1,6 @@
 package com.anchorcms.common.web.xss;
 
-import com.anchorcms.common.utils.StrUtils;
+import com.anchorcms.common.utils.StrUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -19,7 +19,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     public String getQueryString() {
         String value = super.getQueryString();
         if (value != null) {
-            value = StrUtils.xssEncode(value);
+            value = StrUtil.xssEncode(value);
         }
         return value;
     }
@@ -30,9 +30,9 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
      * getParameterNames,getParameterValues和getParameterMap也可能需要覆盖
      */
     public String getParameter(String name) {
-        String value = super.getParameter(StrUtils.xssEncode(name));
+        String value = super.getParameter(StrUtil.xssEncode(name));
         if (value != null) {
-            value = StrUtils.xssEncode(value);
+            value = StrUtil.xssEncode(value);
         }
         return value;
     }
@@ -43,7 +43,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
             return null;
         }
         for (int i = 0; i < parameters.length; i++) {
-            parameters[i] = StrUtils.xssEncode(parameters[i]);
+            parameters[i] = StrUtil.xssEncode(parameters[i]);
         }
         return parameters;
     }
@@ -54,9 +54,9 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
      */
     public String getHeader(String name) {
 
-        String value = super.getHeader(StrUtils.xssEncode(name));
+        String value = super.getHeader(StrUtil.xssEncode(name));
         if (value != null) {
-            value = StrUtils.xssEncode(value);
+            value = StrUtil.xssEncode(value);
         }
         return value;
     }

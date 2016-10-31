@@ -15,6 +15,18 @@
 			</list>
 		</property>
 	</bean>
+	<bean id="properties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>classpath*:jdbc.properties</value>
+				<value>classpath*:/**/*.properties</value>
+			</list>
+		</property>
+		<qualifier value="main"/>
+	</bean>
+	<bean id="propertyUtils" class="com.anchorcms.common.utils.PropertyUtil">
+		<property name="properties" ref="properties"/>
+	</bean>
 	
 	<!-- 注解支持 -->
 	<context:annotation-config />
