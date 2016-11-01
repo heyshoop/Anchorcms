@@ -10,6 +10,9 @@
         <param-value>
             classpath*:application-context.xml
             classpath*:hibernate-context.xml
+            classpath*:cmsbean-context.xml
+            classpath*:shiro-context.xml
+            classpath*:manager/manager-context.xml
         </param-value>
     </context-param>
     <!--执行时间统计-->
@@ -63,7 +66,6 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>
                 classpath*:manager/manager-context.xml
-                classpath*:manager/manager-action-context.xml
             </param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--加载配置文件-->
+    <bean id="tplMessageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="cacheSeconds" value="0"/>
+        <property name="basenames" value="#{propertyUtils.getList('messages.tpl.')}"/>
+    </bean>
+    <!--自定义标签-->
+    <!--后台权限标签-->
+    <bean id="cms_perm" class="com.anchorcms.cms.web.PermistionDirective"/>
+
+</beans>
