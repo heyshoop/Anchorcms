@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+import com.anchorcms.common.utils.CmsUtils;
+import com.anchorcms.core.manager.CmsUserMng;
+import com.anchorcms.core.model.CmsSite;
+import com.anchorcms.core.model.CmsUser;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
@@ -18,14 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.util.UrlPathHelper;
 
-import com.jeecms.common.web.CookieUtils;
-import com.jeecms.core.entity.CmsSite;
-import com.jeecms.core.entity.CmsUser;
-import com.jeecms.core.entity.CmsUserSite;
-import com.jeecms.core.manager.CmsSiteMng;
-import com.jeecms.core.manager.CmsUserMng;
-import com.jeecms.core.security.CmsAuthorizingRealm;
-import com.jeecms.core.web.util.CmsUtils;
 
 /**
  * CMS上下文信息拦截器

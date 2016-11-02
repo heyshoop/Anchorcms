@@ -1,6 +1,6 @@
 package com.anchorcms.common.utils;
 
-import com.anchorcms.common.pojo.PageInfo;
+import com.anchorcms.common.model.PageInfo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.util.UrlPathHelper;
 

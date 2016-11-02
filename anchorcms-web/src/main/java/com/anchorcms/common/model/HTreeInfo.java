@@ -1,4 +1,4 @@
-package com.anchorcms.common.pojo;
+package com.anchorcms.common.model;
 
 /**
  * @Author 阁楼麻雀

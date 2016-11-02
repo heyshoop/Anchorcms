@@ -1,6 +1,6 @@
 package com.anchorcms.common.hibernate;
 
-import com.anchorcms.common.pojo.HTreeInfo;
+import com.anchorcms.common.model.HTreeInfo;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.EmptyInterceptor;
 import org.hibernate.FlushMode;
