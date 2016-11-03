@@ -18,7 +18,7 @@ public class ChannelExt implements Serializable{
     private Byte finalStep;
     private Byte afterCheck;
     private String isStaticChannel;
-    private String isStaticContent;
+    private Boolean isStaticContent;
     private String isAccessByDir;
     private String isListChild;
     private int pageSize;
@@ -97,11 +97,11 @@ public class ChannelExt implements Serializable{
 
     @Basic
     @Column(name = "is_static_content")
-    public String getIsStaticContent() {
+    public Boolean getIsStaticContent() {
         return isStaticContent;
     }
 
-    public void setIsStaticContent(String isStaticContent) {
+    public void setIsStaticContent(Boolean isStaticContent) {
         this.isStaticContent = isStaticContent;
     }
 

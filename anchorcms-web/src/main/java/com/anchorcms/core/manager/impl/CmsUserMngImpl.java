@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.mail.MessagingException;
 
+import com.anchorcms.cms.manager.main.ContentMng;
 import com.anchorcms.cms.model.main.Channel;
 import com.anchorcms.common.email.EmailSender;
 import com.anchorcms.common.email.MessageTemplate;

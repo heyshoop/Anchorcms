@@ -1,5 +1,7 @@
 package com.anchorcms.cms.model.main;
 
+import org.apache.commons.lang.StringUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -93,5 +95,35 @@ public class ContentTxt implements Serializable{
         result = 31 * result + (txt2 != null ? txt2.hashCode() : 0);
         result = 31 * result + (txt3 != null ? txt3.hashCode() : 0);
         return result;
+    }
+
+    @OneToOne
+    private Content content;
+
+    public Content getContent() {
+        return content;
+    }
+
+    public void setContent(Content content) {
+        this.content = content;
+    }
+
+    public void init() {
+        blankToNull();
+    }
+
+    public void blankToNull() {
+        if (StringUtils.isBlank(getTxt())) {
+            setTxt(null);
+        }
+        if (StringUtils.isBlank(getTxt1())) {
+            setTxt1(null);
+        }
+        if (StringUtils.isBlank(getTxt2())) {
+            setTxt2(null);
+        }
+        if (StringUtils.isBlank(getTxt3())) {
+            setTxt3(null);
+        }
     }
 }

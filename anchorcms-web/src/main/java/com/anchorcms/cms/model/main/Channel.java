@@ -1,20 +1,27 @@
 package com.anchorcms.cms.model.main;
 
+import com.anchorcms.common.hibernate.PriorityComparator;
 import com.anchorcms.core.model.CmsGroup;
+import com.anchorcms.core.model.CmsUser;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
+import java.util.TreeSet;
+
+import static com.anchorcms.cms.web.CmsThreadVariable.getSite;
 
 /**
  * @Author 阁楼麻雀
  * @Email netuser.orz@icloud.com
  * @Date 2016-11-2
- * @Desc
+ * @Desc CMS栏目表
  */
 @Entity
 @Table(name = "c_channel", schema = "db_cms")
 public class Channel implements Serializable{
+    private static final long serialVersionUID = -9066154332731793820L;
     private int channelId;
     private int modelId;
     private int siteId;
@@ -166,6 +173,36 @@ public class Channel implements Serializable{
     private Set<CmsGroup> viewGroups;
     @ManyToMany
     private Set<CmsGroup> contriGroups;
+    @ManyToMany
+    private Set<CmsUser> users;
+    @OneToOne
+    private ChannelExt channelExt;
+    @ManyToOne
+    private Channel parent;
+
+    public Channel getParent() {
+        return parent;
+    }
+
+    public void setParent(Channel parent) {
+        this.parent = parent;
+    }
+
+    public ChannelExt getChannelExt() {
+        return channelExt;
+    }
+
+    public void setChannelExt(ChannelExt channelExt) {
+        this.channelExt = channelExt;
+    }
+
+    public Set<CmsUser> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<CmsUser> users) {
+        this.users = users;
+    }
 
     public Set<CmsGroup> getViewGroups() {
         return viewGroups;
@@ -183,6 +220,24 @@ public class Channel implements Serializable{
         this.contriGroups = contriGroups;
     }
 
+    /**
+     * 审核后内容修改方式
+     */
+    public static enum AfterCheckEnum {
+        /**
+         * 不能修改，不能删除。
+         */
+        CANNOT_UPDATE,
+        /**
+         * 可以修改，可以删除。 修改后文章的审核级别将退回到修改人级别的状态。如果修改人的级别高于当前文章的审核级别，那么文章审核级别将保持不变。
+         */
+        BACK_UPDATE,
+        /**
+         * 可以修改，可以删除。 修改后文章保持原状态。
+         */
+        KEEP_UPDATE
+    }
+
     public  void removeViewGroup(CmsGroup group) {
         Set<CmsGroup>viewGroups=getViewGroups();
         viewGroups.remove(group);
@@ -191,4 +246,84 @@ public class Channel implements Serializable{
         Set<CmsGroup>contriGroups=getContriGroups();
         contriGroups.remove(group);
     }
+    public void addToUsers(CmsUser user) {
+        Set<CmsUser> set = getUsers();
+        if (set == null) {
+            set = new TreeSet<CmsUser>((Collection<? extends CmsUser>) new PriorityComparator());
+            setUsers(set);
+        }
+        set.add(user);
+        user.addToChannels(this);
+    }
+    /**
+     * 获得栏目终审级别
+     *
+     * @return
+     */
+    public Byte getFinalStepExtends() {
+        Byte step = getFinalStep();
+        if (step == null) {
+            Channel parent = getParent();
+            if (parent == null) {
+                return getSite().getFinalStep();
+            } else {
+                return parent.getFinalStepExtends();
+            }
+        } else {
+            return step;
+        }
+    }
+    public Byte getFinalStep() {
+        ChannelExt ext = getChannelExt();
+        if (ext != null) {
+            return ext.getFinalStep();
+        } else {
+            return null;
+        }
+    }
+    /**
+     * 获得审核后修改方式的枚举值。如果该值为null则取父级栏目，父栏目为null则取站点相关设置。
+     *
+     * @return
+     */
+    public AfterCheckEnum getAfterCheckEnum() {
+        Byte after = getChannelExt().getAfterCheck();
+        Channel channel = getParent();
+        // 如果为null，则查找父栏目。
+        while (after == null && channel != null) {
+            after = channel.getAfterCheck();
+            channel = channel.getParent();
+        }
+        // 如果依然为null，则查找站点设置
+        if (after == null) {
+            after = getSite().getAfterCheck();
+        }
+        if (after == 1) {
+            return AfterCheckEnum.CANNOT_UPDATE;
+        } else if (after == 2) {
+            return AfterCheckEnum.BACK_UPDATE;
+        } else if (after == 3) {
+            return AfterCheckEnum.KEEP_UPDATE;
+        } else {
+            // 默认为不可改、不可删
+            return AfterCheckEnum.CANNOT_UPDATE;
+        }
+    }
+    public Byte getAfterCheck() {
+        ChannelExt ext = getChannelExt();
+        if (ext != null) {
+            return ext.getAfterCheck();
+        } else {
+            return null;
+        }
+    }
+    public Boolean getStaticContent() {
+        ChannelExt ext = getChannelExt();
+        if (ext != null) {
+            return ext.getIsStaticContent();
+        } else {
+            return null;
+        }
+    }
+
 }

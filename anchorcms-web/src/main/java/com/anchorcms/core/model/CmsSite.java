@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Table(name = "c_site", schema = "db_cms")
 public class CmsSite implements Serializable {
     private static final long serialVersionUID = -5898275025484020911L;
-    private int siteId;
+    private Integer siteId;
     private String domain;
     private String sitePath;
     private String siteName;
@@ -45,11 +45,11 @@ public class CmsSite implements Serializable {
 
     @Id
     @Column(name = "site_id")
-    public int getSiteId() {
+    public Integer getSiteId() {
         return siteId;
     }
 
-    public void setSiteId(int siteId) {
+    public void setSiteId(Integer siteId) {
         this.siteId = siteId;
     }
 

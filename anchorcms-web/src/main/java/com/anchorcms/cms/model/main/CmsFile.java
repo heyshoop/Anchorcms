@@ -1,0 +1,83 @@
+package com.anchorcms.cms.model.main;
+
+import javax.persistence.*;
+import java.io.Serializable;
+
+/**
+ * @Author 阁楼麻雀
+ * @Email netuser.orz@icloud.com
+ * @Date 2016-11-3
+ * @Desc 附件表
+ */
+@Entity
+@Table(name = "c_file", schema = "db_cms")
+public class CmsFile implements Serializable{
+    private static final long serialVersionUID = -2158156906148071550L;
+    private String filePath;
+    private String fileName;
+    private Boolean fileIsvalid;
+    private Integer contentId;
+
+    @Id
+    @Column(name = "file_path")
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    @Basic
+    @Column(name = "file_name")
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    @Basic
+    @Column(name = "file_isvalid")
+    public Boolean getFileIsvalid() {
+        return fileIsvalid;
+    }
+
+    public void setFileIsvalid(Boolean fileIsvalid) {
+        this.fileIsvalid = fileIsvalid;
+    }
+
+    @Basic
+    @Column(name = "content_id")
+    public Integer getContentId() {
+        return contentId;
+    }
+
+    public void setContentId(Integer contentId) {
+        this.contentId = contentId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CmsFile cmsFile = (CmsFile) o;
+
+        if (fileIsvalid != cmsFile.fileIsvalid) return false;
+        if (filePath != null ? !filePath.equals(cmsFile.filePath) : cmsFile.filePath != null) return false;
+        if (fileName != null ? !fileName.equals(cmsFile.fileName) : cmsFile.fileName != null) return false;
+        if (contentId != null ? !contentId.equals(cmsFile.contentId) : cmsFile.contentId != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = filePath != null ? filePath.hashCode() : 0;
+        result = 31 * result + (fileName != null ? fileName.hashCode() : 0);
+        result = 31 * result + (contentId != null ? contentId.hashCode() : 0);
+        return result;
+    }
+}

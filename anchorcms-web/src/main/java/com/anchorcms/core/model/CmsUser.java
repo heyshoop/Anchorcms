@@ -1,8 +1,12 @@
 package com.anchorcms.core.model;
 
+import com.anchorcms.cms.model.main.Channel;
+import com.anchorcms.cms.model.main.Content;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -256,6 +260,8 @@ public class CmsUser implements Serializable{
     }
 
     private Map<String, String> attr;
+    @OneToMany /*一对多*/
+    private Set<CmsRole> roles;
     @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH }, optional = true)
     @JoinColumn(name = "group_id")
     private CmsGroup group;
@@ -265,9 +271,57 @@ public class CmsUser implements Serializable{
     }
     @OneToMany
     private Set<CmsUserExt> userExtSet;
+    @ManyToMany
+    private Set<Channel> channels;
+    @OneToMany
+    private Set<Content> collectContents;
+    @OneToMany
+    private Set<CmsUserSite> userSites;
+    @Transient
+    private Boolean selfAdmin;
+
+    public Boolean getSelfAdmin() {
+        return selfAdmin;
+    }
+
+    public void setSelfAdmin(Boolean selfAdmin) {
+        this.selfAdmin = selfAdmin;
+    }
+
+    public Set<CmsUserSite> getUserSites() {
+        return userSites;
+    }
+
+    public void setUserSites(Set<CmsUserSite> userSites) {
+        this.userSites = userSites;
+    }
+
+    public Set<Content> getCollectContents() {
+        return collectContents;
+    }
+
+    public void setCollectContents(Set<Content> collectContents) {
+        this.collectContents = collectContents;
+    }
+
+    public Set<Channel> getChannels() {
+        return channels;
+    }
+
+    public void setChannels(Set<Channel> channels) {
+        this.channels = channels;
+    }
 
     public Set<CmsUserExt> getUserExtSet() {
         return userExtSet;
+    }
+
+    public Set<CmsRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<CmsRole> roles) {
+        this.roles = roles;
     }
 
     public void setUserExtSet(Set<CmsUserExt> userExtSet) {
@@ -350,5 +404,80 @@ public class CmsUser implements Serializable{
         return day==(currentDay-1);
     }
 
+    public void addToRoles(CmsRole role) {
+        if (role == null) {
+            return;
+        }
+        Set<CmsRole> set = getRoles();
+        if (set == null) {
+            set = new HashSet<CmsRole>();
+            setRoles(set);
+        }
+        set.add(role);
+    }
 
+    public void addToChannels(Channel channel) {
+        if (channel == null) {
+            return;
+        }
+        Set<Channel> set = getChannels();
+        if (set == null) {
+            set = new HashSet<Channel>();
+            setChannels(set);
+        }
+        set.add(channel);
+    }
+
+    public CmsUserExt getUserExt() {
+        Set<CmsUserExt> set = getUserExtSet();
+        if (set != null && set.size() > 0) {
+            return set.iterator().next();
+        } else {
+            return null;
+        }
+    }
+
+    public void addToCollection(Content content) {
+        if (content == null) {
+            return;
+        }
+        Set<Content> set =getCollectContents();
+        if (set == null) {
+            set = new HashSet<Content>();
+            setCollectContents(set);
+        }
+        set.add(content);
+    }
+    public void delFromCollection(Content content) {
+        if (content == null) {
+            return;
+        }
+        Set<Content> set =getCollectContents();
+        if (set == null) {
+            return;
+        }else{
+            set.remove(content);
+        }
+    }
+    public void clearCollection() {
+        getCollectContents().clear();
+    }
+
+    public CmsUserSite getUserSite(Integer siteId) {
+        Set<CmsUserSite> set = getUserSites();
+        for (CmsUserSite us : set) {
+            if (us.getSite().getSiteId().equals(siteId)) {
+                return us;
+            }
+        }
+        return null;
+    }
+    public Byte getCheckStep(Integer siteId) {
+        CmsUserSite us = getUserSite(siteId);
+        if (us != null) {
+            return getUserSite(siteId).getCheckStep();
+        } else {
+            return null;
+        }
+    }
 }
