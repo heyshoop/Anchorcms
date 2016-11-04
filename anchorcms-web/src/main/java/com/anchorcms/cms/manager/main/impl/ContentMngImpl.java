@@ -10,9 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.anchorcms.cms.manager.main.ContentExtMng;
-import com.anchorcms.cms.manager.main.ContentMng;
-import com.anchorcms.cms.manager.main.ContentTxtMng;
+import com.anchorcms.cms.manager.main.*;
 import com.anchorcms.cms.model.main.*;
 import com.anchorcms.cms.model.main.Content.ContentStatus;
 import com.anchorcms.cms.model.main.Channel.AfterCheckEnum;

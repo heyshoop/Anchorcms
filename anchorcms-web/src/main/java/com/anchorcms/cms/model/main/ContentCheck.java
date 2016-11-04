@@ -15,7 +15,7 @@ import java.util.Date;
 public class ContentCheck implements Serializable{
     private static final long serialVersionUID = -7016750542440581747L;
     private int contentId;
-    private byte checkStep;
+    private Byte checkStep;
     private String checkOpinion;
     private Boolean isRejected;
     private Integer reviewer;
@@ -33,11 +33,11 @@ public class ContentCheck implements Serializable{
 
     @Basic
     @Column(name = "check_step")
-    public byte getCheckStep() {
+    public Byte getCheckStep() {
         return checkStep;
     }
 
-    public void setCheckStep(byte checkStep) {
+    public void setCheckStep(Byte checkStep) {
         this.checkStep = checkStep;
     }
 
@@ -135,4 +135,24 @@ public class ContentCheck implements Serializable{
      * 归档
      */
     public static final byte PIGEONHOLE = 5;
+    @OneToOne
+    private Content content;
+
+    public Content getContent() {
+        return content;
+    }
+
+    public void setContent(Content content) {
+        this.content = content;
+    }
+
+    public void init() {
+        byte zero = 0;
+        if (getCheckStep() == null) {
+            setCheckStep(zero);
+        }
+        if (getIsRejected() == null) {
+            setIsRejected(false);
+        }
+    }
 }

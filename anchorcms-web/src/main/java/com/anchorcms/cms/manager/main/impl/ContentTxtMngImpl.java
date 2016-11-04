@@ -1,5 +1,6 @@
 package com.anchorcms.cms.manager.main.impl;
 
+import com.anchorcms.cms.dao.main.ContentTxtDao;
 import com.anchorcms.cms.manager.main.ContentTxtMng;
 import com.anchorcms.cms.model.main.Content;
 import com.anchorcms.cms.model.main.ContentTxt;
@@ -26,13 +27,13 @@ public class ContentTxtMngImpl implements ContentTxtMng {
 	}
 
 	public ContentTxt update(ContentTxt txt, Content content) {
-		ContentTxt entity = dao.findById(content.getId());
+		ContentTxt entity = dao.findById(content.getSiteId());
 		if (entity == null) {
 			entity = save(txt, content);
 			content.getContentTxtSet().add(entity);
 			return entity;
 		} else {
-			if (txt.isAllBlank()) {
+			if (isAllBlank(txt)) {
 				content.getContentTxtSet().clear();
 				return null;
 			} else {

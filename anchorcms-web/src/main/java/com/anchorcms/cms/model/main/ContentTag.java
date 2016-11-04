@@ -15,7 +15,7 @@ public class ContentTag implements Serializable{
     private static final long serialVersionUID = 7928904425697695411L;
     private int tagId;
     private String tagName;
-    private int refCounter;
+    private Integer refCounter;
 
     @Id
     @Column(name = "tag_id")
@@ -39,11 +39,11 @@ public class ContentTag implements Serializable{
 
     @Basic
     @Column(name = "ref_counter")
-    public int getRefCounter() {
+    public Integer getRefCounter() {
         return refCounter;
     }
 
-    public void setRefCounter(int refCounter) {
+    public void setRefCounter(Integer refCounter) {
         this.refCounter = refCounter;
     }
 
@@ -67,5 +67,10 @@ public class ContentTag implements Serializable{
         result = 31 * result + (tagName != null ? tagName.hashCode() : 0);
         result = 31 * result + refCounter;
         return result;
+    }
+    public void init() {
+        if (getRefCounter() == null) {
+            setRefCounter(1);
+        }
     }
 }

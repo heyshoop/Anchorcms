@@ -18,7 +18,7 @@ public class ContentType implements Serializable{
     private Integer imgWidth;
     private Integer imgHeight;
     private byte hasImage;
-    private byte isDisabled;
+    private boolean isDisabled;
 
     @Id
     @Column(name = "type_id")
@@ -72,11 +72,11 @@ public class ContentType implements Serializable{
 
     @Basic
     @Column(name = "is_disabled")
-    public byte getIsDisabled() {
+    public boolean getIsDisabled() {
         return isDisabled;
     }
 
-    public void setIsDisabled(byte isDisabled) {
+    public void setIsDisabled(boolean isDisabled) {
         this.isDisabled = isDisabled;
     }
 
@@ -104,7 +104,6 @@ public class ContentType implements Serializable{
         result = 31 * result + (imgWidth != null ? imgWidth.hashCode() : 0);
         result = 31 * result + (imgHeight != null ? imgHeight.hashCode() : 0);
         result = 31 * result + (int) hasImage;
-        result = 31 * result + (int) isDisabled;
         return result;
     }
 }

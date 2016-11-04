@@ -286,6 +286,26 @@ public class Content implements Serializable{
     private ContentExt contentExt;
     @OneToMany
     private Set<CmsFile> files;
+    @OneToMany
+    private Set<ContentTxt> contentTxtSet;
+    @OneToOne
+    private ContentCount contentCount;
+
+    public ContentCount getContentCount() {
+        return contentCount;
+    }
+
+    public void setContentCount(ContentCount contentCount) {
+        this.contentCount = contentCount;
+    }
+
+    public Set<ContentTxt> getContentTxtSet() {
+        return contentTxtSet;
+    }
+
+    public void setContentTxtSet(Set<ContentTxt> contentTxtSet) {
+        this.contentTxtSet = contentTxtSet;
+    }
 
     public Set<CmsFile> getFiles() {
         return files;
@@ -594,5 +614,16 @@ public class Content implements Serializable{
             set.clear();
         }
         set.add(txt);
+    }
+    public void setContentCheck(ContentCheck check) {
+        Set<ContentCheck> set = getContentCheckSet();
+        if (set == null) {
+            set = new HashSet<ContentCheck>();
+            setContentCheckSet(set);
+        }
+        if (!set.isEmpty()) {
+            set.clear();
+        }
+        set.add(check);
     }
 }
