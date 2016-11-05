@@ -1,7 +1,11 @@
 package com.anchorcms.cms.model.main;
 
+import org.apache.commons.lang.StringUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @Author 阁楼麻雀
@@ -179,5 +183,47 @@ public class CmsTopic implements Serializable{
         result = 31 * result + priority;
         result = 31 * result + (int) isRecommend;
         return result;
+    }
+    @ManyToOne
+    private Channel channel;
+    @ManyToMany
+    private Set<Channel> channels;
+
+    public Set<Channel> getChannels() {
+        return channels;
+    }
+
+    public void setChannels(Set<Channel> channels) {
+        this.channels = channels;
+    }
+
+    public Channel getChannel() {
+        return channel;
+    }
+
+    public void setChannel(Channel channel) {
+        this.channel = channel;
+    }
+    public void init() {
+        blankToNull();
+    }
+    public void blankToNull() {
+        if (StringUtils.isBlank(getTitleImg())) {
+            setTitleImg(null);
+        }
+        if (StringUtils.isBlank(getContentImg())) {
+            setContentImg(null);
+        }
+        if (StringUtils.isBlank(getShortName())) {
+            setShortName(null);
+        }
+    }
+    public void addToChannels(Channel channel) {
+        Set<Channel> channels = getChannels();
+        if (channels == null) {
+            channels = new HashSet<Channel>();
+            setChannels(channels);
+        }
+        channels.add(channel);
     }
 }

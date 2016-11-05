@@ -1,5 +1,7 @@
 package com.anchorcms.cms.model.main;
 
+import org.apache.commons.lang.StringUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -17,11 +19,11 @@ public class ChannelExt implements Serializable{
     private String channelName;
     private Byte finalStep;
     private Byte afterCheck;
-    private String isStaticChannel;
+    private Boolean isStaticChannel;
     private Boolean isStaticContent;
-    private String isAccessByDir;
-    private String isListChild;
-    private int pageSize;
+    private Boolean isAccessByDir;
+    private Boolean isListChild;
+    private Integer pageSize;
     private String channelRule;
     private String contentRule;
     private String link;
@@ -29,20 +31,20 @@ public class ChannelExt implements Serializable{
     private String tplContent;
     private String titleImg;
     private String contentImg;
-    private byte hasTitleImg;
-    private byte hasContentImg;
-    private int titleImgWidth;
-    private int titleImgHeight;
-    private int contentImgWidth;
-    private int contentImgHeight;
-    private int commentControl;
-    private byte allowUpdown;
-    private byte isBlank;
+    private Boolean hasTitleImg;
+    private Boolean hasContentImg;
+    private Integer titleImgWidth;
+    private Integer titleImgHeight;
+    private Integer contentImgWidth;
+    private Integer contentImgHeight;
+    private Integer commentControl;
+    private Boolean allowUpdown;
+    private Boolean isBlank;
     private String title;
     private String keywords;
     private String description;
-    private byte allowShare;
-    private byte allowScore;
+    private Boolean allowShare;
+    private Boolean allowScore;
     private String tplMobileChannel;
 
     @Id
@@ -87,11 +89,11 @@ public class ChannelExt implements Serializable{
 
     @Basic
     @Column(name = "is_static_channel")
-    public String getIsStaticChannel() {
+    public Boolean getIsStaticChannel() {
         return isStaticChannel;
     }
 
-    public void setIsStaticChannel(String isStaticChannel) {
+    public void setIsStaticChannel(Boolean isStaticChannel) {
         this.isStaticChannel = isStaticChannel;
     }
 
@@ -107,31 +109,31 @@ public class ChannelExt implements Serializable{
 
     @Basic
     @Column(name = "is_access_by_dir")
-    public String getIsAccessByDir() {
+    public Boolean getIsAccessByDir() {
         return isAccessByDir;
     }
 
-    public void setIsAccessByDir(String isAccessByDir) {
+    public void setIsAccessByDir(Boolean isAccessByDir) {
         this.isAccessByDir = isAccessByDir;
     }
 
     @Basic
     @Column(name = "is_list_child")
-    public String getIsListChild() {
+    public Boolean getIsListChild() {
         return isListChild;
     }
 
-    public void setIsListChild(String isListChild) {
+    public void setIsListChild(Boolean isListChild) {
         this.isListChild = isListChild;
     }
 
     @Basic
     @Column(name = "page_size")
-    public int getPageSize() {
+    public Integer getPageSize() {
         return pageSize;
     }
 
-    public void setPageSize(int pageSize) {
+    public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
     }
 
@@ -207,91 +209,91 @@ public class ChannelExt implements Serializable{
 
     @Basic
     @Column(name = "has_title_img")
-    public byte getHasTitleImg() {
+    public Boolean getHasTitleImg() {
         return hasTitleImg;
     }
 
-    public void setHasTitleImg(byte hasTitleImg) {
+    public void setHasTitleImg(Boolean hasTitleImg) {
         this.hasTitleImg = hasTitleImg;
     }
 
     @Basic
     @Column(name = "has_content_img")
-    public byte getHasContentImg() {
+    public Boolean getHasContentImg() {
         return hasContentImg;
     }
 
-    public void setHasContentImg(byte hasContentImg) {
+    public void setHasContentImg(Boolean hasContentImg) {
         this.hasContentImg = hasContentImg;
     }
 
     @Basic
     @Column(name = "title_img_width")
-    public int getTitleImgWidth() {
+    public Integer getTitleImgWidth() {
         return titleImgWidth;
     }
 
-    public void setTitleImgWidth(int titleImgWidth) {
+    public void setTitleImgWidth(Integer titleImgWidth) {
         this.titleImgWidth = titleImgWidth;
     }
 
     @Basic
     @Column(name = "title_img_height")
-    public int getTitleImgHeight() {
+    public Integer getTitleImgHeight() {
         return titleImgHeight;
     }
 
-    public void setTitleImgHeight(int titleImgHeight) {
+    public void setTitleImgHeight(Integer titleImgHeight) {
         this.titleImgHeight = titleImgHeight;
     }
 
     @Basic
     @Column(name = "content_img_width")
-    public int getContentImgWidth() {
+    public Integer getContentImgWidth() {
         return contentImgWidth;
     }
 
-    public void setContentImgWidth(int contentImgWidth) {
+    public void setContentImgWidth(Integer contentImgWidth) {
         this.contentImgWidth = contentImgWidth;
     }
 
     @Basic
     @Column(name = "content_img_height")
-    public int getContentImgHeight() {
+    public Integer getContentImgHeight() {
         return contentImgHeight;
     }
 
-    public void setContentImgHeight(int contentImgHeight) {
+    public void setContentImgHeight(Integer contentImgHeight) {
         this.contentImgHeight = contentImgHeight;
     }
 
     @Basic
     @Column(name = "comment_control")
-    public int getCommentControl() {
+    public Integer getCommentControl() {
         return commentControl;
     }
 
-    public void setCommentControl(int commentControl) {
+    public void setCommentControl(Integer commentControl) {
         this.commentControl = commentControl;
     }
 
     @Basic
     @Column(name = "allow_updown")
-    public byte getAllowUpdown() {
+    public Boolean getAllowUpdown() {
         return allowUpdown;
     }
 
-    public void setAllowUpdown(byte allowUpdown) {
+    public void setAllowUpdown(Boolean allowUpdown) {
         this.allowUpdown = allowUpdown;
     }
 
     @Basic
     @Column(name = "is_blank")
-    public byte getIsBlank() {
+    public Boolean getIsBlank() {
         return isBlank;
     }
 
-    public void setIsBlank(byte isBlank) {
+    public void setIsBlank(Boolean isBlank) {
         this.isBlank = isBlank;
     }
 
@@ -327,21 +329,21 @@ public class ChannelExt implements Serializable{
 
     @Basic
     @Column(name = "allow_share")
-    public byte getAllowShare() {
+    public Boolean getAllowShare() {
         return allowShare;
     }
 
-    public void setAllowShare(byte allowShare) {
+    public void setAllowShare(Boolean allowShare) {
         this.allowShare = allowShare;
     }
 
     @Basic
     @Column(name = "allow_score")
-    public byte getAllowScore() {
+    public Boolean getAllowScore() {
         return allowScore;
     }
 
-    public void setAllowScore(byte allowScore) {
+    public void setAllowScore(Boolean allowScore) {
         this.allowScore = allowScore;
     }
 
@@ -419,21 +421,128 @@ public class ChannelExt implements Serializable{
         result = 31 * result + (tplContent != null ? tplContent.hashCode() : 0);
         result = 31 * result + (titleImg != null ? titleImg.hashCode() : 0);
         result = 31 * result + (contentImg != null ? contentImg.hashCode() : 0);
-        result = 31 * result + (int) hasTitleImg;
-        result = 31 * result + (int) hasContentImg;
         result = 31 * result + titleImgWidth;
         result = 31 * result + titleImgHeight;
         result = 31 * result + contentImgWidth;
         result = 31 * result + contentImgHeight;
         result = 31 * result + commentControl;
-        result = 31 * result + (int) allowUpdown;
-        result = 31 * result + (int) isBlank;
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (keywords != null ? keywords.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (int) allowShare;
-        result = 31 * result + (int) allowScore;
         result = 31 * result + (tplMobileChannel != null ? tplMobileChannel.hashCode() : 0);
         return result;
+    }
+    @OneToOne
+    private Channel channel;
+    public static String PROP_FINAL_STEP = "finalStep";
+    public static String PROP_AFTER_CHECK = "afterCheck";
+    /**
+     * 游客评论
+     */
+    public static final int COMMENT_OPEN = 0;
+    /**
+     * 登录评论
+     */
+    public static final int COMMENT_LOGIN = 1;
+    /**
+     * 关闭评论
+     */
+    public static final int COMMENT_OFF = 2;
+    /**
+     * 登陆评论多次
+     */
+    public static final int COMMENT_LOGIN_MANY = 3;
+
+
+    public Channel getChannel() {
+        return channel;
+    }
+
+    public void setChannel(Channel channel) {
+        this.channel = channel;
+    }
+
+    public void init() {
+        if (getHasTitleImg() == null) {
+            setHasTitleImg(false);
+        }
+        if (getHasContentImg() == null) {
+            setHasContentImg(false);
+        }
+        if (getTitleImgWidth() == null) {
+            setTitleImgWidth(139);
+        }
+        if (getTitleImgHeight() == null) {
+            setTitleImgHeight(139);
+        }
+        if (getContentImgWidth() == null) {
+            setContentImgWidth(310);
+        }
+        if (getContentImgHeight() == null) {
+            setContentImgHeight(310);
+        }
+        if (getIsBlank() == null) {
+            setIsBlank(false);
+        }
+        if (getCommentControl() == null) {
+            setCommentControl(0);
+        }
+        if (getAllowUpdown() == null) {
+            setAllowUpdown(true);
+        }
+        if (getIsStaticChannel() == null) {
+            setIsStaticChannel(false);
+        }
+        if (getIsStaticContent() == null) {
+            setIsStaticContent(false);
+        }
+        if (getIsAccessByDir() == null) {
+            setIsAccessByDir(true);
+        }
+        if (getIsListChild() == null) {
+            setIsListChild(false);
+        }
+        if (getPageSize() == null) {
+            setPageSize(20);
+        }
+        if(getAllowShare()==null){
+            setAllowShare(false);
+        }
+        if(getAllowScore()==null){
+            setAllowScore(false);
+        }
+        blankToNull();
+    }
+    public void blankToNull() {
+        if (StringUtils.isBlank(getLink())) {
+            setLink(null);
+        }
+        if (StringUtils.isBlank(getTplChannel())) {
+            setTplChannel(null);
+        }
+        if (StringUtils.isBlank(getTplContent())) {
+            setTplContent(null);
+        }
+        if (StringUtils.isBlank(getTitle())) {
+            setTitle(null);
+        }
+        if (StringUtils.isBlank(getKeywords())) {
+            setKeywords(null);
+        }
+        if (StringUtils.isBlank(getDescription())) {
+            setDescription(null);
+        }
+        if (StringUtils.isBlank(getTitleImg())) {
+            setTitleImg(null);
+        }
+        if (StringUtils.isBlank(getContentImg())) {
+            setContentImg(null);
+        }
+        if (StringUtils.isBlank(getChannelRule())) {
+            setChannelRule(null);
+        }
+        if (StringUtils.isBlank(getContentRule())) {
+            setContentRule(null);
+        }
     }
 }

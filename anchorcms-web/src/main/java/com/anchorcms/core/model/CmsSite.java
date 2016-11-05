@@ -1,7 +1,13 @@
 package com.anchorcms.core.model;
 
+import org.apache.commons.lang.StringUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Map;
+
+import static com.anchorcms.common.constants.Constants.RES_PATH;
+import static com.anchorcms.common.constants.Constants.TPL_BASE;
 
 /**
  * @Author 阁楼麻雀
@@ -27,7 +33,7 @@ public class CmsSite implements Serializable {
     private String localeAdmin;
     private String localeFront;
     private String tplSolution;
-    private byte finalStep;
+    private Byte finalStep;
     private byte afterCheck;
     private String isRelativePath;
     private String isRecycleOn;
@@ -41,7 +47,7 @@ public class CmsSite implements Serializable {
     private byte mobileStaticSync;
     private Integer ftpSyncPageId;
     private byte pageIsSyncFtp;
-    private byte resouceIsSyncFtp;
+    private Boolean resouceIsSyncFtp;
 
     @Id
     @Column(name = "site_id")
@@ -185,11 +191,11 @@ public class CmsSite implements Serializable {
 
     @Basic
     @Column(name = "final_step")
-    public byte getFinalStep() {
+    public Byte getFinalStep() {
         return finalStep;
     }
 
-    public void setFinalStep(byte finalStep) {
+    public void setFinalStep(Byte finalStep) {
         this.finalStep = finalStep;
     }
 
@@ -325,11 +331,11 @@ public class CmsSite implements Serializable {
 
     @Basic
     @Column(name = "resouce_is_sync_ftp")
-    public byte getResouceIsSyncFtp() {
+    public Boolean getResouceIsSyncFtp() {
         return resouceIsSyncFtp;
     }
 
-    public void setResouceIsSyncFtp(byte resouceIsSyncFtp) {
+    public void setResouceIsSyncFtp(Boolean resouceIsSyncFtp) {
         this.resouceIsSyncFtp = resouceIsSyncFtp;
     }
 
@@ -411,7 +417,115 @@ public class CmsSite implements Serializable {
         result = 31 * result + (int) mobileStaticSync;
         result = 31 * result + (ftpSyncPageId != null ? ftpSyncPageId.hashCode() : 0);
         result = 31 * result + (int) pageIsSyncFtp;
-        result = 31 * result + (int) resouceIsSyncFtp;
         return result;
+    }
+    @ManyToOne
+    private Ftp uploadFtp;
+    @ManyToOne
+    private Ftp syncPageFtp;
+    @Transient
+    private Map<String,String> attr;
+    @OneToOne
+    private CmsSiteCompany siteCompany;
+    @ManyToOne
+    private CmsConfig config;
+
+    public CmsConfig getConfig() {
+        return config;
+    }
+
+    public void setConfig(CmsConfig config) {
+        this.config = config;
+    }
+
+    public CmsSiteCompany getSiteCompany() {
+        return siteCompany;
+    }
+
+    public void setSiteCompany(CmsSiteCompany siteCompany) {
+        this.siteCompany = siteCompany;
+    }
+
+    public Map<String, String> getAttr() {
+        return attr;
+    }
+
+    public void setAttr(Map<String, String> attr) {
+        this.attr = attr;
+    }
+
+    public Ftp getSyncPageFtp() {
+        return syncPageFtp;
+    }
+
+    public void setSyncPageFtp(Ftp syncPageFtp) {
+        this.syncPageFtp = syncPageFtp;
+    }
+
+    public Ftp getUploadFtp() {
+        return uploadFtp;
+    }
+
+    public void setUploadFtp(Ftp uploadFtp) {
+        this.uploadFtp = uploadFtp;
+    }
+    public void init() {
+        if (StringUtils.isBlank(getProtocol())) {
+            setProtocol("http://");
+        }
+        if (StringUtils.isBlank(getTplSolution())) {
+            //默认路径名作为方案名
+            setTplSolution(getSitePath());
+            //setTplSolution(DEFAULT);
+        }
+        if (StringUtils.isBlank(getTplMobileSolution())) {
+            //默认路径名作为方案名
+            setTplMobileSolution(getSitePath());
+        }
+        if (getFinalStep() == null) {
+            byte step = 2;
+            setFinalStep(step);
+        }
+    }
+    public String getTplPath() {
+        return TPL_BASE + "/" + getSitePath();
+    }
+    /**
+     * 获得模板资源路径。如：/r/cms/www
+     *
+     * @return
+     */
+    public String getResPath() {
+        return RES_PATH + "/" + getSitePath();
+    }
+    public String getMobileSolutionPath() {
+        return TPL_BASE + "/" + getSitePath() + "/" + getTplMobileSolution();
+    }
+    public String getSolutionPath() {
+        return TPL_BASE + "/" + getSitePath() + "/" + getTplSolution();
+    }
+    public String getLoginUrl() {
+        CmsConfig config = getConfig();
+        if (config != null) {
+            return config.getLoginUrl();
+        } else {
+            return null;
+        }
+    }
+    public String getProcessUrl() {
+        CmsConfig config = getConfig();
+        if (config != null) {
+            return config.getProcessUrl();
+        } else {
+            return null;
+        }
+    }
+    public String getContextPath() {
+        CmsConfig config = getConfig();
+        if (config != null) {
+            return config.getContextPath();
+        } else {
+            return null;
+        }
     }
 }

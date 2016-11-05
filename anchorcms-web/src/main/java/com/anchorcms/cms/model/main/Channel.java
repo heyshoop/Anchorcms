@@ -2,13 +2,12 @@ package com.anchorcms.cms.model.main;
 
 import com.anchorcms.common.hibernate.PriorityComparator;
 import com.anchorcms.core.model.CmsGroup;
+import com.anchorcms.core.model.CmsSite;
 import com.anchorcms.core.model.CmsUser;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 import static com.anchorcms.cms.web.CmsThreadVariable.getSite;
 
@@ -29,9 +28,9 @@ public class Channel implements Serializable{
     private String channelPath;
     private int lft;
     private int rgt;
-    private int priority;
+    private Integer priority;
     private byte hasContent;
-    private byte isDisplay;
+    private Boolean isDisplay;
 
     @Id
     @Column(name = "channel_id")
@@ -105,11 +104,11 @@ public class Channel implements Serializable{
 
     @Basic
     @Column(name = "priority")
-    public int getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(Integer priority) {
         this.priority = priority;
     }
 
@@ -125,11 +124,11 @@ public class Channel implements Serializable{
 
     @Basic
     @Column(name = "is_display")
-    public byte getIsDisplay() {
+    public Boolean getIsDisplay() {
         return isDisplay;
     }
 
-    public void setIsDisplay(byte isDisplay) {
+    public void setIsDisplay(Boolean isDisplay) {
         this.isDisplay = isDisplay;
     }
 
@@ -166,7 +165,6 @@ public class Channel implements Serializable{
         result = 31 * result + rgt;
         result = 31 * result + priority;
         result = 31 * result + (int) hasContent;
-        result = 31 * result + (int) isDisplay;
         return result;
     }
     @ManyToMany
@@ -179,6 +177,66 @@ public class Channel implements Serializable{
     private ChannelExt channelExt;
     @ManyToOne
     private Channel parent;
+    @ManyToOne
+    private CmsSite site;
+    @ManyToOne
+    private CmsModel model;
+    @OneToMany
+    private List<ChannelModel> channelModels;
+    @OneToMany
+    private Set<ChannelTxt> channelTxtSet;
+    @OneToOne
+    private ChannelCount channelCount;
+    @Transient
+    private Map<String,String> attr;
+
+    public Map<String, String> getAttr() {
+        return attr;
+    }
+
+    public void setAttr(Map<String, String> attr) {
+        this.attr = attr;
+    }
+
+    public ChannelCount getChannelCount() {
+        return channelCount;
+    }
+
+    public void setChannelCount(ChannelCount channelCount) {
+        this.channelCount = channelCount;
+    }
+
+    public Set<ChannelTxt> getChannelTxtSet() {
+        return channelTxtSet;
+    }
+
+    public void setChannelTxtSet(Set<ChannelTxt> channelTxtSet) {
+        this.channelTxtSet = channelTxtSet;
+    }
+
+    public List<ChannelModel> getChannelModels() {
+        return channelModels;
+    }
+
+    public void setChannelModels(List<ChannelModel> channelModels) {
+        this.channelModels = channelModels;
+    }
+
+    public CmsModel getModel() {
+        return model;
+    }
+
+    public void setModel(CmsModel model) {
+        this.model = model;
+    }
+
+    public CmsSite getSite() {
+        return site;
+    }
+
+    public void setSite(CmsSite site) {
+        this.site = site;
+    }
 
     public Channel getParent() {
         return parent;
@@ -324,6 +382,72 @@ public class Channel implements Serializable{
         } else {
             return null;
         }
+    }
+    /**
+     * 获得节点列表ID。从父节点到自身。
+     *
+     * @return
+     */
+    public Integer[] getNodeIds() {
+        List<Channel> channels = getNodeList();
+        Integer[] ids = new Integer[channels.size()];
+        int i = 0;
+        for (Channel c : channels) {
+            ids[i++] = c.getChannelId();
+        }
+        return ids;
+    }
+    /**
+     * 获得节点列表。从父节点到自身。
+     *
+     * @return
+     */
+    public List<Channel> getNodeList() {
+        LinkedList<Channel> list = new LinkedList<Channel>();
+        Channel node = this;
+        while (node != null) {
+            list.addFirst(node);
+            node = node.getParent();
+        }
+        return list;
+    }
+    public void init() {
+        if (getPriority() == null) {
+            setPriority(10);
+        }
+        if (getIsDisplay() == null) {
+            setIsDisplay(true);
+        }
+    }
+    public void addToViewGroups(CmsGroup group) {
+        Set<CmsGroup> groups = getViewGroups();
+        if (groups == null) {
+            groups = new TreeSet<CmsGroup>((Collection<? extends CmsGroup>) new PriorityComparator());
+            setViewGroups(groups);
+        }
+        groups.add(group);
+        group.getViewChannels().add(this);
+    }
+    public void addToContriGroups(CmsGroup group) {
+        Set<CmsGroup> groups = getContriGroups();
+        if (groups == null) {
+            groups = new TreeSet<CmsGroup>((Collection<? extends CmsGroup>) new PriorityComparator());
+            setContriGroups(groups);
+        }
+        groups.add(group);
+        group.getContriChannels().add(this);
+    }
+    public void addToChannelModels(CmsModel model,String tpl,String mtpl) {
+        List<ChannelModel> list = getChannelModels();
+        if (list == null) {
+            list = new ArrayList<ChannelModel>();
+            setChannelModels(list);
+        }
+        ChannelModel cm = new ChannelModel();
+        cm.setTplContent(tpl);
+        cm.setTplMobileContent(mtpl);
+        cm.setModelId(model.getModelId());
+        list.add(cm);
     }
 
 }

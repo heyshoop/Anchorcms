@@ -14,7 +14,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.regex.Pattern;
 
-import static com.anchorcms.common.web.Constants.UTF8;
+import static com.anchorcms.common.constants.Constants.UTF8;
 
 /**
  * @Author 阁楼麻雀

@@ -80,4 +80,15 @@ public class CmsFile implements Serializable{
         result = 31 * result + (contentId != null ? contentId.hashCode() : 0);
         return result;
     }
+
+    @ManyToOne
+    private Content content;
+
+    public Content getContent() {
+        return content;
+    }
+
+    public void setContent(Content content) {
+        this.content = content;
+    }
 }

@@ -100,6 +100,16 @@ public class CmsUserSite implements Serializable{
     private CmsSite site;
     @Transient
     private Boolean allChannel;
+    @Transient
+    private CmsUser user;
+
+    public CmsUser getUser() {
+        return user;
+    }
+
+    public void setUser(CmsUser user) {
+        this.user = user;
+    }
 
     public Boolean getAllChannel() {
         return allChannel;
