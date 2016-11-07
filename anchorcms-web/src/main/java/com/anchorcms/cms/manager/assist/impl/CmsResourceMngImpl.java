@@ -26,6 +26,7 @@ import com.anchorcms.cms.manager.assist.CmsPlugMng;
 import com.anchorcms.cms.manager.assist.CmsResourceMng;
 import com.anchorcms.cms.model.assist.CmsPlug;
 import com.anchorcms.cms.model.main.CmsFile;
+import com.anchorcms.cms.staticpage.DistributionThread;
 import com.anchorcms.common.file.FileWrap;
 import com.anchorcms.common.utils.CmsUtils;
 import com.anchorcms.common.utils.FrontUtils;
@@ -540,7 +541,7 @@ public class CmsResourceMngImpl implements CmsResourceMng {
 	private void distributeFile(CmsSite site,File f,String filename) throws FileNotFoundException{
 		if(site.getSyncPageFtp()!=null){
 			Ftp syncPageFtp=ftpMng.findById(site.getSyncPageFtp().getFtpId());
-			Thread thread = new Thread(new DistributionThread(syncPageFtp,filename, new FileInputStream(f)));  
+			Thread thread = new Thread(new DistributionThread(syncPageFtp,filename, new FileInputStream(f)));
 			thread.start();
 		}
 	}

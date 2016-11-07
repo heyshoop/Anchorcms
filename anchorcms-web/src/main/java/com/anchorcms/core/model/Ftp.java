@@ -2,11 +2,17 @@ package com.anchorcms.core.model;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.net.PrintCommandListener;
+import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPReply;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.net.SocketException;
 
@@ -20,6 +26,7 @@ import java.net.SocketException;
 @Table(name = "o_ftp", schema = "db_cms")
 public class Ftp implements Serializable{
     private static final long serialVersionUID = -5536010781200223541L;
+    private static final Logger log = LoggerFactory.getLogger(Ftp.class);
     private int ftpId;
     private String ftpName;
     private String ip;
@@ -173,7 +180,7 @@ public class Ftp implements Serializable{
         try {
             FTPClient ftp = getClient();
             if (ftp != null) {
-                String filename = getPath() + remote;
+                String filename = getFtpPath() + remote;
                 String name = FilenameUtils.getName(filename);
                 String path = FilenameUtils.getFullPath(filename);
                 if (!ftp.changeWorkingDirectory(path)) {
@@ -201,5 +208,30 @@ public class Ftp implements Serializable{
             log.error("ftp store error", e);
             return 4;
         }
+    }
+    @Transient
+    private FTPClient getClient() throws SocketException, IOException {
+        FTPClient ftp = new FTPClient();
+        ftp.addProtocolCommandListener(new PrintCommandListener(
+                new PrintWriter(System.out)));
+        ftp.setDefaultPort(getPort());
+        ftp.connect(getIp());
+        int reply = ftp.getReplyCode();
+        if (!FTPReply.isPositiveCompletion(reply)) {
+            log.warn("FTP server refused connection: {}", getIp());
+            ftp.disconnect();
+            return null;
+        }
+        if (!ftp.login(getUsername(), getPassword())) {
+            log.warn("FTP server refused login: {}, user: {}", getIp(),
+                    getUsername());
+            ftp.logout();
+            ftp.disconnect();
+            return null;
+        }
+        ftp.setControlEncoding(getEncoding());
+        ftp.setFileType(FTP.BINARY_FILE_TYPE);
+        ftp.enterLocalPassiveMode();
+        return ftp;
     }
 }
