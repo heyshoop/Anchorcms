@@ -6,7 +6,7 @@ import java.util.Set;
 import com.anchorcms.cms.manager.main.CmsTopicMng;
 import com.anchorcms.cms.model.main.Channel;
 import com.anchorcms.cms.model.main.CmsTopic;
-import com.anchorcms.cms.service.ChannelDeleteChecker;
+import com.anchorcms.cms.manager.main.ChannelDeleteChecker;
 import com.anchorcms.common.hibernate.Updater;
 import com.anchorcms.common.page.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;

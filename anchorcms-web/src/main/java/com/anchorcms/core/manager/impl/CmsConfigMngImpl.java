@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
-import com.anchorcms.cms.service.ContentQueryFreshTimeCache;
+import com.anchorcms.cms.manager.main.ContentQueryFreshTimeCache;
 import com.anchorcms.common.hibernate.Updater;
 import com.anchorcms.core.dao.CmsConfigDao;
 import com.anchorcms.core.manager.CmsConfigMng;

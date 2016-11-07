@@ -1,4 +1,4 @@
-package com.anchorcms.cms.service;
+package com.anchorcms.cms.manager.main;
 
 /**
  * 检查栏目是否可以删除的接口

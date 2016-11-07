@@ -1,6 +1,6 @@
-package com.anchorcms.cms.service.impl;
+package com.anchorcms.cms.manager.main.impl;
 
-import com.anchorcms.cms.service.ContentQueryFreshTimeCache;
+import com.anchorcms.cms.manager.main.ContentQueryFreshTimeCache;
 import com.anchorcms.core.manager.CmsConfigMng;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;

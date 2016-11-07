@@ -1,4 +1,4 @@
-package com.anchorcms.cms.service;
+package com.anchorcms.cms.manager.main;
 
 import com.anchorcms.cms.model.main.Content;
 

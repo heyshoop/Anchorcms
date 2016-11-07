@@ -6,7 +6,7 @@ import java.util.Map;
 import com.anchorcms.cms.dao.main.ChannelDao;
 import com.anchorcms.cms.manager.main.*;
 import com.anchorcms.cms.model.main.*;
-import com.anchorcms.cms.service.ChannelDeleteChecker;
+import com.anchorcms.cms.manager.main.ChannelDeleteChecker;
 import com.anchorcms.common.hibernate.Updater;
 import com.anchorcms.common.page.Pagination;
 import com.anchorcms.core.manager.CmsGroupMng;
