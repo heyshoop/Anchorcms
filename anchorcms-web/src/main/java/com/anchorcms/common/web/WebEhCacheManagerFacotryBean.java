@@ -52,9 +52,10 @@ public class WebEhCacheManagerFacotryBean  implements FactoryBean<CacheManager>,
 	 * 设置ehcahce的diskStore path，例如：/WEB-INF/cache
 	 * 
 	 * 如设置了此项，则在ehcache配置文件中不要配置<diskStore path=""/>，否则本设置无效。
-	 * 
+	 * @see CacheManager#create(java.io.InputStream)
+	 * @see CacheManager#CacheManager(java.io.InputStream)
 	 */
-	public void setdiskStoreLocation(Resource diskStoreLocation) {
+	public void setDiskStoreLocation(Resource diskStoreLocation) {
 		this.diskStoreLocation = diskStoreLocation;
 	}
 
