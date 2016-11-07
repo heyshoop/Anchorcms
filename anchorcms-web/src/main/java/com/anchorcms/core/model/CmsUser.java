@@ -516,4 +516,12 @@ public class CmsUser implements Serializable{
         }
         return allPerms;
     }
+    public Set<CmsSite> getSites() {
+        Set<CmsUserSite> userSites = getUserSites();
+        Set<CmsSite> sites = new HashSet<CmsSite>(userSites.size());
+        for (CmsUserSite us : userSites) {
+            sites.add(us.getSite());
+        }
+        return sites;
+    }
 }

@@ -95,4 +95,13 @@ public class ChannelModel implements Serializable{
         result = 31 * result + (tplMobileContent != null ? tplMobileContent.hashCode() : 0);
         return result;
     }
+    private CmsModel model;
+    @ManyToOne
+    public CmsModel getModel() {
+        return model;
+    }
+
+    public void setModel(CmsModel model) {
+        this.model = model;
+    }
 }

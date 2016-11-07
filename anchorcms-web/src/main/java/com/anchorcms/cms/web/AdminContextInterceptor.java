@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import com.anchorcms.common.utils.CmsUtils;
+import com.anchorcms.common.web.CookieUtils;
+import com.anchorcms.core.model.CmsUserSite;
+import com.anchorcms.core.security.CmsAuthorizingRealm;
+import com.anchorcms.core.service.CmsSiteMng;
 import com.anchorcms.core.service.CmsUserMng;
 import com.anchorcms.core.model.CmsSite;
 import com.anchorcms.core.model.CmsUser;
@@ -70,7 +74,7 @@ public class AdminContextInterceptor extends HandlerInterceptorAdapter {
 			authorizingRealm.removeUserAuthorizationInfoCache(user.getUsername().toString());
 		}
 		//没有该站管理权限(则切换站点？)
-		if(site!=null&&user!=null&&user.getUserSite(site.getId())==null){
+		if(site!=null&&user!=null&&user.getUserSite(site.getSiteId())==null){
 			Set<CmsUserSite>userSites=user.getUserSites();
 			if(userSites!=null&&userSites.size()>0){
 				 CmsSite s= userSites.iterator().next().getSite();
@@ -90,7 +94,7 @@ public class AdminContextInterceptor extends HandlerInterceptorAdapter {
 		CmsUser user = CmsUtils.getUser(request);
 		CmsSite site=CmsUtils.getSite(request);
 		// 不控制权限时perm为null，PermistionDirective标签将以此作为依据不处理权限问题。
-		if (auth && user != null && !user.isSuper() && mav != null
+		if (auth && user != null && !user.getIsAdmin() && mav != null
 				&& mav.getModelMap() != null && mav.getViewName() != null
 				&& !mav.getViewName().startsWith("redirect:")) {
 			mav.getModelMap().addAttribute(PERMISSION_MODEL, getUserPermission(site, user));
@@ -148,7 +152,7 @@ public class AdminContextInterceptor extends HandlerInterceptorAdapter {
 				if (site != null) {
 					// 若使用参数选择站点，则应该把站点保存至cookie中才好。
 					CookieUtils.addCookie(request, response, SITE_COOKIE, site
-							.getId().toString(), null, null);
+							.getSiteId().toString(), null, null);
 					return site;
 				}
 			} catch (NumberFormatException e) {
@@ -255,7 +259,7 @@ public class AdminContextInterceptor extends HandlerInterceptorAdapter {
 	
 	private Set<String>getUserPermission(CmsSite site,CmsUser user){
 		Set<String>viewPermissionSet=new HashSet<String>();
-		Set<String> perms = user.getPerms(site.getId(),viewPermissionSet);
+		Set<String> perms = user.getPerms(site.getSiteId(),viewPermissionSet);
 		Set<String> userPermission=new HashSet<String>();
 		if(perms!=null){
 			for(String perm:perms){

@@ -6,8 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Map;
 
-import static com.anchorcms.common.constants.Constants.RES_PATH;
-import static com.anchorcms.common.constants.Constants.TPL_BASE;
+import static com.anchorcms.common.constants.Constants.*;
 
 /**
  * @Author 阁楼麻雀
@@ -28,14 +27,14 @@ public class CmsSite implements Serializable {
     private String dynamicSuffix;
     private String staticSuffix;
     private String staticDir;
-    private String isIndexToRoot;
-    private String isStaticIndex;
+    private Boolean isIndexToRoot;
+    private Boolean isStaticIndex;
     private String localeAdmin;
     private String localeFront;
     private String tplSolution;
     private Byte finalStep;
     private byte afterCheck;
-    private String isRelativePath;
+    private Boolean isRelativePath;
     private String isRecycleOn;
     private String domainAlias;
     private String domainRedirect;
@@ -44,9 +43,9 @@ public class CmsSite implements Serializable {
     private String description;
     private String tplMobileSolution;
     private String mobileStaticDir;
-    private byte mobileStaticSync;
+    private Boolean mobileStaticSync;
     private Integer ftpSyncPageId;
-    private byte pageIsSyncFtp;
+    private Boolean pageIsSyncFtp;
     private Boolean resouceIsSyncFtp;
 
     @Id
@@ -141,21 +140,21 @@ public class CmsSite implements Serializable {
 
     @Basic
     @Column(name = "is_index_to_root")
-    public String getIsIndexToRoot() {
+    public Boolean getIsIndexToRoot() {
         return isIndexToRoot;
     }
 
-    public void setIsIndexToRoot(String isIndexToRoot) {
+    public void setIsIndexToRoot(Boolean isIndexToRoot) {
         this.isIndexToRoot = isIndexToRoot;
     }
 
     @Basic
     @Column(name = "is_static_index")
-    public String getIsStaticIndex() {
+    public Boolean getIsStaticIndex() {
         return isStaticIndex;
     }
 
-    public void setIsStaticIndex(String isStaticIndex) {
+    public void setIsStaticIndex(Boolean isStaticIndex) {
         this.isStaticIndex = isStaticIndex;
     }
 
@@ -211,11 +210,11 @@ public class CmsSite implements Serializable {
 
     @Basic
     @Column(name = "is_relative_path")
-    public String getIsRelativePath() {
+    public Boolean getIsRelativePath() {
         return isRelativePath;
     }
 
-    public void setIsRelativePath(String isRelativePath) {
+    public void setIsRelativePath(Boolean isRelativePath) {
         this.isRelativePath = isRelativePath;
     }
 
@@ -301,11 +300,11 @@ public class CmsSite implements Serializable {
 
     @Basic
     @Column(name = "mobile_static_sync")
-    public byte getMobileStaticSync() {
+    public Boolean getMobileStaticSync() {
         return mobileStaticSync;
     }
 
-    public void setMobileStaticSync(byte mobileStaticSync) {
+    public void setMobileStaticSync(Boolean mobileStaticSync) {
         this.mobileStaticSync = mobileStaticSync;
     }
 
@@ -321,11 +320,11 @@ public class CmsSite implements Serializable {
 
     @Basic
     @Column(name = "page_is_sync_ftp")
-    public byte getPageIsSyncFtp() {
+    public Boolean getPageIsSyncFtp() {
         return pageIsSyncFtp;
     }
 
-    public void setPageIsSyncFtp(byte pageIsSyncFtp) {
+    public void setPageIsSyncFtp(Boolean pageIsSyncFtp) {
         this.pageIsSyncFtp = pageIsSyncFtp;
     }
 
@@ -414,9 +413,7 @@ public class CmsSite implements Serializable {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (tplMobileSolution != null ? tplMobileSolution.hashCode() : 0);
         result = 31 * result + (mobileStaticDir != null ? mobileStaticDir.hashCode() : 0);
-        result = 31 * result + (int) mobileStaticSync;
         result = 31 * result + (ftpSyncPageId != null ? ftpSyncPageId.hashCode() : 0);
-        result = 31 * result + (int) pageIsSyncFtp;
         return result;
     }
     @ManyToOne
@@ -527,5 +524,110 @@ public class CmsSite implements Serializable {
         } else {
             return null;
         }
+    }
+    public String getAdminUrl() {
+        StringBuilder url = new StringBuilder();
+        url.append(getUrlDynamic());
+        url.append(ADMIN_SUFFIX);
+        return url.toString();
+    }
+    public String getUrlDynamic() {
+        return getUrlBuffer(true, null, false).append("/").toString();
+    }
+    public StringBuilder getUrlBuffer(boolean dynamic, Boolean whole,
+                                      boolean forIndex) {
+        boolean relative = whole != null ? !whole : getIsRelativePath();
+        String ctx = getContextPath();
+        StringBuilder url = new StringBuilder();
+        if (!relative) {
+            url.append(getProtocol()).append(getDomain());
+            if (getPort() != null) {
+                url.append(":").append(getPort());
+            }
+        }
+        if (!StringUtils.isBlank(ctx)) {
+            url.append(ctx);
+        }
+        if (dynamic) {
+            String servlet = getServletPoint();
+            if (!StringUtils.isBlank(servlet)) {
+                url.append(servlet);
+            }
+        } else {
+            if (!forIndex) {
+                String staticDir = getStaticDir();
+                if (!StringUtils.isBlank(staticDir)) {
+                    url.append(staticDir);
+                }
+            }
+        }
+        return url;
+    }
+    public Integer getPort() {
+        CmsConfig config = getConfig();
+        if (config != null) {
+            return config.getPort();
+        } else {
+            return null;
+        }
+    }
+    public String getServletPoint() {
+        CmsConfig config = getConfig();
+        if (config != null) {
+            return config.getServletPoint();
+        } else {
+            return null;
+        }
+    }
+    public String getUrlStatic() {
+        return getUrlBuffer(false, null, true).append("/").toString();
+    }
+    /**
+     * 返回首页模板
+     * @return
+     */
+    public String getTplIndexOrDef() {
+        String tpl = getTplIndex();
+        if (!StringUtils.isBlank(tpl)) {
+            return tpl;
+        } else {
+            return getTplIndexDefault();
+        }
+    }
+    /**
+     * 返回首页默认模板(类似/WEB-INF/t/cms/www/default/index/index.html)
+     * @return
+     */
+    private String getTplIndexDefault() {
+        StringBuilder t = new StringBuilder();
+        t.append(getTplIndexPrefix(TPLDIR_INDEX));
+        t.append(TPL_SUFFIX);
+        return t.toString();
+    }
+    /**
+     * 返回完整前缀(类似/WEB-INF/t/cms/www/default/index/index)
+     * @param prefix
+     * @return
+     */
+    public String getTplIndexPrefix(String prefix) {
+        StringBuilder t = new StringBuilder();
+        t.append(getSolutionPath()).append("/");
+        t.append(TPLDIR_INDEX).append("/");
+        if (!StringUtils.isBlank(prefix)) {
+            t.append(prefix);
+        }
+        return t.toString();
+    }
+    /**
+     * 返回手机首页模板
+     * @return
+     */
+    public String getMobileTplIndexOrDef() {
+        StringBuilder t = new StringBuilder();
+        t.append(getMobileSolutionPath()).append("/");
+        t.append(TPLDIR_INDEX).append("/");
+        t.append(TPLDIR_INDEX);
+        t.append(TPL_SUFFIX);
+        return t.toString();
     }
 }

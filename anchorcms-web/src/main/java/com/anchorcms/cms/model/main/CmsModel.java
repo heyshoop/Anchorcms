@@ -1,7 +1,11 @@
 package com.anchorcms.cms.model.main;
 
+import org.apache.commons.lang.StringUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
+
+import static com.anchorcms.common.constants.Constants.*;
 
 /**
  * @Author 阁楼麻雀
@@ -23,7 +27,7 @@ public class CmsModel implements Serializable{
     private int contentImgWidth;
     private int contentImgHeight;
     private int priority;
-    private byte hasContent;
+    private Boolean hasContent;
     private Boolean isDisabled;
     private Boolean isDef;
     private byte isGlobal;
@@ -131,11 +135,11 @@ public class CmsModel implements Serializable{
 
     @Basic
     @Column(name = "has_content")
-    public byte getHasContent() {
+    public Boolean getHasContent() {
         return hasContent;
     }
 
-    public void setHasContent(byte hasContent) {
+    public void setHasContent(Boolean hasContent) {
         this.hasContent = hasContent;
     }
 
@@ -219,7 +223,6 @@ public class CmsModel implements Serializable{
         result = 31 * result + contentImgWidth;
         result = 31 * result + contentImgHeight;
         result = 31 * result + priority;
-        result = 31 * result + (int) hasContent;
         result = 31 * result + (int) isGlobal;
         result = 31 * result + (siteId != null ? siteId.hashCode() : 0);
         return result;
@@ -232,5 +235,50 @@ public class CmsModel implements Serializable{
         if (getIsDef() == null) {
             setIsDef(false);
         }
+    }
+    public String getTplContent(String solution, boolean def) {
+        StringBuilder t = new StringBuilder();
+        t.append(solution).append("/");
+        t.append(TPLDIR_CONTENT);
+        t.append("/");
+        String prefix = getTplContentPrefix();
+        if (def) {
+            if (!StringUtils.isBlank(prefix)) {
+                t.append(prefix);
+            } else {
+                t.append(DEFAULT);
+            }
+            t.append(TPL_SUFFIX);
+        } else {
+            if (!StringUtils.isBlank(prefix)) {
+                t.append(prefix);
+            }
+        }
+        return t.toString();
+
+    }
+    public String getTplChannel(String solution, boolean def) {
+        StringBuilder t = new StringBuilder();
+        t.append(solution).append("/");
+        if (getHasContent()) {
+            t.append(TPLDIR_CHANNEL);
+        } else {
+            t.append(TPLDIR_ALONE);
+        }
+        t.append("/");
+        String prefix = getTplChannelPrefix();
+        if (def) {
+            if (!StringUtils.isBlank(prefix)) {
+                t.append(prefix);
+            } else {
+                t.append(DEFAULT);
+            }
+            t.append(TPL_SUFFIX);
+        } else {
+            if (!StringUtils.isBlank(prefix)) {
+                t.append(prefix);
+            }
+        }
+        return t.toString();
     }
 }

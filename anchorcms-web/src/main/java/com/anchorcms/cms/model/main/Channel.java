@@ -1,15 +1,19 @@
 package com.anchorcms.cms.model.main;
 
 import com.anchorcms.common.hibernate.PriorityComparator;
+import com.anchorcms.common.utils.StaticPageUtils;
 import com.anchorcms.core.model.CmsGroup;
 import com.anchorcms.core.model.CmsSite;
 import com.anchorcms.core.model.CmsUser;
+import org.apache.commons.lang.StringUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
 import static com.anchorcms.cms.web.CmsThreadVariable.getSite;
+import static com.anchorcms.common.constants.Constants.INDEX;
+import static com.anchorcms.common.constants.Constants.SPT;
 
 /**
  * @Author 阁楼麻雀
@@ -29,7 +33,7 @@ public class Channel implements Serializable{
     private int lft;
     private int rgt;
     private Integer priority;
-    private byte hasContent;
+    private Boolean hasContent;
     private Boolean isDisplay;
 
     @Id
@@ -114,11 +118,11 @@ public class Channel implements Serializable{
 
     @Basic
     @Column(name = "has_content")
-    public byte getHasContent() {
+    public Boolean getHasContent() {
         return hasContent;
     }
 
-    public void setHasContent(byte hasContent) {
+    public void setHasContent(Boolean hasContent) {
         this.hasContent = hasContent;
     }
 
@@ -164,7 +168,6 @@ public class Channel implements Serializable{
         result = 31 * result + lft;
         result = 31 * result + rgt;
         result = 31 * result + priority;
-        result = 31 * result + (int) hasContent;
         return result;
     }
     @ManyToMany
@@ -449,5 +452,280 @@ public class Channel implements Serializable{
         cm.setModelId(model.getModelId());
         list.add(cm);
     }
-
+    public String getContentRule() {
+        ChannelExt ext = getChannelExt();
+        if (ext != null) {
+            return ext.getContentRule();
+        } else {
+            return null;
+        }
+    }
+    public String getLink() {
+        ChannelExt ext = getChannelExt();
+        if (ext != null) {
+            return ext.getLink();
+        } else {
+            return null;
+        }
+    }
+    public Boolean getStaticChannel() {
+        ChannelExt ext = getChannelExt();
+        if (ext != null) {
+            return ext.getIsStaticChannel();
+        } else {
+            return null;
+        }
+    }
+    public Boolean getListChild() {
+        ChannelExt ext = getChannelExt();
+        if (ext != null) {
+            return ext.getIsListChild();
+        } else {
+            return null;
+        }
+    }
+    public Integer getPageSize() {
+        ChannelExt ext = getChannelExt();
+        if (ext != null) {
+            return ext.getPageSize();
+        } else {
+            return null;
+        }
+    }
+    public String getStaticFilename(int pageNo) {
+        CmsSite site = getSite();
+        StringBuilder url = new StringBuilder();
+        String staticDir = site.getStaticDir();
+        if (!StringUtils.isBlank(staticDir)) {
+            url.append(staticDir);
+        }
+        String filename = getStaticFilenameByRule();
+        if (!StringUtils.isBlank(filename)) {
+            int index = filename.indexOf(".", filename.lastIndexOf("/"));
+            if (pageNo > 1) {
+                if (index != -1) {
+                    url.append(filename.substring(0, index)).append("_")
+                            .append(pageNo).append(filename.substring(index));
+                } else {
+                    url.append(filename).append("_").append(pageNo);
+                }
+            } else {
+                url.append(filename);
+            }
+        } else {
+            // 默认静态页面访问路径
+            url.append(SPT).append(getChannelPath());
+            String suffix = site.getStaticSuffix();
+            if (getHasContent()) {
+                url.append(SPT).append(INDEX);
+                if (pageNo > 1) {
+                    url.append("_").append(pageNo);
+                }
+                url.append(suffix);
+            } else {
+                if (pageNo > 1) {
+                    url.append("_").append(pageNo);
+                }
+                url.append(suffix);
+            }
+        }
+        return url.toString();
+    }
+    public String getStaticFilenameByRule() {
+        String rule = getChannelRule();
+        if (StringUtils.isBlank(rule)) {
+            return null;
+        }
+        CmsModel model = getModel();
+        String url = StaticPageUtils.staticUrlRule(rule, model.getModelId(), model
+                .getModelPath(), getChannelId(), getChannelPath(), null, null);
+        return url;
+    }
+    public String getChannelRule() {
+        ChannelExt ext = getChannelExt();
+        if (ext != null) {
+            return ext.getChannelRule();
+        } else {
+            return null;
+        }
+    }
+    public String getMobileStaticFilename(int pageNo) {
+        CmsSite site = getSite();
+        StringBuilder url = new StringBuilder();
+        String staticDir = site.getMobileStaticDir();
+        if (!StringUtils.isBlank(staticDir)) {
+            url.append(staticDir);
+        }
+        String filename = getStaticFilenameByRule();
+        if (!StringUtils.isBlank(filename)) {
+            int index = filename.indexOf(".", filename.lastIndexOf("/"));
+            if (pageNo > 1) {
+                if (index != -1) {
+                    url.append(filename.substring(0, index)).append("_")
+                            .append(pageNo).append(filename.substring(index));
+                } else {
+                    url.append(filename).append("_").append(pageNo);
+                }
+            } else {
+                url.append(filename);
+            }
+        } else {
+            // 默认静态页面访问路径
+            url.append(SPT).append(getChannelPath());
+            String suffix = site.getStaticSuffix();
+            if (getHasContent()) {
+                url.append(SPT).append(INDEX);
+                if (pageNo > 1) {
+                    url.append("_").append(pageNo);
+                }
+                url.append(suffix);
+            } else {
+                if (pageNo > 1) {
+                    url.append("_").append(pageNo);
+                }
+                url.append(suffix);
+            }
+        }
+        return url.toString();
+    }
+    public String getTplContentOrDef(CmsModel contentModel) {
+        String tpl = getModelTpl(contentModel);
+        if (!StringUtils.isBlank(tpl)) {
+            return tpl;
+        } else {
+            String sol = getSite().getSolutionPath();
+            return contentModel.getTplContent(sol, true);
+        }
+    }
+    public String getModelTpl(CmsModel model){
+        List<ChannelModel>list=getChannelModelsExtend();
+        if(list!=null){
+            for(ChannelModel cm:list){
+                if(cm.getModel().equals(model)){
+                    return cm.getTplContent();
+                }
+            }
+        }
+        return null;
+    }
+    public List<ChannelModel> getChannelModelsExtend() {
+        List<ChannelModel>list=getChannelModels();
+        //没有配置栏目模型默认父栏目配置
+        if (list == null||list.size()<=0) {
+            Channel parent = getParent();
+            if (parent == null) {
+                return null;
+            } else {
+                return parent.getChannelModelsExtend();
+            }
+        } else {
+            return list;
+        }
+    }
+    public String getMobileTplContentOrDef(CmsModel contentModel) {
+        String tpl = getModelMobileTpl(contentModel);
+        if (!StringUtils.isBlank(tpl)) {
+            return tpl;
+        } else {
+            String sol = getSite().getMobileSolutionPath();
+            return contentModel.getTplContent(sol, true);
+        }
+    }
+    public String getModelMobileTpl(CmsModel model){
+        List<ChannelModel>list=getChannelModelsExtend();
+        if(list!=null){
+            for(ChannelModel cm:list){
+                if(cm.getModel().equals(model)){
+                    return cm.getTplMobileContent();
+                }
+            }
+        }
+        return null;
+    }
+    public String getMobileTplChannelOrDef() {
+        String tpl = getMobileTplChannel();
+        if (!StringUtils.isBlank(tpl)) {
+            return tpl;
+        } else {
+            String sol = getSite().getMobileSolutionPath();
+            return getModel().getTplChannel(sol, true);
+        }
+    }
+    public String getMobileTplChannel() {
+        ChannelExt ext = getChannelExt();
+        if (ext != null) {
+            return ext.getTplMobileChannel();
+        } else {
+            return null;
+        }
+    }
+    public String getTplChannelOrDef() {
+        String tpl = getTplChannel();
+        if (!StringUtils.isBlank(tpl)) {
+            return tpl;
+        } else {
+            String sol = getSite().getSolutionPath();
+            return getModel().getTplChannel(sol, true);
+        }
+    }
+    public String getTplChannel() {
+        ChannelExt ext = getChannelExt();
+        if (ext != null) {
+            return ext.getTplChannel();
+        } else {
+            return null;
+        }
+    }
+    public String getUrlStatic(int pageNo) {
+        return getUrlStatic(null, pageNo);
+    }
+    public String getUrlStatic(Boolean whole, int pageNo) {
+        if (!StringUtils.isBlank(getLink())) {
+            return getLink();
+        }
+        CmsSite site = getSite();
+        StringBuilder url = site.getUrlBuffer(false, whole, false);
+        String filename = getStaticFilenameByRule();
+        if (!StringUtils.isBlank(filename)) {
+            if (pageNo > 1) {
+                int index = filename.indexOf(".", filename.lastIndexOf("/"));
+                if (index != -1) {
+                    url.append(filename.substring(0, index));
+                    url.append("_").append(pageNo);
+                    url.append(filename.substring(index));
+                } else {
+                    url.append("_").append(pageNo);
+                }
+            } else {
+                if (getAccessByDir()) {
+                    url.append(filename.substring(0,
+                            filename.lastIndexOf("/") + 1));
+                } else {
+                    url.append(filename);
+                }
+            }
+        } else {
+            // 默认静态页面访问路径
+            url.append(SPT).append(getChannelPath());
+            if (pageNo > 1) {
+                url.append("_").append(pageNo);
+                url.append(site.getStaticSuffix());
+            } else {
+                if (getHasContent()) {
+                    url.append(SPT);
+                } else {
+                    url.append(site.getStaticSuffix());
+                }
+            }
+        }
+        return url.toString();
+    }
+    public Boolean getAccessByDir() {
+        ChannelExt ext = getChannelExt();
+        if (ext != null) {
+            return ext.getIsAccessByDir();
+        } else {
+            return null;
+        }
+    }
 }

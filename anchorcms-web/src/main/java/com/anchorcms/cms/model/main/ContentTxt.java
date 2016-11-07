@@ -99,6 +99,9 @@ public class ContentTxt implements Serializable{
 
     @OneToOne
     private Content content;
+    //ueditor采用分页
+    public static String PAGE_START = "[NextPage]";
+    public static String PAGE_END = "[/NextPage]";
 
     public Content getContent() {
         return content;
@@ -124,6 +127,66 @@ public class ContentTxt implements Serializable{
         }
         if (StringUtils.isBlank(getTxt3())) {
             setTxt3(null);
+        }
+    }
+    public int getTxtCount() {
+        String txt = getTxt();
+        if (StringUtils.isBlank(txt)) {
+            return 1;
+        } else {
+            return StringUtils.countMatches(txt, PAGE_START) + 1;
+        }
+    }
+    public String getTxtByNo(int pageNo) {
+        String txt = getTxt();
+        if (StringUtils.isBlank(txt) || pageNo < 1) {
+            return null;
+        }
+        int start = 0, end = 0;
+        for (int i = 0; i < pageNo; i++) {
+            // 如果不是第一页
+            if (i != 0) {
+                start = txt.indexOf(PAGE_END, end);
+                if (start == -1) {
+                    return null;
+                } else {
+                    start += PAGE_END.length();
+                }
+            }
+            end = txt.indexOf(PAGE_START, start);
+            if (end == -1) {
+                end = txt.length();
+            }
+        }
+        return txt.substring(start, end);
+    }
+    public String getTitleByNo(int pageNo) {
+        if (pageNo < 1) {
+            return null;
+        }
+        String title = getContent().getTitle();
+        if (pageNo == 1) {
+            return title;
+        }
+        String txt = getTxt();
+        int start = 0, end = 0;
+        for (int i = 1; i < pageNo; i++) {
+            start = txt.indexOf(PAGE_START, end);
+            if (start == -1) {
+                return title;
+            } else {
+                start += PAGE_START.length();
+            }
+            end = txt.indexOf(PAGE_END, start);
+            if (end == -1) {
+                return title;
+            }
+        }
+        String result = txt.substring(start, end);
+        if (!StringUtils.isBlank(result)) {
+            return result;
+        } else {
+            return title;
         }
     }
 }

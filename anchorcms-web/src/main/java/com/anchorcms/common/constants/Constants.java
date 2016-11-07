@@ -8,60 +8,9 @@ package com.anchorcms.common.constants;
  */
 public class Constants {
     /**
-     * 路径分隔符
-     */
-    public static final String SPT = "/";
-    /**
-     * 索引页
-     */
-    public static final String INDEX = "index";
-    /**
-     * 手机索引页
-     */
-    public static final String INDEX_MOBILE = "indexMobile";
-    /**
-     * 索引页
-     */
-    public static final String INDEX_HTML = "/index.html";
-    /**
-     * 手机索引页
-     */
-    public static final String INDEX_HTML_MOBILE = "/indexMobile.html";
-    /**
-     * 默认模板
-     */
-    public static final String DEFAULT = "default";
-    /**
-     * UTF-8编码
-     */
-    public static final String UTF8 = "UTF-8";
-    /**
-     * 提示信息
-     */
-    public static final String MESSAGE = "message";
-    /**
-     * cookie中的JSESSIONID名称
-     */
-    public static final String JSESSION_COOKIE = "JSESSIONID";
-    /**
-     * url中的jsessionid名称
-     */
-    public static final String JSESSION_URL = "jsessionid";
-    /**
-     * HTTP POST请求
-     */
-    public static final String POST = "POST";
-    /**
-     * HTTP GET请求
-     */
-    public static final String GET = "GET";
-    /**
      * 管理路径
      */
     public static final String MANAGER_SUFFIX = "manager/anchorcms/index.do";
-
-
-
     /**
      * 首页模板
      */
@@ -229,4 +178,60 @@ public class Constants {
      * 模板路径
      */
     public static final String TPL_BACK_BASE = "/WEB-INF/acnchorcms_sys";
+
+
+    /**
+     * 路径分隔符
+     */
+    public static final String SPT = "/";
+    /**
+     * 索引页
+     */
+    public static final String INDEX = "index";
+    /**
+     * 手机索引页
+     */
+    public static final String INDEX_MOBILE = "indexMobile";
+    /**
+     * 索引页
+     */
+    public static final String INDEX_HTML = "/index.html";
+    /**
+     * 手机索引页
+     */
+    public static final String INDEX_HTML_MOBILE = "/indexMobile.html";
+    /**
+     * 默认模板
+     */
+    public static final String DEFAULT = "default";
+    /**
+     * UTF-8编码
+     */
+    public static final String UTF8 = "UTF-8";
+    /**
+     * 提示信息
+     */
+    public static final String MESSAGE = "message";
+    /**
+     * cookie中的JSESSIONID名称
+     */
+    public static final String JSESSION_COOKIE = "JSESSIONID";
+    /**
+     * url中的jsessionid名称
+     */
+    public static final String JSESSION_URL = "jsessionid";
+    /**
+     * HTTP POST请求
+     */
+    public static final String POST = "POST";
+    /**
+     * HTTP GET请求
+     */
+    public static final String GET = "GET";
+
+    public static final String ADMIN_SUFFIX = "manager/anchorcms/index.do";
+
+    public static final String WEIXIN_APPKEY="wxAppkey";
+    public static final String WEIXIN_APPSECRET="wxAppSecret";
+    public static final int DISTRIBUTE_THREAD_COUNT=10;
 }

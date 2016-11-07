@@ -515,4 +515,8 @@ public class CmsConfig implements Serializable{
             setServletPoint(null);
         }
     }
+    public Boolean getSsoEnable(){
+        CmsConfigAttr configAttr=getConfigAttr();
+        return configAttr.getSsoEnable();
+    }
 }

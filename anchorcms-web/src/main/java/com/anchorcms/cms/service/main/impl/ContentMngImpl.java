@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.anchorcms.cms.dao.main.ContentDao;
+import com.anchorcms.cms.service.assist.CmsCommentMng;
+import com.anchorcms.cms.service.assist.CmsFileMng;
 import com.anchorcms.cms.service.main.*;
 import com.anchorcms.cms.model.main.*;
 import com.anchorcms.cms.model.main.Content.ContentStatus;
@@ -17,6 +20,7 @@ import com.anchorcms.cms.model.main.Channel.AfterCheckEnum;
 import com.anchorcms.cms.model.main.ContentRecord.ContentOperateType;
 import com.anchorcms.cms.service.main.ChannelDeleteChecker;
 import com.anchorcms.cms.service.main.ContentListener;
+import com.anchorcms.cms.staticpage.StaticPageSvc;
 import com.anchorcms.common.hibernate.Updater;
 import com.anchorcms.common.page.Pagination;
 import com.anchorcms.common.page.staticpage.impl.*;
