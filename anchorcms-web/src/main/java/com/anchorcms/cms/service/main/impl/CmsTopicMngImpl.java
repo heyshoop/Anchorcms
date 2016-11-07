@@ -3,6 +3,8 @@ package com.anchorcms.cms.service.main.impl;
 import java.util.List;
 import java.util.Set;
 
+import com.anchorcms.cms.dao.main.CmsTopicDao;
+import com.anchorcms.cms.service.main.ChannelMng;
 import com.anchorcms.cms.service.main.CmsTopicMng;
 import com.anchorcms.cms.model.main.Channel;
 import com.anchorcms.cms.model.main.CmsTopic;

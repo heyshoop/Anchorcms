@@ -2,6 +2,7 @@ package com.anchorcms.core.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * @Author 阁楼麻雀
@@ -17,7 +18,7 @@ public class CmsRole implements Serializable {
     private Integer siteId;
     private String roleName;
     private int priority;
-    private String isSuper;
+    private Boolean isSuper;
 
     @Id
     @Column(name = "role_id")
@@ -61,11 +62,11 @@ public class CmsRole implements Serializable {
 
     @Basic
     @Column(name = "is_super")
-    public String getIsSuper() {
+    public Boolean getIsSuper() {
         return isSuper;
     }
 
-    public void setIsSuper(String isSuper) {
+    public void setIsSuper(Boolean isSuper) {
         this.isSuper = isSuper;
     }
 
@@ -93,5 +94,35 @@ public class CmsRole implements Serializable {
         result = 31 * result + priority;
         result = 31 * result + (isSuper != null ? isSuper.hashCode() : 0);
         return result;
+    }
+    @Transient
+    private Set<String> perms;
+    @ManyToMany
+    private Set<CmsUser> users;
+
+    public Set<CmsUser> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<CmsUser> users) {
+        this.users = users;
+    }
+
+    public Set<String> getPerms() {
+        return perms;
+    }
+
+    public void setPerms(Set<String> perms) {
+        this.perms = perms;
+    }
+    public void delFromUsers(CmsUser user) {
+        if (user == null) {
+            return;
+        }
+        Set<CmsUser> set = getUsers();
+        if (set == null) {
+            return;
+        }
+        set.remove(user);
     }
 }

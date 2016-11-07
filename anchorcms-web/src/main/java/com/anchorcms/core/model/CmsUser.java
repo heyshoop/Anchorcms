@@ -480,4 +480,40 @@ public class CmsUser implements Serializable{
             return null;
         }
     }
+    public Set<String> getPerms(Integer siteId,Set<String>perms) {
+        if(getIsDisabled()){
+            return null;
+        }
+        Set<CmsUserSite> userSits=getUserSites();
+        if(userSits==null){
+            return null;
+        }
+        Set<CmsRole> roles = getRoles();
+        if (roles == null) {
+            return null;
+        }
+        boolean hasSitePermission=false;
+        for(CmsUserSite cus:userSits){
+            if(cus.getSite().getSiteId().equals(siteId)){
+                hasSitePermission=true;
+            }
+        }
+        if(!hasSitePermission){
+            return null;
+        }
+        boolean isSuper = false;
+        Set<String> allPerms = new HashSet<String>();
+        for (CmsRole role : getRoles()) {
+            if(role.getIsSuper()){
+                isSuper=true;
+                break;
+            }
+            allPerms.addAll(role.getPerms());
+        }
+        if (isSuper) {
+            allPerms.clear();
+            allPerms.add("*");
+        }
+        return allPerms;
+    }
 }
