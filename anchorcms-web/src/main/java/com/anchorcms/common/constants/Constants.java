@@ -204,7 +204,7 @@ public class Constants {
     /**
      * 防火墙配置文件
      */
-    public static String FIREWALL_CONFIGPATH = "/WEB-INF/manager/firewall.properties";
+    public static String FIREWALL_CONFIGPATH = "/WEB-INF/service/firewall.properties";
     /**
      * 类--错误国际化信息配置
      */

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import com.anchorcms.common.utils.CmsUtils;
-import com.anchorcms.core.manager.CmsUserMng;
+import com.anchorcms.core.service.CmsUserMng;
 import com.anchorcms.core.model.CmsSite;
 import com.anchorcms.core.model.CmsUser;
 import org.apache.commons.lang.StringUtils;

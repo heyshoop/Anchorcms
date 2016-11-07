@@ -8,7 +8,7 @@ import com.anchorcms.common.security.BadCredentialsException;
 import com.anchorcms.common.security.UsernameNotFoundException;
 import com.anchorcms.common.web.RequestUtils;
 import com.anchorcms.common.web.session.SessionProvider;
-import com.anchorcms.core.manager.AuthenticationMng;
+import com.anchorcms.core.service.AuthenticationMng;
 import com.anchorcms.core.model.Authentication;
 import com.anchorcms.core.web.WebCoreErrors;
 import org.apache.commons.lang.StringUtils;
@@ -18,7 +18,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import static com.anchorcms.core.manager.AuthenticationMng.AUTH_KEY;
+import static com.anchorcms.core.service.AuthenticationMng.AUTH_KEY;
 
 
 /**
