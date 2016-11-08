@@ -19,7 +19,6 @@ import com.anchorcms.core.service.*;
 import com.anchorcms.core.model.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -373,45 +372,44 @@ public class CmsUserMngImpl implements CmsUserMng {
 	private UnifiedUserMng unifiedUserMng;
 	private CmsUserExtMng cmsUserExtMng;
 	private CmsUserDao dao;
-	@Autowired
 	private ContentMng contentMng;
 
-	@Autowired
+	public ContentMng getContentMng() {
+		return contentMng;
+	}
+
+	public void setContentMng(ContentMng contentMng) {
+		this.contentMng = contentMng;
+	}
+
 	public void setCmsUserSiteMng(CmsUserSiteMng cmsUserSiteMng) {
 		this.cmsUserSiteMng = cmsUserSiteMng;
 	}
 
-	@Autowired
 	public void setCmsSiteMng(CmsSiteMng cmsSiteMng) {
 		this.cmsSiteMng = cmsSiteMng;
 	}
 
-	@Autowired
 	public void setChannelMng(ChannelMng channelMng) {
 		this.channelMng = channelMng;
 	}
 
-	@Autowired
 	public void setCmsRoleMng(CmsRoleMng cmsRoleMng) {
 		this.cmsRoleMng = cmsRoleMng;
 	}
 
-	@Autowired
 	public void setUnifiedUserMng(UnifiedUserMng unifiedUserMng) {
 		this.unifiedUserMng = unifiedUserMng;
 	}
 
-	@Autowired
 	public void setCmsUserExtMng(CmsUserExtMng cmsUserExtMng) {
 		this.cmsUserExtMng = cmsUserExtMng;
 	}
 
-	@Autowired
 	public void setCmsGroupMng(CmsGroupMng cmsGroupMng) {
 		this.cmsGroupMng = cmsGroupMng;
 	}
 
-	@Autowired
 	public void setDao(CmsUserDao dao) {
 		this.dao = dao;
 	}

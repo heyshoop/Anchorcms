@@ -3,6 +3,7 @@ package com.anchorcms.cms.model.main;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @Author 阁楼麻雀
@@ -18,13 +19,13 @@ public class ContentCharge implements Serializable{
     public static final Short MODEL_CHARGE=1;
     public static final Short MODEL_REWARD=2;
     private int contentId;
-    private double chargeAmount;
-    private double totalAmount;
-    private double yearAmount;
-    private double monthAmount;
-    private double dayAmount;
-    private Timestamp lastBuyTime;
-    private byte chargeReward;
+    private Double chargeAmount;
+    private Double totalAmount;
+    private Double yearAmount;
+    private Double monthAmount;
+    private Double dayAmount;
+    private Date lastBuyTime;
+    private Short chargeReward;
 
     @Id
     @Column(name = "content_id")
@@ -38,71 +39,71 @@ public class ContentCharge implements Serializable{
 
     @Basic
     @Column(name = "charge_amount")
-    public double getChargeAmount() {
+    public Double getChargeAmount() {
         return chargeAmount;
     }
 
-    public void setChargeAmount(double chargeAmount) {
+    public void setChargeAmount(Double chargeAmount) {
         this.chargeAmount = chargeAmount;
     }
 
     @Basic
     @Column(name = "total_amount")
-    public double getTotalAmount() {
+    public Double getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(double totalAmount) {
+    public void setTotalAmount(Double totalAmount) {
         this.totalAmount = totalAmount;
     }
 
     @Basic
     @Column(name = "year_amount")
-    public double getYearAmount() {
+    public Double getYearAmount() {
         return yearAmount;
     }
 
-    public void setYearAmount(double yearAmount) {
+    public void setYearAmount(Double yearAmount) {
         this.yearAmount = yearAmount;
     }
 
     @Basic
     @Column(name = "month_amount")
-    public double getMonthAmount() {
+    public Double getMonthAmount() {
         return monthAmount;
     }
 
-    public void setMonthAmount(double monthAmount) {
+    public void setMonthAmount(Double monthAmount) {
         this.monthAmount = monthAmount;
     }
 
     @Basic
     @Column(name = "day_amount")
-    public double getDayAmount() {
+    public Double getDayAmount() {
         return dayAmount;
     }
 
-    public void setDayAmount(double dayAmount) {
+    public void setDayAmount(Double dayAmount) {
         this.dayAmount = dayAmount;
     }
 
     @Basic
     @Column(name = "last_buy_time")
-    public Timestamp getLastBuyTime() {
+    public Date getLastBuyTime() {
         return lastBuyTime;
     }
 
-    public void setLastBuyTime(Timestamp lastBuyTime) {
+    public void setLastBuyTime(Date lastBuyTime) {
         this.lastBuyTime = lastBuyTime;
     }
 
     @Basic
     @Column(name = "charge_reward")
-    public byte getChargeReward() {
+    public Short getChargeReward() {
         return chargeReward;
     }
 
-    public void setChargeReward(byte chargeReward) {
+    public void setChargeReward(Short chargeReward) {
         this.chargeReward = chargeReward;
     }
 
@@ -143,5 +144,32 @@ public class ContentCharge implements Serializable{
         result = 31 * result + (lastBuyTime != null ? lastBuyTime.hashCode() : 0);
         result = 31 * result + (int) chargeReward;
         return result;
+    }
+    @OneToOne
+    private Content content;
+
+    public Content getContent() {
+        return content;
+    }
+
+    public void setContent(Content content) {
+        this.content = content;
+    }
+    public void init(){
+        if(getChargeAmount()==null){
+            setChargeAmount(0d);
+        }
+        if(getDayAmount()==null){
+            setDayAmount(0d);
+        }
+        if(getMonthAmount()==null){
+            setMonthAmount(0d);
+        }
+        if(getYearAmount()==null){
+            setYearAmount(0d);
+        }
+        if(getTotalAmount()==null){
+            setTotalAmount(0d);
+        }
     }
 }

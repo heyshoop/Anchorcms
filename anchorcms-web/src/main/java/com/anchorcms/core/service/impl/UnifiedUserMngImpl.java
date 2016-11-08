@@ -283,17 +283,24 @@ public class UnifiedUserMngImpl implements UnifiedUserMng {
 	private PwdEncoder pwdEncoder;
 	private UnifiedUserDao dao;
 
-	@Autowired
+	public ConfigMng getConfigMng() {
+		return configMng;
+	}
+
+	public PwdEncoder getPwdEncoder() {
+		return pwdEncoder;
+	}
+
+	public UnifiedUserDao getDao() {
+		return dao;
+	}
+
 	public void setConfigMng(ConfigMng configMng) {
 		this.configMng = configMng;
 	}
-
-	@Autowired
 	public void setPwdEncoder(PwdEncoder pwdEncoder) {
 		this.pwdEncoder = pwdEncoder;
 	}
-
-	@Autowired
 	public void setDao(UnifiedUserDao dao) {
 		this.dao = dao;
 	}

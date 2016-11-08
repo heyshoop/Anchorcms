@@ -1,5 +1,7 @@
 package com.anchorcms.cms.model.main;
 
+import com.anchorcms.core.model.CmsUser;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -94,6 +96,26 @@ public class ContentRecord implements Serializable{
         result = 31 * result + (operateTime != null ? operateTime.hashCode() : 0);
         result = 31 * result + (int) operateType;
         return result;
+    }
+    @ManyToOne
+    private Content content;
+    @ManyToOne
+    private CmsUser user;
+
+    public CmsUser getUser() {
+        return user;
+    }
+
+    public void setUser(CmsUser user) {
+        this.user = user;
+    }
+
+    public Content getContent() {
+        return content;
+    }
+
+    public void setContent(Content content) {
+        this.content = content;
     }
 
     public enum ContentOperateType {

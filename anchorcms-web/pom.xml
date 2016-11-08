@@ -392,12 +392,7 @@
             <artifactId>jaxrpc</artifactId>
             <version>1.1</version>
         </dependency>
-        <!-- 验证码组件 -->
-        <dependency>
-            <groupId>com.octo.captcha</groupId>
-            <artifactId>jcaptcha</artifactId>
-            <version>1.0</version>
-        </dependency>
+
         <!-- jdom解析XML -->
         <dependency>
             <groupId>org.jdom</groupId>
@@ -527,6 +522,12 @@
             <groupId>com.jhlabs</groupId>
             <artifactId>imaging</artifactId>
             <version>01012005</version>
+        </dependency>
+        <!-- 验证码组件 -->
+        <dependency>
+            <groupId>com.octo.captcha</groupId>
+            <artifactId>jcaptcha</artifactId>
+            <version>1.0</version>
         </dependency>
 
     </dependencies>

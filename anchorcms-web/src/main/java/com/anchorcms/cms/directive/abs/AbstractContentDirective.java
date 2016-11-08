@@ -457,15 +457,44 @@ public abstract class AbstractContentDirective implements
 
 	abstract protected boolean isPage();
 
-	@Autowired
 	protected ContentTagMng contentTagMng;
 
-	@Autowired
 	protected ChannelMng channelMng;
 
-	@Autowired
 	protected CmsSiteMng cmsSiteMng;
 
 	@Autowired
 	protected ContentMng contentMng;
+
+	public ChannelMng getChannelMng() {
+		return channelMng;
+	}
+
+	public void setChannelMng(ChannelMng channelMng) {
+		this.channelMng = channelMng;
+	}
+
+	public CmsSiteMng getCmsSiteMng() {
+		return cmsSiteMng;
+	}
+
+	public void setCmsSiteMng(CmsSiteMng cmsSiteMng) {
+		this.cmsSiteMng = cmsSiteMng;
+	}
+
+	public ContentMng getContentMng() {
+		return contentMng;
+	}
+
+	public void setContentMng(ContentMng contentMng) {
+		this.contentMng = contentMng;
+	}
+
+	public ContentTagMng getContentTagMng() {
+		return contentTagMng;
+	}
+
+	public void setContentTagMng(ContentTagMng contentTagMng) {
+		this.contentTagMng = contentTagMng;
+	}
 }

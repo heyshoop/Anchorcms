@@ -298,6 +298,17 @@ public class Content implements Serializable{
     private ContentCount contentCount;
     @ManyToOne
     private CmsModel model;
+    @OneToMany
+    private Set<ContentCharge> contentChargeSet;
+
+
+    public Set<ContentCharge> getContentChargeSet() {
+        return contentChargeSet;
+    }
+
+    public void setContentChargeSet(Set<ContentCharge> contentChargeSet) {
+        this.contentChargeSet = contentChargeSet;
+    }
 
     public CmsModel getModel() {
         return model;
@@ -859,6 +870,41 @@ public class Content implements Serializable{
         } else {
             return null;
         }
+    }
+    /**
+     * 是否终审通过
+     *
+     * @return
+     */
+    public boolean isChecked() {
+        return ContentCheck.CHECKED == getStatus();
+    }
+    public ContentCharge getContentCharge() {
+        Set<ContentCharge> set = getContentChargeSet();
+        if (set != null && set.size() > 0) {
+            return set.iterator().next();
+        } else {
+            return null;
+        }
+    }
+    public Date getLastBuyTime() {
+        ContentCharge charge= getContentCharge();
+        if(charge!=null){
+            return charge.getLastBuyTime();
+        }else{
+            return null;
+        }
+    }
+    public void setContentCharge(ContentCharge charge) {
+        Set<ContentCharge> set = getContentChargeSet();
+        if (set == null) {
+            set = new HashSet<ContentCharge>();
+            setContentChargeSet(set);
+        }
+        if (!set.isEmpty()) {
+            set.clear();
+        }
+        set.add(charge);
     }
 
 }

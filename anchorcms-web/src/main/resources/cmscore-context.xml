@@ -22,5 +22,7 @@
     <bean id="cmsUserMng" class="com.anchorcms.core.service.impl.CmsUserMngImpl"/>
     <!--统一用户管理-->
     <bean id="unifiedUserMng" class="com.anchorcms.core.service.impl.UnifiedUserMngImpl"/>
+    <!--内容服务-->
+    <bean id="contentMng" class="com.anchorcms.cms.service.main.impl.ContentMngImpl" />
 
 </beans>

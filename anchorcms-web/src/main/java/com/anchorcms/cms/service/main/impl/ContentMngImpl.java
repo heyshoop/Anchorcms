@@ -32,7 +32,6 @@ import com.anchorcms.core.model.CmsSite;
 import com.anchorcms.core.model.CmsUser;
 import com.anchorcms.core.model.CmsUserSite;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -811,79 +810,90 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 	private ContentDao dao;
 	private StaticPageSvc staticPageSvc;
 	private CmsFileMng fileMng;
-	@Autowired
 	private ContentRecordMng contentRecordMng;
-	@Autowired
 	private ChannelCountMng channelCountMng;
-	@Autowired
 	private ContentChargeMng contentChargeMng;
 
-	@Autowired
+	public List<ContentListener> getListenerList() {
+		return listenerList;
+	}
+
+	public ContentRecordMng getContentRecordMng() {
+		return contentRecordMng;
+	}
+
+	public void setContentRecordMng(ContentRecordMng contentRecordMng) {
+		this.contentRecordMng = contentRecordMng;
+	}
+
+	public ChannelCountMng getChannelCountMng() {
+		return channelCountMng;
+	}
+
+	public void setChannelCountMng(ChannelCountMng channelCountMng) {
+		this.channelCountMng = channelCountMng;
+	}
+
+	public ContentChargeMng getContentChargeMng() {
+		return contentChargeMng;
+	}
+
+	public void setContentChargeMng(ContentChargeMng contentChargeMng) {
+		this.contentChargeMng = contentChargeMng;
+	}
+
 	public void setChannelMng(ChannelMng channelMng) {
 		this.channelMng = channelMng;
 	}
 
-	@Autowired
 	public void setContentTypeMng(ContentTypeMng contentTypeMng) {
 		this.contentTypeMng = contentTypeMng;
 	}
 
-	@Autowired
 	public void setContentCountMng(ContentCountMng contentCountMng) {
 		this.contentCountMng = contentCountMng;
 	}
 
-	@Autowired
 	public void setContentExtMng(ContentExtMng contentExtMng) {
 		this.contentExtMng = contentExtMng;
 	}
 
-	@Autowired
 	public void setContentTxtMng(ContentTxtMng contentTxtMng) {
 		this.contentTxtMng = contentTxtMng;
 	}
 
-	@Autowired
 	public void setContentCheckMng(ContentCheckMng contentCheckMng) {
 		this.contentCheckMng = contentCheckMng;
 	}
 
-	@Autowired
 	public void setCmsTopicMng(CmsTopicMng cmsTopicMng) {
 		this.cmsTopicMng = cmsTopicMng;
 	}
 
-	@Autowired
 	public void setContentTagMng(ContentTagMng contentTagMng) {
 		this.contentTagMng = contentTagMng;
 	}
 
-	@Autowired
 	public void setCmsGroupMng(CmsGroupMng cmsGroupMng) {
 		this.cmsGroupMng = cmsGroupMng;
 	}
 
-	@Autowired
 	public void setCmsUserMng(CmsUserMng cmsUserMng) {
 		this.cmsUserMng = cmsUserMng;
 	}
 
-	@Autowired
 	public void setCmsCommentMng(CmsCommentMng cmsCommentMng) {
 		this.cmsCommentMng = cmsCommentMng;
 	}
 	
-	@Autowired
 	public void setFileMng(CmsFileMng fileMng) {
 		this.fileMng = fileMng;
 	}
 
-	@Autowired
 	public void setDao(ContentDao dao) {
 		this.dao = dao;
 	}
 
-	@Autowired
 	public void setStaticPageSvc(StaticPageSvc staticPageSvc) {
 		this.staticPageSvc = staticPageSvc;
 	}
