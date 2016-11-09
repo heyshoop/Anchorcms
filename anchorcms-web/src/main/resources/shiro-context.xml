@@ -25,7 +25,7 @@
                 /login.jspx = authc
                 /logout.jspx = logout
                 /member/** = user
-                /manager/anchorcms/login.do = authc
+                /manager/login.do = authc
                 /manager/anchorcms/logout.do = logout
                 /manager/anchorcms/** =user
             </value>
@@ -65,7 +65,7 @@
                 <property name="hashIterations" value="1" />
             </bean>
         </property>
-        <property name="cmsUserMng" ref="cmsUserMng" />
+        <!--<property name="cmsUserMng" ref="cmsUserMng" />-->
     </bean>
     <bean id="authcFilter" class="com.anchorcms.core.security.CmsAuthenticationFilter" parent="adminUrlBean">
         <property name="adminIndex" value="/manager/anchorcms/index.do"/>

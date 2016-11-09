@@ -4,14 +4,15 @@ import java.util.List;
 import java.util.Set;
 
 import com.anchorcms.cms.model.main.Channel;
+import com.anchorcms.cms.service.main.ChannelMng;
 import com.anchorcms.common.hibernate.Updater;
 import com.anchorcms.core.dao.CmsGroupDao;
-import com.anchorcms.core.service.ChannelMng;
 import com.anchorcms.core.service.CmsGroupMng;
 import com.anchorcms.core.model.CmsGroup;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -145,10 +146,10 @@ public class CmsGroupMngImpl implements CmsGroupMng {
 	}
 
 	private CmsGroupDao dao;
-	@Autowired
+	@Resource
 	private ChannelMng channelMng;
 
-	@Autowired
+	@Resource
 	public void setDao(CmsGroupDao dao) {
 		this.dao = dao;
 	}

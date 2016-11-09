@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+
 
 @Service
 @Transactional
@@ -84,10 +86,10 @@ public class CmsConfigMngImpl implements CmsConfigMng {
 	}
 
 	private CmsConfigDao dao;
-	@Autowired
+	@Resource
 	private ContentQueryFreshTimeCache contentQueryFreshTimeCache;
 
-	@Autowired
+	@Resource
 	public void setDao(CmsConfigDao dao) {
 		this.dao = dao;
 	}

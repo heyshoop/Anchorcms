@@ -25,7 +25,7 @@ import static com.anchorcms.common.constants.Constants.SPT;
 @Table(name = "c_channel", schema = "db_cms")
 public class Channel implements Serializable{
     private static final long serialVersionUID = -9066154332731793820L;
-    private int channelId;
+    private Integer channelId;
     private int modelId;
     private int siteId;
     private Integer parentId;
@@ -38,11 +38,11 @@ public class Channel implements Serializable{
 
     @Id
     @Column(name = "channel_id")
-    public int getChannelId() {
+    public Integer getChannelId() {
         return channelId;
     }
 
-    public void setChannelId(int channelId) {
+    public void setChannelId(Integer channelId) {
         this.channelId = channelId;
     }
 

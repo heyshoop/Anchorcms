@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+
 
 @Service
 @Transactional
@@ -129,18 +131,9 @@ public class ChannelCountMngImpl implements ChannelCountMng {
 		ChannelCount entity = dao.updateByUpdater(updater);
 		return entity;
 	}
-
+	@Resource
 	private CmsConfigMng cmsConfigMng;
+	@Resource
 	private ChannelCountDao dao;
-
-	@Autowired
-	public void setCmsConfigMng(CmsConfigMng cmsConfigMng) {
-		this.cmsConfigMng = cmsConfigMng;
-	}
-
-	@Autowired
-	public void setDao(ChannelCountDao dao) {
-		this.dao = dao;
-	}
 
 }

@@ -47,7 +47,7 @@ public class CmsConfig implements Serializable{
     private String emailPassword;
     private String emailPersonal;
     private Byte emailValidate;
-    private byte viewOnlyChecked;
+    private Boolean viewOnlyChecked;
     private Date flowClearTime;
     private Date channelCountClearTime;
 
@@ -353,11 +353,11 @@ public class CmsConfig implements Serializable{
 
     @Basic
     @Column(name = "view_only_checked")
-    public byte getViewOnlyChecked() {
+    public Boolean getViewOnlyChecked() {
         return viewOnlyChecked;
     }
 
-    public void setViewOnlyChecked(byte viewOnlyChecked) {
+    public void setViewOnlyChecked(Boolean viewOnlyChecked) {
         this.viewOnlyChecked = viewOnlyChecked;
     }
 
@@ -468,7 +468,6 @@ public class CmsConfig implements Serializable{
         result = 31 * result + (emailPassword != null ? emailPassword.hashCode() : 0);
         result = 31 * result + (emailPersonal != null ? emailPersonal.hashCode() : 0);
         result = 31 * result + (emailValidate != null ? emailValidate.hashCode() : 0);
-        result = 31 * result + (int) viewOnlyChecked;
         result = 31 * result + (flowClearTime != null ? flowClearTime.hashCode() : 0);
         result = 31 * result + (channelCountClearTime != null ? channelCountClearTime.hashCode() : 0);
         return result;

@@ -24,7 +24,6 @@ import com.anchorcms.cms.staticpage.StaticPageSvc;
 import com.anchorcms.common.hibernate.Updater;
 import com.anchorcms.common.page.Pagination;
 import com.anchorcms.common.page.staticpage.impl.*;
-import com.anchorcms.core.service.ChannelMng;
 import com.anchorcms.core.service.CmsGroupMng;
 import com.anchorcms.core.service.CmsUserMng;
 import com.anchorcms.core.model.CmsGroup;
@@ -32,12 +31,15 @@ import com.anchorcms.core.model.CmsSite;
 import com.anchorcms.core.model.CmsUser;
 import com.anchorcms.core.model.CmsUserSite;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 
 import freemarker.template.TemplateException;
+
+import javax.annotation.Resource;
 
 import static com.anchorcms.cms.model.main.ContentCheck.DRAFT;
 
@@ -796,22 +798,39 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		this.listenerList = listenerList;
 	}
 
+	@Resource
 	private ChannelMng channelMng;
+	@Resource
 	private ContentExtMng contentExtMng;
+	@Resource
 	private ContentTxtMng contentTxtMng;
+	@Resource
 	private ContentTypeMng contentTypeMng;
+	@Resource
 	private ContentCountMng contentCountMng;
+	@Resource
 	private ContentCheckMng contentCheckMng;
+	@Resource
 	private ContentTagMng contentTagMng;
+	@Resource
 	private CmsGroupMng cmsGroupMng;
+	@Resource
 	private CmsUserMng cmsUserMng;
+	@Resource
 	private CmsTopicMng cmsTopicMng;
+	@Resource
 	private CmsCommentMng cmsCommentMng;
+	@Resource
 	private ContentDao dao;
+	@Resource
 	private StaticPageSvc staticPageSvc;
+	@Resource
 	private CmsFileMng fileMng;
+	@Resource
 	private ContentRecordMng contentRecordMng;
+	@Resource
 	private ChannelCountMng channelCountMng;
+	@Resource
 	private ContentChargeMng contentChargeMng;
 
 	public List<ContentListener> getListenerList() {
@@ -892,9 +911,5 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 
 	public void setDao(ContentDao dao) {
 		this.dao = dao;
-	}
-
-	public void setStaticPageSvc(StaticPageSvc staticPageSvc) {
-		this.staticPageSvc = staticPageSvc;
 	}
 }

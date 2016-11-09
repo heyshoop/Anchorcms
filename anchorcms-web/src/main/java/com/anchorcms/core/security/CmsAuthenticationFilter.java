@@ -5,6 +5,7 @@ import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -248,12 +249,9 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
 		}
 	}
 	
-
-	@Autowired
+	@Resource
 	private CmsUserMng userMng;
-	@Autowired
 	private UnifiedUserMng unifiedUserMng;
-	@Autowired
 	private CmsUserMng cmsUserMng;
 
 	private SessionProvider session;

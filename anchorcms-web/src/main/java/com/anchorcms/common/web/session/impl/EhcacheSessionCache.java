@@ -9,8 +9,10 @@ import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+@Service
 public class EhcacheSessionCache implements SessionCache, InitializingBean {
 	@SuppressWarnings("unchecked")
 	public Map<String, Serializable> getSession(String root) {

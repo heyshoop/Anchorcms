@@ -26,7 +26,7 @@ import static com.anchorcms.common.constants.Constants.SPT;
 @Table(name = "c_content", schema = "db_cms")
 public class Content implements Serializable{
     private static final long serialVersionUID = 6895381296604577589L;
-    private int contentId;
+    private Integer contentId;
     private int channelId;
     private int userId;
     private int typeId;
@@ -36,7 +36,7 @@ public class Content implements Serializable{
     private Byte topLevel;
     private Boolean hasTitleImg;
     private Boolean isRecommend;
-    private byte status;
+    private Byte status;
     private Integer viewsDay;
     private Short commentsDay;
     private Short downloadsDay;
@@ -46,11 +46,11 @@ public class Content implements Serializable{
 
     @Id
     @Column(name = "content_id")
-    public int getContentId() {
+    public Integer getContentId() {
         return contentId;
     }
 
-    public void setContentId(int contentId) {
+    public void setContentId(Integer contentId) {
         this.contentId = contentId;
     }
 
@@ -146,11 +146,11 @@ public class Content implements Serializable{
 
     @Basic
     @Column(name = "status")
-    public byte getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(byte status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 
@@ -905,6 +905,52 @@ public class Content implements Serializable{
             set.clear();
         }
         set.add(charge);
+    }
+    public Set<CmsGroup> getViewGroupsExt() {
+        Set<CmsGroup> set = getViewGroups();
+        if (set != null && set.size() > 0) {
+            return set;
+        } else {
+            return getChannel().getViewGroups();
+        }
+    }
+    public boolean getCharge() {
+        ContentCharge c=getContentCharge();
+        return c!=null&&c.getChargeAmount()>0&&c.getChargeReward().equals(ContentCharge.MODEL_CHARGE);
+    }
+    public String getTxt() {
+        ContentTxt txt = getContentTxt();
+        if (txt != null) {
+            return txt.getTxt();
+        } else {
+            return null;
+        }
+    }
+    public String getTxt1() {
+        ContentTxt txt = getContentTxt();
+        if (txt != null) {
+            return txt.getTxt1();
+        } else {
+            return null;
+        }
+    }
+
+    public String getTxt2() {
+        ContentTxt txt = getContentTxt();
+        if (txt != null) {
+            return txt.getTxt2();
+        } else {
+            return null;
+        }
+    }
+
+    public String getTxt3() {
+        ContentTxt txt = getContentTxt();
+        if (txt != null) {
+            return txt.getTxt3();
+        } else {
+            return null;
+        }
     }
 
 }

@@ -1,9 +1,11 @@
 package com.anchorcms.common.web.session.impl;
 
 import com.anchorcms.common.web.session.SessionProvider;
+import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 
+import javax.naming.Name;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpSession;
 /**
  * HttpSession提供类
  */
+@Service
 public class HttpSessionProvider implements SessionProvider {
 
 	public Serializable getAttribute(HttpServletRequest request, String name) {

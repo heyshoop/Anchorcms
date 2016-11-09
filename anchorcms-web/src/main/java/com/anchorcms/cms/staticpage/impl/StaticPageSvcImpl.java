@@ -30,7 +30,6 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +40,8 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+
+import javax.annotation.Resource;
 
 import static com.anchorcms.common.constants.Constants.UTF8;
 
@@ -288,42 +289,32 @@ public class StaticPageSvcImpl  implements StaticPageSvc, InitializingBean {
 			thread.start();
 		}
 	}
-
+	@Resource
 	private MessageSource tplMessageSource;
+	@Resource
 	private RealPathResolver realPathResolver;
+	@Resource
 	private StaticPageDao staticPageDao;
+
 	private Configuration conf;
-	@Autowired
+	@Resource
 	private FtpMng ftpMng;
-	@Autowired
+	@Resource
 	private ContentMng contentMng;
-	@Autowired
+	@Resource
 	private CmsSiteMng siteMng;
 
 	public void afterPropertiesSet() throws Exception {
 		Assert.notNull(conf, "freemarker configuration cannot be null!");
-		Assert.notNull(tplMessageSource,
-				"tplMessageSource configuration cannot be null!");
+		Assert.notNull(tplMessageSource,"tplMessageSource configuration cannot be null!");
 	}
 
-	public void setFreeMarkerConfigurer(
-			FreeMarkerConfigurer freeMarkerConfigurer) {
+	public void setFreeMarkerConfigurer(FreeMarkerConfigurer freeMarkerConfigurer) {
 		this.conf = freeMarkerConfigurer.getConfiguration();
 	}
 
 	public void setTplMessageSource(MessageSource tplMessageSource) {
 		this.tplMessageSource = tplMessageSource;
 	}
-
-	@Autowired
-	public void setStaticPageDao(StaticPageDao staticPageDao) {
-		this.staticPageDao = staticPageDao;
-	}
-
-	@Autowired
-	public void setRealPathResolver(RealPathResolver realPathResolver) {
-		this.realPathResolver = realPathResolver;
-	}
-
 
 }

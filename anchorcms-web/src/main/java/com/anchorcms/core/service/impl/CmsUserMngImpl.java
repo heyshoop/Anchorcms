@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.mail.MessagingException;
 
+import com.anchorcms.cms.service.main.ChannelMng;
 import com.anchorcms.cms.service.main.ContentMng;
 import com.anchorcms.cms.model.main.Channel;
 import com.anchorcms.common.email.EmailSender;
@@ -18,7 +19,6 @@ import com.anchorcms.core.dao.CmsUserDao;
 import com.anchorcms.core.service.*;
 import com.anchorcms.core.model.*;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

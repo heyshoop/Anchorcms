@@ -35,6 +35,7 @@ import static com.anchorcms.core.service.AuthenticationMng.AUTH_KEY;
  * </ul>
  */
 @Controller
+@RequestMapping("/login")
 public class LoginController {
 	public static final String PROCESS_URL = "processUrl";
 	public static final String RETURN_URL = "returnUrl";

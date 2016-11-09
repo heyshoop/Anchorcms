@@ -96,7 +96,6 @@ public class ConfigMngImpl implements ConfigMng {
 
 	private ConfigDao dao;
 
-	@Autowired
 	public void setDao(ConfigDao dao) {
 		this.dao = dao;
 	}

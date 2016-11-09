@@ -280,7 +280,6 @@ public class AdminContextInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	private CmsAuthorizingRealm authorizingRealm;
 
-	@Autowired
 	public void setCmsSiteMng(CmsSiteMng cmsSiteMng) {
 		this.cmsSiteMng = cmsSiteMng;
 	}

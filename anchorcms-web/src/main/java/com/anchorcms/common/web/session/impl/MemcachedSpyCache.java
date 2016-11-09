@@ -12,7 +12,9 @@ import net.spy.memcached.MemcachedClient;
 
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MemcachedSpyCache implements SessionCache, InitializingBean,
 		DisposableBean {
 	private MemcachedClient client;

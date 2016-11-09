@@ -16,6 +16,33 @@
             </list>
         </property>
     </bean>
+    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+        <property name="interceptors">
+            <list>
+                <ref bean="adminContextInterceptor"/>
+                <ref bean="adminLocaleIntercept"/>
+                <ref bean="fireWallInterceptor"/>
+            </list>
+        </property>
+    </bean>
+    <bean id="adminContextInterceptor" class="com.anchorcms.cms.web.AdminContextInterceptor">
+        <!--<property name="adminId" value="1"/>-->
+        <property name="auth" value="true"/>
+        <property name="excludeUrls">
+            <list>
+                <value>/login.do</value>
+                <value>/logout.do</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="adminLocaleIntercept" class="com.anchorcms.cms.web.AdminLocaleInterceptor"/>
+
+    <bean id="fireWallInterceptor" class="com.anchorcms.cms.web.FireWallInterceptor"/>
+
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="cookieName" value="clientlanguage"/>
+        <property name="cookieMaxAge" value="-1"/>
+    </bean>
     <!--后台异常处理-->
     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <property name="exceptionMappings">
@@ -29,7 +56,7 @@
     </bean>
     <!--后台管理根路径配置-->
     <bean id="freemarkerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-        <property name="prefix" value="/manager/"/>
+        <property name="prefix" value="/anchorcms_sys/"/>
         <property name="suffix" value=".html"/>
         <property name="contentType" value="text/html; charset=UTF-8"/>
         <property name="exposeRequestAttributes" value="false"/>
@@ -42,7 +69,7 @@
         <property name="freemarkerVariables">
             <map>
                 <!--在FCK编辑器中需要用到appBase，以确定connector路径。-->
-                <entry key="appBase" value="/manager/anchorcms"/>
+                <entry key="appBase" value="/anchorcms"/>
                 <!--后台管理权限控制-->
                 <entry key="cms_perm" value-ref="cms_perm"/>
                 <entry key="text_cut" value-ref="text_cut"/>

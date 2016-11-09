@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+
 
 /**
  * 栏目文本Manager实现
@@ -66,11 +68,6 @@ public class ChannelTxtMngImpl implements ChannelTxtMng {
 		}
 		return flag;
 	}
-
+	@Resource
 	private ChannelTxtDao dao;
-
-	@Autowired
-	public void setDao(ChannelTxtDao dao) {
-		this.dao = dao;
-	}
 }

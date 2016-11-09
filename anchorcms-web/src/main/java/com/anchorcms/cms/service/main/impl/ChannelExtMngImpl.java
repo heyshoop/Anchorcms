@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+
 
 @Service
 @Transactional
@@ -29,11 +31,7 @@ public class ChannelExtMngImpl implements ChannelExtMng {
 		entity.blankToNull();
 		return entity;
 	}
-
+	@Resource
 	private ChannelExtDao dao;
 
-	@Autowired
-	public void setDao(ChannelExtDao dao) {
-		this.dao = dao;
-	}
 }

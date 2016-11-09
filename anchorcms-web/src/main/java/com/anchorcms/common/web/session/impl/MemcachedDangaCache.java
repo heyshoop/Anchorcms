@@ -10,7 +10,9 @@ import org.springframework.beans.factory.InitializingBean;
 
 import com.danga.MemCached.MemCachedClient;
 import com.danga.MemCached.SockIOPool;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MemcachedDangaCache implements SessionCache, InitializingBean {
 	private MemCachedClient client;
 	private String[] servers;

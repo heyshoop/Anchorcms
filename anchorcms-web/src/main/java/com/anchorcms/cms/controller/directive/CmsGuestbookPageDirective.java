@@ -1,11 +1,11 @@
-package com.anchorcms.cms.web;
+package com.anchorcms.cms.controller.directive;
 
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.anchorcms.cms.directive.abs.AbstractContentDirective;
+import com.anchorcms.cms.directive.abs.AbstractCmsGuestbookDirective;
 import com.anchorcms.common.page.Pagination;
 import com.anchorcms.common.utils.FrontUtils;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
@@ -28,19 +28,23 @@ import static com.anchorcms.common.web.freemarker.DirectiveUtils.OUT_LIST;
 import static com.anchorcms.common.web.freemarker.DirectiveUtils.OUT_PAGINATION;
 
 /**
- * 内容分页标签
+ * 留言分页标签
  */
-public class ContentPageDirective extends AbstractContentDirective {
+public class CmsGuestbookPageDirective extends AbstractCmsGuestbookDirective {
 	/**
 	 * 模板名称
 	 */
-	public static final String TPL_NAME = "content_page";
+	public static final String TPL_NAME = "guestbook_page";
 
 	@SuppressWarnings("unchecked")
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		CmsSite site = FrontUtils.getSite(env);
-		Pagination page = (Pagination) super.getData(params, env);
+		int pageNo = FrontUtils.getPageNo(env);
+		int count = FrontUtils.getCount(params);
+		Pagination page = cmsGuestbookMng.getPage(getSiteId(params),
+				getCtgId(params),null,null, getRecommend(params), getChecked(params),
+				getDesc(params), true, pageNo, count);
 
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
 				params);
@@ -66,18 +70,11 @@ public class ContentPageDirective extends AbstractContentDirective {
 			FrontUtils.includeTpl(TPL_NAME, site, params, env);
 			FrontUtils.includePagination(site, params, env);
 		} else if (DirectiveUtils.InvokeType.body == type) {
-			if (body != null) {
-				body.render(env.getOut());
-				FrontUtils.includePagination(site, params, env);
-			}
+			body.render(env.getOut());
+			FrontUtils.includePagination(site, params, env);
 		} else {
 			throw new RuntimeException("invoke type not handled: " + type);
 		}
 		DirectiveUtils.removeParamsFromVariable(env, paramWrap, origMap);
-	}
-
-	@Override
-	protected boolean isPage() {
-		return true;
 	}
 }

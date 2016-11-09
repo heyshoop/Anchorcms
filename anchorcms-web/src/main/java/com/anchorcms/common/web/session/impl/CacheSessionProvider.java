@@ -15,6 +15,7 @@ import com.anchorcms.common.web.session.SessionProvider;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.session.mgt.eis.SessionIdGenerator;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 

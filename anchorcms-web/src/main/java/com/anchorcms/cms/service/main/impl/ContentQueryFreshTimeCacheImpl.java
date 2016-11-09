@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 
 
 @Service
@@ -71,10 +72,9 @@ public class ContentQueryFreshTimeCacheImpl implements ContentQueryFreshTimeCach
 	}
 
 
-	@Autowired 
-	@Qualifier("contentQueryFreshTime")
+	@Resource
 	private Ehcache cache;
-	@Autowired
+	@Resource
 	private CmsConfigMng cmsConfigMng;
 
 }

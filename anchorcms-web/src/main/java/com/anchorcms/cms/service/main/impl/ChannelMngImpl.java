@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+
 
 @Service
 @Transactional
@@ -271,54 +273,21 @@ public class ChannelMngImpl implements ChannelMng {
 			List<ChannelDeleteChecker> deleteCheckerList) {
 		this.deleteCheckerList = deleteCheckerList;
 	}
-
+	@Resource
 	private CmsSiteMng cmsSiteMng;
+	@Resource
 	private CmsModelMng cmsModelMng;
+	@Resource
 	private ChannelExtMng channelExtMng;
+	@Resource
 	private ChannelTxtMng channelTxtMng;
+	@Resource
 	private ChannelCountMng channelCountMng;
+	@Resource
 	private CmsUserMng cmsUserMng;
+	@Resource
 	private CmsGroupMng cmsGroupMng;
+	@Resource
 	private ChannelDao dao;
-
-	@Autowired
-	public void setCmsSiteMng(CmsSiteMng cmsSiteMng) {
-		this.cmsSiteMng = cmsSiteMng;
-	}
-
-	@Autowired
-	public void setCmsModelMng(CmsModelMng cmsModelMng) {
-		this.cmsModelMng = cmsModelMng;
-	}
-
-	@Autowired
-	public void setChannelExtMng(ChannelExtMng channelExtMng) {
-		this.channelExtMng = channelExtMng;
-	}
-
-	@Autowired
-	public void setChannelTxtMng(ChannelTxtMng channelTxtMng) {
-		this.channelTxtMng = channelTxtMng;
-	}
-
-	@Autowired
-	public void setChannelCountMng(ChannelCountMng channelCountMng) {
-		this.channelCountMng = channelCountMng;
-	}
-
-	@Autowired
-	public void setCmsUserMng(CmsUserMng cmsUserMng) {
-		this.cmsUserMng = cmsUserMng;
-	}
-
-	@Autowired
-	public void setCmsGroupMng(CmsGroupMng cmsGroupMng) {
-		this.cmsGroupMng = cmsGroupMng;
-	}
-
-	@Autowired
-	public void setDao(ChannelDao dao) {
-		this.dao = dao;
-	}
 
 }
