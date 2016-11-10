@@ -6,9 +6,10 @@ import com.anchorcms.common.hibernate.Updater;
 import com.anchorcms.core.dao.FtpDao;
 import com.anchorcms.core.service.FtpMng;
 import com.anchorcms.core.model.Ftp;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -49,10 +50,7 @@ public class FtpMngImpl implements FtpMng {
 		return beans;
 	}
 
+	@Resource
 	private FtpDao dao;
 
-	@Autowired
-	public void setDao(FtpDao dao) {
-		this.dao = dao;
-	}
 }

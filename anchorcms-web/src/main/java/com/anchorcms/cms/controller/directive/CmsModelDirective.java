@@ -20,6 +20,8 @@ import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 
+import javax.annotation.Resource;
+
 import static com.anchorcms.common.web.freemarker.DirectiveUtils.OUT_BEAN;
 
 /**
@@ -61,6 +63,6 @@ public class CmsModelDirective implements TemplateDirectiveModel {
 		DirectiveUtils.removeParamsFromVariable(env, paramWrap, origMap);
 	}
 
-	@Autowired
+	@Resource
 	private CmsModelMng modelMng;
 }

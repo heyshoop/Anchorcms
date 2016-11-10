@@ -5,9 +5,10 @@ import com.anchorcms.cms.model.assist.CmsVoteReply;
 import com.anchorcms.cms.service.assist.CmsVoteReplyMng;
 import com.anchorcms.common.hibernate.Updater;
 import com.anchorcms.common.page.Pagination;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -48,12 +49,6 @@ public class CmsVoteReplyMngImpl implements CmsVoteReplyMng {
 		return beans;
 	}
 
+	@Resource
 	private CmsVoteReplyDao dao;
-
-	@Autowired
-	public void setDao(CmsVoteReplyDao dao) {
-		this.dao = dao;
-	}
-
-
 }

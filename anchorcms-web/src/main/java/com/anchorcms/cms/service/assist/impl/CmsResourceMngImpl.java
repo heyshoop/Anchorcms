@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import com.anchorcms.cms.service.assist.CmsFileMng;
@@ -41,7 +42,6 @@ import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -579,22 +579,12 @@ public class CmsResourceMngImpl implements CmsResourceMng {
 		}
 	};
 
+	@Resource
 	private RealPathResolver realPathResolver;
+	@Resource
 	private CmsFileMng fileMng;
-	@Autowired
+	@Resource
 	private FtpMng ftpMng;
-	@Autowired
+	@Resource
 	private CmsPlugMng plugMng;
-
-	@Autowired
-	public void setRealPathResolver(RealPathResolver realPathResolver) {
-		this.realPathResolver = realPathResolver;
-	}
-
-	@Autowired
-	public void setFileMng(CmsFileMng fileMng) {
-		this.fileMng = fileMng;
-	}
-
-	
 }

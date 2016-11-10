@@ -4,12 +4,12 @@ import com.anchorcms.cms.dao.main.ContentBuyDao;
 import com.anchorcms.cms.model.main.ContentBuy;
 import com.anchorcms.cms.model.main.ContentCharge;
 import com.anchorcms.cms.service.main.ContentBuyMng;
-import com.anchorcms.cms.service.main.ContentMng;
 import com.anchorcms.common.hibernate.Updater;
 import com.anchorcms.common.page.Pagination;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -74,13 +74,6 @@ public class ContentBuyMngImpl implements ContentBuyMng {
 		}
 		return beans;
 	}
-
+	@Resource
 	private ContentBuyDao dao;
-	@Autowired
-	private ContentMng contentMng;
-
-	@Autowired
-	public void setDao(ContentBuyDao dao) {
-		this.dao = dao;
-	}
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -135,11 +136,6 @@ public class CacheSessionProvider implements SessionProvider, InitializingBean {
 	private SessionCache sessionCache;
 	private SessionIdGenerator sessionIdGenerator;
 	private int sessionTimeout = 30;
-
-	public void setSessionCache(SessionCache sessionCache) {
-		this.sessionCache = sessionCache;
-	}
-
 	/**
 	 * 设置session过期时间
 	 * 
@@ -153,5 +149,13 @@ public class CacheSessionProvider implements SessionProvider, InitializingBean {
 
 	public void setSessionIdGenerator(SessionIdGenerator sessionIdGenerator) {
 		this.sessionIdGenerator = sessionIdGenerator;
+	}
+
+	public SessionCache getSessionCache() {
+		return sessionCache;
+	}
+
+	public void setSessionCache(SessionCache sessionCache) {
+		this.sessionCache = sessionCache;
 	}
 }

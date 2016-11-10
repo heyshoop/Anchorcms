@@ -20,6 +20,8 @@ import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 
+import javax.annotation.Resource;
+
 import static com.anchorcms.common.web.freemarker.DirectiveUtils.OUT_LIST;
 
 /**
@@ -54,6 +56,6 @@ public class CmsFriendlinkCtgListDirective implements TemplateDirectiveModel {
 		return DirectiveUtils.getInt(PARAM_SITE_ID, params);
 	}
 
-	@Autowired
+	@Resource
 	private CmsFriendlinkCtgMng cmsFriendlinkCtgMng;
 }

@@ -6,9 +6,10 @@ import com.anchorcms.cms.dao.main.CmsModelDao;
 import com.anchorcms.cms.service.main.CmsModelMng;
 import com.anchorcms.cms.model.main.CmsModel;
 import com.anchorcms.common.hibernate.Updater;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -76,11 +77,6 @@ public class CmsModelMngImpl implements CmsModelMng {
 		}
 		return beans;
 	}
-
+	@Resource
 	private CmsModelDao dao;
-
-	@Autowired
-	public void setDao(CmsModelDao dao) {
-		this.dao = dao;
-	}
 }

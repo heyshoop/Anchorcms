@@ -5,9 +5,10 @@ import com.anchorcms.cms.model.assist.CmsComment;
 import com.anchorcms.cms.model.assist.CmsCommentExt;
 import com.anchorcms.cms.service.assist.CmsCommentExtMng;
 import com.anchorcms.common.hibernate.Updater;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -33,10 +34,7 @@ public class CmsCommentExtMngImpl implements CmsCommentExtMng {
 		return dao.deleteByContentId(contentId);
 	}
 
+	@Resource
 	private CmsCommentExtDao dao;
 
-	@Autowired
-	public void setDao(CmsCommentExtDao dao) {
-		this.dao = dao;
-	}
 }

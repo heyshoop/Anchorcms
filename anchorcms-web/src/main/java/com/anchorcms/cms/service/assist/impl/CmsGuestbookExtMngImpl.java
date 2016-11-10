@@ -5,9 +5,10 @@ import com.anchorcms.cms.model.assist.CmsGuestbook;
 import com.anchorcms.cms.model.assist.CmsGuestbookExt;
 import com.anchorcms.cms.service.assist.CmsGuestbookExtMng;
 import com.anchorcms.common.hibernate.Updater;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -28,10 +29,6 @@ public class CmsGuestbookExtMngImpl implements CmsGuestbookExtMng {
 		return entity;
 	}
 
+	@Resource
 	private CmsGuestbookExtDao dao;
-
-	@Autowired
-	public void setDao(CmsGuestbookExtDao dao) {
-		this.dao = dao;
-	}
 }

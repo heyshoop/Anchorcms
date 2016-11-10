@@ -1,6 +1,5 @@
 package com.anchorcms.cms.web;
 
-@SuppressWarnings("serial")
 public class SiteNotFoundException extends RuntimeException {
 	private String domain;
 

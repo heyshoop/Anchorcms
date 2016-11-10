@@ -7,9 +7,10 @@ import com.anchorcms.cms.model.assist.CmsAcquisitionHistory;
 import com.anchorcms.cms.service.assist.CmsAcquisitionHistoryMng;
 import com.anchorcms.common.hibernate.Updater;
 import com.anchorcms.common.page.Pagination;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -64,11 +65,7 @@ public class CmsAcquisitionHistoryMngImpl implements CmsAcquisitionHistoryMng {
 		return dao.checkExistByProperties(title, value);
 	}
 
+	@Resource
 	private CmsAcquisitionHistoryDao dao;
-
-	@Autowired
-	public void setDao(CmsAcquisitionHistoryDao dao) {
-		this.dao = dao;
-	}
 
 }

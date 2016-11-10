@@ -9,9 +9,10 @@ import com.anchorcms.core.model.CmsRole;
 import com.anchorcms.core.model.CmsUser;
 import com.anchorcms.core.service.CmsRoleMng;
 import com.anchorcms.core.service.CmsUserMng;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -66,12 +67,8 @@ public class CmsRoleMngImpl implements CmsRoleMng {
 		}
 	}
 
+	@Resource
 	private CmsRoleDao dao;
-	@Autowired
+	@Resource
 	private CmsUserMng userMng;
-
-	@Autowired
-	public void setDao(CmsRoleDao dao) {
-		this.dao = dao;
-	}
 }

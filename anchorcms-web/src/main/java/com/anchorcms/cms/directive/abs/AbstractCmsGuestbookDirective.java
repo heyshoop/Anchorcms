@@ -4,11 +4,12 @@ import java.util.Map;
 
 import com.anchorcms.cms.service.assist.CmsGuestbookMng;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+
+import javax.annotation.Resource;
 
 /**
  * 内容标签基类
@@ -66,7 +67,7 @@ public abstract class AbstractCmsGuestbookDirective implements
 		}
 	}
 
-	@Autowired
+	@Resource
 	protected CmsGuestbookMng cmsGuestbookMng;
 
 }

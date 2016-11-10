@@ -13,9 +13,10 @@ import com.anchorcms.core.model.Config.ConfigLogin;
 import com.anchorcms.core.model.Config.ConfigEmailSender;
 import com.anchorcms.core.model.Config.ConfigMessageTemplate;
 import com.anchorcms.core.service.ConfigMng;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -94,9 +95,7 @@ public class ConfigMngImpl implements ConfigMng {
 		return beans;
 	}
 
+	@Resource
 	private ConfigDao dao;
 
-	public void setDao(ConfigDao dao) {
-		this.dao = dao;
-	}
 }

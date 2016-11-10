@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+
 
 @Service
 @Transactional
@@ -84,16 +86,8 @@ public class CmsFriendlinkMngImpl implements CmsFriendlinkMng {
 		return beans;
 	}
 
+	@Resource
 	private CmsFriendlinkDao dao;
+	@Resource
 	private CmsFriendlinkCtgMng cmsFriendlinkCtgMng;
-
-	@Autowired
-	public void setDao(CmsFriendlinkDao dao) {
-		this.dao = dao;
-	}
-
-	@Autowired
-	public void setCmsFriendlinkCtgMng(CmsFriendlinkCtgMng cmsFriendlinkCtgMng) {
-		this.cmsFriendlinkCtgMng = cmsFriendlinkCtgMng;
-	}
 }

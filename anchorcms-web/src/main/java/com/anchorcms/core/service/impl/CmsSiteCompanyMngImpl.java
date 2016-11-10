@@ -5,9 +5,10 @@ import com.anchorcms.core.dao.CmsSiteCompanyDao;
 import com.anchorcms.core.service.CmsSiteCompanyMng;
 import com.anchorcms.core.model.CmsSite;
 import com.anchorcms.core.model.CmsSiteCompany;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -26,10 +27,7 @@ public class CmsSiteCompanyMngImpl implements CmsSiteCompanyMng {
 		return bean;
 	}
 
+	@Resource
 	private CmsSiteCompanyDao dao;
 
-	@Autowired
-	public void setDao(CmsSiteCompanyDao dao) {
-		this.dao = dao;
-	}
 }

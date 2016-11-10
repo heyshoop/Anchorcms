@@ -12,9 +12,10 @@ import com.anchorcms.cms.model.assist.CmsVoteTopic;
 import com.anchorcms.cms.service.assist.CmsVoteItemMng;
 import com.anchorcms.cms.service.assist.CmsVoteSubTopicMng;
 import com.anchorcms.common.hibernate.Updater;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -111,17 +112,8 @@ public class CmsVoteSubTopicMngImpl implements CmsVoteSubTopicMng {
 		return beans;
 	}
 
+	@Resource
 	private CmsVoteItemMng cmsVoteItemMng;
+	@Resource
 	private CmsVoteSubTopicDao dao;
-
-	@Autowired
-	public void setCmsVoteItemMng(CmsVoteItemMng cmsVoteItemMng) {
-		this.cmsVoteItemMng = cmsVoteItemMng;
-	}
-	
-	@Autowired
-	public void setDao(CmsVoteSubTopicDao dao) {
-		this.dao = dao;
-	}
-
 }

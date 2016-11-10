@@ -8,9 +8,10 @@ import com.anchorcms.cms.model.main.CmsFile;
 import com.anchorcms.cms.model.main.Content;
 import com.anchorcms.common.hibernate.Updater;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -101,12 +102,7 @@ public class CmsFileMngImpl implements CmsFileMng {
 		return bean;
 	}
 
-	
+	@Resource
 	private CmsFileDao dao;
-
-	@Autowired
-	public void setDao(CmsFileDao dao) {
-		this.dao = dao;
-	}
 
 }

@@ -251,12 +251,17 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
 	
 	@Resource
 	private CmsUserMng userMng;
+	@Resource
 	private UnifiedUserMng unifiedUserMng;
+	@Resource
 	private CmsUserMng cmsUserMng;
 
+	@Resource(name = "httpSession")
 	private SessionProvider session;
-	private ImageCaptchaService imageCaptchaService;
+	@Resource
 	private CmsLogMng cmsLogMng;
+	private ImageCaptchaService imageCaptchaService;
+
 
 	
 	private String adminPrefix;
@@ -287,27 +292,11 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
 		this.adminLogin = adminLogin;
 	}
 
-	public SessionProvider getSession() {
-		return session;
-	}
-
-	public void setSession(SessionProvider session) {
-		this.session = session;
-	}
-
 	public ImageCaptchaService getImageCaptchaService() {
 		return imageCaptchaService;
 	}
 
 	public void setImageCaptchaService(ImageCaptchaService imageCaptchaService) {
 		this.imageCaptchaService = imageCaptchaService;
-	}
-
-	public CmsLogMng getCmsLogMng() {
-		return cmsLogMng;
-	}
-
-	public void setCmsLogMng(CmsLogMng cmsLogMng) {
-		this.cmsLogMng = cmsLogMng;
 	}
 }

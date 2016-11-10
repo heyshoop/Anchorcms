@@ -797,6 +797,9 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 	public void setListenerList(List<ContentListener> listenerList) {
 		this.listenerList = listenerList;
 	}
+	public List<ContentListener> getListenerList() {
+		return listenerList;
+	}
 
 	@Resource
 	private ChannelMng channelMng;
@@ -832,84 +835,4 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 	private ChannelCountMng channelCountMng;
 	@Resource
 	private ContentChargeMng contentChargeMng;
-
-	public List<ContentListener> getListenerList() {
-		return listenerList;
-	}
-
-	public ContentRecordMng getContentRecordMng() {
-		return contentRecordMng;
-	}
-
-	public void setContentRecordMng(ContentRecordMng contentRecordMng) {
-		this.contentRecordMng = contentRecordMng;
-	}
-
-	public ChannelCountMng getChannelCountMng() {
-		return channelCountMng;
-	}
-
-	public void setChannelCountMng(ChannelCountMng channelCountMng) {
-		this.channelCountMng = channelCountMng;
-	}
-
-	public ContentChargeMng getContentChargeMng() {
-		return contentChargeMng;
-	}
-
-	public void setContentChargeMng(ContentChargeMng contentChargeMng) {
-		this.contentChargeMng = contentChargeMng;
-	}
-
-	public void setChannelMng(ChannelMng channelMng) {
-		this.channelMng = channelMng;
-	}
-
-	public void setContentTypeMng(ContentTypeMng contentTypeMng) {
-		this.contentTypeMng = contentTypeMng;
-	}
-
-	public void setContentCountMng(ContentCountMng contentCountMng) {
-		this.contentCountMng = contentCountMng;
-	}
-
-	public void setContentExtMng(ContentExtMng contentExtMng) {
-		this.contentExtMng = contentExtMng;
-	}
-
-	public void setContentTxtMng(ContentTxtMng contentTxtMng) {
-		this.contentTxtMng = contentTxtMng;
-	}
-
-	public void setContentCheckMng(ContentCheckMng contentCheckMng) {
-		this.contentCheckMng = contentCheckMng;
-	}
-
-	public void setCmsTopicMng(CmsTopicMng cmsTopicMng) {
-		this.cmsTopicMng = cmsTopicMng;
-	}
-
-	public void setContentTagMng(ContentTagMng contentTagMng) {
-		this.contentTagMng = contentTagMng;
-	}
-
-	public void setCmsGroupMng(CmsGroupMng cmsGroupMng) {
-		this.cmsGroupMng = cmsGroupMng;
-	}
-
-	public void setCmsUserMng(CmsUserMng cmsUserMng) {
-		this.cmsUserMng = cmsUserMng;
-	}
-
-	public void setCmsCommentMng(CmsCommentMng cmsCommentMng) {
-		this.cmsCommentMng = cmsCommentMng;
-	}
-	
-	public void setFileMng(CmsFileMng fileMng) {
-		this.fileMng = fileMng;
-	}
-
-	public void setDao(ContentDao dao) {
-		this.dao = dao;
-	}
 }

@@ -12,9 +12,10 @@ import com.anchorcms.common.utils.ChineseCharToEn;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -97,10 +98,6 @@ public class CmsSearchWordsMngImpl implements CmsSearchWordsMng {
 		return count;
 	}
 
+	@Resource
 	private CmsSearchWordsDao dao;
-
-	@Autowired
-	public void setDao(CmsSearchWordsDao dao) {
-		this.dao = dao;
-	}
 }

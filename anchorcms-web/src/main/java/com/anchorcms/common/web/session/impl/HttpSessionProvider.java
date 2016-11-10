@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 /**
  * HttpSession提供类
  */
-@Service
+@Service("httpSession")
 public class HttpSessionProvider implements SessionProvider {
 
 	public Serializable getAttribute(HttpServletRequest request, String name) {

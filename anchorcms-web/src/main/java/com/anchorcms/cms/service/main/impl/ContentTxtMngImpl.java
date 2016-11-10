@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+
 
 @Service
 @Transactional
@@ -61,10 +63,6 @@ public class ContentTxtMngImpl implements ContentTxtMng {
 		return flag;
 	}
 
+	@Resource
 	private ContentTxtDao dao;
-
-	@Autowired
-	public void setDao(ContentTxtDao dao) {
-		this.dao = dao;
-	}
 }

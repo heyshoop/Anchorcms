@@ -14,14 +14,12 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 
-@Service
 public class MemcachedSpyCache implements SessionCache, InitializingBean,
 		DisposableBean {
 	private MemcachedClient client;
 	private String[] servers;
 	private Integer[] weights;
 
-	@SuppressWarnings("unchecked")
 	public HashMap<String, Serializable> getSession(String root) {
 		return (HashMap<String, Serializable>) client.get(root);
 	}

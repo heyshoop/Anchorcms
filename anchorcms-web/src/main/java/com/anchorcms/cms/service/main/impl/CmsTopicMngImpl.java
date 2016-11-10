@@ -11,9 +11,10 @@ import com.anchorcms.cms.model.main.CmsTopic;
 import com.anchorcms.cms.service.main.ChannelDeleteChecker;
 import com.anchorcms.common.hibernate.Updater;
 import com.anchorcms.common.page.Pagination;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -115,17 +116,8 @@ public class CmsTopicMngImpl implements CmsTopicMng, ChannelDeleteChecker {
 			return null;
 		}
 	}
-
+	@Resource
 	private ChannelMng channelMng;
+	@Resource
 	private CmsTopicDao dao;
-
-	@Autowired
-	public void setDao(CmsTopicDao dao) {
-		this.dao = dao;
-	}
-
-	@Autowired
-	public void setChannelMng(ChannelMng channelMng) {
-		this.channelMng = channelMng;
-	}
 }

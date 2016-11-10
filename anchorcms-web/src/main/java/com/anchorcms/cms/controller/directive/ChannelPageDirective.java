@@ -35,7 +35,6 @@ public class ChannelPageDirective extends AbstractChannelDirective {
 	 */
 	public static final String TPL_NAME = "channel_page";
 
-	@SuppressWarnings("unchecked")
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		CmsSite site = FrontUtils.getSite(env);

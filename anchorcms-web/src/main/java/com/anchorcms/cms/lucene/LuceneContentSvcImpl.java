@@ -28,6 +28,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+
 @Service
 @Transactional
 public class LuceneContentSvcImpl implements LuceneContentSvc {
@@ -213,23 +215,11 @@ public class LuceneContentSvcImpl implements LuceneContentSvc {
 		return null;
 	}
 
+	@Resource
 	private RealPathResolver realPathResolver;
+	@Resource
 	private ContentMng contentMng;
+	@Resource
 	private LuceneContentDao luceneContentDao;
-
-	@Autowired
-	public void setRealPathResolver(RealPathResolver realPathResolver) {
-		this.realPathResolver = realPathResolver;
-	}
-
-	@Autowired
-	public void setLuceneContentDao(LuceneContentDao luceneContentDao) {
-		this.luceneContentDao = luceneContentDao;
-	}
-
-	@Autowired
-	public void setContentMng(ContentMng contentMng) {
-		this.contentMng = contentMng;
-	}
 
 }

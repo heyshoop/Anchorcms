@@ -11,9 +11,10 @@ import com.anchorcms.cms.service.main.ContentRecordMng;
 import com.anchorcms.common.hibernate.Updater;
 import com.anchorcms.common.page.Pagination;
 import com.anchorcms.core.model.CmsUser;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -90,10 +91,6 @@ public class ContentRecordMngImpl implements ContentRecordMng {
 		return beans;
 	}
 
+	@Resource
 	private ContentRecordDao dao;
-
-	@Autowired
-	public void setDao(ContentRecordDao dao) {
-		this.dao = dao;
-	}
 }

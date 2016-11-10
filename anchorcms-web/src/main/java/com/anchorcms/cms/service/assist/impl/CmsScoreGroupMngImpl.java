@@ -5,9 +5,10 @@ import com.anchorcms.cms.model.assist.CmsScoreGroup;
 import com.anchorcms.cms.service.assist.CmsScoreGroupMng;
 import com.anchorcms.common.hibernate.Updater;
 import com.anchorcms.common.page.Pagination;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -54,10 +55,6 @@ public class CmsScoreGroupMngImpl implements CmsScoreGroupMng {
 		return beans;
 	}
 
+	@Resource
 	private CmsScoreGroupDao dao;
-
-	@Autowired
-	public void setDao(CmsScoreGroupDao dao) {
-		this.dao = dao;
-	}
 }

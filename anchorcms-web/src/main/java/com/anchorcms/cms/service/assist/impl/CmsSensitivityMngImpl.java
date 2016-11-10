@@ -6,9 +6,10 @@ import com.anchorcms.cms.dao.assist.CmsSensitivityDao;
 import com.anchorcms.cms.model.assist.CmsSensitivity;
 import com.anchorcms.cms.service.assist.CmsSensitivityMng;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -65,10 +66,6 @@ public class CmsSensitivityMngImpl implements CmsSensitivityMng {
 		return beans;
 	}
 
+	@Resource
 	private CmsSensitivityDao dao;
-
-	@Autowired
-	public void setDao(CmsSensitivityDao dao) {
-		this.dao = dao;
-	}
 }

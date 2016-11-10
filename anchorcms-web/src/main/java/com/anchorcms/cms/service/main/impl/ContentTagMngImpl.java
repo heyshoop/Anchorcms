@@ -13,9 +13,10 @@ import com.anchorcms.common.hibernate.Updater;
 import com.anchorcms.common.page.Pagination;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -202,10 +203,6 @@ public class ContentTagMngImpl implements ContentTagMng {
 		return beans;
 	}
 
+	@Resource
 	private ContentTagDao dao;
-
-	@Autowired
-	public void setDao(ContentTagDao dao) {
-		this.dao = dao;
-	}
 }

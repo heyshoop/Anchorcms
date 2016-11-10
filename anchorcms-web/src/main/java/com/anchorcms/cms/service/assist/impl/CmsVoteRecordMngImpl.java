@@ -8,9 +8,10 @@ import com.anchorcms.cms.model.assist.CmsVoteRecord;
 import com.anchorcms.cms.model.assist.CmsVoteTopic;
 import com.anchorcms.cms.service.assist.CmsVoteRecordMng;
 import com.anchorcms.core.model.CmsUser;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -47,10 +48,6 @@ public class CmsVoteRecordMngImpl implements CmsVoteRecordMng {
 		return record != null ? record.getVoteTime() : null;
 	}
 
+	@Resource
 	private CmsVoteRecordDao dao;
-
-	@Autowired
-	public void setDao(CmsVoteRecordDao dao) {
-		this.dao = dao;
-	}
 }

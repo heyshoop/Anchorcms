@@ -134,13 +134,4 @@ public class ContentCountMngImpl implements ContentCountMng {
 	public void setInterval(int interval) {
 		this.interval = interval * 60 * 1000;
 	}
-
-	public void setCmsConfigMng(CmsConfigMng cmsConfigMng) {
-		this.cmsConfigMng = cmsConfigMng;
-	}
-
-	public void setDao(ContentCountDao dao) {
-		this.dao = dao;
-	}
-
 }

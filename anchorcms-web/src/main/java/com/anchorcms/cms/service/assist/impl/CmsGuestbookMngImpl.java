@@ -13,9 +13,10 @@ import com.anchorcms.common.hibernate.Updater;
 import com.anchorcms.common.page.Pagination;
 import com.anchorcms.core.model.CmsUser;
 import com.anchorcms.core.service.CmsSiteMng;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -112,29 +113,13 @@ public class CmsGuestbookMngImpl implements CmsGuestbookMng {
 	}
 	
 
+	@Resource
 	private CmsGuestbookCtgMng cmsGuestbookCtgMng;
+	@Resource
 	private CmsGuestbookExtMng cmsGuestbookExtMng;
+	@Resource
 	private CmsSiteMng cmsSiteMng;
+	@Resource
 	private CmsGuestbookDao dao;
-
-	@Autowired
-	public void setDao(CmsGuestbookDao dao) {
-		this.dao = dao;
-	}
-
-	@Autowired
-	public void setCmsGuestbookExtMng(CmsGuestbookExtMng cmsGuestbookExtMng) {
-		this.cmsGuestbookExtMng = cmsGuestbookExtMng;
-	}
-
-	@Autowired
-	public void setCmsGuestbookCtgMng(CmsGuestbookCtgMng cmsGuestbookCtgMng) {
-		this.cmsGuestbookCtgMng = cmsGuestbookCtgMng;
-	}
-
-	@Autowired
-	public void setCmsSiteMng(CmsSiteMng cmsSiteMng) {
-		this.cmsSiteMng = cmsSiteMng;
-	}
 
 }

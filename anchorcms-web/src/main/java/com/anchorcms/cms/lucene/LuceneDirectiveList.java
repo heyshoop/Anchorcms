@@ -17,13 +17,14 @@ import com.anchorcms.common.web.mvc.RealPathResolver;
 import com.anchorcms.core.model.CmsSite;
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.queryparser.classic.ParseException;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+
+import javax.annotation.Resource;
 
 import static com.anchorcms.common.constants.Constants.TPL_STYLE_LIST;
 import static com.anchorcms.common.constants.Constants.TPL_SUFFIX;
@@ -86,8 +87,8 @@ public class LuceneDirectiveList extends LuceneDirectiveAbstract {
 		DirectiveUtils.removeParamsFromVariable(env, paramWrap, origMap);
 	}
 
-	@Autowired
+	@Resource
 	private LuceneContentSvc luceneContentSvc;
-	@Autowired
+	@Resource
 	private RealPathResolver realPathResolver;
 }

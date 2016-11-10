@@ -296,6 +296,6 @@ public class DynamicPageAct {
 	private RealPathResolver realPathResolver;
 	@Resource
 	private ContentBuyMng contentBuyMng;
-	@Resource
+	@Resource(name = "httpSession")
 	private SessionProvider session;
 }

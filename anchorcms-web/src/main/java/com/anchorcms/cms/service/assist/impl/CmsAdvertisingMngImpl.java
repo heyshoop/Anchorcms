@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+
 
 @Service
 @Transactional
@@ -84,18 +86,8 @@ public class CmsAdvertisingMngImpl implements CmsAdvertisingMng {
 			ad.setClickCount(ad.getClickCount() + 1);
 		}
 	}
-
+	@Resource
 	private CmsAdvertisingSpaceMng cmsAdvertisingSpaceMng;
+	@Resource
 	private CmsAdvertisingDao dao;
-
-	@Autowired
-	public void setCmsAdvertisingSpaceMng(
-			CmsAdvertisingSpaceMng cmsAdvertisingSpaceMng) {
-		this.cmsAdvertisingSpaceMng = cmsAdvertisingSpaceMng;
-	}
-
-	@Autowired
-	public void setDao(CmsAdvertisingDao dao) {
-		this.dao = dao;
-	}
 }

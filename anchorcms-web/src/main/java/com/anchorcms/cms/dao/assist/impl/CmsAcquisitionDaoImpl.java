@@ -64,7 +64,6 @@ public class CmsAcquisitionDaoImpl extends
 		return ((Number) query.iterate().next()).intValue();
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<CmsAcquisition> getLargerQueues(Integer siteId, Integer queueNum) {
 		Finder f = Finder.create("from CmsAcquisition bean where bean.queue>:queueNum and bean.site.id=:siteId")
 				.setParam("queueNum", queueNum)

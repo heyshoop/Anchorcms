@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
@@ -23,7 +24,6 @@ import com.anchorcms.core.service.ConfigMng;
 import com.anchorcms.core.service.UnifiedUserMng;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -279,30 +279,11 @@ public class UnifiedUserMngImpl implements UnifiedUserMng {
 		return user;
 	}
 
+	@Resource
 	private ConfigMng configMng;
+	@Resource
 	private PwdEncoder pwdEncoder;
+	@Resource
 	private UnifiedUserDao dao;
-
-	public ConfigMng getConfigMng() {
-		return configMng;
-	}
-
-	public PwdEncoder getPwdEncoder() {
-		return pwdEncoder;
-	}
-
-	public UnifiedUserDao getDao() {
-		return dao;
-	}
-
-	public void setConfigMng(ConfigMng configMng) {
-		this.configMng = configMng;
-	}
-	public void setPwdEncoder(PwdEncoder pwdEncoder) {
-		this.pwdEncoder = pwdEncoder;
-	}
-	public void setDao(UnifiedUserDao dao) {
-		this.dao = dao;
-	}
 
 }

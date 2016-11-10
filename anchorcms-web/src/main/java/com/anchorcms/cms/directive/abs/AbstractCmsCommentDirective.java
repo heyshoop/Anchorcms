@@ -4,12 +4,13 @@ import java.util.Map;
 
 import com.anchorcms.cms.service.assist.CmsCommentMng;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
+
+import javax.annotation.Resource;
 
 /**
  * 评论标签基类
@@ -79,7 +80,7 @@ public abstract class AbstractCmsCommentDirective implements
 		}
 	}
 
-	@Autowired
+	@Resource
 	protected CmsCommentMng cmsCommentMng;
 
 }

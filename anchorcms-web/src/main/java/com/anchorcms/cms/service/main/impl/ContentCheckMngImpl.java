@@ -5,9 +5,10 @@ import com.anchorcms.cms.service.main.ContentCheckMng;
 import com.anchorcms.cms.model.main.Content;
 import com.anchorcms.cms.model.main.ContentCheck;
 import com.anchorcms.common.hibernate.Updater;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -27,10 +28,7 @@ public class ContentCheckMngImpl implements ContentCheckMng {
 		return bean;
 	}
 
+	@Resource
 	private ContentCheckDao dao;
 
-	@Autowired
-	public void setDao(ContentCheckDao dao) {
-		this.dao = dao;
-	}
 }

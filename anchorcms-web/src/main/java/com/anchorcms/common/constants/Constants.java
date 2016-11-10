@@ -10,7 +10,7 @@ public class Constants {
     /**
      * 管理路径
      */
-    public static final String MANAGER_SUFFIX = "manager/anchorcms/index.do";
+    public static final String ADMIN_SUFFIX = "/anchorcms/cmsadmin/index.do";
     /**
      * 首页模板
      */
@@ -228,9 +228,6 @@ public class Constants {
      * HTTP GET请求
      */
     public static final String GET = "GET";
-
-    public static final String ADMIN_SUFFIX = "manager/anchorcms/index.do";
-
     public static final String WEIXIN_APPKEY="wxAppkey";
     public static final String WEIXIN_APPSECRET="wxAppSecret";
     public static final int DISTRIBUTE_THREAD_COUNT=10;

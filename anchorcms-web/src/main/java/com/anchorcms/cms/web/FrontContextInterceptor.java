@@ -3,6 +3,7 @@ package com.anchorcms.cms.web;
 import java.io.IOException;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +22,6 @@ import com.anchorcms.core.service.CmsUserMng;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 
@@ -139,21 +139,12 @@ public class FrontContextInterceptor extends HandlerInterceptorAdapter {
 		return null;
 	}
 
+	@Resource
 	private CmsSiteMng cmsSiteMng;
+	@Resource
 	private CmsUserMng cmsUserMng;
-	@Autowired
+	@Resource
 	private CmsConfigMng configMng;
-	@Autowired
+	@Resource
 	private SessionProvider session;
-
-
-	@Autowired
-	public void setCmsSiteMng(CmsSiteMng cmsSiteMng) {
-		this.cmsSiteMng = cmsSiteMng;
-	}
-
-	@Autowired
-	public void setCmsUserMng(CmsUserMng cmsUserMng) {
-		this.cmsUserMng = cmsUserMng;
-	}
 }

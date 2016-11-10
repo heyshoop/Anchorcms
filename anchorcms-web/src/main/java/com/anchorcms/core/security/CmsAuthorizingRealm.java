@@ -20,7 +20,8 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.util.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.Resource;
 
 
 /**
@@ -69,17 +70,8 @@ public class CmsAuthorizingRealm extends AuthorizingRealm {
 		  super.clearCachedAuthorizationInfo(pc);
 	}
 
+	@Resource
 	protected CmsUserMng cmsUserMng;
+	@Resource
 	protected UnifiedUserMng unifiedUserMng;
-
-	@Autowired
-	public void setCmsUserMng(CmsUserMng cmsUserMng) {
-		this.cmsUserMng = cmsUserMng;
-	}
-
-	@Autowired
-	public void setUnifiedUserMng(UnifiedUserMng unifiedUserMng) {
-		this.unifiedUserMng = unifiedUserMng;
-	}
-
 }

@@ -6,9 +6,10 @@ import com.anchorcms.cms.dao.assist.CmsAdvertisingSpaceDao;
 import com.anchorcms.cms.model.assist.CmsAdvertisingSpace;
 import com.anchorcms.cms.service.assist.CmsAdvertisingSpaceMng;
 import com.anchorcms.common.hibernate.Updater;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -50,10 +51,6 @@ public class CmsAdvertisingSpaceMngImpl implements CmsAdvertisingSpaceMng {
 		return beans;
 	}
 
+	@Resource
 	private CmsAdvertisingSpaceDao dao;
-
-	@Autowired
-	public void setDao(CmsAdvertisingSpaceDao dao) {
-		this.dao = dao;
-	}
 }

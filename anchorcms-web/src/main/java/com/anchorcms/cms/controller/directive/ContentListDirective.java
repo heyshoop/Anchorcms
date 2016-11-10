@@ -74,7 +74,6 @@ public class ContentListDirective extends AbstractContentDirective {
 		DirectiveUtils.removeParamsFromVariable(env, paramWrap, origMap);
 	}
 
-	@SuppressWarnings("unchecked")
 	protected List<Content> getList(Map<String, TemplateModel> params,
 			Environment env) throws TemplateException {
 		Integer[] ids = DirectiveUtils.getIntArray(PARAM_IDS, params);

@@ -18,6 +18,8 @@ import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 
+import javax.annotation.Resource;
+
 import static com.anchorcms.common.web.freemarker.DirectiveUtils.OUT_BEAN;
 
 /**
@@ -29,7 +31,6 @@ public class CmsAdvertisingDirective implements TemplateDirectiveModel {
 	 */
 	public static final String PARAM_ID = "id";
 
-	@SuppressWarnings("unchecked")
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		Integer id = DirectiveUtils.getInt(PARAM_ID, params);
@@ -46,6 +47,6 @@ public class CmsAdvertisingDirective implements TemplateDirectiveModel {
 		DirectiveUtils.removeParamsFromVariable(env, paramWrap, origMap);
 	}
 
-	@Autowired
+	@Resource
 	private CmsAdvertisingMng cmsAdvertisingMng;
 }

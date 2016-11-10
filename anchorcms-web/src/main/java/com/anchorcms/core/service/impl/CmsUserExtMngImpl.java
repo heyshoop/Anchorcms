@@ -5,9 +5,10 @@ import com.anchorcms.core.dao.CmsUserExtDao;
 import com.anchorcms.core.service.CmsUserExtMng;
 import com.anchorcms.core.model.CmsUser;
 import com.anchorcms.core.model.CmsUserExt;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -41,10 +42,6 @@ public class CmsUserExtMngImpl implements CmsUserExtMng {
 		}
 	}
 
+	@Resource
 	private CmsUserExtDao dao;
-
-	@Autowired
-	public void setDao(CmsUserExtDao dao) {
-		this.dao = dao;
-	}
 }

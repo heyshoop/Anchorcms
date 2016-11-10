@@ -18,10 +18,10 @@ import com.anchorcms.common.page.Pagination;
 import com.anchorcms.core.model.CmsUser;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 
 
 @Service
@@ -122,29 +122,13 @@ public class CmsVoteTopicMngImpl implements CmsVoteTopicMng {
 		return beans;
 	}
 
+	@Resource
 	private CmsVoteSubTopicMng cmsVoteSubtopicMng;
+	@Resource
 	private CmsVoteReplyMng cmsVoteReplyMng;
+	@Resource
 	private CmsVoteRecordMng cmsVoteRecordMng;
+	@Resource
 	private CmsVoteTopicDao dao;
-
-	@Autowired
-	public void setCmsVoteSubTopicMng(CmsVoteSubTopicMng cmsVoteSubTopicMng) {
-		this.cmsVoteSubtopicMng = cmsVoteSubTopicMng;
-	}
-	
-	@Autowired
-	public void setCmsVoteReplyMng(CmsVoteReplyMng cmsVoteReplyMng) {
-		this.cmsVoteReplyMng = cmsVoteReplyMng;
-	}
-
-	@Autowired
-	public void setCmsVoteRecordMng(CmsVoteRecordMng cmsVoteRecordMng) {
-		this.cmsVoteRecordMng = cmsVoteRecordMng;
-	}
-
-	@Autowired
-	public void setDao(CmsVoteTopicDao dao) {
-		this.dao = dao;
-	}
 
 }

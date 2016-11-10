@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Resource;
 import javax.mail.MessagingException;
 
 import com.anchorcms.cms.service.main.ChannelMng;
@@ -364,54 +365,23 @@ public class CmsUserMngImpl implements CmsUserMng {
 		return dao.countByEmail(email) <= 0;
 	}
 
+	@Resource
 	private CmsUserSiteMng cmsUserSiteMng;
+	@Resource
 	private CmsSiteMng cmsSiteMng;
+	@Resource
 	private ChannelMng channelMng;
+	@Resource
 	private CmsRoleMng cmsRoleMng;
+	@Resource
 	private CmsGroupMng cmsGroupMng;
+	@Resource
 	private UnifiedUserMng unifiedUserMng;
+	@Resource
 	private CmsUserExtMng cmsUserExtMng;
+	@Resource
 	private CmsUserDao dao;
+	@Resource
 	private ContentMng contentMng;
-
-	public ContentMng getContentMng() {
-		return contentMng;
-	}
-
-	public void setContentMng(ContentMng contentMng) {
-		this.contentMng = contentMng;
-	}
-
-	public void setCmsUserSiteMng(CmsUserSiteMng cmsUserSiteMng) {
-		this.cmsUserSiteMng = cmsUserSiteMng;
-	}
-
-	public void setCmsSiteMng(CmsSiteMng cmsSiteMng) {
-		this.cmsSiteMng = cmsSiteMng;
-	}
-
-	public void setChannelMng(ChannelMng channelMng) {
-		this.channelMng = channelMng;
-	}
-
-	public void setCmsRoleMng(CmsRoleMng cmsRoleMng) {
-		this.cmsRoleMng = cmsRoleMng;
-	}
-
-	public void setUnifiedUserMng(UnifiedUserMng unifiedUserMng) {
-		this.unifiedUserMng = unifiedUserMng;
-	}
-
-	public void setCmsUserExtMng(CmsUserExtMng cmsUserExtMng) {
-		this.cmsUserExtMng = cmsUserExtMng;
-	}
-
-	public void setCmsGroupMng(CmsGroupMng cmsGroupMng) {
-		this.cmsGroupMng = cmsGroupMng;
-	}
-
-	public void setDao(CmsUserDao dao) {
-		this.dao = dao;
-	}
 
 }

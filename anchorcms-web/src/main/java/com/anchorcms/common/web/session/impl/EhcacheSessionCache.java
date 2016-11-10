@@ -12,9 +12,10 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-@Service
+import javax.annotation.Resource;
+
+@Service("ehcacheSession")
 public class EhcacheSessionCache implements SessionCache, InitializingBean {
-	@SuppressWarnings("unchecked")
 	public Map<String, Serializable> getSession(String root) {
 		Element e = cache.get(root);
 		return e != null ? (HashMap<String, Serializable>) e.getObjectValue() : null;
@@ -52,10 +53,6 @@ public class EhcacheSessionCache implements SessionCache, InitializingBean {
 		Assert.notNull(cache);
 	}
 
+	@Resource
 	private Ehcache cache;
-
-	public void setCache(Ehcache cache) {
-		this.cache = cache;
-	}
-
 }

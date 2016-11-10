@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +22,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.util.UrlPathHelper;
@@ -272,27 +272,18 @@ public class AdminContextInterceptor extends HandlerInterceptorAdapter {
 		}
 		return userPermission;
 	}
+	@Resource
 	private CmsSiteMng cmsSiteMng;
+	@Resource
 	private CmsUserMng cmsUserMng;
-	private boolean auth = true;
-	private String[] excludeUrls;
-	
-	@Autowired
+	@Resource
 	private CmsAuthorizingRealm authorizingRealm;
 
-	public void setCmsSiteMng(CmsSiteMng cmsSiteMng) {
-		this.cmsSiteMng = cmsSiteMng;
-	}
-
-	@Autowired
-	public void setCmsUserMng(CmsUserMng cmsUserMng) {
-		this.cmsUserMng = cmsUserMng;
-	}
-
+	private boolean auth = true;
+	private String[] excludeUrls;
 	public void setAuth(boolean auth) {
 		this.auth = auth;
 	}
-
 	public void setExcludeUrls(String[] excludeUrls) {
 		this.excludeUrls = excludeUrls;
 	}

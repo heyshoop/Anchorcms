@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Properties;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -147,6 +148,6 @@ public class FireWallInterceptor extends HandlerInterceptorAdapter implements In
 	private void changeConfigModifiedTime(HttpServletRequest request){
 		request.getSession().getServletContext().setAttribute(FIREWALL_CONFIG_LASTMODIFIED, Calendar.getInstance().getTime().getTime());
 	}
-	@Autowired
+	@Resource
 	private RealPathResolver realPathResolver;
 }

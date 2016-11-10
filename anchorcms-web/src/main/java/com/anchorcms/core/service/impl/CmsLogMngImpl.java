@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import com.anchorcms.common.page.Pagination;
@@ -17,7 +18,6 @@ import com.anchorcms.core.model.CmsUser;
 import com.anchorcms.core.service.CmsLogMng;
 import com.anchorcms.core.service.CmsUserMng;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.UrlPathHelper;
@@ -125,17 +125,9 @@ public class CmsLogMngImpl implements CmsLogMng {
 		return beans;
 	}
 
+	@Resource
 	private CmsUserMng cmsUserMng;
+	@Resource
 	private CmsLogDao dao;
-
-	@Autowired
-	public void setCmsUserMng(CmsUserMng cmsUserMng) {
-		this.cmsUserMng = cmsUserMng;
-	}
-
-	@Autowired
-	public void setDao(CmsLogDao dao) {
-		this.dao = dao;
-	}
 
 }

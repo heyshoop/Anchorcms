@@ -14,9 +14,10 @@ import com.anchorcms.core.model.CmsUser;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -136,37 +137,17 @@ public class CmsSiteMngImpl implements CmsSiteMng {
 		return beans;
 	}
 
+	@Resource
 	private CmsUserMng cmsUserMng;
+	@Resource
 	private CmsUserSiteMng cmsUserSiteMng;
+	@Resource
 	private CmsResourceMng cmsResourceMng;
+	@Resource
 	private FtpMng ftpMng;
+	@Resource
 	private CmsSiteDao dao;
-	@Autowired
+	@Resource
 	private CmsSiteCompanyMng siteCompanyMng;
-
-	@Autowired
-	public void setCmsUserMng(CmsUserMng cmsUserMng) {
-		this.cmsUserMng = cmsUserMng;
-	}
-
-	@Autowired
-	public void setCmsUserSiteMng(CmsUserSiteMng cmsUserSiteMng) {
-		this.cmsUserSiteMng = cmsUserSiteMng;
-	}
-
-	@Autowired
-	public void setCmsResourceMng(CmsResourceMng cmsResourceMng) {
-		this.cmsResourceMng = cmsResourceMng;
-	}
-
-	@Autowired
-	public void setFtpMng(FtpMng ftpMng) {
-		this.ftpMng = ftpMng;
-	}
-
-	@Autowired
-	public void setDao(CmsSiteDao dao) {
-		this.dao = dao;
-	}
 
 }

@@ -10,9 +10,10 @@ import com.anchorcms.cms.model.main.ContentCharge;
 import com.anchorcms.cms.service.main.ContentChargeMng;
 import com.anchorcms.common.hibernate.Updater;
 import com.anchorcms.common.page.Pagination;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -117,11 +118,6 @@ public class ContentChargeMngImpl implements ContentChargeMng {
 		content.setContentCharge(charge);
 		return charge;
 	}
-
+	@Resource
 	private ContentChargeDao dao;
-
-	@Autowired
-	public void setDao(ContentChargeDao dao) {
-		this.dao = dao;
-	}
 }

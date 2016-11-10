@@ -6,9 +6,10 @@ import com.anchorcms.cms.dao.assist.CmsFriendlinkCtgDao;
 import com.anchorcms.cms.model.assist.CmsFriendlinkCtg;
 import com.anchorcms.cms.service.assist.CmsFriendlinkCtgMng;
 import com.anchorcms.common.hibernate.Updater;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -66,10 +67,7 @@ public class CmsFriendlinkCtgMngImpl implements CmsFriendlinkCtgMng {
 		return beans;
 	}
 
+	@Resource
 	private CmsFriendlinkCtgDao dao;
 
-	@Autowired
-	public void setDao(CmsFriendlinkCtgDao dao) {
-		this.dao = dao;
-	}
 }

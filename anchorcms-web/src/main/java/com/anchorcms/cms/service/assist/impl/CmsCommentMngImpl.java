@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+
 
 @Service
 @Transactional
@@ -144,47 +146,19 @@ public class CmsCommentMngImpl implements CmsCommentMng {
 		comment.setDowns((short) (comment.getDowns() + 1));
 	}
 
+	@Resource
 	private CmsSensitivityMng cmsSensitivityMng;
+	@Resource
 	private CmsUserMng cmsUserMng;
+	@Resource
 	private CmsSiteMng cmsSiteMng;
+	@Resource
 	private ContentMng contentMng;
+	@Resource
 	private ContentCountMng contentCountMng;
+	@Resource
 	private CmsCommentExtMng cmsCommentExtMng;
+	@Resource
 	private CmsCommentDao dao;
-
-	@Autowired
-	public void setCmsSensitivityMng(CmsSensitivityMng cmsSensitivityMng) {
-		this.cmsSensitivityMng = cmsSensitivityMng;
-	}
-
-	@Autowired
-	public void setCmsUserMng(CmsUserMng cmsUserMng) {
-		this.cmsUserMng = cmsUserMng;
-	}
-
-	@Autowired
-	public void setCmsSiteMng(CmsSiteMng cmsSiteMng) {
-		this.cmsSiteMng = cmsSiteMng;
-	}
-
-	@Autowired
-	public void setContentMng(ContentMng contentMng) {
-		this.contentMng = contentMng;
-	}
-
-	@Autowired
-	public void setCmsCommentExtMng(CmsCommentExtMng cmsCommentExtMng) {
-		this.cmsCommentExtMng = cmsCommentExtMng;
-	}
-
-	@Autowired
-	public void setContentCountMng(ContentCountMng contentCountMng) {
-		this.contentCountMng = contentCountMng;
-	}
-
-	@Autowired
-	public void setDao(CmsCommentDao dao) {
-		this.dao = dao;
-	}
 
 }

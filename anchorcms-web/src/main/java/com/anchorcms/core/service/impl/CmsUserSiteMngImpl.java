@@ -11,9 +11,10 @@ import com.anchorcms.core.service.CmsUserSiteMng;
 import com.anchorcms.core.model.CmsSite;
 import com.anchorcms.core.model.CmsUser;
 import com.anchorcms.core.model.CmsUserSite;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -135,16 +136,8 @@ public class CmsUserSiteMngImpl implements CmsUserSiteMng {
 		return beans;
 	}
 
+	@Resource
 	private CmsSiteMng cmsSiteMng;
+	@Resource
 	private CmsUserSiteDao dao;
-
-	@Autowired
-	public void setCmsSiteMng(CmsSiteMng cmsSiteMng) {
-		this.cmsSiteMng = cmsSiteMng;
-	}
-
-	@Autowired
-	public void setDao(CmsUserSiteDao dao) {
-		this.dao = dao;
-	}
 }

@@ -73,7 +73,6 @@
     <!--=====================================================自定义标签=========================================================-->
     <bean id="contentMng" class="com.anchorcms.cms.service.main.impl.ContentMngImpl" />
     <bean id="realPathResolver" class="com.anchorcms.common.web.mvc.impl.ServletContextRealPathResolver"/>
-    <bean id="configMng" class="com.anchorcms.core.service.impl.ConfigMngImpl"/>
     <bean id="channelMng" class="com.anchorcms.cms.service.main.impl.ChannelMngImpl">
         <property name="deleteCheckerList">
             <list>

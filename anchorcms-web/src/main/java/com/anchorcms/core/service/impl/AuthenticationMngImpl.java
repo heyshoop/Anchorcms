@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,7 +20,6 @@ import com.anchorcms.core.model.UnifiedUser;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -136,18 +136,10 @@ public class AuthenticationMngImpl implements AuthenticationMng {
 	private long refreshTime = getNextRefreshTime(System.currentTimeMillis(),
 			this.interval);
 
+	@Resource
 	private UnifiedUserMng unifiedUserMng;
+	@Resource
 	private AuthenticationDao dao;
-
-	@Autowired
-	public void setDao(AuthenticationDao dao) {
-		this.dao = dao;
-	}
-
-	@Autowired
-	public void setUserMng(UnifiedUserMng unifiedUserMng) {
-		this.unifiedUserMng = unifiedUserMng;
-	}
 
 	/**
 	 * 设置认证过期时间。默认30分钟。

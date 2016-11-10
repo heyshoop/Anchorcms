@@ -24,6 +24,8 @@ import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 
+import javax.annotation.Resource;
+
 /**
  * 内容标签基类
  */
@@ -457,44 +459,12 @@ public abstract class AbstractContentDirective implements
 
 	abstract protected boolean isPage();
 
+	@Resource
 	protected ContentTagMng contentTagMng;
-
+	@Resource
 	protected ChannelMng channelMng;
-
+	@Resource
 	protected CmsSiteMng cmsSiteMng;
-
-	@Autowired
+	@Resource
 	protected ContentMng contentMng;
-
-	public ChannelMng getChannelMng() {
-		return channelMng;
-	}
-
-	public void setChannelMng(ChannelMng channelMng) {
-		this.channelMng = channelMng;
-	}
-
-	public CmsSiteMng getCmsSiteMng() {
-		return cmsSiteMng;
-	}
-
-	public void setCmsSiteMng(CmsSiteMng cmsSiteMng) {
-		this.cmsSiteMng = cmsSiteMng;
-	}
-
-	public ContentMng getContentMng() {
-		return contentMng;
-	}
-
-	public void setContentMng(ContentMng contentMng) {
-		this.contentMng = contentMng;
-	}
-
-	public ContentTagMng getContentTagMng() {
-		return contentTagMng;
-	}
-
-	public void setContentTagMng(ContentTagMng contentTagMng) {
-		this.contentTagMng = contentTagMng;
-	}
 }

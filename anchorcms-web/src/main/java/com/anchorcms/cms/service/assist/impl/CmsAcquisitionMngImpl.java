@@ -17,9 +17,10 @@ import com.anchorcms.cms.service.main.*;
 import com.anchorcms.common.hibernate.Updater;
 import com.anchorcms.core.service.CmsSiteMng;
 import com.anchorcms.core.service.CmsUserMng;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -233,45 +234,20 @@ public class CmsAcquisitionMngImpl implements CmsAcquisitionMng,
 		return acquisition;
 	}
 
+	@Resource
 	private ChannelMng channelMng;
+	@Resource
 	private ContentMng contentMng;
+	@Resource
 	private ContentTypeMng contentTypeMng;
+	@Resource
 	private CmsSiteMng cmsSiteMng;
+	@Resource
 	private CmsUserMng cmsUserMng;
+	@Resource
 	private CmsAcquisitionDao dao;
-	@Autowired
+	@Resource
 	private CmsModelMng modelMng;
-	@Autowired
+	@Resource
 	private CmsAcquisitionHistoryMng acquisitionHistoryMng;
-
-	@Autowired
-	public void setChannelMng(ChannelMng channelMng) {
-		this.channelMng = channelMng;
-	}
-
-	@Autowired
-	public void setContentMng(ContentMng contentMng) {
-		this.contentMng = contentMng;
-	}
-
-	@Autowired
-	public void setContentTypeMng(ContentTypeMng contentTypeMng) {
-		this.contentTypeMng = contentTypeMng;
-	}
-
-	@Autowired
-	public void setCmsSiteMng(CmsSiteMng cmsSiteMng) {
-		this.cmsSiteMng = cmsSiteMng;
-	}
-
-	@Autowired
-	public void setCmsUserMng(CmsUserMng cmsUserMng) {
-		this.cmsUserMng = cmsUserMng;
-	}
-
-	@Autowired
-	public void setDao(CmsAcquisitionDao dao) {
-		this.dao = dao;
-	}
-
 }

@@ -6,9 +6,10 @@ import com.anchorcms.cms.dao.assist.CmsGuestbookCtgDao;
 import com.anchorcms.cms.model.assist.CmsGuestbookCtg;
 import com.anchorcms.cms.service.assist.CmsGuestbookCtgMng;
 import com.anchorcms.common.hibernate.Updater;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -49,10 +50,6 @@ public class CmsGuestbookCtgMngImpl implements CmsGuestbookCtgMng {
 		return beans;
 	}
 
+	@Resource
 	private CmsGuestbookCtgDao dao;
-
-	@Autowired
-	public void setDao(CmsGuestbookCtgDao dao) {
-		this.dao = dao;
-	}
 }

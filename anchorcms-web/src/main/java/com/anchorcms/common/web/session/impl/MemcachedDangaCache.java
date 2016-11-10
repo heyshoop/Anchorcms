@@ -12,13 +12,11 @@ import com.danga.MemCached.MemCachedClient;
 import com.danga.MemCached.SockIOPool;
 import org.springframework.stereotype.Service;
 
-@Service
 public class MemcachedDangaCache implements SessionCache, InitializingBean {
 	private MemCachedClient client;
 	private String[] servers;
 	private Integer[] weights;
 
-	@SuppressWarnings("unchecked")
 	public HashMap<String, Serializable> getSession(String root) {
 		return (HashMap<String, Serializable>) client.get(root);
 	}

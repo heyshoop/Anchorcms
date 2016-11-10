@@ -145,12 +145,8 @@ public class CmsGroupMngImpl implements CmsGroupMng {
 		return beans;
 	}
 
+	@Resource
 	private CmsGroupDao dao;
 	@Resource
 	private ChannelMng channelMng;
-
-	@Resource
-	public void setDao(CmsGroupDao dao) {
-		this.dao = dao;
-	}
 }

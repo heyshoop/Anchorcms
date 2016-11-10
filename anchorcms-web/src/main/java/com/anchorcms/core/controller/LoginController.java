@@ -1,6 +1,7 @@
 package com.anchorcms.core.controller;
 
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,7 +13,6 @@ import com.anchorcms.core.service.AuthenticationMng;
 import com.anchorcms.core.model.Authentication;
 import com.anchorcms.core.web.WebCoreErrors;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -180,9 +180,9 @@ public class LoginController {
 		return errors;
 	}
 
-	@Autowired
+	@Resource
 	private AuthenticationMng authMng;
-	@Autowired
+	@Resource(name = "httpSession")
 	private SessionProvider session;
 
 }

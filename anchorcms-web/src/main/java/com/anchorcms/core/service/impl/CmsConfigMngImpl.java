@@ -12,7 +12,6 @@ import com.anchorcms.core.model.CmsConfig;
 import com.anchorcms.core.model.CmsConfigAttr;
 import com.anchorcms.core.model.MarkConfig;
 import com.anchorcms.core.model.MemberConfig;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -85,12 +84,8 @@ public class CmsConfigMngImpl implements CmsConfigMng {
 		oldAttr.putAll(ssoAttr);
 	}
 
+	@Resource
 	private CmsConfigDao dao;
 	@Resource
 	private ContentQueryFreshTimeCache contentQueryFreshTimeCache;
-
-	@Resource
-	public void setDao(CmsConfigDao dao) {
-		this.dao = dao;
-	}
 }

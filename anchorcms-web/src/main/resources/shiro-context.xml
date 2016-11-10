@@ -25,9 +25,9 @@
                 /login.jspx = authc
                 /logout.jspx = logout
                 /member/** = user
-                /manager/login.do = authc
-                /manager/anchorcms/logout.do = logout
-                /manager/anchorcms/** =user
+                /anchorcms/login.do = authc
+                /anchorcms/cmsadmin/logout.do = logout
+                /anchorcms/cmsadmin/** =user
             </value>
         </property>
     </bean>
