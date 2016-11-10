@@ -16,7 +16,6 @@ import com.anchorcms.common.web.freemarker.DirectiveUtils;
 import com.anchorcms.core.model.CmsSite;
 import com.anchorcms.core.service.CmsSiteMng;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 import freemarker.core.Environment;

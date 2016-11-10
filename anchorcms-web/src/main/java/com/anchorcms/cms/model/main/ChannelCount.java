@@ -159,9 +159,9 @@ public class ChannelCount implements Serializable{
         result = 31 * result + contentCountYear;
         return result;
     }
-    @OneToOne
-    private Channel channel;
 
+    private Channel channel;
+    @OneToOne
     public Channel getChannel() {
         return channel;
     }

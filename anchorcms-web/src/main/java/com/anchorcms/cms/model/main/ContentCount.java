@@ -263,9 +263,9 @@ public class ContentCount implements Serializable{
         result = 31 * result + downs;
         return result;
     }
-    @OneToOne
-    private Content content;
 
+    private Content content;
+    @OneToOne
     public Content getContent() {
         return content;
     }

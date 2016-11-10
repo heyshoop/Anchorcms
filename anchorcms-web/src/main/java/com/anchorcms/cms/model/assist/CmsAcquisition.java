@@ -695,15 +695,16 @@ public class CmsAcquisition implements Serializable{
         result = 31 * result + (originAppoint != null ? originAppoint.hashCode() : 0);
         return result;
     }
-    @ManyToOne
+
     private Channel channel;
-    @ManyToOne
+
     private CmsUser user;
-    @ManyToOne
+
     private ContentType type;
-    @ManyToOne
+
     private CmsSite site;
 
+    @ManyToOne
     public CmsUser getUser() {
         return user;
     }
@@ -711,7 +712,7 @@ public class CmsAcquisition implements Serializable{
     public void setUser(CmsUser user) {
         this.user = user;
     }
-
+    @ManyToOne
     public ContentType getType() {
         return type;
     }
@@ -719,7 +720,7 @@ public class CmsAcquisition implements Serializable{
     public void setType(ContentType type) {
         this.type = type;
     }
-
+    @ManyToOne
     public CmsSite getSite() {
         return site;
     }
@@ -727,7 +728,7 @@ public class CmsAcquisition implements Serializable{
     public void setSite(CmsSite site) {
         this.site = site;
     }
-
+    @ManyToOne
     public Channel getChannel() {
         return channel;
     }

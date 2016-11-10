@@ -170,29 +170,29 @@ public class Channel implements Serializable{
         result = 31 * result + priority;
         return result;
     }
-    @ManyToMany
-    private Set<CmsGroup> viewGroups;
-    @ManyToMany
-    private Set<CmsGroup> contriGroups;
-    @ManyToMany
-    private Set<CmsUser> users;
-    @OneToOne
-    private ChannelExt channelExt;
-    @ManyToOne
-    private Channel parent;
-    @ManyToOne
-    private CmsSite site;
-    @ManyToOne
-    private CmsModel model;
-    @OneToMany
-    private List<ChannelModel> channelModels;
-    @OneToMany
-    private Set<ChannelTxt> channelTxtSet;
-    @OneToOne
-    private ChannelCount channelCount;
-    @Transient
-    private Map<String,String> attr;
 
+    private Set<CmsGroup> viewGroups;
+
+    private Set<CmsGroup> contriGroups;
+
+    private Set<CmsUser> users;
+
+    private ChannelExt channelExt;
+
+    private Channel parent;
+
+    private CmsSite site;
+
+    private CmsModel model;
+
+    private List<ChannelModel> channelModels;
+
+    private Set<ChannelTxt> channelTxtSet;
+
+    private ChannelCount channelCount;
+
+    private Map<String,String> attr;
+    @Transient
     public Map<String, String> getAttr() {
         return attr;
     }
@@ -200,7 +200,7 @@ public class Channel implements Serializable{
     public void setAttr(Map<String, String> attr) {
         this.attr = attr;
     }
-
+    @OneToOne
     public ChannelCount getChannelCount() {
         return channelCount;
     }
@@ -208,7 +208,7 @@ public class Channel implements Serializable{
     public void setChannelCount(ChannelCount channelCount) {
         this.channelCount = channelCount;
     }
-
+    @OneToMany
     public Set<ChannelTxt> getChannelTxtSet() {
         return channelTxtSet;
     }
@@ -216,7 +216,7 @@ public class Channel implements Serializable{
     public void setChannelTxtSet(Set<ChannelTxt> channelTxtSet) {
         this.channelTxtSet = channelTxtSet;
     }
-
+    @OneToMany
     public List<ChannelModel> getChannelModels() {
         return channelModels;
     }
@@ -224,7 +224,7 @@ public class Channel implements Serializable{
     public void setChannelModels(List<ChannelModel> channelModels) {
         this.channelModels = channelModels;
     }
-
+    @ManyToOne
     public CmsModel getModel() {
         return model;
     }
@@ -232,7 +232,7 @@ public class Channel implements Serializable{
     public void setModel(CmsModel model) {
         this.model = model;
     }
-
+    @ManyToOne
     public CmsSite getSite() {
         return site;
     }
@@ -240,7 +240,7 @@ public class Channel implements Serializable{
     public void setSite(CmsSite site) {
         this.site = site;
     }
-
+    @ManyToOne
     public Channel getParent() {
         return parent;
     }
@@ -248,7 +248,7 @@ public class Channel implements Serializable{
     public void setParent(Channel parent) {
         this.parent = parent;
     }
-
+    @OneToOne
     public ChannelExt getChannelExt() {
         return channelExt;
     }
@@ -256,7 +256,7 @@ public class Channel implements Serializable{
     public void setChannelExt(ChannelExt channelExt) {
         this.channelExt = channelExt;
     }
-
+    @ManyToMany
     public Set<CmsUser> getUsers() {
         return users;
     }
@@ -264,7 +264,7 @@ public class Channel implements Serializable{
     public void setUsers(Set<CmsUser> users) {
         this.users = users;
     }
-
+    @ManyToMany
     public Set<CmsGroup> getViewGroups() {
         return viewGroups;
     }
@@ -272,7 +272,7 @@ public class Channel implements Serializable{
     public void setViewGroups(Set<CmsGroup> viewGroups) {
         this.viewGroups = viewGroups;
     }
-
+    @ManyToMany
     public Set<CmsGroup> getContriGroups() {
         return contriGroups;
     }
@@ -321,6 +321,7 @@ public class Channel implements Serializable{
      *
      * @return
      */
+    @Transient
     public Byte getFinalStepExtends() {
         Byte step = getFinalStep();
         if (step == null) {
@@ -334,6 +335,7 @@ public class Channel implements Serializable{
             return step;
         }
     }
+    @Transient
     public Byte getFinalStep() {
         ChannelExt ext = getChannelExt();
         if (ext != null) {
@@ -347,6 +349,7 @@ public class Channel implements Serializable{
      *
      * @return
      */
+    @Transient
     public AfterCheckEnum getAfterCheckEnum() {
         Byte after = getChannelExt().getAfterCheck();
         Channel channel = getParent();
@@ -370,6 +373,7 @@ public class Channel implements Serializable{
             return AfterCheckEnum.CANNOT_UPDATE;
         }
     }
+    @Transient
     public Byte getAfterCheck() {
         ChannelExt ext = getChannelExt();
         if (ext != null) {
@@ -378,6 +382,7 @@ public class Channel implements Serializable{
             return null;
         }
     }
+    @Transient
     public Boolean getStaticContent() {
         ChannelExt ext = getChannelExt();
         if (ext != null) {
@@ -391,6 +396,7 @@ public class Channel implements Serializable{
      *
      * @return
      */
+    @Transient
     public Integer[] getNodeIds() {
         List<Channel> channels = getNodeList();
         Integer[] ids = new Integer[channels.size()];
@@ -405,6 +411,7 @@ public class Channel implements Serializable{
      *
      * @return
      */
+    @Transient
     public List<Channel> getNodeList() {
         LinkedList<Channel> list = new LinkedList<Channel>();
         Channel node = this;
@@ -452,6 +459,7 @@ public class Channel implements Serializable{
         cm.setModelId(model.getModelId());
         list.add(cm);
     }
+    @Transient
     public String getContentRule() {
         ChannelExt ext = getChannelExt();
         if (ext != null) {
@@ -460,6 +468,7 @@ public class Channel implements Serializable{
             return null;
         }
     }
+    @Transient
     public String getLink() {
         ChannelExt ext = getChannelExt();
         if (ext != null) {
@@ -468,6 +477,7 @@ public class Channel implements Serializable{
             return null;
         }
     }
+    @Transient
     public Boolean getStaticChannel() {
         ChannelExt ext = getChannelExt();
         if (ext != null) {
@@ -476,6 +486,7 @@ public class Channel implements Serializable{
             return null;
         }
     }
+    @Transient
     public Boolean getListChild() {
         ChannelExt ext = getChannelExt();
         if (ext != null) {
@@ -484,6 +495,7 @@ public class Channel implements Serializable{
             return null;
         }
     }
+    @Transient
     public Integer getPageSize() {
         ChannelExt ext = getChannelExt();
         if (ext != null) {
@@ -531,6 +543,7 @@ public class Channel implements Serializable{
         }
         return url.toString();
     }
+    @Transient
     public String getStaticFilenameByRule() {
         String rule = getChannelRule();
         if (StringUtils.isBlank(rule)) {
@@ -541,6 +554,7 @@ public class Channel implements Serializable{
                 .getModelPath(), getChannelId(), getChannelPath(), null, null);
         return url;
     }
+    @Transient
     public String getChannelRule() {
         ChannelExt ext = getChannelExt();
         if (ext != null) {
@@ -608,6 +622,7 @@ public class Channel implements Serializable{
         }
         return null;
     }
+    @Transient
     public List<ChannelModel> getChannelModelsExtend() {
         List<ChannelModel>list=getChannelModels();
         //没有配置栏目模型默认父栏目配置
@@ -642,6 +657,7 @@ public class Channel implements Serializable{
         }
         return null;
     }
+    @Transient
     public String getMobileTplChannelOrDef() {
         String tpl = getMobileTplChannel();
         if (!StringUtils.isBlank(tpl)) {
@@ -651,6 +667,7 @@ public class Channel implements Serializable{
             return getModel().getTplChannel(sol, true);
         }
     }
+    @Transient
     public String getMobileTplChannel() {
         ChannelExt ext = getChannelExt();
         if (ext != null) {
@@ -659,6 +676,7 @@ public class Channel implements Serializable{
             return null;
         }
     }
+    @Transient
     public String getTplChannelOrDef() {
         String tpl = getTplChannel();
         if (!StringUtils.isBlank(tpl)) {
@@ -668,6 +686,7 @@ public class Channel implements Serializable{
             return getModel().getTplChannel(sol, true);
         }
     }
+    @Transient
     public String getTplChannel() {
         ChannelExt ext = getChannelExt();
         if (ext != null) {
@@ -720,6 +739,7 @@ public class Channel implements Serializable{
         }
         return url.toString();
     }
+    @Transient
     public Boolean getAccessByDir() {
         ChannelExt ext = getChannelExt();
         if (ext != null) {

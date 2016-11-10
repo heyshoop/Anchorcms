@@ -262,46 +262,46 @@ public class Content implements Serializable{
         return result;
     }
 
-    @OneToMany
+
     private Set<Channel> channels;
-    @ManyToMany
+
     private Set<CmsTopic> topics;
-    @OneToMany
+
     private Set<ContentCheck> contentCheckSet;
-    @ManyToMany
+
     private Set<CmsGroup> viewGroups;
-    @ManyToMany
+
     private List<ContentTag> tags;
-    @OneToMany
+
     private List<ContentAttachment> attachments;
-    @OneToMany
+
     private List<ContentPicture> pictures;
-    @ManyToOne
+
     private Channel channel;
-    @ManyToOne
+
     private ContentType type;
-    @ManyToOne
+
     private CmsUser user;
-    @ManyToOne
+
     private CmsSite site;
-    @Transient
+
     private Map<String,String> attr;
-    @ManyToMany
+
     private Set<CmsUser> collectUsers;
-    @OneToOne
+
     private ContentExt contentExt;
-    @OneToMany
+
     private Set<CmsFile> files;
-    @OneToMany
+
     private Set<ContentTxt> contentTxtSet;
-    @OneToOne
+
     private ContentCount contentCount;
-    @ManyToOne
+
     private CmsModel model;
-    @OneToMany
+
     private Set<ContentCharge> contentChargeSet;
 
-
+    @OneToMany
     public Set<ContentCharge> getContentChargeSet() {
         return contentChargeSet;
     }
@@ -309,7 +309,7 @@ public class Content implements Serializable{
     public void setContentChargeSet(Set<ContentCharge> contentChargeSet) {
         this.contentChargeSet = contentChargeSet;
     }
-
+    @ManyToOne
     public CmsModel getModel() {
         return model;
     }
@@ -317,7 +317,7 @@ public class Content implements Serializable{
     public void setModel(CmsModel model) {
         this.model = model;
     }
-
+    @OneToOne
     public ContentCount getContentCount() {
         return contentCount;
     }
@@ -325,7 +325,7 @@ public class Content implements Serializable{
     public void setContentCount(ContentCount contentCount) {
         this.contentCount = contentCount;
     }
-
+    @OneToMany
     public Set<ContentTxt> getContentTxtSet() {
         return contentTxtSet;
     }
@@ -333,7 +333,7 @@ public class Content implements Serializable{
     public void setContentTxtSet(Set<ContentTxt> contentTxtSet) {
         this.contentTxtSet = contentTxtSet;
     }
-
+    @OneToMany
     public Set<CmsFile> getFiles() {
         return files;
     }
@@ -341,7 +341,7 @@ public class Content implements Serializable{
     public void setFiles(Set<CmsFile> files) {
         this.files = files;
     }
-
+    @OneToOne
     public ContentExt getContentExt() {
         return contentExt;
     }
@@ -349,7 +349,7 @@ public class Content implements Serializable{
     public void setContentExt(ContentExt contentExt) {
         this.contentExt = contentExt;
     }
-
+    @ManyToMany
     public Set<CmsUser> getCollectUsers() {
         return collectUsers;
     }
@@ -357,7 +357,7 @@ public class Content implements Serializable{
     public void setCollectUsers(Set<CmsUser> collectUsers) {
         this.collectUsers = collectUsers;
     }
-
+    @Transient
     public Map<String, String> getAttr() {
         return attr;
     }
@@ -365,7 +365,7 @@ public class Content implements Serializable{
     public void setAttr(Map<String, String> attr) {
         this.attr = attr;
     }
-
+    @ManyToOne
     public CmsSite getSite() {
         return site;
     }
@@ -373,7 +373,7 @@ public class Content implements Serializable{
     public void setSite(CmsSite site) {
         this.site = site;
     }
-
+    @ManyToOne
     public CmsUser getUser() {
         return user;
     }
@@ -381,7 +381,7 @@ public class Content implements Serializable{
     public void setUser(CmsUser user) {
         this.user = user;
     }
-
+    @ManyToOne
     public ContentType getType() {
         return type;
     }
@@ -389,7 +389,7 @@ public class Content implements Serializable{
     public void setType(ContentType type) {
         this.type = type;
     }
-
+    @ManyToOne
     public Channel getChannel() {
         return channel;
     }
@@ -397,7 +397,7 @@ public class Content implements Serializable{
     public void setChannel(Channel channel) {
         this.channel = channel;
     }
-
+    @OneToMany
     public List<ContentPicture> getPictures() {
         return pictures;
     }
@@ -405,7 +405,7 @@ public class Content implements Serializable{
     public void setPictures(List<ContentPicture> pictures) {
         this.pictures = pictures;
     }
-
+    @OneToMany
     public List<ContentAttachment> getAttachments() {
         return attachments;
     }
@@ -413,7 +413,7 @@ public class Content implements Serializable{
     public void setAttachments(List<ContentAttachment> attachments) {
         this.attachments = attachments;
     }
-
+    @ManyToMany
     public List<ContentTag> getTags() {
         return tags;
     }
@@ -421,7 +421,7 @@ public class Content implements Serializable{
     public void setTags(List<ContentTag> tags) {
         this.tags = tags;
     }
-
+    @ManyToMany
     public Set<CmsGroup> getViewGroups() {
         return viewGroups;
     }
@@ -429,7 +429,7 @@ public class Content implements Serializable{
     public void setViewGroups(Set<CmsGroup> viewGroups) {
         this.viewGroups = viewGroups;
     }
-
+    @OneToMany
     public Set<ContentCheck> getContentCheckSet() {
         return contentCheckSet;
     }
@@ -437,7 +437,7 @@ public class Content implements Serializable{
     public void setContentCheckSet(Set<ContentCheck> contentCheckSet) {
         this.contentCheckSet = contentCheckSet;
     }
-
+    @ManyToMany
     public Set<CmsTopic> getTopics() {
         return topics;
     }
@@ -445,7 +445,7 @@ public class Content implements Serializable{
     public void setTopics(Set<CmsTopic> topics) {
         this.topics = topics;
     }
-
+    @OneToMany
     public Set<Channel> getChannels() {
         return channels;
     }
@@ -566,6 +566,7 @@ public class Content implements Serializable{
         }
         topics.add(topic);
     }
+    @Transient
     public ContentCheck getContentCheck() {
         Set<ContentCheck> set = getContentCheckSet();
         if (set != null && set.size() > 0) {
@@ -605,6 +606,7 @@ public class Content implements Serializable{
         cp.setDescription(desc);
         list.add(cp);
     }
+    @Transient
     public Byte getCheckStep() {
         ContentCheck check = getContentCheck();
         if (check != null) {
@@ -613,6 +615,7 @@ public class Content implements Serializable{
             return null;
         }
     }
+    @Transient
     public Boolean getRejected() {
         ContentCheck check = getContentCheck();
         if (check != null) {
@@ -621,9 +624,11 @@ public class Content implements Serializable{
             return null;
         }
     }
+    @Transient
     public void clear(){
         getCollectUsers().clear();
     }
+    @Transient
     public String getTitle() {
         ContentExt ext = getContentExt();
         if (ext != null) {
@@ -654,15 +659,18 @@ public class Content implements Serializable{
         }
         set.add(check);
     }
+    @Transient
     public Set<Channel> getChannelsWithoutMain() {
         Set<Channel> set = new HashSet<Channel>(getChannels());
         set.remove(getChannel());
         return set;
     }
+    @Transient
     public int getPageCount() {
         int txtCount = getTxtCount();
         return txtCount;
     }
+    @Transient
     public int getTxtCount() {
         ContentTxt txt = getContentTxt();
         if (txt != null) {
@@ -671,6 +679,7 @@ public class Content implements Serializable{
             return 1;
         }
     }
+    @Transient
     public ContentTxt getContentTxt() {
         Set<ContentTxt> set = getContentTxtSet();
         if (set != null && set.size() > 0) {
@@ -679,6 +688,7 @@ public class Content implements Serializable{
             return null;
         }
     }
+    @Transient
     public String getStaticFilename(int pageNo) {
         CmsSite site = getSite();
         StringBuilder url = new StringBuilder();
@@ -712,6 +722,7 @@ public class Content implements Serializable{
         }
         return url.toString();
     }
+    @Transient
     public String getStaticFilenameByRule() {
         Channel channel = getChannel();
         CmsModel model = channel.getModel();
@@ -723,6 +734,7 @@ public class Content implements Serializable{
                 getReleaseDate());
         return url;
     }
+    @Transient
     public Date getReleaseDate() {
         ContentExt ext = getContentExt();
         if (ext != null) {
@@ -765,6 +777,7 @@ public class Content implements Serializable{
         }
         return url.toString();
     }
+    @Transient
     public String getLink() {
         ContentExt ext = getContentExt();
         if (ext != null) {
@@ -781,6 +794,7 @@ public class Content implements Serializable{
             return getChannel().getTplContentOrDef(model);
         }
     }
+    @Transient
     public String getTplContent() {
         ContentExt ext = getContentExt();
         if (ext != null) {
@@ -797,6 +811,7 @@ public class Content implements Serializable{
             return getChannel().getMobileTplContentOrDef(model);
         }
     }
+    @Transient
     public String getMobileTplContent() {
         ContentExt ext = getContentExt();
         if (ext != null) {
@@ -876,9 +891,11 @@ public class Content implements Serializable{
      *
      * @return
      */
+    @Transient
     public boolean isChecked() {
         return ContentCheck.CHECKED == getStatus();
     }
+    @Transient
     public ContentCharge getContentCharge() {
         Set<ContentCharge> set = getContentChargeSet();
         if (set != null && set.size() > 0) {
@@ -887,6 +904,7 @@ public class Content implements Serializable{
             return null;
         }
     }
+    @Transient
     public Date getLastBuyTime() {
         ContentCharge charge= getContentCharge();
         if(charge!=null){
@@ -906,6 +924,7 @@ public class Content implements Serializable{
         }
         set.add(charge);
     }
+    @Transient
     public Set<CmsGroup> getViewGroupsExt() {
         Set<CmsGroup> set = getViewGroups();
         if (set != null && set.size() > 0) {
@@ -914,10 +933,12 @@ public class Content implements Serializable{
             return getChannel().getViewGroups();
         }
     }
+    @Transient
     public boolean getCharge() {
         ContentCharge c=getContentCharge();
         return c!=null&&c.getChargeAmount()>0&&c.getChargeReward().equals(ContentCharge.MODEL_CHARGE);
     }
+    @Transient
     public String getTxt() {
         ContentTxt txt = getContentTxt();
         if (txt != null) {
@@ -926,6 +947,7 @@ public class Content implements Serializable{
             return null;
         }
     }
+    @Transient
     public String getTxt1() {
         ContentTxt txt = getContentTxt();
         if (txt != null) {
@@ -934,7 +956,7 @@ public class Content implements Serializable{
             return null;
         }
     }
-
+    @Transient
     public String getTxt2() {
         ContentTxt txt = getContentTxt();
         if (txt != null) {
@@ -943,7 +965,7 @@ public class Content implements Serializable{
             return null;
         }
     }
-
+    @Transient
     public String getTxt3() {
         ContentTxt txt = getContentTxt();
         if (txt != null) {

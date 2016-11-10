@@ -135,9 +135,9 @@ public class ContentCheck implements Serializable{
      * 归档
      */
     public static final byte PIGEONHOLE = 5;
-    @OneToOne
-    private Content content;
 
+    private Content content;
+    @OneToOne
     public Content getContent() {
         return content;
     }

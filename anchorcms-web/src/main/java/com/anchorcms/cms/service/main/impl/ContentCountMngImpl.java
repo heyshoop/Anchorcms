@@ -12,7 +12,6 @@ import com.anchorcms.core.service.CmsConfigMng;
 import com.anchorcms.core.model.CmsConfig;
 import net.sf.ehcache.Ehcache;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

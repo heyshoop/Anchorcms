@@ -11,7 +11,6 @@ import com.anchorcms.common.utils.FrontUtils;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
 import com.anchorcms.core.model.CmsSite;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 import freemarker.core.Environment;

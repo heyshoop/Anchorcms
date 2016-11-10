@@ -133,9 +133,9 @@ public class CmsGuestbookExt implements Serializable{
     public void setId(String id) {
         this.id = id;
     }
-    @OneToOne
-    private CmsGuestbook guestbook;
 
+    private CmsGuestbook guestbook;
+    @OneToOne
     public CmsGuestbook getGuestbook() {
         return guestbook;
     }

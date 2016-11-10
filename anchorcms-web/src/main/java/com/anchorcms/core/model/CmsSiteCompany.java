@@ -159,9 +159,9 @@ public class CmsSiteCompany implements Serializable{
         result = 31 * result + (latitude != null ? latitude.hashCode() : 0);
         return result;
     }
-    @OneToOne
-    private CmsSite site;
 
+    private CmsSite site;
+    @OneToOne
     public CmsSite getSite() {
         return site;
     }

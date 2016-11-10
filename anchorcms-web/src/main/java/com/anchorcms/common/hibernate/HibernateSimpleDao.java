@@ -16,8 +16,9 @@ import org.hibernate.internal.CriteriaImpl;
 import org.hibernate.transform.ResultTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
+
+import javax.annotation.Resource;
 
 
 /**
@@ -215,12 +216,8 @@ public abstract class HibernateSimpleDao {
 		return query;
 	}
 
+	@Resource
 	protected SessionFactory sessionFactory;
-
-	@Autowired
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
 
 	protected Session getSession() {
 		return sessionFactory.getCurrentSession();

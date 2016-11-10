@@ -307,9 +307,9 @@ public class ContentExt implements Serializable{
         return result;
     }
 
-    @OneToOne
-    private Content content;
 
+    private Content content;
+    @OneToOne
     public Content getContent() {
         return content;
     }

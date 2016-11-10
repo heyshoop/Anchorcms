@@ -123,11 +123,11 @@ public class CmsVoteRecord implements Serializable{
         result = 31 * result + (wxOpenId != null ? wxOpenId.hashCode() : 0);
         return result;
     }
-    @ManyToOne
-    private CmsVoteTopic topic;
-    @ManyToOne
-    private CmsUser user;
 
+    private CmsVoteTopic topic;
+
+    private CmsUser user;
+    @ManyToOne
     public CmsUser getUser() {
         return user;
     }
@@ -135,7 +135,7 @@ public class CmsVoteRecord implements Serializable{
     public void setUser(CmsUser user) {
         this.user = user;
     }
-
+    @ManyToOne
     public CmsVoteTopic getTopic() {
         return topic;
     }

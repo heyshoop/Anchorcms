@@ -96,13 +96,13 @@ public class CmsUserSite implements Serializable{
     }
 
 
-    @ManyToOne
-    private CmsSite site;
-    @Transient
-    private Boolean allChannel;
-    @Transient
-    private CmsUser user;
 
+    private CmsSite site;
+
+    private Boolean allChannel;
+
+    private CmsUser user;
+    @Transient
     public CmsUser getUser() {
         return user;
     }
@@ -110,7 +110,7 @@ public class CmsUserSite implements Serializable{
     public void setUser(CmsUser user) {
         this.user = user;
     }
-
+    @Transient
     public Boolean getAllChannel() {
         return allChannel;
     }
@@ -118,7 +118,7 @@ public class CmsUserSite implements Serializable{
     public void setAllChannel(Boolean allChannel) {
         this.allChannel = allChannel;
     }
-
+    @ManyToOne
     public CmsSite getSite() {
         return site;
     }

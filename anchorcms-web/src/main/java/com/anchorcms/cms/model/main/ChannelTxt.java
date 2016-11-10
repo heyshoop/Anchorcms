@@ -96,9 +96,9 @@ public class ChannelTxt implements Serializable{
         result = 31 * result + (txt3 != null ? txt3.hashCode() : 0);
         return result;
     }
-    @OneToOne
-    private Channel channel;
 
+    private Channel channel;
+    @OneToOne
     public Channel getChannel() {
         return channel;
     }

@@ -123,11 +123,12 @@ public class CmsAcquisitionHistory implements Serializable{
         result = 31 * result + (contentId != null ? contentId.hashCode() : 0);
         return result;
     }
-    @ManyToOne
+
     private Content content;
-    @ManyToOne
+
     private CmsAcquisition acquisition;
 
+    @ManyToOne
     public CmsAcquisition getAcquisition() {
         return acquisition;
     }
@@ -136,6 +137,7 @@ public class CmsAcquisitionHistory implements Serializable{
         this.acquisition = acquisition;
     }
 
+    @ManyToOne
     public Content getContent() {
         return content;
     }

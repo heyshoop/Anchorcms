@@ -260,26 +260,25 @@ public class CmsUser implements Serializable{
     }
 
     private Map<String, String> attr;
-    @OneToMany /*一对多*/
+
     private Set<CmsRole> roles;
-    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH }, optional = true)
-    @JoinColumn(name = "group_id")
+
     private CmsGroup group;
     @Transient /*标注为非数据库字段*/
     public Map<String, String> getAttr() {
         return attr;
     }
-    @OneToMany
-    private Set<CmsUserExt> userExtSet;
-    @ManyToMany
-    private Set<Channel> channels;
-    @OneToMany
-    private Set<Content> collectContents;
-    @OneToMany
-    private Set<CmsUserSite> userSites;
-    @Transient
-    private Boolean selfAdmin;
 
+    private Set<CmsUserExt> userExtSet;
+
+    private Set<Channel> channels;
+
+    private Set<Content> collectContents;
+
+    private Set<CmsUserSite> userSites;
+
+    private Boolean selfAdmin;
+    @Transient
     public Boolean getSelfAdmin() {
         return selfAdmin;
     }
@@ -287,7 +286,7 @@ public class CmsUser implements Serializable{
     public void setSelfAdmin(Boolean selfAdmin) {
         this.selfAdmin = selfAdmin;
     }
-
+    @OneToMany
     public Set<CmsUserSite> getUserSites() {
         return userSites;
     }
@@ -295,7 +294,7 @@ public class CmsUser implements Serializable{
     public void setUserSites(Set<CmsUserSite> userSites) {
         this.userSites = userSites;
     }
-
+    @OneToMany
     public Set<Content> getCollectContents() {
         return collectContents;
     }
@@ -303,7 +302,7 @@ public class CmsUser implements Serializable{
     public void setCollectContents(Set<Content> collectContents) {
         this.collectContents = collectContents;
     }
-
+    @ManyToMany
     public Set<Channel> getChannels() {
         return channels;
     }
@@ -311,11 +310,11 @@ public class CmsUser implements Serializable{
     public void setChannels(Set<Channel> channels) {
         this.channels = channels;
     }
-
+    @OneToMany
     public Set<CmsUserExt> getUserExtSet() {
         return userExtSet;
     }
-
+    @OneToMany /*一对多*/
     public Set<CmsRole> getRoles() {
         return roles;
     }
@@ -331,7 +330,7 @@ public class CmsUser implements Serializable{
     public void setAttr(Map<String, String> attr) {
         this.attr = attr;
     }
-
+    @ManyToOne
     public CmsGroup getGroup() {
         return group;
     }
@@ -427,7 +426,7 @@ public class CmsUser implements Serializable{
         }
         set.add(channel);
     }
-
+    @Transient
     public CmsUserExt getUserExt() {
         Set<CmsUserExt> set = getUserExtSet();
         if (set != null && set.size() > 0) {
@@ -462,7 +461,7 @@ public class CmsUser implements Serializable{
     public void clearCollection() {
         getCollectContents().clear();
     }
-
+    @Transient
     public CmsUserSite getUserSite(Integer siteId) {
         Set<CmsUserSite> set = getUserSites();
         for (CmsUserSite us : set) {
@@ -472,6 +471,7 @@ public class CmsUser implements Serializable{
         }
         return null;
     }
+    @Transient
     public Byte getCheckStep(Integer siteId) {
         CmsUserSite us = getUserSite(siteId);
         if (us != null) {
@@ -516,6 +516,7 @@ public class CmsUser implements Serializable{
         }
         return allPerms;
     }
+    @Transient
     public Set<CmsSite> getSites() {
         Set<CmsUserSite> userSites = getUserSites();
         Set<CmsSite> sites = new HashSet<CmsSite>(userSites.size());

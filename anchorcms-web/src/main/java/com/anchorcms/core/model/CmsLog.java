@@ -147,9 +147,9 @@ public class CmsLog implements Serializable{
         result = 31 * result + (content != null ? content.hashCode() : 0);
         return result;
     }
-    @ManyToOne
+
     private CmsSite site;
-    @ManyToOne
+
     private CmsUser user;
     public static final int LOGIN_SUCCESS = 1;
     public static final int LOGIN_FAILURE = 2;
@@ -157,7 +157,7 @@ public class CmsLog implements Serializable{
 
     public static final String LOGIN_SUCCESS_TITLE = "login success";
     public static final String LOGIN_FAILURE_TITLE = "login failure";
-
+    @ManyToOne
     public CmsUser getUser() {
         return user;
     }
@@ -165,7 +165,7 @@ public class CmsLog implements Serializable{
     public void setUser(CmsUser user) {
         this.user = user;
     }
-
+    @ManyToOne
     public CmsSite getSite() {
         return site;
     }

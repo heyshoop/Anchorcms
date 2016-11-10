@@ -9,7 +9,6 @@ import com.anchorcms.cms.service.assist.CmsAdvertisingMng;
 import com.anchorcms.cms.service.assist.CmsAdvertisingSpaceMng;
 import com.anchorcms.common.hibernate.Updater;
 import com.anchorcms.common.page.Pagination;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

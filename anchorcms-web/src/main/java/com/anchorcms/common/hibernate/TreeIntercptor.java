@@ -1,6 +1,7 @@
 package com.anchorcms.common.hibernate;
 
-import com.anchorcms.common.model.HTreeInfo;
+import java.io.Serializable;
+
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.EmptyInterceptor;
 import org.hibernate.FlushMode;
@@ -13,30 +14,23 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-import java.io.Serializable;
-
-/**
- * @Author 阁楼麻雀
- * @Email netuser.orz@icloud.com
- * @Date 2016-10-31
- * @Desc 树形结构拦截器
- */
-public class TreeIntercptor extends EmptyInterceptor implements ApplicationContextAware {
-    private static final Logger log = LoggerFactory.getLogger(TreeIntercptor.class);
-    private ApplicationContext appContext;
+@SuppressWarnings("serial")
+public class TreeIntercptor extends EmptyInterceptor implements
+        ApplicationContextAware {
+    private static final Logger log = LoggerFactory
+            .getLogger(TreeIntercptor.class);
+    private ApplicationContext appCtx;
     private SessionFactory sessionFactory;
     public static final String SESSION_FACTORY = "sessionFactory";
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.appContext = appContext;
+
+    public void setApplicationContext(ApplicationContext appCtx)
+            throws BeansException {
+        this.appCtx = appCtx;
     }
-    /**
-     * @Author 阁楼麻雀
-     * @Date 2016-10-31 16:25
-     * @Desc 获取session工厂
-     */
+
     protected SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
-            sessionFactory = (SessionFactory) appContext.getBean(SESSION_FACTORY,
+            sessionFactory = (SessionFactory) appCtx.getBean(SESSION_FACTORY,
                     SessionFactory.class);
             if (sessionFactory == null) {
                 throw new IllegalStateException("not found bean named '"
@@ -46,19 +40,16 @@ public class TreeIntercptor extends EmptyInterceptor implements ApplicationConte
         }
         return sessionFactory;
     }
+
     protected Session getSession() {
         return getSessionFactory().getCurrentSession();
     }
-    /**
-     * @Author 阁楼麻雀
-     * @Date 2016-10-31 16:36
-     * @Desc 保存
-     */
+
     @Override
     public boolean onSave(Object entity, Serializable id, Object[] state,
                           String[] propertyNames, Type[] types) {
-        if (entity instanceof HTreeInfo) {
-            HTreeInfo<?> tree = (HTreeInfo<?>) entity;
+        if (entity instanceof HibernateTree) {
+            HibernateTree<?> tree = (HibernateTree<?>) entity;
             Number parentId = tree.getParentId();
             String beanName = tree.getClass().getName();
             Session session = getSession();
@@ -116,34 +107,27 @@ public class TreeIntercptor extends EmptyInterceptor implements ApplicationConte
         }
         return false;
     }
-    /**
-     * @Author 阁楼麻雀
-     * @Date 2016-10-31 16:36
-     * @Desc 刷新
-     */
+
     @Override
     public boolean onFlushDirty(Object entity, Serializable id,
                                 Object[] currentState, Object[] previousState,
                                 String[] propertyNames, Type[] types) {
-        if (!(entity instanceof HTreeInfo)) {
+        if (!(entity instanceof HibernateTree)) {
             return false;
         }
-        HTreeInfo<?> tree = (HTreeInfo<?>) entity;
+        HibernateTree<?> tree = (HibernateTree<?>) entity;
         for (int i = 0; i < propertyNames.length; i++) {
             if (propertyNames[i].equals(tree.getParentName())) {
-                HTreeInfo<?> preParent = (HTreeInfo<?>) previousState[i];
-                HTreeInfo<?> currParent = (HTreeInfo<?>) currentState[i];
+                HibernateTree<?> preParent = (HibernateTree<?>) previousState[i];
+                HibernateTree<?> currParent = (HibernateTree<?>) currentState[i];
                 return updateParent(tree, preParent, currParent);
             }
         }
         return false;
     }
-    /**
-     * @Author 阁楼麻雀
-     * @Date 2016-10-31 16:38
-     * @Desc 更新父节点
-     */
-    private boolean updateParent(HTreeInfo<?> tree,HTreeInfo<?> preParent, HTreeInfo<?> currParent) {
+
+    private boolean updateParent(HibernateTree<?> tree,
+                                 HibernateTree<?> preParent, HibernateTree<?> currParent) {
         // 都为空、或都不为空且相等时，不作处理
         if ((preParent == null && currParent == null)
                 || (preParent != null && currParent != null && preParent
@@ -268,16 +252,12 @@ public class TreeIntercptor extends EmptyInterceptor implements ApplicationConte
         session.setFlushMode(model);
         return true;
     }
-    /**
-     * @Author 阁楼麻雀
-     * @Date 2016-10-31 16:38
-     * @Desc 删除
-     */
+
     @Override
     public void onDelete(Object entity, Serializable id, Object[] state,
                          String[] propertyNames, Type[] types) {
-        if (entity instanceof HTreeInfo) {
-            HTreeInfo<?> tree = (HTreeInfo<?>) entity;
+        if (entity instanceof HibernateTree) {
+            HibernateTree<?> tree = (HibernateTree<?>) entity;
             String beanName = tree.getClass().getName();
             Session session = getSession();
             FlushMode model = session.getFlushMode();

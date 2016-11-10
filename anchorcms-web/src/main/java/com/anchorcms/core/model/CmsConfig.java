@@ -472,9 +472,9 @@ public class CmsConfig implements Serializable{
         result = 31 * result + (channelCountClearTime != null ? channelCountClearTime.hashCode() : 0);
         return result;
     }
-    @Transient
+
     private Map<String,String> attr;
-    @Transient
+    
     MarkConfig m_markConfig;
     @Transient
     public MarkConfig getMarkConfig() {
@@ -484,7 +484,7 @@ public class CmsConfig implements Serializable{
     public void setMarkConfig(MarkConfig m_markConfig) {
         this.m_markConfig = m_markConfig;
     }
-
+    @Transient
     public Map<String, String> getAttr() {
         return attr;
     }
@@ -514,6 +514,7 @@ public class CmsConfig implements Serializable{
             setServletPoint(null);
         }
     }
+    @Transient
     public Boolean getSsoEnable(){
         CmsConfigAttr configAttr=getConfigAttr();
         return configAttr.getSsoEnable();

@@ -161,17 +161,17 @@ public class CmsGuestbook implements Serializable{
         result = 31 * result + (replayTime != null ? replayTime.hashCode() : 0);
         return result;
     }
-    @ManyToOne
-    private CmsGuestbookCtg ctg;
-    @ManyToOne
-    private CmsUser member;
-    @ManyToOne
-    private CmsSite site;
-    @ManyToOne
-    private CmsUser admin;
-    @OneToOne
-    private CmsGuestbookExt ext;
 
+    private CmsGuestbookCtg ctg;
+
+    private CmsUser member;
+
+    private CmsSite site;
+
+    private CmsUser admin;
+
+    private CmsGuestbookExt ext;
+    @OneToOne
     public CmsGuestbookExt getExt() {
         return ext;
     }
@@ -179,7 +179,7 @@ public class CmsGuestbook implements Serializable{
     public void setExt(CmsGuestbookExt ext) {
         this.ext = ext;
     }
-
+    @ManyToOne
     public CmsUser getAdmin() {
         return admin;
     }
@@ -187,7 +187,7 @@ public class CmsGuestbook implements Serializable{
     public void setAdmin(CmsUser admin) {
         this.admin = admin;
     }
-
+    @ManyToOne
     public CmsSite getSite() {
         return site;
     }
@@ -195,7 +195,7 @@ public class CmsGuestbook implements Serializable{
     public void setSite(CmsSite site) {
         this.site = site;
     }
-
+    @ManyToOne
     public CmsUser getMember() {
         return member;
     }
@@ -203,7 +203,7 @@ public class CmsGuestbook implements Serializable{
     public void setMember(CmsUser member) {
         this.member = member;
     }
-
+    @ManyToOne
     public CmsGuestbookCtg getCtg() {
         return ctg;
     }

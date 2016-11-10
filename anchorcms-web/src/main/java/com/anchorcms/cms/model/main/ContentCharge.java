@@ -145,9 +145,9 @@ public class ContentCharge implements Serializable{
         result = 31 * result + (int) chargeReward;
         return result;
     }
-    @OneToOne
-    private Content content;
 
+    private Content content;
+    @OneToOne
     public Content getContent() {
         return content;
     }

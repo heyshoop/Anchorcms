@@ -150,13 +150,13 @@ public class CmsGroup implements Serializable{
         result = 31 * result + (allowSuffix != null ? allowSuffix.hashCode() : 0);
         return result;
     }
-    @ManyToMany
-    private Set<Channel> viewChannels;
-    @ManyToMany
-    private Set<Channel> contriGroups;
-    @ManyToMany
-    private Set<Channel> contriChannels;
 
+    private Set<Channel> viewChannels;
+
+    private Set<Channel> contriGroups;
+
+    private Set<Channel> contriChannels;
+    @ManyToMany
     public Set<Channel> getViewChannels() {
         return viewChannels;
     }
@@ -164,7 +164,7 @@ public class CmsGroup implements Serializable{
     public void setViewChannels(Set<Channel> viewChannels) {
         this.viewChannels = viewChannels;
     }
-
+    @ManyToMany
     public Set<Channel> getContriGroups() {
         return contriGroups;
     }
@@ -172,7 +172,7 @@ public class CmsGroup implements Serializable{
     public void setContriGroups(Set<Channel> contriGroups) {
         this.contriGroups = contriGroups;
     }
-
+    @ManyToMany
     public Set<Channel> getContriChannels() {
         return contriChannels;
     }

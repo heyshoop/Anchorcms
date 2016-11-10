@@ -6,7 +6,6 @@ import com.anchorcms.cms.dao.main.ContentTypeDao;
 import com.anchorcms.cms.service.main.ContentTypeMng;
 import com.anchorcms.cms.model.main.ContentType;
 import com.anchorcms.common.hibernate.Updater;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

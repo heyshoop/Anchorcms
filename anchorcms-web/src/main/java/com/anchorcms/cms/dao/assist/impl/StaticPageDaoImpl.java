@@ -39,13 +39,14 @@ import org.hibernate.Query;
 import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+
+import javax.annotation.Resource;
 
 import static com.anchorcms.common.constants.Constants.UTF8;
 
@@ -450,17 +451,17 @@ public class StaticPageDaoImpl extends HibernateSimpleDao implements
 
 	private CmsKeywordMng cmsKeywordMng;
 	private RealPathResolver realPathResolver;
-	@Autowired
+	@Resource
 	private CmsModelMng modelMng;
-	@Autowired
+	@Resource
 	private FtpMng ftpMng;
 
-	@Autowired
+	@Resource
 	public void setCmsKeywordMng(CmsKeywordMng cmsKeywordMng) {
 		this.cmsKeywordMng = cmsKeywordMng;
 	}
 
-	@Autowired
+	@Resource
 	public void setRealPathResolver(RealPathResolver realPathResolver) {
 		this.realPathResolver = realPathResolver;
 	}

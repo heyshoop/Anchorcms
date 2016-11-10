@@ -84,9 +84,9 @@ public class CmsFriendlinkCtg implements Serializable{
         result = 31 * result + priority;
         return result;
     }
-    @ManyToOne
-    private CmsSite site;
 
+    private CmsSite site;
+    @ManyToOne
     public CmsSite getSite() {
         return site;
     }

@@ -416,17 +416,17 @@ public class CmsSite implements Serializable {
         result = 31 * result + (ftpSyncPageId != null ? ftpSyncPageId.hashCode() : 0);
         return result;
     }
-    @ManyToOne
-    private Ftp uploadFtp;
-    @ManyToOne
-    private Ftp syncPageFtp;
-    @Transient
-    private Map<String,String> attr;
-    @OneToOne
-    private CmsSiteCompany siteCompany;
-    @ManyToOne
-    private CmsConfig config;
 
+    private Ftp uploadFtp;
+
+    private Ftp syncPageFtp;
+
+    private Map<String,String> attr;
+
+    private CmsSiteCompany siteCompany;
+
+    private CmsConfig config;
+    @ManyToOne
     public CmsConfig getConfig() {
         return config;
     }
@@ -434,7 +434,7 @@ public class CmsSite implements Serializable {
     public void setConfig(CmsConfig config) {
         this.config = config;
     }
-
+    @OneToOne
     public CmsSiteCompany getSiteCompany() {
         return siteCompany;
     }
@@ -442,7 +442,7 @@ public class CmsSite implements Serializable {
     public void setSiteCompany(CmsSiteCompany siteCompany) {
         this.siteCompany = siteCompany;
     }
-
+    @Transient
     public Map<String, String> getAttr() {
         return attr;
     }
@@ -450,7 +450,7 @@ public class CmsSite implements Serializable {
     public void setAttr(Map<String, String> attr) {
         this.attr = attr;
     }
-
+    @ManyToOne
     public Ftp getSyncPageFtp() {
         return syncPageFtp;
     }
@@ -458,7 +458,7 @@ public class CmsSite implements Serializable {
     public void setSyncPageFtp(Ftp syncPageFtp) {
         this.syncPageFtp = syncPageFtp;
     }
-
+    @ManyToOne
     public Ftp getUploadFtp() {
         return uploadFtp;
     }
@@ -484,6 +484,7 @@ public class CmsSite implements Serializable {
             setFinalStep(step);
         }
     }
+    @Transient
     public String getTplPath() {
         return TPL_BASE + "/" + getSitePath();
     }
@@ -492,15 +493,19 @@ public class CmsSite implements Serializable {
      *
      * @return
      */
+    @Transient
     public String getResPath() {
         return RES_PATH + "/" + getSitePath();
     }
+    @Transient
     public String getMobileSolutionPath() {
         return TPL_BASE + "/" + getSitePath() + "/" + getTplMobileSolution();
     }
+    @Transient
     public String getSolutionPath() {
         return TPL_BASE + "/" + getSitePath() + "/" + getTplSolution();
     }
+    @Transient
     public String getLoginUrl() {
         CmsConfig config = getConfig();
         if (config != null) {
@@ -509,6 +514,7 @@ public class CmsSite implements Serializable {
             return null;
         }
     }
+    @Transient
     public String getProcessUrl() {
         CmsConfig config = getConfig();
         if (config != null) {
@@ -517,6 +523,7 @@ public class CmsSite implements Serializable {
             return null;
         }
     }
+    @Transient
     public String getContextPath() {
         CmsConfig config = getConfig();
         if (config != null) {
@@ -525,12 +532,14 @@ public class CmsSite implements Serializable {
             return null;
         }
     }
+    @Transient
     public String getAdminUrl() {
         StringBuilder url = new StringBuilder();
         url.append(getUrlDynamic());
         url.append(ADMIN_SUFFIX);
         return url.toString();
     }
+    @Transient
     public String getUrlDynamic() {
         return getUrlBuffer(true, null, false).append("/").toString();
     }
@@ -563,6 +572,7 @@ public class CmsSite implements Serializable {
         }
         return url;
     }
+    @Transient
     public Integer getPort() {
         CmsConfig config = getConfig();
         if (config != null) {
@@ -571,6 +581,7 @@ public class CmsSite implements Serializable {
             return null;
         }
     }
+    @Transient
     public String getServletPoint() {
         CmsConfig config = getConfig();
         if (config != null) {
@@ -579,6 +590,7 @@ public class CmsSite implements Serializable {
             return null;
         }
     }
+    @Transient
     public String getUrlStatic() {
         return getUrlBuffer(false, null, true).append("/").toString();
     }
@@ -586,6 +598,7 @@ public class CmsSite implements Serializable {
      * 返回首页模板
      * @return
      */
+    @Transient
     public String getTplIndexOrDef() {
         String tpl = getTplIndex();
         if (!StringUtils.isBlank(tpl)) {
@@ -598,6 +611,7 @@ public class CmsSite implements Serializable {
      * 返回首页默认模板(类似/WEB-INF/t/cms/www/default/index/index.html)
      * @return
      */
+    @Transient
     private String getTplIndexDefault() {
         StringBuilder t = new StringBuilder();
         t.append(getTplIndexPrefix(TPLDIR_INDEX));
@@ -609,6 +623,7 @@ public class CmsSite implements Serializable {
      * @param prefix
      * @return
      */
+    @Transient
     public String getTplIndexPrefix(String prefix) {
         StringBuilder t = new StringBuilder();
         t.append(getSolutionPath()).append("/");
@@ -622,6 +637,7 @@ public class CmsSite implements Serializable {
      * 返回手机首页模板
      * @return
      */
+    @Transient
     public String getMobileTplIndexOrDef() {
         StringBuilder t = new StringBuilder();
         t.append(getMobileSolutionPath()).append("/");

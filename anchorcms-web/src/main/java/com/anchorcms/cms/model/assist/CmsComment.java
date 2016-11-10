@@ -216,17 +216,17 @@ public class CmsComment implements Serializable{
         result = 31 * result + (replyCount != null ? replyCount.hashCode() : 0);
         return result;
     }
-    @ManyToOne
-    private Content content;
-    @ManyToOne
-    private CmsSite site;
-    @ManyToOne
-    private CmsUser commentUser;
-    @OneToOne
-    private CmsComment parent;
-    @OneToOne
-    private CmsCommentExt commentExt;
 
+    private Content content;
+
+    private CmsSite site;
+
+    private CmsUser commentUser;
+
+    private CmsComment parent;
+
+    private CmsCommentExt commentExt;
+    @OneToOne
     public CmsCommentExt getCommentExt() {
         return commentExt;
     }
@@ -234,7 +234,7 @@ public class CmsComment implements Serializable{
     public void setCommentExt(CmsCommentExt commentExt) {
         this.commentExt = commentExt;
     }
-
+    @OneToOne
     public CmsComment getParent() {
         return parent;
     }
@@ -242,7 +242,7 @@ public class CmsComment implements Serializable{
     public void setParent(CmsComment parent) {
         this.parent = parent;
     }
-
+    @ManyToOne
     public CmsUser getCommentUser() {
         return commentUser;
     }
@@ -250,7 +250,7 @@ public class CmsComment implements Serializable{
     public void setCommentUser(CmsUser commentUser) {
         this.commentUser = commentUser;
     }
-
+    @ManyToOne
     public CmsSite getSite() {
         return site;
     }
@@ -258,7 +258,7 @@ public class CmsComment implements Serializable{
     public void setSite(CmsSite site) {
         this.site = site;
     }
-
+    @ManyToOne
     public Content getContent() {
         return content;
     }

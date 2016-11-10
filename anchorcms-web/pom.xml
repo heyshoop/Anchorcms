@@ -64,6 +64,16 @@
             <artifactId>hibernate-ehcache</artifactId>
             <version>4.3.11.Final</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.3.11.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.1.1.Final</version>
+        </dependency>
         <!-- jpa持久化标准 -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
@@ -266,11 +276,11 @@
             <artifactId>axis</artifactId>
             <version>1.4</version>
         </dependency>
-        <!-- c3p0连接池 -->
+        <!-- druid连接池 -->
         <dependency>
-            <groupId>c3p0</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>0.9.1.2</version>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.0.13</version>
         </dependency>
         <!-- CLI 即Command Line Interface，也就是"命令行接口"，它为Java 程序访问和解析命令行参数提供了一种统一的接口。apache Commons CLI为用户提供了一个解释命令行的API -->
         <dependency>
@@ -529,7 +539,11 @@
             <artifactId>jcaptcha</artifactId>
             <version>1.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.12.1.GA</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>anchorcms-web</finalName>

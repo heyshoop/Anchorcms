@@ -184,11 +184,11 @@ public class CmsTopic implements Serializable{
         result = 31 * result + (int) isRecommend;
         return result;
     }
-    @ManyToOne
-    private Channel channel;
-    @ManyToMany
-    private Set<Channel> channels;
 
+    private Channel channel;
+
+    private Set<Channel> channels;
+    @ManyToMany
     public Set<Channel> getChannels() {
         return channels;
     }
@@ -196,7 +196,7 @@ public class CmsTopic implements Serializable{
     public void setChannels(Set<Channel> channels) {
         this.channels = channels;
     }
-
+    @ManyToOne
     public Channel getChannel() {
         return channel;
     }

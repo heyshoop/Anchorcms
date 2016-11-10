@@ -86,7 +86,7 @@ public class Config implements Serializable {
             configLogin.setAttr(map);
             return configLogin;
         }
-
+        @Transient
         public Map<String, String> getAttr() {
             if (attr == null) {
                 attr = new HashMap<String, String>();
@@ -155,7 +155,7 @@ public class Config implements Serializable {
             return sender;
 
         }
-
+        @Transient
         public Map<String, String> getAttr() {
             if (attr == null) {
                 attr = new HashMap<String, String>();
@@ -250,6 +250,7 @@ public class Config implements Serializable {
             return tpl;
         }
 
+        @Transient
         public Map<String, String> getAttr() {
             if (attr == null) {
                 attr = new HashMap<String, String>();

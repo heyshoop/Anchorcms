@@ -95,11 +95,11 @@ public class CmsRole implements Serializable {
         result = 31 * result + (isSuper != null ? isSuper.hashCode() : 0);
         return result;
     }
-    @Transient
-    private Set<String> perms;
-    @ManyToMany
-    private Set<CmsUser> users;
 
+    private Set<String> perms;
+
+    private Set<CmsUser> users;
+    @ManyToMany
     public Set<CmsUser> getUsers() {
         return users;
     }
@@ -107,7 +107,7 @@ public class CmsRole implements Serializable {
     public void setUsers(Set<CmsUser> users) {
         this.users = users;
     }
-
+    @Transient
     public Set<String> getPerms() {
         return perms;
     }

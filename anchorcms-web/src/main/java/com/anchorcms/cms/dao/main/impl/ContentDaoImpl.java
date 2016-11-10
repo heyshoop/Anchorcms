@@ -16,8 +16,9 @@ import com.anchorcms.common.hibernate.HibernateBaseDao;
 import com.anchorcms.common.page.Pagination;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import javax.annotation.Resource;
 
 import static com.anchorcms.cms.directive.abs.AbstractContentDirective.*;
 import static com.anchorcms.cms.model.main.Content.ContentStatus.*;
@@ -892,6 +893,6 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 	protected Class<Content> getEntityClass() {
 		return Content.class;
 	}
-	@Autowired
+	@Resource
 	private ContentQueryFreshTimeCache contentQueryFreshTimeCache;
 }

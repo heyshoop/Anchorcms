@@ -68,9 +68,9 @@ public class CmsVoteReply implements Serializable{
         result = 31 * result + (subtopicId != null ? subtopicId.hashCode() : 0);
         return result;
     }
-    @ManyToOne
-    private CmsVoteSubTopic subTopic;
 
+    private CmsVoteSubTopic subTopic;
+    @ManyToOne
     public CmsVoteSubTopic getSubTopic() {
         return subTopic;
     }

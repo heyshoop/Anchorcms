@@ -31,10 +31,7 @@ import com.anchorcms.core.model.CmsUser;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -132,9 +129,7 @@ public class DynamicPageAct {
 	}
 	
 
-	public String channel(String path,boolean checkAlone, int pageNo, String[] params,
-			PageInfo info, HttpServletRequest request,
-			HttpServletResponse response, ModelMap model) {
+	public String channel(String path,boolean checkAlone, int pageNo, String[] params,PageInfo info, HttpServletRequest request,HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		Channel channel = channelMng.findByPathForTag(path, site.getSiteId());
 		if (channel == null) {

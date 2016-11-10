@@ -97,12 +97,12 @@ public class ContentTxt implements Serializable{
         return result;
     }
 
-    @OneToOne
+
     private Content content;
     //ueditor采用分页
     public static String PAGE_START = "[NextPage]";
     public static String PAGE_END = "[/NextPage]";
-
+    @OneToOne
     public Content getContent() {
         return content;
     }
@@ -129,6 +129,7 @@ public class ContentTxt implements Serializable{
             setTxt3(null);
         }
     }
+    @Transient
     public int getTxtCount() {
         String txt = getTxt();
         if (StringUtils.isBlank(txt)) {
@@ -137,6 +138,7 @@ public class ContentTxt implements Serializable{
             return StringUtils.countMatches(txt, PAGE_START) + 1;
         }
     }
+    @Transient
     public String getTxtByNo(int pageNo) {
         String txt = getTxt();
         if (StringUtils.isBlank(txt) || pageNo < 1) {

@@ -10,7 +10,6 @@ import org.htmlparser.Node;
 import org.htmlparser.lexer.Lexer;
 import org.htmlparser.nodes.TextNode;
 import org.htmlparser.util.ParserException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

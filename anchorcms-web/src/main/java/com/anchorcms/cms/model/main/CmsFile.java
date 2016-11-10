@@ -17,6 +17,8 @@ public class CmsFile implements Serializable{
     private String fileName;
     private Boolean fileIsvalid;
     private Integer contentId;
+    public CmsFile(){
+    }
 
     @Id
     @Column(name = "file_path")
@@ -81,9 +83,9 @@ public class CmsFile implements Serializable{
         return result;
     }
 
-    @ManyToOne
-    private Content content;
 
+    private Content content;
+    @ManyToOne
     public Content getContent() {
         return content;
     }

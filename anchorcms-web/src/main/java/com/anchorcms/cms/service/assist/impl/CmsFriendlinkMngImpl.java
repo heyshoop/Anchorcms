@@ -7,7 +7,6 @@ import com.anchorcms.cms.model.assist.CmsFriendlink;
 import com.anchorcms.cms.service.assist.CmsFriendlinkCtgMng;
 import com.anchorcms.cms.service.assist.CmsFriendlinkMng;
 import com.anchorcms.common.hibernate.Updater;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CmsFileDaoImpl extends HibernateBaseDao<CmsFile, Integer>
 		implements CmsFileDao {
-	@SuppressWarnings("unchecked")
 	public List<CmsFile> getList(Boolean valid) {
 		Finder f = Finder.create("from CmsFile bean where 1=1");
 		if(valid!=null){

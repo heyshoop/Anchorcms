@@ -95,11 +95,11 @@ public class CmsVoteSubTopic implements Serializable{
         result = 31 * result + (priority != null ? priority.hashCode() : 0);
         return result;
     }
-    @ManyToOne
-    private CmsVoteTopic voteTopic;
-    @OneToMany
-    private Set<CmsVoteItem> voteItems;
 
+    private CmsVoteTopic voteTopic;
+
+    private Set<CmsVoteItem> voteItems;
+    @OneToMany
     public Set<CmsVoteItem> getVoteItems() {
         return voteItems;
     }
@@ -107,7 +107,7 @@ public class CmsVoteSubTopic implements Serializable{
     public void setVoteItems(Set<CmsVoteItem> voteItems) {
         this.voteItems = voteItems;
     }
-
+    @ManyToOne
     public CmsVoteTopic getVoteTopic() {
         return voteTopic;
     }

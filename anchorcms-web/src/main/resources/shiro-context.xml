@@ -25,6 +25,7 @@
                 /login.jspx = authc
                 /logout.jspx = logout
                 /member/** = user
+                /cmsadmin/login.do = anon
                 /anchorcms/login.do = authc
                 /anchorcms/cmsadmin/logout.do = logout
                 /anchorcms/cmsadmin/** =user

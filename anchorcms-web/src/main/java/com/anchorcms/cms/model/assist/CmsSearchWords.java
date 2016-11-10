@@ -121,9 +121,9 @@ public class CmsSearchWords implements Serializable{
         result = 31 * result + siteId;
         return result;
     }
-    @ManyToOne
-    private CmsSite site;
 
+    private CmsSite site;
+    @ManyToOne
     public CmsSite getSite() {
         return site;
     }

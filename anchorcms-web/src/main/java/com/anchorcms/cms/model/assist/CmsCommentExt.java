@@ -92,9 +92,9 @@ public class CmsCommentExt implements Serializable{
     public void setId(String id) {
         this.id = id;
     }
-    @OneToOne
-    private CmsComment comment;
 
+    private CmsComment comment;
+    @OneToOne
     public CmsComment getComment() {
         return comment;
     }

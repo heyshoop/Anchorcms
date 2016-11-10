@@ -97,11 +97,11 @@ public class ContentRecord implements Serializable{
         result = 31 * result + (int) operateType;
         return result;
     }
-    @ManyToOne
-    private Content content;
-    @ManyToOne
-    private CmsUser user;
 
+    private Content content;
+
+    private CmsUser user;
+    @ManyToOne
     public CmsUser getUser() {
         return user;
     }
@@ -109,7 +109,7 @@ public class ContentRecord implements Serializable{
     public void setUser(CmsUser user) {
         this.user = user;
     }
-
+    @ManyToOne
     public Content getContent() {
         return content;
     }

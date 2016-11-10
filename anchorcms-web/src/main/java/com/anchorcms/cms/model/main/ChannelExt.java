@@ -432,7 +432,7 @@ public class ChannelExt implements Serializable{
         result = 31 * result + (tplMobileChannel != null ? tplMobileChannel.hashCode() : 0);
         return result;
     }
-    @OneToOne
+
     private Channel channel;
     public static String PROP_FINAL_STEP = "finalStep";
     public static String PROP_AFTER_CHECK = "afterCheck";
@@ -453,7 +453,7 @@ public class ChannelExt implements Serializable{
      */
     public static final int COMMENT_LOGIN_MANY = 3;
 
-
+    @OneToOne
     public Channel getChannel() {
         return channel;
     }

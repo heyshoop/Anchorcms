@@ -15,7 +15,6 @@ import com.anchorcms.core.service.CmsUserMng;
 import com.anchorcms.core.model.CmsGroup;
 import com.anchorcms.core.model.CmsUser;
 import com.anchorcms.core.model.CmsUserSite;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

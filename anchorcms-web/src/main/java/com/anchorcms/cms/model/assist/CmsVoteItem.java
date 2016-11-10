@@ -120,11 +120,11 @@ public class CmsVoteItem implements Serializable{
         result = 31 * result + (picture != null ? picture.hashCode() : 0);
         return result;
     }
-    @ManyToOne
-    private CmsVoteSubTopic subTopic;
-    @ManyToOne
-    private CmsVoteTopic topic;
 
+    private CmsVoteSubTopic subTopic;
+
+    private CmsVoteTopic topic;
+    @ManyToOne
     public CmsVoteTopic getTopic() {
         return topic;
     }
@@ -132,7 +132,7 @@ public class CmsVoteItem implements Serializable{
     public void setTopic(CmsVoteTopic topic) {
         this.topic = topic;
     }
-
+    @ManyToOne
     public CmsVoteSubTopic getSubTopic() {
         return subTopic;
     }

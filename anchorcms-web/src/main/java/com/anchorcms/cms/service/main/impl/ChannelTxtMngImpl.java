@@ -6,7 +6,6 @@ import com.anchorcms.cms.model.main.Channel;
 import com.anchorcms.cms.model.main.ChannelTxt;
 import com.anchorcms.common.hibernate.Updater;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

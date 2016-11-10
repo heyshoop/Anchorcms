@@ -19,32 +19,32 @@ import javax.annotation.Resource;
 public class CmsFileMngImpl implements CmsFileMng {
 	
 	public CmsFile deleteById(Integer id) {
-		return dao.deleteById(id);
+		return CmsFileDao.deleteById(id);
 	}
 	
 	public CmsFile deleteByPath(String path){
-		return dao.deleteByPath(path);
+		return CmsFileDao.deleteByPath(path);
 	}
 	
 	public void deleteByContentId(Integer contentId){
-		 dao.deleteByContentId(contentId);
+		CmsFileDao.deleteByContentId(contentId);
 	}
 
 
 	public CmsFile findById(Integer id) {
-		return dao.findById(id);
+		return CmsFileDao.findById(id);
 	}
 
 	public CmsFile findByPath(String path) {
-		return dao.findByPath(path);
+		return CmsFileDao.findByPath(path);
 	}
 
 	public List<CmsFile> getList(Boolean valid) {
-		return dao.getList(valid);
+		return CmsFileDao.getList(valid);
 	}
 
 	public CmsFile save(CmsFile bean) {
-		return dao.save(bean);
+		return CmsFileDao.save(bean);
 	}
 
 	public void saveFileByPath(String filepath, String name, Boolean valid) {
@@ -98,11 +98,18 @@ public class CmsFileMngImpl implements CmsFileMng {
 
 	public CmsFile update(CmsFile bean) {
 		Updater<CmsFile> updater = new Updater<CmsFile>(bean);
-		bean = dao.updateByUpdater(updater);
+		bean = CmsFileDao.updateByUpdater(updater);
 		return bean;
 	}
 
 	@Resource
-	private CmsFileDao dao;
+	private CmsFileDao CmsFileDao;
 
+	public com.anchorcms.cms.dao.assist.CmsFileDao getCmsFileDao() {
+		return CmsFileDao;
+	}
+
+	public void setCmsFileDao(com.anchorcms.cms.dao.assist.CmsFileDao cmsFileDao) {
+		CmsFileDao = cmsFileDao;
+	}
 }

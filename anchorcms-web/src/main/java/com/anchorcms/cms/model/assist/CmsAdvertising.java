@@ -190,11 +190,11 @@ public class CmsAdvertising implements Serializable{
         result = 31 * result + (isEnabled != null ? isEnabled.hashCode() : 0);
         return result;
     }
-    @ManyToOne
+
     private CmsAdvertisingSpace adspace;
-    @Transient
+
     private Map<String,String> attr;
-    @ManyToOne
+
     private CmsSite site;
     public static String REF = "CmsAdvertising";
     public static String PROP_END_TIME = "endTime";
@@ -209,7 +209,7 @@ public class CmsAdvertising implements Serializable{
     public static String PROP_ID = "id";
     public static String PROP_CLICK_COUNT = "clickCount";
     public static String PROP_DISPLAY_COUNT = "displayCount";
-
+    @ManyToOne
     public CmsSite getSite() {
         return site;
     }
@@ -217,7 +217,7 @@ public class CmsAdvertising implements Serializable{
     public void setSite(CmsSite site) {
         this.site = site;
     }
-
+    @Transient
     public Map<String, String> getAttr() {
         return attr;
     }
@@ -225,7 +225,7 @@ public class CmsAdvertising implements Serializable{
     public void setAttr(Map<String, String> attr) {
         this.attr = attr;
     }
-
+    @ManyToOne
     public CmsAdvertisingSpace getAdspace() {
         return adspace;
     }

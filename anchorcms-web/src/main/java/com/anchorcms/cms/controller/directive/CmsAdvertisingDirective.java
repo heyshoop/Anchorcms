@@ -9,7 +9,6 @@ import com.anchorcms.cms.model.assist.CmsAdvertising;
 import com.anchorcms.cms.service.assist.CmsAdvertisingMng;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 import freemarker.core.Environment;

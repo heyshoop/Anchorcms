@@ -174,9 +174,9 @@ public class CmsFriendlink implements Serializable{
         result = 31 * result + priority;
         return result;
     }
-    @ManyToOne
-    private CmsFriendlinkCtg category;
 
+    private CmsFriendlinkCtg category;
+    @ManyToOne
     public CmsFriendlinkCtg getCategory() {
         return category;
     }

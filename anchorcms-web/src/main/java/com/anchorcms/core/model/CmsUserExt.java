@@ -190,9 +190,9 @@ public class CmsUserExt implements Serializable{
         result = 31 * result + (userSignature != null ? userSignature.hashCode() : 0);
         return result;
     }
-    @OneToOne
-    private CmsUser user;
 
+    private CmsUser user;
+    @OneToOne
     public CmsUser getUser() {
         return user;
     }
