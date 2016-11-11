@@ -22,7 +22,7 @@ import static com.sun.org.glassfish.external.statistics.impl.StatisticImpl.START
 /**
  * 执行时间标签
  * 
- * 需要拦截器com.jeecms.common.web.ProcessTimeFilter支持
+ * 需要拦截器ProcessTimeFilter支持
  */
 public class ProcessTimeDirective implements TemplateDirectiveModel {
 	private static final Logger log = LoggerFactory

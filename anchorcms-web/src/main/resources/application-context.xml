@@ -4,7 +4,8 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+	default-autowire="byType">
 
 	<!-- 引入项目配置文件 -->
 	<bean
@@ -21,7 +22,7 @@
 			<list>
 				<value>classpath*:jdbc.properties</value>
 				<value>classpath*:anchorcms.properties</value>
-				<value>classpath*:/**/*.properties</value>
+				<value>classpath*:manager/firewall.properties</value>
 			</list>
 		</property>
 		<qualifier value="main"/>
@@ -37,7 +38,7 @@
 		<property name="maxInMemorySize" value="40960"/>
 	</bean>
 	<!--数据绑定-->
-	<bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+	<!--<bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>-->
 	<!-- HandlerAdapter -->
 	<bean id="handlerAdapter" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
 	<!-- 注解支持 -->
@@ -45,7 +46,7 @@
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
 		
 	<!-- 启动组件扫描，排除@Controller组件，该组件由SpringMVC配置文件扫描 -->
-	<context:component-scan base-package="com.anchorcms.*.model,com.anchorcms.*.service,com.anchorcms.*.dao,com.anchorcms.cms.lucene,com.anchorcms.common.*">
+	<context:component-scan base-package="com.anchorcms.*.model,com.anchorcms.*.service,com.anchorcms.*.dao,com.anchorcms.cms.lucene,com.anchorcms.common.*,com.anchorcms.cms.staticpage">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 	<!-- 开启自动扫描包 -->

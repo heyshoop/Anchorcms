@@ -98,4 +98,11 @@ public class ConfigMngImpl implements ConfigMng {
 	@Resource
 	private ConfigDao dao;
 
+	public ConfigDao getDao() {
+		return dao;
+	}
+
+	public void setDao(ConfigDao dao) {
+		this.dao = dao;
+	}
 }

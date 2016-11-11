@@ -26,16 +26,16 @@
                 /logout.jspx = logout
                 /member/** = user
                 /cmsadmin/login.do = anon
-                /anchorcms/login.do = authc
-                /anchorcms/cmsadmin/logout.do = logout
-                /anchorcms/cmsadmin/** =user
+                /login.do = authc
+                /cmsadmin/logout.do = logout
+                /cmsadmin/** =user
             </value>
         </property>
     </bean>
     <!-- Shiro Filter -->
     <bean id="adminUrlBean" class="com.anchorcms.core.security.CmsAdminUrl">
-        <property name="adminLogin" value="/manager/anchorcms/login.do"/>
-        <property name="adminPrefix" value="/manager/anchorcms/"/>
+        <property name="adminLogin" value="/cmsadmin/login.do"/>
+        <property name="adminPrefix" value="/cmsadmin/"/>
     </bean>
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="cacheManager" ref="shiroEhcacheManager"/>

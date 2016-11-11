@@ -181,15 +181,4 @@ public class EmailSendTool {
 		this.personalName = personalName;
 	}
 
-	public static void main(String[] args) {
-		EmailSendTool sendEmail = new EmailSendTool("smtp.qq.com",
-				"664592270@qq.com", "xia520", "2283752600@qq.com",
-				"测试", "文本内容", "JEECMS", "", "");
-		try {
-			sendEmail.send();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
-
 }

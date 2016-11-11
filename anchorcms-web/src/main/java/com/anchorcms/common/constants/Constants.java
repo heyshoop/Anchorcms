@@ -149,7 +149,7 @@ public class Constants {
     /**
      * 数据库备份文本前缀
      */
-    public static String ONESQL_PREFIX="JEECMS_BACKUP_";
+    public static String ONESQL_PREFIX="ANCHORCMS_BACKUP_";
     /**
      * 防火墙配置文件
      */
@@ -161,7 +161,7 @@ public class Constants {
     /**
      * 配置文件
      */
-    public static String JEECMS_CONFIG = "/WEB-INF/anchorcms.properties";
+    public static String ANCHORCMS_CONFIG = "/WEB-INF/anchorcms.properties";
     /**
      * 插件路径
      */

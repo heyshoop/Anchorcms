@@ -36,7 +36,7 @@
                 <prop key="org.springframework.web.bind.MissingServletRequestParameterException">/WEB-INF/error/requiredParameter.html</prop>
                 <prop key="org.springframework.beans.TypeMismatchException">/WEB-INF/error/mismatchParameter.html</prop>
                 <prop key="org.springframework.web.bind.ServletRequestBindingException">/WEB-INF/error/bindException.html</prop>
-                <prop key="com.jeecms.cms.web.SiteNotFoundException">/WEB-INF/error/siteNotFoundException.html</prop>
+                <prop key="com.anchorcms.cms.web.SiteNotFoundException">/WEB-INF/error/siteNotFoundException.html</prop>
             </props>
         </property>
     </bean>

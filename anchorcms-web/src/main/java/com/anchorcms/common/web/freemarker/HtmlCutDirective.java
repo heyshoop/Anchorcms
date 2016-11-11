@@ -15,7 +15,7 @@ import freemarker.template.TemplateModel;
 /**
  * HTML文本提取并截断
  * 
- * 需要拦截器com.jeecms.common.web.ProcessTimeFilter支持
+ * 需要拦截器ProcessTimeFilter支持
  */
 public class HtmlCutDirective implements TemplateDirectiveModel {
 	public static final String PARAM_S = "s";

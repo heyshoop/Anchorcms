@@ -21,7 +21,6 @@ import static org.apache.shiro.web.filter.authc.FormAuthenticationFilter.DEFAULT
  * @Desc 管理登录controller
  */
 @Controller
-@RequestMapping("/cmsadmin")
 public class AdminLoginController {
     /**
      * 站点id cookie
