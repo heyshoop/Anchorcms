@@ -325,7 +325,9 @@ public class FrontUtils {
 			map.put(USER, user);
 		}
 		map.put(SITE, site);
-		String ctx = site.getContextPath() == null ? "" : site.getContextPath();
+		//2016年11月14日20:23:37 阁楼麻雀：去掉网站根目录设置
+		//String ctx = site.getContextPath() == null ? "" : site.getContextPath();
+		String ctx = "";
 		map.put(BASE, ctx);
 		map.put(RES_SYS, ctx + RES_PATH);
 		String res = ctx + RES_PATH + "/" + site.getSitePath() + "/"
