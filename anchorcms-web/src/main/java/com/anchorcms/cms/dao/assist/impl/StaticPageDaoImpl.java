@@ -461,7 +461,7 @@ public class StaticPageDaoImpl extends HibernateSimpleDao implements
 		this.cmsKeywordMng = cmsKeywordMng;
 	}
 
-	@Resource
+	@Resource(name = "realPathResolver")
 	public void setRealPathResolver(RealPathResolver realPathResolver) {
 		this.realPathResolver = realPathResolver;
 	}

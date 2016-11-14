@@ -427,6 +427,7 @@ public class CmsSite implements Serializable {
 
     private CmsConfig config;
     @ManyToOne
+    @JoinColumn(name = "config_id",insertable = false,updatable = false)
     public CmsConfig getConfig() {
         return config;
     }
@@ -434,7 +435,8 @@ public class CmsSite implements Serializable {
     public void setConfig(CmsConfig config) {
         this.config = config;
     }
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "site_id")
     public CmsSiteCompany getSiteCompany() {
         return siteCompany;
     }
@@ -451,6 +453,7 @@ public class CmsSite implements Serializable {
         this.attr = attr;
     }
     @ManyToOne
+    @JoinColumn(name = "ftp_upload_id",insertable = false,updatable = false)
     public Ftp getSyncPageFtp() {
         return syncPageFtp;
     }
@@ -459,6 +462,7 @@ public class CmsSite implements Serializable {
         this.syncPageFtp = syncPageFtp;
     }
     @ManyToOne
+    @JoinColumn(name = "ftp_upload_id",insertable = false,updatable = false)
     public Ftp getUploadFtp() {
         return uploadFtp;
     }

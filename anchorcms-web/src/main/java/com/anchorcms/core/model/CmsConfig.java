@@ -14,7 +14,7 @@ import java.util.Map;
  * @Desc
  */
 @Entity
-@Table(name = "c_config", schema = "db_cms")
+@Table(name = "c_config")
 public class CmsConfig implements Serializable{
     private static final long serialVersionUID = 9078672120815388158L;
     private int configId;

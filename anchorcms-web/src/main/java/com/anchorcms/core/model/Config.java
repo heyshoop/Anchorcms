@@ -17,13 +17,13 @@ import java.util.Map;
  * @Desc
  */
 @Entity
-@Table(name = "o_config", schema = "db_cms")
+@Table(name = "o_config")
 public class Config implements Serializable {
     private static final long serialVersionUID = -5370251280191046989L;
     private String cfgKey;
     private String cfgValue;
 
-    public Config(java.lang.String id) {
+    public Config(String id) {
         this.setCfgKey(id);
         initialize();
     }

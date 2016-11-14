@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @Desc CMS内容计数表
  */
 @Entity
-@Table(name = "c_content_count", schema = "db_cms")
+@Table(name = "c_content_count")
 public class ContentCount implements Serializable{
     private static final long serialVersionUID = -7649522000147440059L;
     private int contentId;
@@ -265,7 +265,8 @@ public class ContentCount implements Serializable{
     }
 
     private Content content;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="content_id")
     public Content getContent() {
         return content;
     }

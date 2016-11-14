@@ -14,7 +14,7 @@ import java.util.Date;
  * @Desc CMS内容扩展表
  */
 @Entity
-@Table(name = "c_content_ext", schema = "db_cms")
+@Table(name = "c_content_ext")
 public class ContentExt implements Serializable{
     private static final long serialVersionUID = -1992258307360707441L;
     private int contentId;
@@ -309,7 +309,8 @@ public class ContentExt implements Serializable{
 
 
     private Content content;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="content_id")
     public Content getContent() {
         return content;
     }

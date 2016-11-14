@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @Desc CMS评论扩展表
  */
 @Entity
-@Table(name = "c_comment_ext", schema = "db_cms")
+@Table(name = "c_comment_ext")
 public class CmsCommentExt implements Serializable{
     private static final long serialVersionUID = 8480038545660260991L;
     private int commentId;
@@ -95,6 +95,7 @@ public class CmsCommentExt implements Serializable{
 
     private CmsComment comment;
     @OneToOne
+    @JoinColumn(name="comment_id",insertable = false,updatable = false)
     public CmsComment getComment() {
         return comment;
     }

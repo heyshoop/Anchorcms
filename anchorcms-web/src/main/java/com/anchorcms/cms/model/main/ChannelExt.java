@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @Desc CMS栏目内容表
  */
 @Entity
-@Table(name = "c_channel_ext", schema = "db_cms")
+@Table(name = "c_channel_ext")
 public class ChannelExt implements Serializable{
     private static final long serialVersionUID = -8540037366242221095L;
     private int channelId;
@@ -453,7 +453,8 @@ public class ChannelExt implements Serializable{
      */
     public static final int COMMENT_LOGIN_MANY = 3;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="channel_id")
     public Channel getChannel() {
         return channel;
     }

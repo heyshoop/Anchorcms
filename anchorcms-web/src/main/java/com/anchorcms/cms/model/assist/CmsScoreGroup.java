@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @Desc 得分组
  */
 @Entity
-@Table(name = "c_score_group", schema = "db_cms")
+@Table(name = "c_score_group")
 public class CmsScoreGroup implements Serializable{
     private static final long serialVersionUID = -7026722056007911971L;
     private int scoreGroupId;

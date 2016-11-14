@@ -14,7 +14,7 @@ import java.util.Set;
  * @Desc CMS专题表
  */
 @Entity
-@Table(name = "c_topic", schema = "db_cms")
+@Table(name = "c_topic")
 public class CmsTopic implements Serializable{
     private static final long serialVersionUID = 5568493810872848877L;
     private int topicId;
@@ -189,6 +189,9 @@ public class CmsTopic implements Serializable{
 
     private Set<Channel> channels;
     @ManyToMany
+    @JoinTable(name = "c_content_topic",
+            joinColumns = {@JoinColumn(name = "topic_id")},
+            inverseJoinColumns = {@JoinColumn(name = "content_id")})
     public Set<Channel> getChannels() {
         return channels;
     }
@@ -197,6 +200,7 @@ public class CmsTopic implements Serializable{
         this.channels = channels;
     }
     @ManyToOne
+    @JoinColumn(name="channel_id",insertable = false,updatable = false)
     public Channel getChannel() {
         return channel;
     }

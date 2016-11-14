@@ -705,6 +705,7 @@ public class CmsAcquisition implements Serializable{
     private CmsSite site;
 
     @ManyToOne
+    @JoinColumn(name = "user_Id",insertable = false,updatable = false)
     public CmsUser getUser() {
         return user;
     }
@@ -713,6 +714,7 @@ public class CmsAcquisition implements Serializable{
         this.user = user;
     }
     @ManyToOne
+    @JoinColumn(name = "type_id",insertable = false,updatable = false)
     public ContentType getType() {
         return type;
     }
@@ -721,6 +723,7 @@ public class CmsAcquisition implements Serializable{
         this.type = type;
     }
     @ManyToOne
+    @JoinColumn(name = "site_id",insertable = false,updatable = false)
     public CmsSite getSite() {
         return site;
     }
@@ -729,6 +732,7 @@ public class CmsAcquisition implements Serializable{
         this.site = site;
     }
     @ManyToOne
+    @JoinColumn(name = "channel_id",insertable = false,updatable = false)
     public Channel getChannel() {
         return channel;
     }

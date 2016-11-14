@@ -11,7 +11,7 @@ import java.util.Date;
  * @Desc CMS内容审核信息表
  */
 @Entity
-@Table(name = "c_content_check", schema = "db_cms")
+@Table(name = "c_content_check")
 public class ContentCheck implements Serializable{
     private static final long serialVersionUID = -7016750542440581747L;
     private int contentId;
@@ -137,7 +137,8 @@ public class ContentCheck implements Serializable{
     public static final byte PIGEONHOLE = 5;
 
     private Content content;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="content_id")
     public Content getContent() {
         return content;
     }

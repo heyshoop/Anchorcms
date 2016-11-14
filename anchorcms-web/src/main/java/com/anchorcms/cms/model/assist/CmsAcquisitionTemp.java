@@ -1,5 +1,7 @@
 package com.anchorcms.cms.model.assist;
 
+import com.anchorcms.core.model.CmsSite;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -132,5 +134,16 @@ public class CmsAcquisitionTemp implements Serializable{
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + seq;
         return result;
+    }
+
+    private CmsSite site;
+    @ManyToOne
+    @JoinColumn(name = "site_id",insertable = false,updatable = false)
+    public CmsSite getSite() {
+        return site;
+    }
+
+    public void setSite(CmsSite site) {
+        this.site = site;
     }
 }

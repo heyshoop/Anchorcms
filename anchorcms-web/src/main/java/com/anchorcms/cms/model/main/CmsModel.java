@@ -14,7 +14,7 @@ import static com.anchorcms.common.constants.Constants.*;
  * @Desc CMS模型表
  */
 @Entity
-@Table(name = "c_model", schema = "db_cms")
+@Table(name = "c_model")
 public class CmsModel implements Serializable{
     private static final long serialVersionUID = -4132299743911946924L;
     private int modelId;

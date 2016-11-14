@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @Desc CMS内容附件表
  */
 @Entity
-@Table(name = "c_content_attachment", schema = "db_cms")
+@Table(name = "c_content_attachment")
 public class ContentAttachment implements Serializable {
     private static final long serialVersionUID = 7935335726226625516L;
     private int contentId;

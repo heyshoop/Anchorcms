@@ -200,7 +200,8 @@ public class Channel implements Serializable{
     public void setAttr(Map<String, String> attr) {
         this.attr = attr;
     }
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "channel_id")
     public ChannelCount getChannelCount() {
         return channelCount;
     }
@@ -225,6 +226,7 @@ public class Channel implements Serializable{
         this.channelModels = channelModels;
     }
     @ManyToOne
+    @JoinColumn(name = "model_id",insertable = false,updatable = false)
     public CmsModel getModel() {
         return model;
     }
@@ -233,6 +235,7 @@ public class Channel implements Serializable{
         this.model = model;
     }
     @ManyToOne
+    @JoinColumn(name = "site_id",insertable = false,updatable = false)
     public CmsSite getSite() {
         return site;
     }
@@ -241,6 +244,7 @@ public class Channel implements Serializable{
         this.site = site;
     }
     @ManyToOne
+    @JoinColumn(name = "parent_id",insertable = false,updatable = false)
     public Channel getParent() {
         return parent;
     }
@@ -273,6 +277,9 @@ public class Channel implements Serializable{
         this.viewGroups = viewGroups;
     }
     @ManyToMany
+    @JoinTable(name = "c_chnl_group_contri",
+            joinColumns = {@JoinColumn(name = "channel_id")},
+            inverseJoinColumns = {@JoinColumn(name = "group_id")})
     public Set<CmsGroup> getContriGroups() {
         return contriGroups;
     }

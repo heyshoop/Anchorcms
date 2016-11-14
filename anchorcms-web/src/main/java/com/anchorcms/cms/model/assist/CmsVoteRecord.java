@@ -13,7 +13,7 @@ import java.util.Date;
  * @Desc CMS投票记录表
  */
 @Entity
-@Table(name = "c_vote_record", schema = "db_cms")
+@Table(name = "c_vote_record")
 public class CmsVoteRecord implements Serializable{
     private static final long serialVersionUID = 6146953192804439912L;
     private int voterecoredId;
@@ -128,6 +128,7 @@ public class CmsVoteRecord implements Serializable{
 
     private CmsUser user;
     @ManyToOne
+    @JoinColumn(name = "user_id",insertable = false,updatable = false)
     public CmsUser getUser() {
         return user;
     }
@@ -136,6 +137,7 @@ public class CmsVoteRecord implements Serializable{
         this.user = user;
     }
     @ManyToOne
+    @JoinColumn(name = "votetopic_id",insertable = false,updatable = false)
     public CmsVoteTopic getTopic() {
         return topic;
     }

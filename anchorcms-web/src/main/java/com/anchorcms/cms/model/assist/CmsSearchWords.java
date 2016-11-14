@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @Desc 搜索热词表
  */
 @Entity
-@Table(name = "c_search_words", schema = "db_cms")
+@Table(name = "c_search_words")
 public class CmsSearchWords implements Serializable{
     private static final long serialVersionUID = 7833593978534118913L;
     private int wordId;
@@ -124,6 +124,7 @@ public class CmsSearchWords implements Serializable{
 
     private CmsSite site;
     @ManyToOne
+    @JoinColumn(name = "site_id",insertable = false,updatable = false)
     public CmsSite getSite() {
         return site;
     }

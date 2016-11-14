@@ -16,7 +16,7 @@ import java.util.TreeSet;
  * @Desc
  */
 @Entity
-@Table(name = "c_group", schema = "db_cms")
+@Table(name = "c_group")
 public class CmsGroup implements Serializable{
     private Integer groupId;
     private String groupName;
@@ -156,7 +156,11 @@ public class CmsGroup implements Serializable{
     private Set<Channel> contriGroups;
 
     private Set<Channel> contriChannels;
+
     @ManyToMany
+    @JoinTable(name = "c_chnl_group_view",
+            joinColumns = {@JoinColumn(name = "channel_id")},
+            inverseJoinColumns = {@JoinColumn(name = "group_id")})
     public Set<Channel> getViewChannels() {
         return viewChannels;
     }
@@ -164,6 +168,7 @@ public class CmsGroup implements Serializable{
     public void setViewChannels(Set<Channel> viewChannels) {
         this.viewChannels = viewChannels;
     }
+
     @ManyToMany
     public Set<Channel> getContriGroups() {
         return contriGroups;
@@ -172,7 +177,11 @@ public class CmsGroup implements Serializable{
     public void setContriGroups(Set<Channel> contriGroups) {
         this.contriGroups = contriGroups;
     }
+
     @ManyToMany
+    @JoinTable(name = "c_chnl_group_contri",
+            joinColumns = {@JoinColumn(name = "channel_id")},
+            inverseJoinColumns = {@JoinColumn(name = "group_id")})
     public Set<Channel> getContriChannels() {
         return contriChannels;
     }

@@ -11,7 +11,7 @@ import java.util.Set;
  * @Desc CMS投票主题
  */
 @Entity
-@Table(name = "c_vote_topic", schema = "db_cms")
+@Table(name = "c_vote_topic")
 public class CmsVoteTopic implements Serializable{
     private static final long serialVersionUID = -1455077097445141581L;
     private int votetopicId;
@@ -238,6 +238,7 @@ public class CmsVoteTopic implements Serializable{
 
     private Set<CmsVoteSubTopic> subtopics;
     @OneToMany
+    @JoinColumn(name = "votetopic_id",insertable = false,updatable = false)
     public Set<CmsVoteSubTopic> getSubtopics() {
         return subtopics;
     }
@@ -246,6 +247,7 @@ public class CmsVoteTopic implements Serializable{
         this.subtopics = subtopics;
     }
     @OneToMany
+    @JoinColumn(name = "votetopic_id",insertable = false,updatable = false)
     public Set<CmsVoteItem> getItems() {
         return items;
     }

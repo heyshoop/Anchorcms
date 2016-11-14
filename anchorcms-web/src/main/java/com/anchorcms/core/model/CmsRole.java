@@ -11,7 +11,7 @@ import java.util.Set;
  * @Desc
  */
 @Entity
-@Table(name = "c_role", schema = "db_cms")
+@Table(name = "c_role")
 public class CmsRole implements Serializable {
     private static final long serialVersionUID = 472436618198907875L;
     private int roleId;
@@ -100,6 +100,9 @@ public class CmsRole implements Serializable {
 
     private Set<CmsUser> users;
     @ManyToMany
+    @JoinTable(name="c_user_role",
+            joinColumns={@JoinColumn(name="role_id")},
+            inverseJoinColumns={@JoinColumn(name="user_id")})
     public Set<CmsUser> getUsers() {
         return users;
     }

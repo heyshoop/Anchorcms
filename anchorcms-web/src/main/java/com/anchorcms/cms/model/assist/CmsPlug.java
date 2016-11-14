@@ -11,7 +11,7 @@ import java.util.Date;
  * @Desc 插件信息表
  */
 @Entity
-@Table(name = "c_plug", schema = "db_cms")
+@Table(name = "c_plug")
 public class CmsPlug implements Serializable{
     private static final long serialVersionUID = 2581059661504463160L;
     private int plugId;

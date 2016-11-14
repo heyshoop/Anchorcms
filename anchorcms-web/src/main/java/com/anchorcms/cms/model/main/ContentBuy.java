@@ -13,7 +13,7 @@ import java.sql.Timestamp;
  * @Desc 收费文章购买记录表
  */
 @Entity
-@Table(name = "c_content_buy", schema = "db_cms")
+@Table(name = "c_content_buy")
 public class ContentBuy implements Serializable{
     private static final long serialVersionUID = -6701804839844198737L;
     private long contentBuyId;

@@ -12,7 +12,7 @@ import java.util.Date;
  * @Desc
  */
 @Entity
-@Table(name = "o_authentication", schema = "db_cms")
+@Table(name = "o_authentication")
 public class Authentication implements Serializable{
     private static final long serialVersionUID = 7210422527004879666L;
     private String authenticationId;

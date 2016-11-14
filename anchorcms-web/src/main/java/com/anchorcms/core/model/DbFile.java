@@ -11,7 +11,7 @@ import java.util.Arrays;
  * @Desc
  */
 @Entity
-@Table(name = "o_upload", schema = "db_cms")
+@Table(name = "o_upload")
 public class DbFile implements Serializable{
     private static final long serialVersionUID = -2039717184969319198L;
     private String filename;

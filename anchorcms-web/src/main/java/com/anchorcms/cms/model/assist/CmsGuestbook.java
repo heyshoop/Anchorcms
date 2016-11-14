@@ -14,7 +14,7 @@ import java.sql.Timestamp;
  * @Desc CMS留言表
  */
 @Entity
-@Table(name = "c_guestbook", schema = "db_cms")
+@Table(name = "c_guestbook")
 public class CmsGuestbook implements Serializable{
     private static final long serialVersionUID = 1994521213873425521L;
     private int guestbookId;
@@ -171,7 +171,8 @@ public class CmsGuestbook implements Serializable{
     private CmsUser admin;
 
     private CmsGuestbookExt ext;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "guestbook_id")
     public CmsGuestbookExt getExt() {
         return ext;
     }
@@ -180,6 +181,7 @@ public class CmsGuestbook implements Serializable{
         this.ext = ext;
     }
     @ManyToOne
+    @JoinColumn(name = "admin_id",insertable = false,updatable = false)
     public CmsUser getAdmin() {
         return admin;
     }
@@ -188,6 +190,7 @@ public class CmsGuestbook implements Serializable{
         this.admin = admin;
     }
     @ManyToOne
+    @JoinColumn(name = "site_id",insertable = false,updatable = false)
     public CmsSite getSite() {
         return site;
     }
@@ -196,6 +199,7 @@ public class CmsGuestbook implements Serializable{
         this.site = site;
     }
     @ManyToOne
+    @JoinColumn(name = "member_id",insertable = false,updatable = false)
     public CmsUser getMember() {
         return member;
     }
@@ -204,6 +208,7 @@ public class CmsGuestbook implements Serializable{
         this.member = member;
     }
     @ManyToOne
+    @JoinColumn(name = "guestbookctg_id",insertable = false,updatable = false)
     public CmsGuestbookCtg getCtg() {
         return ctg;
     }

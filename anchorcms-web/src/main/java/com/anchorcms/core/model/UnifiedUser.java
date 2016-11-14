@@ -10,7 +10,7 @@ import java.util.Date;
  * @Desc
  */
 @Entity
-@Table(name = "o_user", schema = "db_cms")
+@Table(name = "o_user")
 public class UnifiedUser {
     private int userId;
     private String username;

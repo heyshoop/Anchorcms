@@ -14,7 +14,7 @@ import java.util.Set;
  * @Desc 用户扩展信息实体类
  */
 @Entity
-@Table(name = "c_user_ext", schema = "db_cms")
+@Table(name = "c_user_ext")
 public class CmsUserExt implements Serializable{
     private static final long serialVersionUID = 2500700798321238641L;
     private int userId;
@@ -192,7 +192,8 @@ public class CmsUserExt implements Serializable{
     }
 
     private CmsUser user;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id")
     public CmsUser getUser() {
         return user;
     }

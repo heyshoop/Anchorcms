@@ -5,19 +5,28 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
-	default-autowire="byType">
+	default-autowire="byName">
 
 	<!-- 引入项目配置文件 -->
-	<bean
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<!--<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:jdbc.properties</value>
+				<value>classpath*:jdbc.properties</value>
 			</list>
 		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true"/>
+	</bean>-->
+	<bean id="propertyConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+		<property name="environment">
+			<bean class="org.springframework.web.context.support.StandardServletEnvironment"/>
+		</property>
 	</bean>
+	<!--数据库配置-->
+	<context:property-placeholder location="classpath*:jdbc.properties" ignore-unresolvable="true"/>
+	<!--防火墙配置-->
+	<context:property-placeholder location="classpath*:/manager/firewall.properties" ignore-unresolvable="true"/>
 	<!--配置文件管理-->
-	<bean id="properties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+	<bean id="properties" class="org.springframework.beans.factory.config.PropertiesFactoryBean" autowire="no">
 		<property name="locations">
 			<list>
 				<value>classpath*:jdbc.properties</value>

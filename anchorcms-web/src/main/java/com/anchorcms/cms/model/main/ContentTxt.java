@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @Desc CMS内容文本表
  */
 @Entity
-@Table(name = "c_content_txt", schema = "db_cms")
+@Table(name = "c_content_txt")
 public class ContentTxt implements Serializable{
     private static final long serialVersionUID = 5091176700006302477L;
     private int contentId;
@@ -102,7 +102,8 @@ public class ContentTxt implements Serializable{
     //ueditor采用分页
     public static String PAGE_START = "[NextPage]";
     public static String PAGE_END = "[/NextPage]";
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="content_id")
     public Content getContent() {
         return content;
     }

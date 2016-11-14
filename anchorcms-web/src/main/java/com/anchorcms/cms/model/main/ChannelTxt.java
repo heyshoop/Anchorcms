@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @Desc CMS栏目文本表
  */
 @Entity
-@Table(name = "c_channel_txt", schema = "db_cms")
+@Table(name = "c_channel_txt")
 public class ChannelTxt implements Serializable{
     private static final long serialVersionUID = 3413371645124382009L;
     private int channelId;
@@ -98,7 +98,8 @@ public class ChannelTxt implements Serializable{
     }
 
     private Channel channel;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="channel_id")
     public Channel getChannel() {
         return channel;
     }

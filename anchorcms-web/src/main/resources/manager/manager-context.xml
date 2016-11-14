@@ -9,13 +9,13 @@
         <property name="basenames" value="#{propertyUtils.getList('messages.admin.')}"/>
     </bean>
     <!--后台防火墙配置-->
-    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <!--<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
                 <value>classpath:manager/firewall.properties</value>
             </list>
         </property>
-    </bean>
+    </bean>-->
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
         <property name="interceptors">
             <list>
@@ -64,7 +64,7 @@
         <property name="exposeSpringMacroHelpers" value="true"/>
     </bean>
     <!--freemarker配置-->
-    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+    <bean id="freemarkerConfig" name="managerfreemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/WEB-INF"/>
         <property name="freemarkerVariables">
             <map>

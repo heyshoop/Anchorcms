@@ -30,6 +30,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -289,7 +290,7 @@ public class StaticPageSvcImpl  implements StaticPageSvc, InitializingBean {
 			thread.start();
 		}
 	}
-	@Resource
+	@Resource(name = "tplMessageSource")
 	private MessageSource tplMessageSource;
 	@Resource
 	private RealPathResolver realPathResolver;
@@ -309,6 +310,7 @@ public class StaticPageSvcImpl  implements StaticPageSvc, InitializingBean {
 		Assert.notNull(tplMessageSource,"tplMessageSource configuration cannot be null!");
 	}
 
+	@Resource(name = "frontfreemarkerConfig")
 	public void setFreeMarkerConfigurer(FreeMarkerConfigurer freeMarkerConfigurer) {
 		this.conf = freeMarkerConfigurer.getConfiguration();
 	}

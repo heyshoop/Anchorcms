@@ -210,6 +210,7 @@ public class CmsAdvertising implements Serializable{
     public static String PROP_CLICK_COUNT = "clickCount";
     public static String PROP_DISPLAY_COUNT = "displayCount";
     @ManyToOne
+    @JoinColumn(name = "site_id",insertable = false,updatable = false)
     public CmsSite getSite() {
         return site;
     }
@@ -226,6 +227,7 @@ public class CmsAdvertising implements Serializable{
         this.attr = attr;
     }
     @ManyToOne
+    @JoinColumn(name = "adspace_id",insertable = false,updatable = false)
     public CmsAdvertisingSpace getAdspace() {
         return adspace;
     }

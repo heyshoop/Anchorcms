@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @Desc CMS搜索热词表
  */
 @Entity
-@Table(name = "c_sensitivity", schema = "db_cms")
+@Table(name = "c_sensitivity")
 public class CmsSensitivity implements Serializable{
     private static final long serialVersionUID = 4648686106027585148L;
     private int sensitivityId;

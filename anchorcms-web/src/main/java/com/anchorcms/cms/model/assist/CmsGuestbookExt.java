@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @Desc CMS留言内容表
  */
 @Entity
-@Table(name = "c_guestbook_ext", schema = "db_cms")
+@Table(name = "c_guestbook_ext")
 public class CmsGuestbookExt implements Serializable{
     private static final long serialVersionUID = -8683662484276877098L;
     private int guestbookId;
@@ -136,6 +136,7 @@ public class CmsGuestbookExt implements Serializable{
 
     private CmsGuestbook guestbook;
     @OneToOne
+    @JoinColumn(name = "guestbook_id",insertable = false,updatable = false)
     public CmsGuestbook getGuestbook() {
         return guestbook;
     }

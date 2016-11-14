@@ -3,7 +3,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd"
        default-lazy-init="true">
     <!--加载配置文件-->
-    <bean id="tplMessageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+    <bean id="tplMessageSource" name="tplMessageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="cacheSeconds" value="0"/>
         <property name="basenames" value="#{propertyUtils.getList('messages.tpl.')}"/>
     </bean>

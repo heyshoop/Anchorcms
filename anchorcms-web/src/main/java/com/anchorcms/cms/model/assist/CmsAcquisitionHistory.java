@@ -129,6 +129,7 @@ public class CmsAcquisitionHistory implements Serializable{
     private CmsAcquisition acquisition;
 
     @ManyToOne
+    @JoinColumn(name = "acquisition_id",insertable = false,updatable = false)
     public CmsAcquisition getAcquisition() {
         return acquisition;
     }
@@ -138,6 +139,7 @@ public class CmsAcquisitionHistory implements Serializable{
     }
 
     @ManyToOne
+    @JoinColumn(name = "content_id",insertable = false,updatable = false)
     public Content getContent() {
         return content;
     }

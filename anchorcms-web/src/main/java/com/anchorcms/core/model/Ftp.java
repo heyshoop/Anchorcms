@@ -23,7 +23,7 @@ import java.net.SocketException;
  * @Desc FTP表
  */
 @Entity
-@Table(name = "o_ftp", schema = "db_cms")
+@Table(name = "o_ftp")
 public class Ftp implements Serializable{
     private static final long serialVersionUID = -5536010781200223541L;
     private static final Logger log = LoggerFactory.getLogger(Ftp.class);

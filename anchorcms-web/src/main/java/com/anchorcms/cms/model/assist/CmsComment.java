@@ -15,7 +15,7 @@ import java.sql.Timestamp;
  * @Desc CMS评论表
  */
 @Entity
-@Table(name = "c_comment", schema = "db_cms")
+@Table(name = "c_comment")
 public class CmsComment implements Serializable{
     private static final long serialVersionUID = 850793090492422718L;
     private int commentId;
@@ -226,7 +226,8 @@ public class CmsComment implements Serializable{
     private CmsComment parent;
 
     private CmsCommentExt commentExt;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="comment_id")
     public CmsCommentExt getCommentExt() {
         return commentExt;
     }
@@ -234,7 +235,8 @@ public class CmsComment implements Serializable{
     public void setCommentExt(CmsCommentExt commentExt) {
         this.commentExt = commentExt;
     }
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="comment_id")
     public CmsComment getParent() {
         return parent;
     }
@@ -243,6 +245,7 @@ public class CmsComment implements Serializable{
         this.parent = parent;
     }
     @ManyToOne
+    @JoinColumn(name="comment_user_id",insertable = false,updatable = false)
     public CmsUser getCommentUser() {
         return commentUser;
     }
@@ -251,6 +254,7 @@ public class CmsComment implements Serializable{
         this.commentUser = commentUser;
     }
     @ManyToOne
+    @JoinColumn(name="site_id",insertable = false,updatable = false)
     public CmsSite getSite() {
         return site;
     }
@@ -259,6 +263,7 @@ public class CmsComment implements Serializable{
         this.site = site;
     }
     @ManyToOne
+    @JoinColumn(name="content_id",insertable = false,updatable = false)
     public Content getContent() {
         return content;
     }

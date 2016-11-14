@@ -126,7 +126,7 @@ public class ChannelDaoImpl extends HibernateBaseDao<Channel, Integer>
 	}
 
 	public Channel findByPath(String path, Integer siteId, boolean cacheable) {
-		String hql = "from Channel bean where bean.channelPath=? and bean.site.id=?";
+		String hql = "from Channel bean where bean.channelPath=? and bean.site.siteId=?";
 		Query query = getSession().createQuery(hql);
 		query.setParameter(0, path).setParameter(1, siteId);
 		// 做一些容错处理，因为毕竟没有在数据库中限定path是唯一的。

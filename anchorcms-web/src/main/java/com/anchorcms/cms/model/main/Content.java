@@ -23,7 +23,7 @@ import static com.anchorcms.common.constants.Constants.SPT;
  * @Desc CMS内容表
  */
 @Entity
-@Table(name = "c_content", schema = "db_cms")
+@Table(name = "c_content")
 public class Content implements Serializable{
     private static final long serialVersionUID = 6895381296604577589L;
     private Integer contentId;
@@ -302,6 +302,7 @@ public class Content implements Serializable{
     private Set<ContentCharge> contentChargeSet;
 
     @OneToMany
+    @JoinColumn(name="content_id")
     public Set<ContentCharge> getContentChargeSet() {
         return contentChargeSet;
     }
@@ -310,6 +311,7 @@ public class Content implements Serializable{
         this.contentChargeSet = contentChargeSet;
     }
     @ManyToOne
+    @JoinColumn(name="model_id",insertable = false,updatable = false)
     public CmsModel getModel() {
         return model;
     }
@@ -317,7 +319,8 @@ public class Content implements Serializable{
     public void setModel(CmsModel model) {
         this.model = model;
     }
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="content_id")
     public ContentCount getContentCount() {
         return contentCount;
     }
@@ -326,6 +329,7 @@ public class Content implements Serializable{
         this.contentCount = contentCount;
     }
     @OneToMany
+    @JoinColumn(name="content_id")
     public Set<ContentTxt> getContentTxtSet() {
         return contentTxtSet;
     }
@@ -334,6 +338,7 @@ public class Content implements Serializable{
         this.contentTxtSet = contentTxtSet;
     }
     @OneToMany
+    @JoinColumn(name="content_id")
     public Set<CmsFile> getFiles() {
         return files;
     }
@@ -341,7 +346,8 @@ public class Content implements Serializable{
     public void setFiles(Set<CmsFile> files) {
         this.files = files;
     }
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="content_id")
     public ContentExt getContentExt() {
         return contentExt;
     }
@@ -350,6 +356,9 @@ public class Content implements Serializable{
         this.contentExt = contentExt;
     }
     @ManyToMany
+    @JoinTable(name = "c_user_collection",
+            joinColumns = {@JoinColumn(name = "content_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")})
     public Set<CmsUser> getCollectUsers() {
         return collectUsers;
     }
@@ -366,6 +375,7 @@ public class Content implements Serializable{
         this.attr = attr;
     }
     @ManyToOne
+    @JoinColumn(name="site_id",insertable = false,updatable = false)
     public CmsSite getSite() {
         return site;
     }
@@ -374,6 +384,7 @@ public class Content implements Serializable{
         this.site = site;
     }
     @ManyToOne
+    @JoinColumn(name="user_id",insertable = false,updatable = false)
     public CmsUser getUser() {
         return user;
     }
@@ -382,6 +393,7 @@ public class Content implements Serializable{
         this.user = user;
     }
     @ManyToOne
+    @JoinColumn(name="type_id",insertable = false,updatable = false)
     public ContentType getType() {
         return type;
     }
@@ -390,6 +402,7 @@ public class Content implements Serializable{
         this.type = type;
     }
     @ManyToOne
+    @JoinColumn(name="channel_id",insertable = false,updatable = false)
     public Channel getChannel() {
         return channel;
     }
@@ -398,6 +411,7 @@ public class Content implements Serializable{
         this.channel = channel;
     }
     @OneToMany
+    @JoinColumn(name="content_id",insertable = false,updatable = false)
     public List<ContentPicture> getPictures() {
         return pictures;
     }
@@ -406,6 +420,7 @@ public class Content implements Serializable{
         this.pictures = pictures;
     }
     @OneToMany
+    @JoinColumn(name="content_id",insertable = false,updatable = false)
     public List<ContentAttachment> getAttachments() {
         return attachments;
     }
@@ -414,6 +429,9 @@ public class Content implements Serializable{
         this.attachments = attachments;
     }
     @ManyToMany
+    /*@JoinTable(name = "c_content_tag",
+            joinColumns = {@JoinColumn(name = "content_id")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id")})*/
     public List<ContentTag> getTags() {
         return tags;
     }
@@ -422,6 +440,9 @@ public class Content implements Serializable{
         this.tags = tags;
     }
     @ManyToMany
+    @JoinTable(name = "c_content_group_view",
+            joinColumns = {@JoinColumn(name = "content_id")},
+            inverseJoinColumns = {@JoinColumn(name = "group_id")})
     public Set<CmsGroup> getViewGroups() {
         return viewGroups;
     }
@@ -430,6 +451,7 @@ public class Content implements Serializable{
         this.viewGroups = viewGroups;
     }
     @OneToMany
+    @JoinColumn(name="content_id")
     public Set<ContentCheck> getContentCheckSet() {
         return contentCheckSet;
     }
@@ -438,6 +460,9 @@ public class Content implements Serializable{
         this.contentCheckSet = contentCheckSet;
     }
     @ManyToMany
+    @JoinTable(name = "c_content_topic",
+            joinColumns = {@JoinColumn(name = "content_id")},
+            inverseJoinColumns = {@JoinColumn(name = "topic_id")})
     public Set<CmsTopic> getTopics() {
         return topics;
     }
@@ -446,6 +471,7 @@ public class Content implements Serializable{
         this.topics = topics;
     }
     @OneToMany
+    @JoinColumn(name="channel_id")
     public Set<Channel> getChannels() {
         return channels;
     }

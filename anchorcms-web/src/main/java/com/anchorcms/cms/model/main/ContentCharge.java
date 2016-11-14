@@ -2,7 +2,6 @@ package com.anchorcms.cms.model.main;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -12,7 +11,7 @@ import java.util.Date;
  * @Desc 收费内容配置表
  */
 @Entity
-@Table(name = "c_content_charge", schema = "db_cms")
+@Table(name = "c_content_charge")
 public class ContentCharge implements Serializable{
     private static final long serialVersionUID = -870499369012687532L;
     public static final Short MODEL_FREE=0;
@@ -147,7 +146,8 @@ public class ContentCharge implements Serializable{
     }
 
     private Content content;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="content_id")
     public Content getContent() {
         return content;
     }

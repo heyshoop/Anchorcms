@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @Desc CMS投票文本回复表
  */
 @Entity
-@Table(name = "c_vote_reply", schema = "db_cms")
+@Table(name = "c_vote_reply")
 public class CmsVoteReply implements Serializable{
     private static final long serialVersionUID = 8467906464623724198L;
     private int votereplyId;
@@ -71,6 +71,7 @@ public class CmsVoteReply implements Serializable{
 
     private CmsVoteSubTopic subTopic;
     @ManyToOne
+    @JoinColumn(name = "subtopic_id",insertable = false,updatable = false)
     public CmsVoteSubTopic getSubTopic() {
         return subTopic;
     }

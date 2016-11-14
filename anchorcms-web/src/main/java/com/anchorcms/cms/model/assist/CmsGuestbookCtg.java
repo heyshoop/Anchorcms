@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @Desc CMS留言类别
  */
 @Entity
-@Table(name = "c_guestbook_ctg", schema = "db_cms")
+@Table(name = "c_guestbook_ctg")
 public class CmsGuestbookCtg implements Serializable{
     private static final long serialVersionUID = 6861658165437643760L;
     private int guestbookctgId;

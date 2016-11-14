@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @Desc 栏目可选内容模型表
  */
 @Entity
-@Table(name = "c_channel_model", schema = "db_cms")
+@Table(name = "c_channel_model")
 public class ChannelModel implements Serializable{
     private static final long serialVersionUID = -3949115942501407989L;
     private int channelId;
@@ -97,6 +97,7 @@ public class ChannelModel implements Serializable{
     }
     private CmsModel model;
     @ManyToOne
+    @JoinColumn(name="model_id",insertable = false,updatable = false)
     public CmsModel getModel() {
         return model;
     }

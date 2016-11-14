@@ -13,7 +13,7 @@ import java.util.Date;
  * @Desc 文章操作记录表
  */
 @Entity
-@Table(name = "c_content_record", schema = "db_cms")
+@Table(name = "c_content_record")
 public class ContentRecord implements Serializable{
     private static final long serialVersionUID = -6494448955871009821L;
     private long contentRecordId;
@@ -102,6 +102,7 @@ public class ContentRecord implements Serializable{
 
     private CmsUser user;
     @ManyToOne
+    @JoinColumn(name="user_id",insertable = false,updatable = false)
     public CmsUser getUser() {
         return user;
     }
@@ -110,6 +111,7 @@ public class ContentRecord implements Serializable{
         this.user = user;
     }
     @ManyToOne
+    @JoinColumn(name="content_id",insertable = false,updatable = false)
     public Content getContent() {
         return content;
     }

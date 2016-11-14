@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @Desc 附件表
  */
 @Entity
-@Table(name = "c_file", schema = "db_cms")
+@Table(name = "c_file")
 public class CmsFile implements Serializable{
     private static final long serialVersionUID = -2158156906148071550L;
     private String filePath;
@@ -86,6 +86,7 @@ public class CmsFile implements Serializable{
 
     private Content content;
     @ManyToOne
+    @JoinColumn(name="content_id",insertable = false,updatable = false)
     public Content getContent() {
         return content;
     }

@@ -8,17 +8,17 @@ package com.anchorcms.core.model;
  */
 public class MarkConfig {
     // fields
-    private java.lang.Boolean on;
-    private java.lang.Integer minWidth;
-    private java.lang.Integer minHeight;
-    private java.lang.String imagePath;
-    private java.lang.String content;
-    private java.lang.Integer size;
-    private java.lang.String color;
-    private java.lang.Integer alpha;
-    private java.lang.Integer pos;
-    private java.lang.Integer offsetX;
-    private java.lang.Integer offsetY;
+    private Boolean on;
+    private Integer minWidth;
+    private Integer minHeight;
+    private String imagePath;
+    private String content;
+    private Integer size;
+    private String color;
+    private Integer alpha;
+    private Integer pos;
+    private Integer offsetX;
+    private Integer offsetY;
 
     public Boolean getOn() {
         return on;

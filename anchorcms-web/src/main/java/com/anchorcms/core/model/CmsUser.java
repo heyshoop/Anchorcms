@@ -17,7 +17,7 @@ import java.util.Set;
  * @Desc 用户实体类
  */
 @Entity
-@Table(name = "c_user", schema = "db_cms")
+@Table(name = "c_user")
 public class CmsUser implements Serializable{
     private static final long serialVersionUID = -2256496850453558311L;
     private int userId;
@@ -287,6 +287,7 @@ public class CmsUser implements Serializable{
         this.selfAdmin = selfAdmin;
     }
     @OneToMany
+    @JoinColumn(name="user_id")
     public Set<CmsUserSite> getUserSites() {
         return userSites;
     }
@@ -295,6 +296,7 @@ public class CmsUser implements Serializable{
         this.userSites = userSites;
     }
     @OneToMany
+    @JoinColumn(name="user_id")
     public Set<Content> getCollectContents() {
         return collectContents;
     }
@@ -303,6 +305,9 @@ public class CmsUser implements Serializable{
         this.collectContents = collectContents;
     }
     @ManyToMany
+    @JoinTable(name="c_channel_user",
+            joinColumns={@JoinColumn(name="user_id")},
+            inverseJoinColumns={@JoinColumn(name="channel_id")})
     public Set<Channel> getChannels() {
         return channels;
     }
@@ -311,10 +316,12 @@ public class CmsUser implements Serializable{
         this.channels = channels;
     }
     @OneToMany
+    @JoinColumn(name="user_id")
     public Set<CmsUserExt> getUserExtSet() {
         return userExtSet;
     }
     @OneToMany /*一对多*/
+    @JoinColumn(name="role_id")
     public Set<CmsRole> getRoles() {
         return roles;
     }
@@ -331,6 +338,7 @@ public class CmsUser implements Serializable{
         this.attr = attr;
     }
     @ManyToOne
+    @JoinColumn(name="group_id",insertable = false,updatable = false)
     public CmsGroup getGroup() {
         return group;
     }

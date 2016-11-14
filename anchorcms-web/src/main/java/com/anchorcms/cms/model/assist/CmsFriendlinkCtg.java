@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @Desc 友链类别
  */
 @Entity
-@Table(name = "c_friendlink_ctg", schema = "db_cms")
+@Table(name = "c_friendlink_ctg")
 public class CmsFriendlinkCtg implements Serializable{
     private static final long serialVersionUID = -2832122385195714400L;
     private int friendlinkctgId;
@@ -87,6 +87,7 @@ public class CmsFriendlinkCtg implements Serializable{
 
     private CmsSite site;
     @ManyToOne
+    @JoinColumn(name="site_id",insertable = false,updatable = false)
     public CmsSite getSite() {
         return site;
     }

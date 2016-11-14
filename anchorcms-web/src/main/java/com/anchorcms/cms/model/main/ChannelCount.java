@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @Desc CMS栏目访问量计数表
  */
 @Entity
-@Table(name = "c_channel_count", schema = "db_cms")
+@Table(name = "c_channel_count")
 public class ChannelCount implements Serializable{
     private static final long serialVersionUID = -5149623885967766059L;
     private int channelId;
@@ -161,7 +161,8 @@ public class ChannelCount implements Serializable{
     }
 
     private Channel channel;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="channel_id")
     public Channel getChannel() {
         return channel;
     }

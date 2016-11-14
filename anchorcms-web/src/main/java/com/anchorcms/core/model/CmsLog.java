@@ -11,7 +11,7 @@ import java.util.Date;
  * @Desc CMS日志表
  */
 @Entity
-@Table(name = "c_log", schema = "db_cms")
+@Table(name = "c_log")
 public class CmsLog implements Serializable{
     private static final long serialVersionUID = -5178919087310855782L;
     private int logId;
@@ -158,6 +158,7 @@ public class CmsLog implements Serializable{
     public static final String LOGIN_SUCCESS_TITLE = "login success";
     public static final String LOGIN_FAILURE_TITLE = "login failure";
     @ManyToOne
+    @JoinColumn(name = "user_id",insertable = false,updatable = false)
     public CmsUser getUser() {
         return user;
     }
@@ -166,6 +167,7 @@ public class CmsLog implements Serializable{
         this.user = user;
     }
     @ManyToOne
+    @JoinColumn(name = "site_id",insertable = false,updatable = false)
     public CmsSite getSite() {
         return site;
     }

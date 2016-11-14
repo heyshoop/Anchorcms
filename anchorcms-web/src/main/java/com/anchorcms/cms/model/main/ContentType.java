@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @Desc CMS内容类型表
  */
 @Entity
-@Table(name = "c_content_type", schema = "db_cms")
+@Table(name = "c_content_type")
 public class ContentType implements Serializable{
     private static final long serialVersionUID = -1203930204513587253L;
     private int typeId;

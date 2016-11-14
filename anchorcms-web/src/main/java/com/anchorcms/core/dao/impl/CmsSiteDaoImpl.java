@@ -21,7 +21,7 @@ public class CmsSiteDaoImpl extends HibernateBaseDao<CmsSite, Integer>
 
 	@SuppressWarnings("unchecked")
 	public List<CmsSite> getList(boolean cacheable) {
-		String hql = "from CmsSite bean order by bean.id asc";
+		String hql = "from CmsSite bean order by bean.siteId asc";
 		return getSession().createQuery(hql).setCacheable(cacheable).list();
 	}
 	

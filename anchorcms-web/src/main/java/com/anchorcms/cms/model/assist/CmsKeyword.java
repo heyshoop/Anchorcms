@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @Desc 关键词
  */
 @Entity
-@Table(name = "c_keyword", schema = "db_cms")
+@Table(name = "c_keyword")
 public class CmsKeyword implements Serializable{
     private static final long serialVersionUID = -7021544213507351322L;
     private int keywordId;

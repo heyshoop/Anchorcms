@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @Desc CMS管理员站点表
  */
 @Entity
-@Table(name = "c_user_site", schema = "db_cms")
+@Table(name = "c_user_site")
 public class CmsUserSite implements Serializable{
     private static final long serialVersionUID = 2314702830912783727L;
     private int usersiteId;
@@ -119,6 +119,7 @@ public class CmsUserSite implements Serializable{
         this.allChannel = allChannel;
     }
     @ManyToOne
+    @JoinColumn(name = "site_id",insertable = false,updatable = false)
     public CmsSite getSite() {
         return site;
     }

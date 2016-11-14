@@ -161,7 +161,8 @@ public class CmsSiteCompany implements Serializable{
     }
 
     private CmsSite site;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "site_id")
     public CmsSite getSite() {
         return site;
     }

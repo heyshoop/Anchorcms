@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @Desc CMS内容TAG表
  */
 @Entity
-@Table(name = "c_content_tag", schema = "db_cms")
+@Table(name = "c_content_tag")
 public class ContentTag implements Serializable{
     private static final long serialVersionUID = 7928904425697695411L;
     private int tagId;

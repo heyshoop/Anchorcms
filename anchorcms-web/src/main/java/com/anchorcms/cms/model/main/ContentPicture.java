@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @Desc
  */
 @Entity
-@Table(name = "c_content_picture", schema = "db_cms")
+@Table(name = "c_content_picture")
 public class ContentPicture implements Serializable{
     private static final long serialVersionUID = -3058701950053171496L;
     private int contentId;

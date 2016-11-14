@@ -2,7 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+    <bean id="messageSource" name="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="cacheSeconds" value="-1"/>
         <property name="basenames" value="#{propertyUtils.getList('messages.front.')}"/>
     </bean>
@@ -46,7 +46,7 @@
         <property name="exposeSessionAttributes" value="false"/>
         <property name="exposeSpringMacroHelpers" value="true"/>
     </bean>
-    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+    <bean id="freemarkerConfig" name="frontfreemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <!--获取标签配置-->
         <property name="freemarkerVariables" value="#{propertyUtils.getBeanMap('directive.')}"/>
         <property name="templateLoaderPath" value=""/>
