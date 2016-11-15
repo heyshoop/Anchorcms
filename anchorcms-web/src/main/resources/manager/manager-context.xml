@@ -55,7 +55,7 @@
         </property>
     </bean>
     <!--后台管理根路径配置-->
-    <bean id="freemarkerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+    <bean id="freemarkerViewResolver" class="com.anchorcms.common.web.RichFreeMarkerViewResolver">
         <property name="prefix" value="/anchorcms_sys/"/>
         <property name="suffix" value=".html"/>
         <property name="contentType" value="text/html; charset=UTF-8"/>

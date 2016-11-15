@@ -210,6 +210,7 @@ public class Channel implements Serializable{
         this.channelCount = channelCount;
     }
     @OneToMany
+    @JoinColumn(name = "channel_id")
     public Set<ChannelTxt> getChannelTxtSet() {
         return channelTxtSet;
     }
@@ -218,6 +219,7 @@ public class Channel implements Serializable{
         this.channelTxtSet = channelTxtSet;
     }
     @OneToMany
+    @JoinColumn(name = "channel_id")
     public List<ChannelModel> getChannelModels() {
         return channelModels;
     }
@@ -262,6 +264,9 @@ public class Channel implements Serializable{
         this.channelExt = channelExt;
     }
     @ManyToMany
+    @JoinTable(name="c_channel_user",
+            joinColumns={@JoinColumn(name="channel_id")},
+            inverseJoinColumns={@JoinColumn(name="user_id")})
     public Set<CmsUser> getUsers() {
         return users;
     }
@@ -270,6 +275,9 @@ public class Channel implements Serializable{
         this.users = users;
     }
     @ManyToMany
+    @JoinTable(name = "c_chnl_group_view",
+            joinColumns = {@JoinColumn(name = "channel_id")},
+            inverseJoinColumns = {@JoinColumn(name = "group_id")})
     public Set<CmsGroup> getViewGroups() {
         return viewGroups;
     }

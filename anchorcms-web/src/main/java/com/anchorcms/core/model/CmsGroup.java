@@ -159,8 +159,8 @@ public class CmsGroup implements Serializable{
 
     @ManyToMany
     @JoinTable(name = "c_chnl_group_view",
-            joinColumns = {@JoinColumn(name = "channel_id")},
-            inverseJoinColumns = {@JoinColumn(name = "group_id")})
+            joinColumns = {@JoinColumn(name = "group_id")},
+            inverseJoinColumns = {@JoinColumn(name = "channel_id")})
     public Set<Channel> getViewChannels() {
         return viewChannels;
     }
