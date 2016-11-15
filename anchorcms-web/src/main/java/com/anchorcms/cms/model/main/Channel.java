@@ -171,6 +171,8 @@ public class Channel implements Serializable{
         return result;
     }
 
+    private java.util.Set<Channel> child;
+
     private Set<CmsGroup> viewGroups;
 
     private Set<CmsGroup> contriGroups;
@@ -192,6 +194,17 @@ public class Channel implements Serializable{
     private ChannelCount channelCount;
 
     private Map<String,String> attr;
+
+    @OneToMany
+    @JoinColumn(name = "parent_id",insertable = false,updatable = false)
+    public Set<Channel> getChild() {
+        return child;
+    }
+
+    public void setChild(Set<Channel> child) {
+        this.child = child;
+    }
+
     @Transient
     public Map<String, String> getAttr() {
         return attr;
@@ -762,6 +775,113 @@ public class Channel implements Serializable{
             return ext.getIsAccessByDir();
         } else {
             return null;
+        }
+    }
+    /**
+     * 获得列表用于下拉选择。条件：有内容的栏目。
+     *
+     * @param topList
+     *            顶级栏目
+     * @return
+     */
+    public static List<Channel> getListForSelect(List<Channel> topList,
+                                                 Set<Channel> rights, boolean hasContentOnly) {
+        return getListForSelect(topList, rights, null, hasContentOnly);
+    }
+    public static List<Channel> getListForSelect(List<Channel> topList,
+                                                 Set<Channel> rights, Channel exclude, boolean hasContentOnly) {
+        List<Channel> list = new ArrayList<Channel>();
+        for (Channel c : topList) {
+            addChildToList(list, c, rights, exclude, hasContentOnly);
+        }
+        return list;
+    }
+
+    /**
+     * 获取栏目下总浏览量
+     * @return
+     */
+    @Transient
+    public int getViewTotal() {
+        Integer totalView=0;
+        List<Channel> list = new ArrayList<Channel>();
+        addChildToList(list, this, true);
+        for(Channel c:list){
+            totalView+=c.getChannelCount().getViews();
+        }
+        return totalView;
+    }
+    @Transient
+    public int getViewsDayTotal() {
+        Integer totalView=0;
+        List<Channel> list = new ArrayList<Channel>();
+        addChildToList(list, this, true);
+        for(Channel c:list){
+            totalView+=c.getChannelCount().getViewsDay();
+        }
+        return totalView;
+    }
+    @Transient
+    public int getViewsMonthTotal() {
+        Integer totalView=0;
+        List<Channel> list = new ArrayList<Channel>();
+        addChildToList(list, this, true);
+        for(Channel c:list){
+            totalView+=c.getChannelCount().getViewsMonth();
+        }
+        return totalView;
+    }
+    @Transient
+    public int getViewsWeekTotal() {
+        Integer totalView=0;
+        List<Channel> list = new ArrayList<Channel>();
+        addChildToList(list, this, true);
+        for(Channel c:list){
+            totalView+=c.getChannelCount().getViewsWeek();
+        }
+        return totalView;
+    }
+
+    private static void addChildToList(List<Channel> list, Channel channel, boolean hasContentOnly) {
+        list.add(channel);
+        Set<Channel> child = channel.getChild();
+        for (Channel c : child) {
+            if (hasContentOnly) {
+                if (c.getHasContent()) {
+                    addChildToList(list, c,  hasContentOnly);
+                }
+            } else {
+                addChildToList(list, c, hasContentOnly);
+            }
+        }
+    }
+
+    /**
+     * 递归将子栏目加入列表。条件：有内容的栏目。
+     *
+     * @param list
+     *            栏目容器
+     * @param channel
+     *            待添加的栏目，且递归添加子栏目
+     * @param rights
+     *            有权限的栏目，为null不控制权限。
+     */
+    private static void addChildToList(List<Channel> list, Channel channel,
+                                       Set<Channel> rights, Channel exclude, boolean hasContentOnly) {
+        if ((rights != null && !rights.contains(channel))
+                || (exclude != null && exclude.equals(channel))) {
+            return;
+        }
+        list.add(channel);
+        Set<Channel> child = channel.getChild();
+        for (Channel c : child) {
+            if (hasContentOnly) {
+                if (c.getHasContent()) {
+                    addChildToList(list, c, rights, exclude, hasContentOnly);
+                }
+            } else {
+                addChildToList(list, c, rights, exclude, hasContentOnly);
+            }
         }
     }
 }

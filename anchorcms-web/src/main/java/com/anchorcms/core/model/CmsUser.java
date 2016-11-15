@@ -24,7 +24,7 @@ public class CmsUser implements Serializable{
     private int groupId;
     private String username;
     private String email;
-    private Serializable registerTime;
+    private Date registerTime;
     private String registerIp;
     private Date lastLoginTime;
     private String lastLoginIp;
@@ -80,11 +80,11 @@ public class CmsUser implements Serializable{
 
     @Basic
     @Column(name = "register_time")
-    public Serializable getRegisterTime() {
+    public Date getRegisterTime() {
         return registerTime;
     }
 
-    public void setRegisterTime(Serializable registerTime) {
+    public void setRegisterTime(Date registerTime) {
         this.registerTime = registerTime;
     }
 
@@ -218,9 +218,9 @@ public class CmsUser implements Serializable{
         if (userId != cmsUser.userId) return false;
         if (groupId != cmsUser.groupId) return false;
         if (loginCount != cmsUser.loginCount) return false;
-        if (rank != cmsUser.rank) return false;
-        if (uploadTotal != cmsUser.uploadTotal) return false;
-        if (uploadSize != cmsUser.uploadSize) return false;
+        if (!rank.equals(cmsUser.rank)) return false;
+        if (!uploadTotal.equals(cmsUser.uploadTotal)) return false;
+        if (!uploadSize.equals(cmsUser.uploadSize)) return false;
         if (isAdmin != cmsUser.isAdmin) return false;
         if (isSelfAdmin != cmsUser.isSelfAdmin) return false;
         if (isDisabled != cmsUser.isDisabled) return false;
@@ -252,10 +252,9 @@ public class CmsUser implements Serializable{
         result = 31 * result + (int) (uploadTotal ^ (uploadTotal >>> 32));
         result = 31 * result + uploadSize;
         result = 31 * result + (uploadDate != null ? uploadDate.hashCode() : 0);
-        result = 31 * result + (isAdmin != true ? 0 :1);
-        result = 31 * result + (isSelfAdmin != true ? 0 :1);
-        result = 31 * result + (isDisabled != true ? 0 :1);
-        result = 31 * result + (sessionId != null ? sessionId.hashCode() : 0);
+        result = 31 * result + (!isAdmin ? 0 :1);
+        result = 31 * result + (!isSelfAdmin ? 0 :1);
+        result = 31 * result + (!isDisabled ? 0 :1);
         return result;
     }
 
@@ -287,7 +286,7 @@ public class CmsUser implements Serializable{
         this.selfAdmin = selfAdmin;
     }
     @OneToMany
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="user_id",insertable = false,updatable = false)
     public Set<CmsUserSite> getUserSites() {
         return userSites;
     }
@@ -296,7 +295,7 @@ public class CmsUser implements Serializable{
         this.userSites = userSites;
     }
     @OneToMany
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="user_id",insertable = false,updatable = false)
     public Set<Content> getCollectContents() {
         return collectContents;
     }
@@ -316,12 +315,14 @@ public class CmsUser implements Serializable{
         this.channels = channels;
     }
     @OneToMany
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="user_id",insertable = false,updatable = false)
     public Set<CmsUserExt> getUserExtSet() {
         return userExtSet;
     }
-    @OneToMany /*一对多*/
-    @JoinColumn(name="role_id")
+    @ManyToMany
+    @JoinTable(name="c_user_role",
+            joinColumns={@JoinColumn(name="user_id")},
+            inverseJoinColumns={@JoinColumn(name="role_id")})
     public Set<CmsRole> getRoles() {
         return roles;
     }

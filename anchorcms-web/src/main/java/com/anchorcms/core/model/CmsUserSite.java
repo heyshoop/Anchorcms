@@ -102,7 +102,8 @@ public class CmsUserSite implements Serializable{
     private Boolean allChannel;
 
     private CmsUser user;
-    @Transient
+    @ManyToOne
+    @JoinColumn(name = "user_id",insertable = false,updatable = false)
     public CmsUser getUser() {
         return user;
     }

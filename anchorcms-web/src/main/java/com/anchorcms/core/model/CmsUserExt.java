@@ -192,8 +192,8 @@ public class CmsUserExt implements Serializable{
     }
 
     private CmsUser user;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="user_id")
+    @ManyToOne
+    @JoinColumn(name="user_id",insertable = false,updatable = false)
     public CmsUser getUser() {
         return user;
     }

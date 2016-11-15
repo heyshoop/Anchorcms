@@ -429,9 +429,9 @@ public class Content implements Serializable{
         this.attachments = attachments;
     }
     @ManyToMany
-    /*@JoinTable(name = "c_content_tag",
+    @JoinTable(name = "c_contenttag",
             joinColumns = {@JoinColumn(name = "content_id")},
-            inverseJoinColumns = {@JoinColumn(name = "tag_id")})*/
+            inverseJoinColumns = {@JoinColumn(name = "tag_id")})
     public List<ContentTag> getTags() {
         return tags;
     }

@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -475,7 +476,7 @@ public class CmsConfig implements Serializable{
 
     private Map<String,String> attr;
     
-    MarkConfig m_markConfig;
+    private MarkConfig m_markConfig;
     @Transient
     public MarkConfig getMarkConfig() {
         return m_markConfig;
@@ -518,5 +519,25 @@ public class CmsConfig implements Serializable{
     public Boolean getSsoEnable(){
         CmsConfigAttr configAttr=getConfigAttr();
         return configAttr.getSsoEnable();
+    }
+    @Transient
+    public MemberConfig getMemberConfig() {
+        return new MemberConfig(getAttr());
+    }
+    @Transient
+    public Map<String,String> getSsoAttr() {
+        Map<String,String>ssoMap=new HashMap<String, String>();
+        Map<String,String>attr=getAttr();
+        for(String ssoKey:attr.keySet()){
+            if(ssoKey.startsWith("sso_")){
+                ssoMap.put(ssoKey, attr.get(ssoKey));
+            }
+        }
+        return ssoMap;
+    }
+    private static final String VERSION = "version";
+    @Transient
+    public String getVersion() {
+        return getAttr().get(VERSION);
     }
 }

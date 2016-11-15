@@ -345,8 +345,8 @@ public class CmsSite implements Serializable {
 
         CmsSite cmsSite = (CmsSite) o;
 
-        if (siteId != cmsSite.siteId) return false;
-        if (finalStep != cmsSite.finalStep) return false;
+        if (!siteId.equals(cmsSite.siteId)) return false;
+        if (!finalStep.equals(cmsSite.finalStep)) return false;
         if (afterCheck != cmsSite.afterCheck) return false;
         if (mobileStaticSync != cmsSite.mobileStaticSync) return false;
         if (pageIsSyncFtp != cmsSite.pageIsSyncFtp) return false;

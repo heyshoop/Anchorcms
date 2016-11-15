@@ -16,7 +16,7 @@ import java.util.Date;
 public class Authentication implements Serializable{
     private static final long serialVersionUID = 7210422527004879666L;
     private String authenticationId;
-    private int userid;
+    private Integer userid;
     private String username;
     private String email;
     private Date loginTime;
@@ -35,11 +35,11 @@ public class Authentication implements Serializable{
 
     @Basic
     @Column(name = "userid")
-    public int getUserid() {
+    public Integer getUserid() {
         return userid;
     }
 
-    public void setUserid(int userid) {
+    public void setUserid(Integer userid) {
         this.userid = userid;
     }
 
@@ -100,7 +100,7 @@ public class Authentication implements Serializable{
 
         Authentication that = (Authentication) o;
 
-        if (userid != that.userid) return false;
+        if (!userid.equals(that.userid)) return false;
         if (authenticationId != null ? !authenticationId.equals(that.authenticationId) : that.authenticationId != null)
             return false;
         if (username != null ? !username.equals(that.username) : that.username != null) return false;

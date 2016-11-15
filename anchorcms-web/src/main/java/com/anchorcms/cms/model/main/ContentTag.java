@@ -2,6 +2,7 @@ package com.anchorcms.cms.model.main;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @Author 阁楼麻雀
@@ -72,5 +73,17 @@ public class ContentTag implements Serializable{
         if (getRefCounter() == null) {
             setRefCounter(1);
         }
+    }
+    private List<Content> contents;
+    @ManyToMany
+    @JoinTable(name = "c_contenttag",
+            joinColumns = {@JoinColumn(name = "tag_id")},
+            inverseJoinColumns = {@JoinColumn(name = "content_id")})
+    public List<Content> getContents() {
+        return contents;
+    }
+
+    public void setContents(List<Content> contents) {
+        this.contents = contents;
     }
 }

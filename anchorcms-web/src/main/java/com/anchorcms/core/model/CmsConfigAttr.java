@@ -9,7 +9,7 @@ public class CmsConfigAttr {
 	public CmsConfigAttr() {
 	}
 
-	public CmsConfigAttr(Map<String, String> attr) {
+	 CmsConfigAttr(Map<String, String> attr) {
 		this.attr = attr;
 	}
 
