@@ -30,15 +30,15 @@ public class ChannelDaoImpl extends HibernateBaseDao<Channel, Integer>
 	private Finder getTopFinder(Integer siteId, boolean hasContentOnly,
 			boolean displayOnly, boolean cacheable) {
 		Finder f = Finder.create("from Channel bean");
-		f.append(" where bean.site.id=:siteId and bean.parent.id is null");
+		f.append(" where bean.site.siteId=:siteId and bean.parent.channelId is null");
 		f.setParam("siteId", siteId);
 		if (hasContentOnly) {
 			f.append(" and bean.hasContent=true");
 		}
 		if (displayOnly) {
-			f.append(" and bean.display=true");
+			f.append(" and bean.isDisplay=true");
 		}
-		f.append(" order by bean.priority asc,bean.id asc");
+		f.append(" order by bean.priority asc,bean.channelId asc");
 		f.setCacheable(cacheable);
 		return f;
 	}

@@ -453,8 +453,8 @@ public class ChannelExt implements Serializable{
      */
     public static final int COMMENT_LOGIN_MANY = 3;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="channel_id")
+    @OneToOne
+    @JoinColumn(name="channel_id",insertable = false,updatable = false)
     public Channel getChannel() {
         return channel;
     }

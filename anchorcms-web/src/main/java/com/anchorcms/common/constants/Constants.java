@@ -10,7 +10,7 @@ public class Constants {
     /**
      * 管理路径
      */
-    public static final String ADMIN_SUFFIX = "/anchorcms/cmsadmin/index.do";
+    public static final String ADMIN_SUFFIX = "/cmsadmin/index.do";
     /**
      * 首页模板
      */

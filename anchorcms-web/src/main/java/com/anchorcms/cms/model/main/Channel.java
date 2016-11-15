@@ -253,6 +253,7 @@ public class Channel implements Serializable{
         this.parent = parent;
     }
     @OneToOne
+    @JoinColumn(name="channel_id",insertable = false,updatable = false)
     public ChannelExt getChannelExt() {
         return channelExt;
     }

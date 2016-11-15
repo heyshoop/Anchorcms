@@ -69,7 +69,7 @@
         <!--<property name="cmsUserMng" ref="cmsUserMng" />-->
     </bean>
     <bean id="authcFilter" class="com.anchorcms.core.security.CmsAuthenticationFilter" parent="adminUrlBean">
-        <property name="adminIndex" value="/manager/anchorcms/index.do"/>
+        <property name="adminIndex" value="/cmsadmin/index.do"/>
     </bean>
     <bean id="userFilter" class="com.anchorcms.core.security.CmsUserFilter" parent="adminUrlBean"/>
     <bean id="logoutFilter" class="com.anchorcms.core.security.CmsLogoutFilter" parent="adminUrlBean"/>
