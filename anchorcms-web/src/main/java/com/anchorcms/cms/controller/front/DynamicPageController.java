@@ -40,9 +40,9 @@ import static com.anchorcms.common.constants.Constants.*;
 
 
 @Controller
-public class DynamicPageAct {
+public class DynamicPageController {
 	private static final Logger log = LoggerFactory
-			.getLogger(DynamicPageAct.class);
+			.getLogger(DynamicPageController.class);
 	/**
 	 * 首页模板名称
 	 */

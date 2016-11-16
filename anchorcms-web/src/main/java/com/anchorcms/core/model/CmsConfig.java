@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author 阁楼麻雀
@@ -545,5 +543,15 @@ public class CmsConfig implements Serializable{
     @Transient
     public String getVersion() {
         return getAttr().get(VERSION);
+    }
+
+    @Transient
+    public List<String> getSsoAuthenticateUrls() {
+        Map<String,String>ssoMap=getSsoAttr();
+        List<String>values=new ArrayList<String>();
+        for(String key:ssoMap.keySet()){
+            values.add(ssoMap.get(key));
+        }
+        return values;
     }
 }
