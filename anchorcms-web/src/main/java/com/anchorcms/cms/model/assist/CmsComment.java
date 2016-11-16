@@ -7,6 +7,7 @@ import com.anchorcms.core.model.CmsUser;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @Author 阁楼麻雀
@@ -23,8 +24,8 @@ public class CmsComment implements Serializable{
     private Integer replyUserId;
     private int contentId;
     private int siteId;
-    private Serializable createTime;
-    private Serializable replyTime;
+    private Date createTime;
+    private Date replyTime;
     private Short ups;
     private Short downs;
     private Boolean isRecommend;
@@ -85,21 +86,21 @@ public class CmsComment implements Serializable{
 
     @Basic
     @Column(name = "create_time")
-    public Serializable getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Serializable createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
     @Basic
     @Column(name = "reply_time")
-    public Serializable getReplyTime() {
+    public Date getReplyTime() {
         return replyTime;
     }
 
-    public void setReplyTime(Serializable replyTime) {
+    public void setReplyTime(Date replyTime) {
         this.replyTime = replyTime;
     }
 

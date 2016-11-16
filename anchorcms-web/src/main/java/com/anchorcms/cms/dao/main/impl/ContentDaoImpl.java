@@ -37,31 +37,31 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		if (channelId != null) {
 			f.append(" join bean.channel channel,Channel parent");
 			f.append(" where (channel.lft between parent.lft and parent.rgt");
-			f.append(" and channel.site.id=parent.site.id");
-			f.append(" and parent.id=:parentId)");
+			f.append(" and channel.site.siteId=parent.site.siteId");
+			f.append(" and parent.channelId=:parentId)");
 			f.setParam("parentId", channelId);
 		} else if (siteId != null) {
-			f.append(" where bean.site.id=:siteId  ");
+			f.append(" where bean.site.siteId=:siteId  ");
 			f.setParam("siteId", siteId);
 		} else {
 			f.append(" where 1=1");
 		}
 		if (prepared == status) {
 			f.append(" and check.checkStep<:checkStep");
-			f.append(" and check.rejected=false");
+			f.append(" and check.isRejected=false");
 			f.setParam("checkStep", checkStep);
 		} else if (passed == status) {
 			f.append(" and check.checkStep=:checkStep");
-			f.append(" and check.rejected=false");
+			f.append(" and check.isRejected=false");
 			f.setParam("checkStep", checkStep);
 		} else if (rejected == status) {
 			//退回只有本级可以查看
 			f.append(" and check.checkStep=:checkStep");
-			f.append(" and check.rejected=true");
+			f.append(" and check.isRejected=true");
 			f.setParam("checkStep", checkStep);
 		}
 		if(modelId!=null){
-			f.append(" and bean.model.id=:modelId").setParam("modelId", modelId);
+			f.append(" and bean.model.modelId=:modelId").setParam("modelId", modelId);
 		}
 		appendQuery(f, title, typeId, inputUserId, status, topLevel, recommend);
 		appendOrder(f, orderBy);
@@ -82,33 +82,33 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		if (channelId != null) {
 			f.append(" join bean.channel channel,Channel parent");
 			f.append(" where channel.lft between parent.lft and parent.rgt");
-			f.append(" and channel.site.id=parent.site.id");
-			f.append(" and parent.id=:parentId");
+			f.append(" and channel.site.siteId=parent.site.siteId");
+			f.append(" and parent.channelId=:parentId");
 			f.setParam("parentId", channelId);
 		}else if (siteId != null) {
-			f.append(" where bean.site.id=:siteId");
+			f.append(" where bean.site.siteId=:siteId");
 			f.setParam("siteId", siteId);
 		} else {
 			f.append(" where 1=1");
 		}
-		f.append(" and bean.user.id=:userId");
+		f.append(" and bean.user.userId=:userId");
 		f.setParam("userId", userId);
 		if (prepared == status) {
 			f.append(" and check.checkStep<:checkStep");
-			f.append(" and check.rejected=false");
+			f.append(" and check.isRejected=false");
 			f.setParam("checkStep", checkStep);
 		} else if (passed == status) {
 			f.append(" and check.checkStep=:checkStep");
-			f.append(" and check.rejected=false");
+			f.append(" and check.isRejected=false");
 			f.setParam("checkStep", checkStep);
 		} else if (rejected == status) {
 			f.append(" and check.checkStep=:checkStep");
-			f.append(" and check.rejected=true");
+			f.append(" and check.isRejected=true");
 			f.setParam("checkStep", checkStep);
 		}
 		appendQuery(f, title, typeId, inputUserId, status, topLevel, recommend);
 		if (prepared == status) {
-			f.append(" order by check.checkStep desc,bean.id desc");
+			f.append(" order by check.checkStep desc,bean.contentId desc");
 		} else {
 			appendOrder(f, orderBy);
 		}
@@ -128,32 +128,32 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 			f.append(" join bean.channel channel ");
 			f.append(",Channel parent");
 			f.append(" where channel.lft between parent.lft and parent.rgt");
-			f.append(" and channel.site.id=parent.site.id");
-			f.append(" and parent.id=:parentId");
+			f.append(" and channel.site.siteId=parent.site.siteId");
+			f.append(" and parent.channelId=:parentId");
 			f.setParam("parentId", channelId);
 			
 		} else if (siteId != null) {
-			f.append(" where  bean.site.id=:siteId ");
+			f.append(" where  bean.site.siteId=:siteId ");
 			f.setParam("siteId", siteId);
 		} else {
 			f.append(" where 1=1 ");
 		}
 		if (selfData) {
 			// userId前面已赋值
-			f.append(" and bean.user.id=:userId");
+			f.append(" and bean.user.userId=:userId");
 			f.setParam("userId", userId);
 		}
 		if (prepared == status) {
 			f.append(" and check.checkStep<:checkStep");
-			f.append(" and check.rejected=false");
+			f.append(" and check.isRejected=false");
 			f.setParam("checkStep", checkStep);
 		} else if (passed == status) {
 			f.append(" and check.checkStep=:checkStep");
-			f.append(" and check.rejected=false");
+			f.append(" and check.isRejected=false");
 			f.setParam("checkStep", checkStep);
 		} else if (rejected == status) {
 			f.append(" and check.checkStep=:checkStep");
-			f.append(" and check.rejected=true");
+			f.append(" and check.isRejected=true");
 			f.setParam("checkStep", checkStep);
 		}
 		appendQuery(f, title, typeId, inputUserId, status, topLevel, recommend);
@@ -163,9 +163,9 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 	
 
 	public Pagination getPageForCollection(Integer siteId, Integer memberId, int pageNo, int pageSize){
-		Finder f = Finder.create("select bean from Content bean join bean.collectUsers user where user.id=:userId").setParam("userId", memberId);
+		Finder f = Finder.create("select bean from Content bean join bean.collectUsers user where user.userId=:userId").setParam("userId", memberId);
 		if (siteId != null) {
-			f.append(" and bean.site.id=:siteId");
+			f.append(" and bean.site.siteId=:siteId");
 			f.setParam("siteId", siteId);
 		}
 		f.append(" and bean.status<>:status");
@@ -200,11 +200,11 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 			f.setParam("title", "%" + title + "%");
 		}
 		if (typeId != null) {
-			f.append(" and bean.type.id=:typeId");
+			f.append(" and bean.type.typeId=:typeId");
 			f.setParam("typeId", typeId);
 		}
 		if (inputUserId != null&&inputUserId!=0) {
-			f.append(" and bean.user.id=:inputUserId");
+			f.append(" and bean.user.userId=:inputUserId");
 			f.setParam("inputUserId", inputUserId);
 		}else{
 			//输入了没有的用户名的情况
@@ -216,7 +216,7 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 			f.append(" and bean.topLevel>0");
 		}
 		if (recommend) {
-			f.append(" and bean.recommend=true");
+			f.append(" and bean.isRecommend=true");
 		}
 		if (draft == status) {
 			f.append(" and bean.status=:status");
@@ -256,22 +256,22 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 			boolean next, boolean cacheable) {
 		Finder f = Finder.create("from Content bean where 1=1");
 		if (channelId != null) {
-			f.append(" and bean.channel.id=:channelId");
+			f.append(" and bean.channel.channelId=:channelId");
 			f.setParam("channelId", channelId);
 		} else if (siteId != null) {
-			f.append(" and bean.site.id=:siteId");
+			f.append(" and bean.site.siteId=:siteId");
 			f.setParam("siteId", siteId);
 		}
 		if (next) {
-			f.append(" and bean.id>:id");
+			f.append(" and bean.contentId>:id");
 			f.setParam("id", id);
 			f.append(" and bean.status=" + ContentCheck.CHECKED);
-			f.append(" order by bean.id asc");
+			f.append(" order by bean.contentId asc");
 		} else {
-			f.append(" and bean.id<:id");
+			f.append(" and bean.contentId<:id");
 			f.setParam("id", id);
 			f.append(" and bean.status=" + ContentCheck.CHECKED);
-			f.append(" order by bean.id desc");
+			f.append(" order by bean.contentId desc");
 		}
 		Query query = f.createQuery(getSession());
 		query.setCacheable(cacheable).setMaxResults(1);
@@ -280,7 +280,7 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 
 	@SuppressWarnings("unchecked")
 	public List<Content> getListByIdsForTag(Integer[] ids, int orderBy) {
-		Finder f = Finder.create("from Content bean where bean.id in (:ids)");
+		Finder f = Finder.create("from Content bean where bean.contentId in (:ids)");
 		f.setParamList("ids", ids);
 		appendOrder(f, orderBy);
 		f.setCacheable(true);
@@ -430,7 +430,7 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 			f.setParam("titleImg", titleImg);
 		}
 		if (recommend != null) {
-			f.append(" and bean.recommend=:recommend");
+			f.append(" and bean.isRecommend=:recommend");
 			f.setParam("recommend", recommend);
 		}
 		appendReleaseDate(f);
@@ -456,10 +456,10 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 			f.append("select  bean from Content bean ");
 			f.append(" join bean.contentExt as ext");
 			if (len == 1) {
-				f.append(" where bean.channel.id=:channelId ");
+				f.append(" where bean.channel.channelId=:channelId ");
 				f.setParam("channelId", channelIds[0]);
 			} else {
-				f.append(" where bean.channel.id in (:channelIds)  ");
+				f.append(" where bean.channel.channelId in (:channelIds)  ");
 				f.setParamList("channelIds", channelIds);
 			}
 		} else if (option == 1) {
@@ -468,15 +468,15 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 			f.append(" join bean.contentExt as ext");
 			f.append(" join bean.channel node,Channel parent");
 			f.append(" where node.lft between parent.lft and parent.rgt");
-			f.append(" and bean.site.id=parent.site.id");
-			f.append(" and parent.id=:channelId");
+			f.append(" and bean.site.siteId=parent.site.siteId");
+			f.append(" and parent.channelId=:channelId");
 			f.setParam("channelId", channelIds[0]);
 		} else if (option == 2) {
 			// 包含副栏目
 			f.append("select  bean from Content bean");
 			f.append(" join bean.contentExt as ext");
 			f.append(" join bean.channels as channel");
-			f.append(" where channel.id=:channelId");
+			f.append(" where channel.channelId=:channelId");
 			f.setParam("channelId", channelIds[0]);
 		} else {
 			throw new RuntimeException("option value must be 0 or 1 or 2.");
@@ -486,7 +486,7 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 			f.setParam("titleImg", titleImg);
 		}
 		if (recommend != null) {
-			f.append(" and bean.recommend=:recommend");
+			f.append(" and bean.isRecommend=:recommend");
 			f.setParam("recommend", recommend);
 		}
 		appendReleaseDate(f);
@@ -509,7 +509,7 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		f.append(" join bean.contentExt as ext");
 		int len = paths.length;
 		if (len == 1) {
-			f.append(" where channel.path=:path").setParam("path", paths[0]);
+			f.append(" where channel.channelPath=:path").setParam("path", paths[0]);
 		} else {
 			f.append(" where channel.path in (:paths)");
 			f.setParamList("paths", paths);
@@ -517,10 +517,10 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		if (siteIds != null) {
 			len = siteIds.length;
 			if (len == 1) {
-				f.append(" and channel.site.id=:siteId");
+				f.append(" and channel.site.siteId=:siteId");
 				f.setParam("siteId", siteIds[0]);
 			} else if (len > 1) {
-				f.append(" and channel.site.id in (:siteIds)");
+				f.append(" and channel.site.siteId in (:siteIds)");
 				f.setParamList("siteIds", siteIds);
 			}
 		}
@@ -529,7 +529,7 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 			f.setParam("titleImg", titleImg);
 		}
 		if (recommend != null) {
-			f.append(" and bean.recommend=:recommend");
+			f.append(" and bean.isRecommend=:recommend");
 			f.setParam("recommend", recommend);
 		}
 		appendReleaseDate(f);
@@ -550,13 +550,13 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		Finder f = Finder.create();
 		f.append("select bean from Content bean join bean.topics topic");
 		f.append(" join bean.contentExt as ext");
-		f.append(" where topic.id=:topicId").setParam("topicId", topicId);
+		f.append(" where topic.topicId=:topicId").setParam("topicId", topicId);
 		if (titleImg != null) {
 			f.append(" and bean.hasTitleImg=:titleImg");
 			f.setParam("titleImg", titleImg);
 		}
 		if (recommend != null) {
-			f.append(" and bean.recommend=:recommend");
+			f.append(" and bean.isRecommend=:recommend");
 			f.setParam("recommend", recommend);
 		}
 		appendReleaseDate(f);
@@ -581,12 +581,12 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		if (len == 1) {
 			f.append("select bean from Content bean join bean.tags tag");
 			f.append(" join bean.contentExt as ext");
-			f.append(" where tag.id=:tagId").setParam("tagId", tagIds[0]);
+			f.append(" where tag.tagId=:tagId").setParam("tagId", tagIds[0]);
 		} else {
 			f.append("select bean from Content bean");
 			f.append(" join bean.contentExt as ext");
 			f.append(" join bean.tags tag");
-			f.append(" where tag.id in(:tagIds)");
+			f.append(" where tag.tagId in(:tagIds)");
 			f.setParamList("tagIds", tagIds);
 		}
 		if (titleImg != null) {
@@ -594,7 +594,7 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 			f.setParam("titleImg", titleImg);
 		}
 		if (recommend != null) {
-			f.append(" and bean.recommend=:recommend");
+			f.append(" and bean.isRecommend=:recommend");
 			f.setParam("recommend", recommend);
 		}
 		appendReleaseDate(f);
@@ -602,7 +602,7 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		appendChannelIds(f, channelIds);
 		appendSiteIds(f, siteIds);
 		if (excludeId != null) {
-			f.append(" and bean.id<>:excludeId");
+			f.append(" and bean.contentId<>:excludeId");
 			f.setParam("excludeId", excludeId);
 		}
 		f.append(" and bean.status=" + ContentCheck.CHECKED);
@@ -626,10 +626,10 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		if (typeIds != null) {
 			len = typeIds.length;
 			if (len == 1) {
-				f.append(" and bean.type.id=:typeId");
+				f.append(" and bean.type.typeId=:typeId");
 				f.setParam("typeId", typeIds[0]);
 			} else if (len > 1) {
-				f.append(" and bean.type.id in (:typeIds)");
+				f.append(" and bean.type.typeId (:typeIds)");
 				f.setParamList("typeIds", typeIds);
 			}
 		}
@@ -640,10 +640,10 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		if (channelIds != null) {
 			len = channelIds.length;
 			if (len == 1) {
-				f.append(" and bean.channel.id=:channelId");
+				f.append(" and bean.channel.channelId=:channelId");
 				f.setParam("channelId", channelIds[0]);
 			} else if (len > 1) {
-				f.append(" and bean.channel.id in (:channelIds)");
+				f.append(" and bean.channel.channelId in (:channelIds)");
 				f.setParamList("channelIds", channelIds);
 			}
 		}
@@ -654,10 +654,10 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		if (siteIds != null) {
 			len = siteIds.length;
 			if (len == 1) {
-				f.append(" and bean.site.id=:siteId");
+				f.append(" and bean.site.siteId=:siteId");
 				f.setParam("siteId", siteIds[0]);
 			} else if (len > 1) {
-				f.append(" and bean.site.id in (:siteIds)");
+				f.append(" and bean.site.siteId in (:siteIds)");
 				f.setParamList("siteIds", siteIds);
 			}
 		}

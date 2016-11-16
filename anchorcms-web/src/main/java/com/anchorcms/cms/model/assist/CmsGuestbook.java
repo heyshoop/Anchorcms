@@ -6,6 +6,7 @@ import com.anchorcms.core.model.CmsUser;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @Author 阁楼麻雀
@@ -23,8 +24,8 @@ public class CmsGuestbook implements Serializable{
     private Integer memberId;
     private Integer adminId;
     private String ip;
-    private Serializable createTime;
-    private Serializable replayTime;
+    private Date createTime;
+    private Date replayTime;
     private Boolean isChecked;
     private Boolean isRecommend;
 
@@ -90,21 +91,21 @@ public class CmsGuestbook implements Serializable{
 
     @Basic
     @Column(name = "create_time")
-    public Serializable getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Serializable createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
     @Basic
     @Column(name = "replay_time")
-    public Serializable getReplayTime() {
+    public Date getReplayTime() {
         return replayTime;
     }
 
-    public void setReplayTime(Serializable replayTime) {
+    public void setReplayTime(Date replayTime) {
         this.replayTime = replayTime;
     }
 

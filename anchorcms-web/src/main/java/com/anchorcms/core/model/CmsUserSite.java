@@ -17,7 +17,7 @@ public class CmsUserSite implements Serializable{
     private int userId;
     private int siteId;
     private byte checkStep;
-    private byte isAllChannel;
+    private Boolean isAllChannel;
 
     @Id
     @Column(name = "usersite_id")
@@ -61,11 +61,11 @@ public class CmsUserSite implements Serializable{
 
     @Basic
     @Column(name = "is_all_channel")
-    public byte getIsAllChannel() {
+    public Boolean getIsAllChannel() {
         return isAllChannel;
     }
 
-    public void setIsAllChannel(byte isAllChannel) {
+    public void setIsAllChannel(Boolean isAllChannel) {
         this.isAllChannel = isAllChannel;
     }
 
@@ -91,15 +91,12 @@ public class CmsUserSite implements Serializable{
         result = 31 * result + userId;
         result = 31 * result + siteId;
         result = 31 * result + (int) checkStep;
-        result = 31 * result + (int) isAllChannel;
         return result;
     }
 
 
 
     private CmsSite site;
-
-    private Boolean allChannel;
 
     private CmsUser user;
     @ManyToOne
@@ -111,14 +108,7 @@ public class CmsUserSite implements Serializable{
     public void setUser(CmsUser user) {
         this.user = user;
     }
-    @Transient
-    public Boolean getAllChannel() {
-        return allChannel;
-    }
 
-    public void setAllChannel(Boolean allChannel) {
-        this.allChannel = allChannel;
-    }
     @ManyToOne
     @JoinColumn(name = "site_id",insertable = false,updatable = false)
     public CmsSite getSite() {

@@ -32,7 +32,7 @@ public class CmsUserSiteMngImpl implements CmsUserSiteMng {
 		bean.setSite(site);
 		bean.setUser(user);
 		bean.setCheckStep(step);
-		bean.setAllChannel(allChannel);
+		bean.setIsAllChannel(allChannel);
 		dao.save(bean);
 		return bean;
 	}
@@ -53,7 +53,7 @@ public class CmsUserSiteMngImpl implements CmsUserSiteMng {
 		for (CmsUserSite us : uss) {
 			if (siteId.equals(us.getSite().getSiteId())) {
 				us.setCheckStep(step);
-				us.setAllChannel(allChannel);
+				us.setIsAllChannel(allChannel);
 			}
 		}
 	}
@@ -83,7 +83,7 @@ public class CmsUserSiteMngImpl implements CmsUserSiteMng {
 			}
 			if (contains) {
 				us.setCheckStep(steps[i]);
-				us.setAllChannel(allChannels[i]);
+				us.setIsAllChannel(allChannels[i]);
 			} else {
 				toDel.add(us);
 			}

@@ -46,7 +46,7 @@ public class CmsStatisticDaoImpl extends HibernateSimpleDao implements
 				f.setParam("end", timeRange.getEnd());
 			}
 		}
-		f.append(" and bean.admin is false");
+		f.append(" and bean.isAdmin is false");
 		return (Long) find(f).iterator().next();
 	}
 	

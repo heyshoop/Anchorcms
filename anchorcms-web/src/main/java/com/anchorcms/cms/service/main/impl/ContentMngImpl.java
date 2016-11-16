@@ -54,8 +54,8 @@ public class ContentMngImpl implements ContentMng, ChannelDeleteChecker {
 		CmsUser user = cmsUserMng.findById(userId);
 		CmsUserSite us = user.getUserSite(siteId);
 		Pagination p;
-		boolean allChannel = us.getAllChannel();
-		boolean selfData = user.getSelfAdmin();
+		boolean allChannel = us.getIsAllChannel();
+		boolean selfData = user.getIsSelfAdmin();
 		if (allChannel && selfData) {
 			// 拥有所有栏目权限，只能管理自己的数据
 			p = dao.getPageBySelf(title, typeId, inputUserId, topLevel,

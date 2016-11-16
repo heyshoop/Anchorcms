@@ -34,7 +34,7 @@ public class ChannelMngImpl implements ChannelMng {
 			boolean hasContentOnly) {
 		CmsUser user = cmsUserMng.findById(userId);
 		CmsUserSite us = user.getUserSite(siteId);
-		if (us.getAllChannel()) {
+		if (us.getIsAllChannel()) {
 			return getTopList(siteId, hasContentOnly);
 		} else {
 			return dao.getTopListByRigth(userId, siteId, hasContentOnly);
@@ -65,7 +65,7 @@ public class ChannelMngImpl implements ChannelMng {
 			Integer parentId, boolean hasContentOnly) {
 		CmsUser user = cmsUserMng.findById(userId);
 		CmsUserSite us = user.getUserSite(siteId);
-		if (us.getAllChannel()) {
+		if (us.getIsAllChannel()) {
 			return getChildList(parentId, hasContentOnly);
 		} else {
 			return dao.getChildListByRight(userId, parentId, hasContentOnly);

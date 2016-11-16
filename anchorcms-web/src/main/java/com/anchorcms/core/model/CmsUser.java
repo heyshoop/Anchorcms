@@ -281,15 +281,6 @@ public class CmsUser implements Serializable{
 
     private Set<CmsUserSite> userSites;
 
-    private Boolean selfAdmin;
-    @Transient
-    public Boolean getSelfAdmin() {
-        return selfAdmin;
-    }
-
-    public void setSelfAdmin(Boolean selfAdmin) {
-        this.selfAdmin = selfAdmin;
-    }
     @OneToMany
     @JoinColumn(name="user_id",insertable = false,updatable = false)
     public Set<CmsUserSite> getUserSites() {
