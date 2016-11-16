@@ -22,7 +22,7 @@ import static com.anchorcms.common.constants.Constants.SPT;
  * @Desc CMS栏目表
  */
 @Entity
-@Table(name = "c_channel", schema = "db_cms")
+@Table(name = "c_channel")
 public class Channel implements Serializable{
     private static final long serialVersionUID = -9066154332731793820L;
     private Integer channelId;

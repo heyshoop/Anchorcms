@@ -9,7 +9,7 @@ import javax.persistence.*;
  * @Desc 用户角色关联表
  */
 @Entity
-@Table(name = "c_user_role", schema = "db_cms")
+@Table(name = "c_user_role")
 @IdClass(UserRolePK.class)
 public class UserRole {
     private int roleId;

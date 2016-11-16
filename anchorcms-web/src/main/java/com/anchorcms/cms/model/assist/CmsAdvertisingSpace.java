@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @Desc CMS广告版位表
  */
 @Entity
-@Table(name = "c_advertising_space", schema = "db_cms")
+@Table(name = "c_advertising_space")
 public class CmsAdvertisingSpace implements Serializable{
     private static final long serialVersionUID = 2579814099100568796L;
     private int adspaceId;

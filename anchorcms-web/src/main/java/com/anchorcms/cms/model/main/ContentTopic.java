@@ -9,7 +9,7 @@ import javax.persistence.*;
  * @Desc
  */
 @Entity
-@Table(name = "c_content_topic", schema = "db_cms")
+@Table(name = "c_content_topic")
 @IdClass(ContentTopicPK.class)
 public class ContentTopic {
     private int contentId;

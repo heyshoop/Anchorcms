@@ -9,7 +9,7 @@ import javax.persistence.*;
  * @Desc
  */
 @Entity
-@Table(name = "c_contenttag", schema = "db_cms")
+@Table(name = "c_contenttag")
 public class CContenttag {
     private int contentId;
     private int tagId;

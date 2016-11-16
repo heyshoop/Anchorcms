@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @Desc 采集临时表
  */
 @Entity
-@Table(name = "c_acquisition_temp", schema = "db_cms")
+@Table(name = "c_acquisition_temp")
 public class CmsAcquisitionTemp implements Serializable{
     private static final long serialVersionUID = 5843194292672240629L;
     private int tempId;

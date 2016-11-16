@@ -9,7 +9,7 @@ import javax.persistence.*;
  * @Desc CMS栏目浏览会员组关联表
  */
 @Entity
-@Table(name = "c_chnl_group_view", schema = "db_cms")
+@Table(name = "c_chnl_group_view")
 @IdClass(ChnlGroupViewPK.class)
 public class ChnlGroupView {
     private int channelId;

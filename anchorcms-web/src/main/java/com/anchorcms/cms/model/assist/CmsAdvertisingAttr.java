@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @Desc CMS广告属性表
  */
 @Entity
-@Table(name = "c_advertising_attr", schema = "db_cms")
+@Table(name = "c_advertising_attr")
 public class CmsAdvertisingAttr implements Serializable{
     private static final long serialVersionUID = 7124576385897921946L;
     private int advertisingId;

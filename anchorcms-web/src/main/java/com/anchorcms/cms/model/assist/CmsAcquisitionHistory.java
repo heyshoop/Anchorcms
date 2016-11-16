@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @Desc 采集历史表
  */
 @Entity
-@Table(name = "c_acquisition_history", schema = "db_cms")
+@Table(name = "c_acquisition_history")
 public class CmsAcquisitionHistory implements Serializable{
     private static final long serialVersionUID = 8018496991479205245L;
     private int historyId;

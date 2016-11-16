@@ -15,7 +15,7 @@ import java.util.Map;
  * @Desc CMS广告表
  */
 @Entity
-@Table(name = "c_advertising", schema = "db_cms")
+@Table(name = "c_advertising")
 public class CmsAdvertising implements Serializable{
     private static final long serialVersionUID = 2634669966072994885L;
     private int advertisingId;

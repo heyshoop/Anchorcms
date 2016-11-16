@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @Desc CMS站点公司信息表
  */
 @Entity
-@Table(name = "c_site_company", schema = "db_cms")
+@Table(name = "c_site_company")
 public class CmsSiteCompany implements Serializable{
     private static final long serialVersionUID = 7675721008971582865L;
     private int siteId;

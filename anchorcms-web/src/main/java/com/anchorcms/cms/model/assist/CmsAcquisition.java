@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @Desc CMS采集表
  */
 @Entity
-@Table(name = "c_acquisition", schema = "db_cms")
+@Table(name = "c_acquisition")
 public class CmsAcquisition implements Serializable{
     private static final long serialVersionUID = -8727601992975290258L;
     private int acquisitionId;

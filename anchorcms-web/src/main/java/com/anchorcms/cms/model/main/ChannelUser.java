@@ -9,7 +9,7 @@ import javax.persistence.*;
  * @Desc CMS栏目用户关联表
  */
 @Entity
-@Table(name = "c_channel_user", schema = "db_cms")
+@Table(name = "c_channel_user")
 @IdClass(ChannelUserPK.class)
 public class ChannelUser {
     private int channelId;

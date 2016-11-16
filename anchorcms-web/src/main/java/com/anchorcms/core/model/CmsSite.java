@@ -15,7 +15,7 @@ import static com.anchorcms.common.constants.Constants.*;
  * @Desc CMS站点信息实体类
  */
 @Entity
-@Table(name = "c_site", schema = "db_cms")
+@Table(name = "c_site")
 public class CmsSite implements Serializable {
     private static final long serialVersionUID = -5898275025484020911L;
     private Integer siteId;

@@ -9,7 +9,7 @@ import javax.persistence.*;
  * @Desc 用户收藏管理表
  */
 @Entity
-@Table(name = "c_user_collection", schema = "db_cms")
+@Table(name = "c_user_collection")
 @IdClass(UserCollectionPK.class)
 public class UserCollection {
     private int userId;
