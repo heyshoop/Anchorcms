@@ -423,9 +423,40 @@ public class CmsSite implements Serializable {
 
     private Map<String,String> attr;
 
+    private Map<String,String> txt;
+
+    private Map<String,String> cfg;
+
     private CmsSiteCompany siteCompany;
 
     private CmsConfig config;
+
+    @ElementCollection(fetch= FetchType.LAZY, //加载策略,延迟加载
+            targetClass=String.class) //指定集合中元素的类型
+    @JoinTable(name="c_site_cfg", joinColumns={ @JoinColumn(nullable=false, name="site_id")})//指定集合生成的表
+    @MapKeyColumn(name="cfg_name")//指定map的key生成的列
+    @Column(name = "cfg_value")
+    public Map<String, String> getCfg() {
+        return cfg;
+    }
+
+    public void setCfg(Map<String, String> cfg) {
+        this.cfg = cfg;
+    }
+
+    @ElementCollection(fetch= FetchType.LAZY, //加载策略,延迟加载
+            targetClass=String.class) //指定集合中元素的类型
+    @JoinTable(name="c_site_txt", joinColumns={ @JoinColumn(nullable=false, name="site_id")})//指定集合生成的表
+    @MapKeyColumn(name="txt_name")//指定map的key生成的列
+    @Column(name = "txt_value")
+    public Map<String, String> getTxt() {
+        return txt;
+    }
+
+    public void setTxt(Map<String, String> txt) {
+        this.txt = txt;
+    }
+
     @ManyToOne
     @JoinColumn(name = "config_id",insertable = false,updatable = false)
     public CmsConfig getConfig() {
@@ -444,7 +475,11 @@ public class CmsSite implements Serializable {
     public void setSiteCompany(CmsSiteCompany siteCompany) {
         this.siteCompany = siteCompany;
     }
-    @Transient
+    @ElementCollection(fetch= FetchType.LAZY, //加载策略,延迟加载
+            targetClass=String.class) //指定集合中元素的类型
+    @JoinTable(name="c_site_attr", joinColumns={ @JoinColumn(nullable=false, name="site_id")})//指定集合生成的表
+    @MapKeyColumn(name="attr_name")//指定map的key生成的列
+    @Column(name = "attr_value")
     public Map<String, String> getAttr() {
         return attr;
     }

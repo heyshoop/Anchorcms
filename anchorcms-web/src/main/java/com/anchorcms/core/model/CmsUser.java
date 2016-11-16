@@ -263,7 +263,12 @@ public class CmsUser implements Serializable{
     private Set<CmsRole> roles;
 
     private CmsGroup group;
-    @Transient /*标注为非数据库字段*/
+
+    @ElementCollection(fetch= FetchType.LAZY, //加载策略,延迟加载
+            targetClass=String.class) //指定集合中元素的类型
+    @JoinTable(name="c_user_attr", joinColumns={ @JoinColumn(nullable=false, name="user_id")})//指定集合生成的表
+    @MapKeyColumn(name="attr_name")//指定map的key生成的列
+    @Column(name = "attr_value")
     public Map<String, String> getAttr() {
         return attr;
     }

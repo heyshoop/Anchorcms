@@ -218,7 +218,11 @@ public class CmsAdvertising implements Serializable{
     public void setSite(CmsSite site) {
         this.site = site;
     }
-    @Transient
+    @ElementCollection(fetch= FetchType.LAZY, //加载策略,延迟加载
+            targetClass=String.class) //指定集合中元素的类型
+    @JoinTable(name="c_advertising_attr", joinColumns={ @JoinColumn(nullable=false, name="advertising_id")})//指定集合生成的表
+    @MapKeyColumn(name="attr_name")//指定map的key生成的列
+    @Column(name = "attr_value")
     public Map<String, String> getAttr() {
         return attr;
     }
