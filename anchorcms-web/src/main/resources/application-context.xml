@@ -58,8 +58,6 @@
 	<context:component-scan base-package="com.anchorcms.*.model,com.anchorcms.*.service,com.anchorcms.*.dao,com.anchorcms.cms.lucene,com.anchorcms.common.*,com.anchorcms.cms.staticpage,com.anchorcms.cms.statistic">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-	<!-- 开启自动扫描包 -->
-	<context:component-scan base-package="com.anchorcms.*.controller" />
 	<!--解析用户区域，优先读取cookie-->
 	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 		<property name="cookieName" value="language"/>

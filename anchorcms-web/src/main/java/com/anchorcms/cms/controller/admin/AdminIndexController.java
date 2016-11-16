@@ -35,6 +35,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import static com.anchorcms.cms.model.assist.CmsSiteAccessStatistic.STATISTIC_ALL;
 import static com.anchorcms.cms.statistic.CmsStatistic.SITEID;
@@ -77,7 +78,7 @@ public class AdminIndexController {
 	}
 
 	@RequiresPermissions("left")
-	@RequestMapping("/left.do")
+	@RequestMapping(value = "/left.do",method = RequestMethod.GET)
 	public String left(HttpServletRequest request, ModelMap model) {
 		CmsUser user = CmsUtils.getUser(request);
 		List<CmsUserMenu>menus=userMenuMng.getList(user.getUserId(),10);
@@ -86,7 +87,7 @@ public class AdminIndexController {
 	}
 	
 	@RequiresPermissions("right")
-	@RequestMapping("/right.do")
+	@RequestMapping(value = "/right.do",method = RequestMethod.GET)
 	public String right(HttpServletRequest request, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		CmsUser user = CmsUtils.getUser(request);

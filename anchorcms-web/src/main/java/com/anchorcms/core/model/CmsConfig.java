@@ -475,7 +475,7 @@ public class CmsConfig implements Serializable{
     }
 
     private Map<String,String> attr;
-    
+
     private MarkConfig m_markConfig;
     @Transient
     public MarkConfig getMarkConfig() {
