@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
        default-lazy-init="true">
 
     <!--配置数据源-->
@@ -48,19 +48,24 @@
         <property name="dataSource" ref="dataSource" />
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>
                 <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
                 <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
-                <prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
-                <prop key="hibernate.cache.use_second_level_cache">true</prop><!-- 开启二级缓存 -->
+                <prop key="hibernate.query.substitutions">${hibernate.substitutions}</prop>
+                <prop key="jdbc.batch_size">${hibernate.batch_size}</prop>
+                <prop key="jdbc.use_streams_for_binary">${hibernate.use_streams_for_binary}</prop>
+                <prop key="hibernate.temp.use_jdbc_metadata_defaults">${hibernate.use_jdbc_metadata_defaults}</prop>
+                <prop key="hibernate.connection.autocommit">${hibernate.autocommit}</prop>
+                <prop key="hibernate.connection.release_mode">${hibernate.release_mode}</prop>
                 <prop key="hibernate.cache.use_query_cache">true</prop><!-- 开启查询缓存 -->
-                <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory
-                </prop><!-- 高速缓存提供程序 -->
-                <prop key="hibernate.cache.provider_configuration_file_resource_path">ehcache.xml</prop><!-- 指定缓存配置文件位置 -->
-                <prop key="hibernate.cache.use_structured_entries">true</prop><!-- 强制Hibernate以更人性化的格式将数据存入二级缓存 -->
-                <prop key="hibernate.generate_statistics">true</prop><!-- Hibernate将收集有助于性能调节的统计数据 -->
-                <prop key="javax.persistence.validation.mode">none</prop>
+                <prop key="hibernate.cache.use_second_level_cache">true</prop><!-- 开启二级缓存 -->
+
+                <!--<prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
+                <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>&lt;!&ndash; 高速缓存提供程序 &ndash;&gt;
+                <prop key="hibernate.cache.provider_configuration_file_resource_path">ehcache.xml</prop>&lt;!&ndash; 指定缓存配置文件位置 &ndash;&gt;
+                <prop key="hibernate.cache.use_structured_entries">true</prop>&lt;!&ndash; 强制Hibernate以更人性化的格式将数据存入二级缓存 &ndash;&gt;
+                <prop key="hibernate.generate_statistics">true</prop>&lt;!&ndash; Hibernate将收集有助于性能调节的统计数据 &ndash;&gt;
+                <prop key="javax.persistence.validation.mode">none</prop>-->
             </props>
         </property>
         <!--缓存-->
@@ -78,11 +83,35 @@
             </list>
         </property>
     </bean>
+    <!-- 拦截器方式配置事物 -->
+    <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="save*" propagation="REQUIRED" />
+            <tx:method name="insert*" propagation="REQUIRED" read-only="false" />
+            <tx:method name="add*" propagation="REQUIRED" />
+            <tx:method name="do*" propagation="REQUIRED" />
+            <tx:method name="update*" propagation="REQUIRED" />
+            <tx:method name="change*" propagation="REQUIRED" />
+            <tx:method name="edit*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="process*" propagation="REQUIRED" />
+            <tx:method name="saveOrUpdate*" propagation="REQUIRED" />
+            <tx:method name="delete*" propagation="REQUIRED"  read-only="false"/>
+            <tx:method name="grant*" propagation="REQUIRED" />
+            <tx:method name="init*" propagation="REQUIRED" />
+            <tx:method name="*" propagation="REQUIRED" read-only="true" />
+        </tx:attributes>
+    </tx:advice>
     <!--树形结构拦截器-->
     <bean id="treeInterceptor" class="com.anchorcms.common.hibernate.TreeIntercptor"/>
-    <!--事务管理器-->
-    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory" />
+    <!-- 配置事务管理器 -->
+    <bean name="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
-    <tx:annotation-driven transaction-manager="transactionManager" />
+    <aop:config>
+        <!-- 第一个*代表所有的返回值类型；第二个*代表所有的类；第三个*代表类所有方法；..代表子或者孙子包；最后一个..代表所有的参数 -->
+        <aop:pointcut id="transactionPointcut"
+                      expression="(execution(* com.anchorcms..*Impl.*(..)))" />
+        <aop:advisor pointcut-ref="transactionPointcut"
+                     advice-ref="transactionAdvice" />
+    </aop:config>
 </beans>

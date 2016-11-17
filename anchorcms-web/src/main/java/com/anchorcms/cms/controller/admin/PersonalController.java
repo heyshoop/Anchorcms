@@ -12,6 +12,7 @@ import com.anchorcms.core.service.CmsUserExtMng;
 import com.anchorcms.core.service.CmsUserMng;
 import com.anchorcms.core.web.WebErrors;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;

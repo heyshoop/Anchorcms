@@ -308,7 +308,7 @@ public class CmsUser implements Serializable{
         this.channels = channels;
     }
     @OneToMany
-    @JoinColumn(name="user_id",insertable = false,updatable = false)
+    @JoinColumn(name="user_id")
     public Set<CmsUserExt> getUserExtSet() {
         return userExtSet;
     }
@@ -537,5 +537,14 @@ public class CmsUser implements Serializable{
             ids[i++] = u.getGroupId();
         }
         return ids;
+    }
+    @Transient
+    public String getRealname() {
+        CmsUserExt ext = getUserExt();
+        if (ext != null) {
+            return ext.getRealname();
+        } else {
+            return null;
+        }
     }
 }

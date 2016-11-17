@@ -7,6 +7,7 @@ import com.anchorcms.core.model.CmsUser;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @Author 阁楼麻雀
@@ -24,8 +25,8 @@ public class CmsAcquisition implements Serializable{
     private int typeId;
     private int userId;
     private String acqName;
-    private Serializable startTime;
-    private Serializable endTime;
+    private Date startTime;
+    private Date endTime;
     private Integer status;
     private Integer currNum;
     private Integer currItem;
@@ -52,7 +53,7 @@ public class CmsAcquisition implements Serializable{
     private String paginationEnd;
     private int queue;
     private String repeatCheckType;
-    private byte imgAcqu;
+    private Boolean imgAcqu;
     private String contentPrefix;
     private String imgPrefix;
     private String viewStart;
@@ -131,21 +132,21 @@ public class CmsAcquisition implements Serializable{
 
     @Basic
     @Column(name = "start_time")
-    public Serializable getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Serializable startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
     @Basic
     @Column(name = "end_time")
-    public Serializable getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Serializable endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 
@@ -411,11 +412,11 @@ public class CmsAcquisition implements Serializable{
 
     @Basic
     @Column(name = "img_acqu")
-    public byte getImgAcqu() {
+    public Boolean getImgAcqu() {
         return imgAcqu;
     }
 
-    public void setImgAcqu(byte imgAcqu) {
+    public void setImgAcqu(Boolean imgAcqu) {
         this.imgAcqu = imgAcqu;
     }
 
@@ -677,7 +678,6 @@ public class CmsAcquisition implements Serializable{
         result = 31 * result + (paginationEnd != null ? paginationEnd.hashCode() : 0);
         result = 31 * result + queue;
         result = 31 * result + (repeatCheckType != null ? repeatCheckType.hashCode() : 0);
-        result = 31 * result + (int) imgAcqu;
         result = 31 * result + (contentPrefix != null ? contentPrefix.hashCode() : 0);
         result = 31 * result + (imgPrefix != null ? imgPrefix.hashCode() : 0);
         result = 31 * result + (viewStart != null ? viewStart.hashCode() : 0);

@@ -192,8 +192,8 @@ public class CmsUserExt implements Serializable{
     }
 
     private CmsUser user;
-    @ManyToOne
-    @JoinColumn(name="user_id",insertable = false,updatable = false)
+    @OneToOne
+    @JoinColumn(name="user_id")
     public CmsUser getUser() {
         return user;
     }
