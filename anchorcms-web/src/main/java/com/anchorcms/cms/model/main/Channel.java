@@ -888,4 +888,9 @@ public class Channel implements Serializable{
             }
         }
     }
+    @Transient
+    public Integer[] getUserIds() {
+        Set<CmsUser> users = getUsers();
+        return CmsUser.fetchIds(users);
+    }
 }

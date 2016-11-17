@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 
 
-@Service
+@Service("ChannelService")
 @Transactional
 public class ChannelMngImpl implements ChannelMng {
 	@Transactional(readOnly = true)

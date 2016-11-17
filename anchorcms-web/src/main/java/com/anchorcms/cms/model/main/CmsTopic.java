@@ -230,4 +230,14 @@ public class CmsTopic implements Serializable{
         }
         channels.add(channel);
     }
+    @Transient
+    public java.lang.String getTplContentShort (String tplBasePath) {
+        String tplContent=this.getTplContent();
+        // 当前模板，去除基本路径
+        int tplPathLength = tplBasePath.length();
+        if (!StringUtils.isBlank(tplContent)) {
+            tplContent = tplContent.substring(tplPathLength);
+        }
+        return tplContent;
+    }
 }

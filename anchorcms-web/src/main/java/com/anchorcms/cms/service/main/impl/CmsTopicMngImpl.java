@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 
 
-@Service
+@Service("CmsTopicMng")
 @Transactional
 public class CmsTopicMngImpl implements CmsTopicMng, ChannelDeleteChecker {
 	@Transactional(readOnly = true)

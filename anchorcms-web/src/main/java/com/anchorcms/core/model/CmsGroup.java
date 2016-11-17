@@ -219,4 +219,18 @@ public class CmsGroup implements Serializable{
         channels.add(channel);
         channel.getContriGroups().add(this);
     }
+    /**
+     * 从集合中提取ID数组
+     *
+     * @param groups
+     * @return
+     */
+    public static Integer[] fetchIds(Collection<CmsGroup> groups) {
+        Integer[] ids = new Integer[groups.size()];
+        int i = 0;
+        for (CmsGroup g : groups) {
+            ids[i++] = g.getGroupId();
+        }
+        return ids;
+    }
 }

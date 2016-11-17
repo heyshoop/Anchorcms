@@ -1,5 +1,7 @@
 package com.anchorcms.cms.model.main;
 
+import org.apache.commons.lang.StringUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -22,11 +24,11 @@ public class CmsModelItem implements Serializable{
     private String help;
     private String helpPosition;
     private Integer dataType;
-    private Byte isSingle;
-    private Byte isChannel;
-    private Byte isCustom;
-    private Byte isDisplay;
-    private Byte isRequired;
+    private Boolean isSingle;
+    private Boolean isChannel;
+    private Boolean isCustom;
+    private Boolean isDisplay;
+    private Boolean isRequired;
     private Integer imageWidth;
     private Integer imageHeight;
 
@@ -152,51 +154,51 @@ public class CmsModelItem implements Serializable{
 
     @Basic
     @Column(name = "is_single", nullable = false)
-    public Byte getIsSingle() {
+    public Boolean getIsSingle() {
         return isSingle;
     }
 
-    public void setIsSingle(Byte isSingle) {
+    public void setIsSingle(Boolean isSingle) {
         this.isSingle = isSingle;
     }
 
     @Basic
     @Column(name = "is_channel", nullable = false)
-    public Byte getIsChannel() {
+    public Boolean getIsChannel() {
         return isChannel;
     }
 
-    public void setIsChannel(Byte isChannel) {
+    public void setIsChannel(Boolean isChannel) {
         this.isChannel = isChannel;
     }
 
     @Basic
     @Column(name = "is_custom", nullable = false)
-    public Byte getIsCustom() {
+    public Boolean getIsCustom() {
         return isCustom;
     }
 
-    public void setIsCustom(Byte isCustom) {
+    public void setIsCustom(Boolean isCustom) {
         this.isCustom = isCustom;
     }
 
     @Basic
     @Column(name = "is_display", nullable = false)
-    public Byte getIsDisplay() {
+    public Boolean getIsDisplay() {
         return isDisplay;
     }
 
-    public void setIsDisplay(Byte isDisplay) {
+    public void setIsDisplay(Boolean isDisplay) {
         this.isDisplay = isDisplay;
     }
 
     @Basic
     @Column(name = "is_required", nullable = false)
-    public Byte getIsRequired() {
+    public Boolean getIsRequired() {
         return isRequired;
     }
 
-    public void setIsRequired(Byte isRequired) {
+    public void setIsRequired(Boolean isRequired) {
         this.isRequired = isRequired;
     }
 
@@ -284,5 +286,65 @@ public class CmsModelItem implements Serializable{
 
     public void setModel(CmsModel model) {
         this.model = model;
+    }
+
+    public void init() {
+        if (getPriority() == null) {
+            setPriority(10);
+        }
+        if (getIsSingle() == null) {
+            setIsSingle(true);
+        }
+        if (getIsCustom() == null) {
+            setIsCustom(true);
+        }
+        if (getIsDisplay() == null) {
+            setIsDisplay(true);
+        }
+    }
+    /**
+     * Set the value related to the column: is_single
+     * @param single the is_single value
+     */
+    public void setSingle (java.lang.Boolean single) {
+        this.isSingle = single;
+    }
+    /**
+     * Set the value related to the column: is_display
+     * @param display the is_display value
+     */
+    public void setDisplay (java.lang.Boolean display) {
+        this.isDisplay = display;
+    }
+    /**
+     * Set the value related to the column: item_label
+     * @param label the item_label value
+     */
+    public void setLabel (java.lang.String label) {
+        this.itemLabel = label;
+    }
+    // 将字符串字段全部设置为非null，方便判断。
+    public void emptyToNull() {
+        if (StringUtils.isBlank(getDefValue())) {
+            setDefValue(null);
+        }
+        if (StringUtils.isBlank(getOptValue())) {
+            setOptValue(null);
+        }
+        if (StringUtils.isBlank(getTextSize())) {
+            setTextSize(null);
+        }
+        if (StringUtils.isBlank(getAreaRows())) {
+            setAreaRows(null);
+        }
+        if (StringUtils.isBlank(getAreaCols())) {
+            setAreaCols(null);
+        }
+        if (StringUtils.isBlank(getHelp())) {
+            setHelp(null);
+        }
+        if (StringUtils.isBlank(getHelpPosition())) {
+            setHelpPosition(null);
+        }
     }
 }

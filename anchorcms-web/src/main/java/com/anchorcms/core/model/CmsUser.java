@@ -5,10 +5,7 @@ import com.anchorcms.cms.model.main.Content;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Author 阁楼麻雀
@@ -529,5 +526,16 @@ public class CmsUser implements Serializable{
             sites.add(us.getSite());
         }
         return sites;
+    }
+    public static Integer[] fetchIds(Collection<CmsUser> users) {
+        if (users == null) {
+            return null;
+        }
+        Integer[] ids = new Integer[users.size()];
+        int i = 0;
+        for (CmsUser u : users) {
+            ids[i++] = u.getGroupId();
+        }
+        return ids;
     }
 }

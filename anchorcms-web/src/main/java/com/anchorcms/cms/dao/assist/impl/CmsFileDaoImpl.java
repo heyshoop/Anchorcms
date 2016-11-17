@@ -64,7 +64,7 @@ public class CmsFileDaoImpl extends HibernateBaseDao<CmsFile, Integer>
 	}
 	
 	public void deleteByContentId(Integer contentId){
-		String sql="delete from CmsFile file where file.content.id=:contentId";
+		String sql="delete from CmsFile file where file.content.contentId=:contentId";
 		getSession().createQuery(sql).setParameter("contentId", contentId).executeUpdate();
 	}
 
