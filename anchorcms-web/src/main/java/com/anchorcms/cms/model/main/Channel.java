@@ -670,6 +670,7 @@ public class Channel implements Serializable{
             return list;
         }
     }
+    @Transient
     public String getMobileTplContentOrDef(CmsModel contentModel) {
         String tpl = getModelMobileTpl(contentModel);
         if (!StringUtils.isBlank(tpl)) {
@@ -679,6 +680,7 @@ public class Channel implements Serializable{
             return contentModel.getTplContent(sol, true);
         }
     }
+    @Transient
     public String getModelMobileTpl(CmsModel model){
         List<ChannelModel>list=getChannelModelsExtend();
         if(list!=null){
@@ -728,9 +730,11 @@ public class Channel implements Serializable{
             return null;
         }
     }
+    @Transient
     public String getUrlStatic(int pageNo) {
         return getUrlStatic(null, pageNo);
     }
+    @Transient
     public String getUrlStatic(Boolean whole, int pageNo) {
         if (!StringUtils.isBlank(getLink())) {
             return getLink();
@@ -788,10 +792,12 @@ public class Channel implements Serializable{
      *            顶级栏目
      * @return
      */
+    @Transient
     public static List<Channel> getListForSelect(List<Channel> topList,
                                                  Set<Channel> rights, boolean hasContentOnly) {
         return getListForSelect(topList, rights, null, hasContentOnly);
     }
+    @Transient
     public static List<Channel> getListForSelect(List<Channel> topList,
                                                  Set<Channel> rights, Channel exclude, boolean hasContentOnly) {
         List<Channel> list = new ArrayList<Channel>();

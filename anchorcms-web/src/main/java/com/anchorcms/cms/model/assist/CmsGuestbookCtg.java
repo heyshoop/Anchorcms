@@ -1,7 +1,10 @@
 package com.anchorcms.cms.model.assist;
 
+import com.anchorcms.core.model.CmsSite;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 /**
  * @Author 阁楼麻雀
@@ -93,5 +96,28 @@ public class CmsGuestbookCtg implements Serializable{
         result = 31 * result + priority;
         result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
+    }
+    public static Integer[] fetchIds(Collection<CmsGuestbookCtg> guestBookCtgs) {
+        if (guestBookCtgs == null) {
+            return null;
+        }
+        Integer[] ids = new Integer[guestBookCtgs.size()];
+        int i = 0;
+        for (CmsGuestbookCtg c : guestBookCtgs) {
+            ids[i++] = c.getGuestbookctgId();
+        }
+        return ids;
+    }
+
+    private CmsSite site;
+
+    @ManyToOne
+    @JoinColumn(name = "site_id")
+    public CmsSite getSite() {
+        return site;
+    }
+
+    public void setSite(CmsSite site) {
+        this.site = site;
     }
 }

@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Map;
 
 import static com.anchorcms.common.constants.Constants.*;
@@ -684,5 +685,16 @@ public class CmsSite implements Serializable {
         t.append(TPLDIR_INDEX);
         t.append(TPL_SUFFIX);
         return t.toString();
+    }
+    public static Integer[] fetchIds(Collection<CmsSite> sites) {
+        if (sites == null) {
+            return null;
+        }
+        Integer[] ids = new Integer[sites.size()];
+        int i = 0;
+        for (CmsSite s : sites) {
+            ids[i++] = s.getSiteId();
+        }
+        return ids;
     }
 }

@@ -2,6 +2,7 @@ package com.anchorcms.core.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -127,5 +128,16 @@ public class CmsRole implements Serializable {
             return;
         }
         set.remove(user);
+    }
+    public static Integer[] fetchIds(Collection<CmsRole> roles) {
+        if (roles == null) {
+            return null;
+        }
+        Integer[] ids = new Integer[roles.size()];
+        int i = 0;
+        for (CmsRole r : roles) {
+            ids[i++] = r.getRoleId();
+        }
+        return ids;
     }
 }
