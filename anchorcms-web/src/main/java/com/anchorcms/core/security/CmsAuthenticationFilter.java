@@ -20,9 +20,9 @@ import com.anchorcms.common.web.RequestUtils;
 import com.anchorcms.common.web.session.SessionProvider;
 import com.anchorcms.core.model.CmsUser;
 import com.anchorcms.core.model.UnifiedUser;
-import com.anchorcms.core.service.CmsLogMng;
-import com.anchorcms.core.service.CmsUserMng;
-import com.anchorcms.core.service.UnifiedUserMng;
+import com.anchorcms.core.service.LogService;
+import com.anchorcms.core.service.UserService;
+import com.anchorcms.core.service.UnifiedUserService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -151,16 +151,16 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 		String username = (String) subject.getPrincipal();
-		CmsUser user = cmsUserMng.findByUsername(username);
+		CmsUser user = userService.findByUsername(username);
 		String ip = RequestUtils.getIpAddr(req);
 		Date now = new Timestamp(System.currentTimeMillis());
 		String userSessionId=session.getSessionId((HttpServletRequest)request, (HttpServletResponse)response);
 		userMng.updateLoginInfo(user.getUserId(), ip,now,userSessionId);
 		//管理登录
 		if(adminLogin){
-			cmsLogMng.loginSuccess(req, user);
+			logService.loginSuccess(req, user);
 		}
-		unifiedUserMng.updateLoginSuccess(user.getUserId(), ip);
+		unifiedUserService.updateLoginSuccess(user.getUserId(), ip);
 		loginCookie(username, req, res);
 		return super.onLoginSuccess(token, subject, request, response);
 	}
@@ -175,11 +175,11 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
 		String ip = RequestUtils.getIpAddr(req);
 		CmsUser user = userMng.findByUsername(username);
 		if(user!=null){
-			unifiedUserMng.updateLoginError(user.getUserId(), ip);
+			unifiedUserService.updateLoginError(user.getUserId(), ip);
 		}
 		//管理登录
 		if(adminLogin){
-			cmsLogMng.loginFailure(req,"username=" + username);
+			logService.loginFailure(req,"username=" + username);
 		}
 		return onLoginFailure(failureUrl,token, e, request, response);
 	}
@@ -216,7 +216,7 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
 	
 	private boolean isCaptchaRequired(String username,HttpServletRequest request,
 			HttpServletResponse response) {
-		Integer errorRemaining = unifiedUserMng.errorRemaining(username);
+		Integer errorRemaining = unifiedUserService.errorRemaining(username);
 		String captcha=RequestUtils.getQueryParam(request, CAPTCHA_PARAM);
 		// 如果输入了验证码，那么必须验证；如果没有输入验证码，则根据当前用户判断是否需要验证码。
 		if (!StringUtils.isBlank(captcha)|| (errorRemaining != null && errorRemaining < 0)) {
@@ -236,7 +236,7 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
 	
 	//用户激活了返回true 未查找到用户或者非禁用返回false
 	private boolean isActive(CmsUser user){
-		UnifiedUser unifiedUser=unifiedUserMng.findById(user.getUserId());
+		UnifiedUser unifiedUser= unifiedUserService.findById(user.getUserId());
 		if(unifiedUser!=null){
 			if(unifiedUser.getActivation()){
 				return true;
@@ -249,16 +249,16 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
 	}
 	
 	@Resource
-	private CmsUserMng userMng;
+	private UserService userMng;
 	@Resource
-	private UnifiedUserMng unifiedUserMng;
+	private UnifiedUserService unifiedUserService;
 	@Resource
-	private CmsUserMng cmsUserMng;
+	private UserService userService;
 
 	@Resource(name = "httpSession")
 	private SessionProvider session;
 	@Resource
-	private CmsLogMng cmsLogMng;
+	private LogService logService;
 	private ImageCaptchaService imageCaptchaService;
 
 

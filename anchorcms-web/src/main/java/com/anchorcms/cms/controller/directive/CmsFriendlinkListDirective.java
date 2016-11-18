@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.anchorcms.cms.model.assist.CmsFriendlink;
-import com.anchorcms.cms.service.assist.CmsFriendlinkMng;
+import com.anchorcms.cms.service.assist.FriendlinkService;
 import com.anchorcms.common.utils.FrontUtils;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
@@ -52,7 +52,7 @@ public class CmsFriendlinkListDirective implements TemplateDirectiveModel {
 		if (enabled == null) {
 			enabled = true;
 		}
-		List<CmsFriendlink> list = cmsFriendlinkMng.getList(siteId, ctgId,
+		List<CmsFriendlink> list = friendlinkService.getList(siteId, ctgId,
 				enabled);
 
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
@@ -80,5 +80,5 @@ public class CmsFriendlinkListDirective implements TemplateDirectiveModel {
 	}
 
 	@Resource
-	private CmsFriendlinkMng cmsFriendlinkMng;
+	private FriendlinkService friendlinkService;
 }

@@ -47,7 +47,7 @@ public class CmsGuestbookListDirective extends AbstractCmsGuestbookDirective {
 		CmsSite site = FrontUtils.getSite(env);
 		int first = FrontUtils.getFirst(params);
 		int max = FrontUtils.getCount(params);
-		List<CmsGuestbook> list = cmsGuestbookMng.getList(getSiteId(params),
+		List<CmsGuestbook> list = guestbookService.getList(getSiteId(params),
 				getCtgId(params), getRecommend(params), getChecked(params),
 				getDesc(params), true, first, max);
 

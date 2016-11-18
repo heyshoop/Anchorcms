@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.anchorcms.core.service.FtpService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -15,14 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 import com.anchorcms.core.model.Ftp;
-import com.anchorcms.core.service.CmsLogMng;
-import com.anchorcms.core.service.FtpMng;
+import com.anchorcms.core.service.LogService;
 import com.anchorcms.core.web.WebErrors;
 
 /*
 import com.jeecms.core.entity.Ftp;
-import com.jeecms.core.manager.CmsLogMng;
-import com.jeecms.core.manager.FtpMng;
+import com.jeecms.core.manager.LogService;
+import com.jeecms.core.manager.FtpService;
 import com.jeecms.core.web.WebErrors;*/
 
 @Controller
@@ -64,7 +64,7 @@ public class FtpController {
 		}
 		bean = manager.save(bean);
 		log.info("save Ftp id={}", bean.getFtpId());
-		cmsLogMng.operating(request, "ftp.log.save", "id=" + bean.getFtpId()
+		logService.operating(request, "ftp.log.save", "id=" + bean.getFtpId()
 				+ ";name=" + bean.getFtpName());
 		return "redirect:v_list.do";
 	}
@@ -83,7 +83,7 @@ public class FtpController {
 		}
 		bean = manager.update(bean);
 		log.info("update Ftp id={}.", bean.getFtpId());
-		cmsLogMng.operating(request, "ftp.log.update", "id=" + bean.getFtpId()
+		logService.operating(request, "ftp.log.update", "id=" + bean.getFtpId()
 				+ ";name=" + bean.getFtpName());
 		return list(pageNo, request, model);
 	}
@@ -99,7 +99,7 @@ public class FtpController {
 		Ftp[] beans = manager.deleteByIds(ids);
 		for (Ftp bean : beans) {
 			log.info("delete Ftp id={}", bean.getFtpId());
-			cmsLogMng.operating(request, "ftp.log.delete", "id=" + bean.getFtpId()
+			logService.operating(request, "ftp.log.delete", "id=" + bean.getFtpId()
 					+ ";name=" + bean.getFtpName());
 		}
 		return list(pageNo, request, model);
@@ -147,7 +147,7 @@ public class FtpController {
 	}
 
 	@Autowired
-	private CmsLogMng cmsLogMng;
+	private LogService logService;
 	@Autowired
-	private FtpMng manager;
+	private FtpService manager;
 }

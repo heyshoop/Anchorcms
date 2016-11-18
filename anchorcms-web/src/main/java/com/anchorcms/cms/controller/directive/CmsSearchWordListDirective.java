@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.anchorcms.cms.model.assist.CmsSearchWords;
-import com.anchorcms.cms.service.assist.CmsSearchWordsMng;
+import com.anchorcms.cms.service.assist.SearchWordsService;
 import com.anchorcms.common.utils.FrontUtils;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
@@ -66,7 +66,7 @@ public class CmsSearchWordListDirective implements TemplateDirectiveModel {
 		String word=getWord(params);
 		Integer count=FrontUtils.getCount(params);
 		
-		List<CmsSearchWords> list = cmsSearchWordsMng.getList(siteId, word, recommend, orderBy,count, true);
+		List<CmsSearchWords> list = searchWordsService.getList(siteId, word, recommend, orderBy,count, true);
 
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
 				params);
@@ -98,5 +98,5 @@ public class CmsSearchWordListDirective implements TemplateDirectiveModel {
 	}
 
 	@Resource
-	private CmsSearchWordsMng cmsSearchWordsMng;
+	private SearchWordsService searchWordsService;
 }

@@ -1,8 +1,8 @@
 package com.anchorcms.cms.controller.admin;
 
 import com.anchorcms.common.web.CookieUtils;
-import com.anchorcms.core.service.ConfigMng;
-import com.anchorcms.core.service.UnifiedUserMng;
+import com.anchorcms.core.service.SysConfigService;
+import com.anchorcms.core.service.UnifiedUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +32,7 @@ public class AdminLoginController {
                         HttpServletResponse response, ModelMap model) {
         //可能进入没有权限子站(cookie记录站点)需要清除cookie
         CookieUtils.cancleCookie(request, response, SITE_COOKIE, null);
-        Integer errorTimes=configMng.getConfigLogin().getErrorTimes();
+        Integer errorTimes= sysConfigService.getConfigLogin().getErrorTimes();
         model.addAttribute("errorTimes", errorTimes);
         return "login";
     }
@@ -43,13 +43,13 @@ public class AdminLoginController {
         Object error = request.getAttribute(DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
         if (error != null) {
             model.addAttribute("error", error);
-            Integer errorRemaining= unifiedUserMng.errorRemaining(username);
+            Integer errorRemaining= unifiedUserService.errorRemaining(username);
             model.addAttribute("errorRemaining", errorRemaining);
         }
         return "login";
     }
     @Resource
-    private UnifiedUserMng unifiedUserMng;
+    private UnifiedUserService unifiedUserService;
     @Resource
-    private ConfigMng configMng;
+    private SysConfigService sysConfigService;
 }

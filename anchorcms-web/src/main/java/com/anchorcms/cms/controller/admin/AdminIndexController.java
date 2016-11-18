@@ -2,8 +2,6 @@ package com.anchorcms.cms.controller.admin;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,11 +15,11 @@ import com.anchorcms.cms.model.assist.CmsUserMenu;
 import com.anchorcms.cms.model.main.Channel;
 import com.anchorcms.cms.model.main.Content;
 import com.anchorcms.cms.model.main.ContentCheck;
-import com.anchorcms.cms.service.assist.CmsSiteAccessMng;
-import com.anchorcms.cms.service.assist.CmsSiteAccessStatisticMng;
-import com.anchorcms.cms.service.assist.CmsUserMenuMng;
-import com.anchorcms.cms.service.main.ChannelMng;
-import com.anchorcms.cms.service.main.ContentMng;
+import com.anchorcms.cms.service.assist.SiteAccessService;
+import com.anchorcms.cms.service.assist.SiteAccessStatisticService;
+import com.anchorcms.cms.service.assist.UserMenuService;
+import com.anchorcms.cms.service.main.ChannelService;
+import com.anchorcms.cms.service.main.ContentService;
 import com.anchorcms.cms.statistic.CmsStatistic;
 import com.anchorcms.cms.statistic.CmsStatisticSvc;
 import com.anchorcms.cms.web.AdminContextInterceptor;
@@ -29,7 +27,6 @@ import com.anchorcms.common.utils.CmsUtils;
 import com.anchorcms.common.utils.DateUtils;
 import com.anchorcms.core.model.CmsSite;
 import com.anchorcms.core.model.CmsUser;
-import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -101,9 +98,9 @@ public class AdminIndexController {
 		long useableMemory = maxMemory - totalMemory + freeMemoery;
 		//最新10条待审内容
 		@SuppressWarnings("unchecked")
-		List<Content>contents=(List<Content>) contentMng.getPageByRight(null, null, user.getUserId(), 0, false, false, Content.ContentStatus.prepared, user.getCheckStep(site.getSiteId()), site.getSiteId(), null, user.getUserId(), 0, 1, 10).getList();
+		List<Content>contents=(List<Content>) contentService.getPageByRight(null, null, user.getUserId(), 0, false, false, Content.ContentStatus.prepared, user.getCheckStep(site.getSiteId()), site.getSiteId(), null, user.getUserId(), 0, 1, 10).getList();
 		@SuppressWarnings("unchecked")
-		List<Content>newcontents=(List<Content>)contentMng.getPageByRight(null, null,  user.getUserId(), 0, false, false, Content.ContentStatus.checked,  user.getCheckStep(site.getSiteId()), site.getSiteId(), null,user.getUserId(), 0, 1, 10).getList();
+		List<Content>newcontents=(List<Content>) contentService.getPageByRight(null, null,  user.getUserId(), 0, false, false, Content.ContentStatus.checked,  user.getCheckStep(site.getSiteId()), site.getSiteId(), null,user.getUserId(), 0, 1, 10).getList();
 		model.addAttribute("props", props);
 		model.addAttribute("freeMemoery", freeMemoery);
 		model.addAttribute("totalMemory", totalMemory);
@@ -125,7 +122,7 @@ public class AdminIndexController {
 		Integer siteId=CmsUtils.getSiteId(request);
 		List<Channel>channelList=new ArrayList<Channel>();
 		//顶层栏目
-		channelList=channelMng.getTopList(siteId, false);
+		channelList= channelService.getTopList(siteId, false);
 		model.addAttribute("channelList", channelList);
 	}
 	
@@ -218,15 +215,15 @@ public class AdminIndexController {
 	
 	
 	@Autowired
-	private ContentMng contentMng;
+	private ContentService contentService;
 	@Autowired
-	private CmsUserMenuMng userMenuMng;
+	private UserMenuService userMenuMng;
 	@Autowired
-	private ChannelMng channelMng;
+	private ChannelService channelService;
 	@Autowired
 	private CmsStatisticSvc cmsStatisticSvc;
 	@Autowired
-	private CmsSiteAccessMng cmsAccessMng;
+	private SiteAccessService cmsAccessMng;
 	@Autowired
-	private CmsSiteAccessStatisticMng cmsAccessStatisticMng;
+	private SiteAccessStatisticService cmsAccessStatisticMng;
 }

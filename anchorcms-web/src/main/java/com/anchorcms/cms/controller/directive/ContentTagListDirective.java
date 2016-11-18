@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.anchorcms.cms.model.main.ContentTag;
-import com.anchorcms.cms.service.main.ContentTagMng;
+import com.anchorcms.cms.service.main.ContentTagService;
 import com.anchorcms.common.utils.FrontUtils;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
@@ -43,7 +43,7 @@ public class ContentTagListDirective implements TemplateDirectiveModel {
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		CmsSite site = FrontUtils.getSite(env);
-		List<ContentTag> list = contentTagMng.getListForTag(FrontUtils
+		List<ContentTag> list = contentTagService.getListForTag(FrontUtils
 				.getCount(params));
 
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
@@ -74,5 +74,5 @@ public class ContentTagListDirective implements TemplateDirectiveModel {
 	}
 
 	@Resource
-	private ContentTagMng contentTagMng;
+	private ContentTagService contentTagService;
 }

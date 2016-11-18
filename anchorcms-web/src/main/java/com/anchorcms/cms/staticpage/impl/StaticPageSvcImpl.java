@@ -13,10 +13,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import com.anchorcms.cms.dao.StaticPageDao;
+import com.anchorcms.cms.dao.assist.VoteSubTopicDao;
 import com.anchorcms.cms.model.main.Channel;
 import com.anchorcms.cms.model.main.Content;
-import com.anchorcms.cms.service.main.ContentMng;
+import com.anchorcms.cms.service.main.ContentService;
 import com.anchorcms.cms.staticpage.DistributionThread;
 import com.anchorcms.cms.staticpage.StaticPageSvc;
 import com.anchorcms.common.constants.Constants;
@@ -24,13 +24,12 @@ import com.anchorcms.common.utils.FrontUtils;
 import com.anchorcms.common.web.mvc.RealPathResolver;
 import com.anchorcms.core.model.CmsSite;
 import com.anchorcms.core.model.Ftp;
-import com.anchorcms.core.service.CmsSiteMng;
-import com.anchorcms.core.service.FtpMng;
+import com.anchorcms.core.service.FtpService;
+import com.anchorcms.core.service.SiteService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,7 +72,7 @@ public class StaticPageSvcImpl  implements StaticPageSvc, InitializingBean {
 	
 	public void contentRelated(Integer contentId) throws IOException,
 	TemplateException{
-		Content content=contentMng.findById(contentId);
+		Content content= contentService.findById(contentId);
 		contentRelated(content);
 	}
 
@@ -279,7 +278,7 @@ public class StaticPageSvcImpl  implements StaticPageSvc, InitializingBean {
 	
 	private void distributeIndexHtml(CmsSite site,File f,boolean mobile) throws FileNotFoundException{
 		if(site.getSyncPageFtp()!=null){
-			Ftp syncPageFtp=ftpMng.findById(site.getSyncPageFtp().getFtpId());
+			Ftp syncPageFtp= ftpService.findById(site.getSyncPageFtp().getFtpId());
 			String filename;
 			if(mobile){
 				filename=site.getMobileStaticDir()+"/index.html";
@@ -295,15 +294,15 @@ public class StaticPageSvcImpl  implements StaticPageSvc, InitializingBean {
 	@Resource
 	private RealPathResolver realPathResolver;
 	@Resource
-	private StaticPageDao staticPageDao;
+	private VoteSubTopicDao.StaticPageDao staticPageDao;
 
 	private Configuration conf;
 	@Resource
-	private FtpMng ftpMng;
+	private FtpService ftpService;
 	@Resource
-	private ContentMng contentMng;
+	private ContentService contentService;
 	@Resource
-	private CmsSiteMng siteMng;
+	private SiteService siteMng;
 
 	public void afterPropertiesSet() throws Exception {
 		Assert.notNull(conf, "freemarker configuration cannot be null!");

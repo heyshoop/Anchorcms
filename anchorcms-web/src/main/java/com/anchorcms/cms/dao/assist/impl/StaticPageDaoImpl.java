@@ -13,13 +13,13 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.anchorcms.cms.dao.StaticPageDao;
+import com.anchorcms.cms.dao.assist.VoteSubTopicDao;
 import com.anchorcms.cms.model.main.Channel;
 import com.anchorcms.cms.model.main.CmsModel;
 import com.anchorcms.cms.model.main.Content;
 import com.anchorcms.cms.model.main.ContentCheck;
-import com.anchorcms.cms.service.main.CmsKeywordMng;
-import com.anchorcms.cms.service.main.CmsModelMng;
+import com.anchorcms.cms.service.main.KeywordService;
+import com.anchorcms.cms.service.main.ModelService;
 import com.anchorcms.cms.staticpage.DistributionThread;
 import com.anchorcms.common.constants.Constants;
 import com.anchorcms.common.hibernate.Finder;
@@ -32,7 +32,7 @@ import com.anchorcms.common.utils.URLHelper;
 import com.anchorcms.common.web.mvc.RealPathResolver;
 import com.anchorcms.core.model.CmsSite;
 import com.anchorcms.core.model.Ftp;
-import com.anchorcms.core.service.FtpMng;
+import com.anchorcms.core.service.FtpService;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.CacheMode;
 import org.hibernate.Query;
@@ -52,7 +52,7 @@ import static com.anchorcms.common.constants.Constants.UTF8;
 
 @Repository
 public class StaticPageDaoImpl extends HibernateSimpleDao implements
-		StaticPageDao {
+		VoteSubTopicDao.StaticPageDao {
 	public int channelStatic(Integer siteId, Integer channelId,
 			boolean containChild, Configuration conf, Map<String, Object> data)
 			throws IOException, TemplateException {
@@ -349,11 +349,11 @@ public class StaticPageDaoImpl extends HibernateSimpleDao implements
 		Ftp syncPageFtp=null;
 		syncPageFtp=site.getSyncPageFtp();
 		if(syncPageFtp!=null){
-			syncPageFtp=ftpMng.findById(syncPageFtp.getFtpId());
+			syncPageFtp= ftpService.findById(syncPageFtp.getFtpId());
 		}
 		String txt = c.getTxtByNo(pageNo);
 		// 内容加上关键字
-		txt = cmsKeywordMng.attachKeyword(site.getSiteId(), txt);
+		txt = keywordService.attachKeyword(site.getSiteId(), txt);
 		Paginable pagination = new SimplePage(pageNo, 1, c.getPageCount());
 		data.put("pagination", pagination);
 		url = c.getUrlStatic(pageNo);
@@ -429,7 +429,7 @@ public class StaticPageDaoImpl extends HibernateSimpleDao implements
 		Ftp syncPageFtp=null;
 		syncPageFtp=site.getSyncPageFtp();
 		if(syncPageFtp!=null){
-			syncPageFtp=ftpMng.findById(syncPageFtp.getFtpId());
+			syncPageFtp= ftpService.findById(syncPageFtp.getFtpId());
 		}
 		try {
 			// FileWriter不能指定编码确实是个问题，只能用这个代替了。
@@ -449,16 +449,16 @@ public class StaticPageDaoImpl extends HibernateSimpleDao implements
 		}
 	}
 
-	private CmsKeywordMng cmsKeywordMng;
+	private KeywordService keywordService;
 	private RealPathResolver realPathResolver;
 	@Resource
-	private CmsModelMng modelMng;
+	private ModelService modelMng;
 	@Resource
-	private FtpMng ftpMng;
+	private FtpService ftpService;
 
 	@Resource
-	public void setCmsKeywordMng(CmsKeywordMng cmsKeywordMng) {
-		this.cmsKeywordMng = cmsKeywordMng;
+	public void setKeywordService(KeywordService keywordService) {
+		this.keywordService = keywordService;
 	}
 
 	@Resource(name = "realPathResolver")

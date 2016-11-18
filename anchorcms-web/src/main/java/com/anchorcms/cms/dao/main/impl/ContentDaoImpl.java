@@ -10,7 +10,7 @@ import java.util.Set;
 import com.anchorcms.cms.dao.main.ContentDao;
 import com.anchorcms.cms.model.main.Content;
 import com.anchorcms.cms.model.main.ContentCheck;
-import com.anchorcms.cms.service.main.ContentQueryFreshTimeCache;
+import com.anchorcms.cms.service.main.ContentQueryFreshTimeCacheService;
 import com.anchorcms.common.hibernate.Finder;
 import com.anchorcms.common.hibernate.HibernateBaseDao;
 import com.anchorcms.common.page.Pagination;
@@ -618,7 +618,7 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 	private void appendReleaseDate(Finder f) {
 		f.append(" and ext.releaseDate<:currentDate");
 		//f.setParam("currentDate", new Date());
-		f.setParam("currentDate", contentQueryFreshTimeCache.getTime());
+		f.setParam("currentDate", contentQueryFreshTimeCacheService.getTime());
 	}
 
 	private void appendTypeIds(Finder f, Integer[] typeIds) {
@@ -894,5 +894,5 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		return Content.class;
 	}
 	@Resource
-	private ContentQueryFreshTimeCache contentQueryFreshTimeCache;
+	private ContentQueryFreshTimeCacheService contentQueryFreshTimeCacheService;
 }

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.anchorcms.cms.model.main.CmsThirdAccount;
-import com.anchorcms.cms.service.main.CmsThirdAccountMng;
+import com.anchorcms.cms.service.main.ThirdAccountService;
 import com.anchorcms.common.security.encoder.PwdEncoder;
 import com.anchorcms.common.utils.CmsUtils;
 import com.anchorcms.common.utils.FrontUtils;
@@ -23,9 +23,9 @@ import com.anchorcms.common.web.RequestUtils;
 import com.anchorcms.common.web.ResponseUtils;
 import com.anchorcms.common.web.session.SessionProvider;
 import com.anchorcms.core.model.*;
-import com.anchorcms.core.service.CmsConfigMng;
-import com.anchorcms.core.service.CmsUserMng;
-import com.anchorcms.core.service.UnifiedUserMng;
+import com.anchorcms.core.service.ConfigService;
+import com.anchorcms.core.service.UserService;
+import com.anchorcms.core.service.UnifiedUserService;
 import com.anchorcms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.ClientProtocolException;
@@ -100,7 +100,7 @@ public class ThirdLoginController {
 	@RequestMapping(value = "/public_bind.jspx",method = RequestMethod.POST)
 	public String bind_post(String username,String password,HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
-		boolean usernameExist=unifiedUserMng.usernameExist(username);
+		boolean usernameExist= unifiedUserService.usernameExist(username);
 		CmsSite site = CmsUtils.getSite(request);
 		WebErrors errors=WebErrors.create(request);
 		String source="";
@@ -108,8 +108,8 @@ public class ThirdLoginController {
 			//用户名不存在
 			errors.addErrorCode("error.usernameNotExist");
 		}else{
-			UnifiedUser u=unifiedUserMng.getByUsername(username);
-			boolean passwordValid=unifiedUserMng.isPasswordValid(u.getUserId(), password);
+			UnifiedUser u= unifiedUserService.getByUsername(username);
+			boolean passwordValid= unifiedUserService.isPasswordValid(u.getUserId(), password);
 			if(!passwordValid){
 				errors.addErrorCode("error.passwordInvalid");
 			}else{
@@ -149,7 +149,7 @@ public class ThirdLoginController {
 			//用户名为空
 			errors.addErrorCode("error.usernameRequired");
 		}else{
-			boolean usernameExist=unifiedUserMng.usernameExist(username);
+			boolean usernameExist= unifiedUserService.usernameExist(username);
 			if(usernameExist){
 				//用户名存在
 				errors.addErrorCode("error.usernameExist");
@@ -161,7 +161,7 @@ public class ThirdLoginController {
 				//(获取到登录授权key后可以注册用户)
 				if(StringUtils.isNotBlank(openId)||StringUtils.isNotBlank(uid)||StringUtils.isNotBlank(weboOpenId)){
 					//初始设置密码同用户名
-					cmsUserMng.registerMember(username, null, username, RequestUtils.getIpAddr(request), null, null, false, new CmsUserExt(), null);
+					userService.registerMember(username, null, username, RequestUtils.getIpAddr(request), null, null, false, new CmsUserExt(), null);
 				}
 				if(StringUtils.isNotBlank(openId)){
 					source=CmsThirdAccount.QQ_PLAT;
@@ -189,7 +189,7 @@ public class ThirdLoginController {
 	@RequestMapping(value = "/sso/authenticate.jspx")
 	public void authenticate(String username,String sessionId,HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
-		CmsUser user= cmsUserMng.findByUsername(username);
+		CmsUser user= userService.findByUsername(username);
 		if(user!=null&&sessionId!=null){
 			String userSessionId=user.getSessionId();
 			if(StringUtils.isNotBlank(userSessionId)){
@@ -210,14 +210,14 @@ public class ThirdLoginController {
 			try {
 				if(user==null){
 					//未登录，其他地方已经登录，则登录自身
-					CmsConfig config=cmsConfigMng.get();
+					CmsConfig config= configService.get();
 					List<String>authenticateUrls=config.getSsoAuthenticateUrls();
 					String success=authenticate(username, sessionId, authenticateUrls);
 					if(success.equals("true")){
 						LoginUtils.loginShiro(request, response, username);
-						user = cmsUserMng.findByUsername(username);
+						user = userService.findByUsername(username);
 						if(user!=null){
-							cmsUserMng.updateLoginInfo(user.getUserId(), null,null,sessionId);
+							userService.updateLoginInfo(user.getUserId(), null,null,sessionId);
 						}
 						object.put("result", "login");
 					}
@@ -330,15 +330,15 @@ public class ThirdLoginController {
 	}
 	
 	@Resource
-	private UnifiedUserMng unifiedUserMng;
+	private UnifiedUserService unifiedUserService;
 	@Resource
-	private CmsUserMng cmsUserMng;
+	private UserService userService;
 	@Resource
-	private CmsThirdAccountMng accountMng;
+	private ThirdAccountService accountMng;
 	@Resource
 	private SessionProvider session;
 	@Resource
 	private PwdEncoder pwdEncoder;
 	@Resource
-	private CmsConfigMng cmsConfigMng;
+	private ConfigService configService;
 }

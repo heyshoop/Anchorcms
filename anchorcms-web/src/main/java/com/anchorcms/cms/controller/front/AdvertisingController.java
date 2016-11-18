@@ -2,8 +2,8 @@ package com.anchorcms.cms.controller.front;
 
 import com.anchorcms.cms.model.assist.CmsAdvertising;
 import com.anchorcms.cms.model.assist.CmsAdvertisingSpace;
-import com.anchorcms.cms.service.assist.CmsAdvertisingMng;
-import com.anchorcms.cms.service.assist.CmsAdvertisingSpaceMng;
+import com.anchorcms.cms.service.assist.AdvertisingService;
+import com.anchorcms.cms.service.assist.AdvertisingSpaceService;
 import com.anchorcms.common.utils.CmsUtils;
 import com.anchorcms.common.utils.FrontUtils;
 import com.anchorcms.core.model.CmsSite;
@@ -34,7 +34,7 @@ public class AdvertisingController {
 					 HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		if (id != null) {
-			CmsAdvertising ad = cmsAdvertisingMng.findById(id);
+			CmsAdvertising ad = advertisingService.findById(id);
 			model.addAttribute("ad", ad);
 		}
 		FrontUtils.frontData(request, model, site);
@@ -47,8 +47,8 @@ public class AdvertisingController {
 						  HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
 		if (id != null) {
-			CmsAdvertisingSpace adspace = cmsAdvertisingSpaceMng.findById(id);
-			List<CmsAdvertising> adList = cmsAdvertisingMng.getList(id, true);
+			CmsAdvertisingSpace adspace = advertisingSpaceService.findById(id);
+			List<CmsAdvertising> adList = advertisingService.getList(id, true);
 			model.addAttribute("adspace", adspace);
 			model.addAttribute("adList", adList);
 		}
@@ -61,7 +61,7 @@ public class AdvertisingController {
 	public void display(Integer id, HttpServletRequest request,
 						HttpServletResponse response, ModelMap model) {
 		if (id != null) {
-			cmsAdvertisingMng.display(id);
+			advertisingService.display(id);
 		}
 		response.setHeader("Pragma", "No-cache");
 		response.setHeader("Cache-Control", "no-cache");
@@ -72,7 +72,7 @@ public class AdvertisingController {
 	public void click(Integer id, HttpServletRequest request,
 					  HttpServletResponse response, ModelMap model) {
 		if (id != null) {
-			cmsAdvertisingMng.click(id);
+			advertisingService.click(id);
 		}
 		response.setHeader("Pragma", "No-cache");
 		response.setHeader("Cache-Control", "no-cache");
@@ -80,7 +80,7 @@ public class AdvertisingController {
 	}
 
 	@Autowired
-	private CmsAdvertisingMng cmsAdvertisingMng;
+	private AdvertisingService advertisingService;
 	@Autowired
-	private CmsAdvertisingSpaceMng cmsAdvertisingSpaceMng;
+	private AdvertisingSpaceService advertisingSpaceService;
 }

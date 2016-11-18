@@ -44,13 +44,13 @@ public class ChannelPageDirective extends AbstractChannelDirective {
 
 		Pagination page;
 		if (parentId != null) {
-			page = channelMng.getChildPageForTag(parentId, hasContentOnly,
+			page = channelService.getChildPageForTag(parentId, hasContentOnly,
 					FrontUtils.getPageNo(env), FrontUtils.getCount(params));
 		} else {
 			if (siteId == null) {
 				siteId = site.getSiteId();
 			}
-			page = channelMng.getTopPageForTag(siteId, hasContentOnly,
+			page = channelService.getTopPageForTag(siteId, hasContentOnly,
 					FrontUtils.getPageNo(env), FrontUtils.getCount(params));
 		}
 

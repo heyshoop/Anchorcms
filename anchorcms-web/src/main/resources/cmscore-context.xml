@@ -71,19 +71,16 @@
     <!--后台权限标签-->
     <bean id="cms_perm" class="com.anchorcms.cms.web.PermistionDirective"/>
     <!--=====================================================自定义标签=========================================================-->
-    <bean id="contentMng" class="com.anchorcms.cms.service.main.impl.ContentMngImpl" />
-    <bean id="realPathResolver" class="com.anchorcms.common.web.mvc.impl.ServletContextRealPathResolver"/>
-    <bean id="channelMng" class="com.anchorcms.cms.service.main.impl.ChannelMngImpl">
+    <!--<bean id="realPathResolver" class="com.anchorcms.common.web.mvc.impl.ServletContextRealPathResolver"/>-->
+    <bean id="ChannelService" class="com.anchorcms.cms.service.main.impl.ChannelServiceImpl">
         <property name="deleteCheckerList">
             <list>
-                <ref bean="contentMng"/>
-                <ref bean="cmsTopicMng"/>
-                <ref bean="cmsAcquisitionMng"/>
+                <ref bean="ContentService"/>
+                <ref bean="TopicService"/>
+                <ref bean="AcquisitionService"/>
             </list>
         </property>
     </bean>
-    <bean id="cmsTopicMng" class="com.anchorcms.cms.service.main.impl.CmsTopicMngImpl"/>
-    <bean id="cmsAcquisitionMng" class="com.anchorcms.cms.service.assist.impl.CmsAcquisitionMngImpl"/>
     <bean id="staticPageSvc" class="com.anchorcms.cms.staticpage.impl.StaticPageSvcImpl">
         <property name="tplMessageSource" ref="tplMessageSource"/>
         <property name="freeMarkerConfigurer">

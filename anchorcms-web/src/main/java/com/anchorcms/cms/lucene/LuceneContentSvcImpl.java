@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.anchorcms.cms.model.main.Content;
-import com.anchorcms.cms.service.main.ContentMng;
+import com.anchorcms.cms.service.main.ContentService;
 import com.anchorcms.common.constants.Constants;
 import com.anchorcms.common.page.Pagination;
 import com.anchorcms.common.web.mvc.RealPathResolver;
@@ -160,7 +160,7 @@ public class LuceneContentSvcImpl implements LuceneContentSvc {
 			List<?> ids = p.getList();
 			List<Content> contents = new ArrayList<Content>(ids.size());
 			for (Object id : ids) {
-				contents.add(contentMng.findById((Integer) id));
+				contents.add(contentService.findById((Integer) id));
 			}
 			p.setList(contents);
 			return p;
@@ -203,7 +203,7 @@ public class LuceneContentSvcImpl implements LuceneContentSvc {
 					first, max);
 			List<Content> contents = new ArrayList<Content>(ids.size());
 			for (Object id : ids) {
-				contents.add(contentMng.findById((Integer) id));
+				contents.add(contentService.findById((Integer) id));
 			}
 			return contents;
 		} catch (org.apache.lucene.queryParser.ParseException e) {
@@ -217,7 +217,7 @@ public class LuceneContentSvcImpl implements LuceneContentSvc {
 	@Resource
 	private RealPathResolver realPathResolver;
 	@Resource
-	private ContentMng contentMng;
+	private ContentService contentService;
 	@Resource
 	private LuceneContentDao luceneContentDao;
 

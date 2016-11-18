@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.anchorcms.cms.model.main.CmsTopic;
-import com.anchorcms.cms.service.main.CmsTopicMng;
+import com.anchorcms.cms.service.main.TopicService;
 import com.anchorcms.common.utils.FrontUtils;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
@@ -21,7 +21,6 @@ import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
-import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
 
@@ -54,7 +53,7 @@ public class CmsTopicListDirective implements TemplateDirectiveModel {
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		CmsSite site = FrontUtils.getSite(env);
-		List<CmsTopic> list = cmsTopicMng.getListForTag(getChannelId(params),
+		List<CmsTopic> list = topicService.getListForTag(getChannelId(params),
 				getRecommend(params), FrontUtils.getCount(params));
 
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
@@ -97,5 +96,5 @@ public class CmsTopicListDirective implements TemplateDirectiveModel {
 	}
 
 	@Resource
-	private CmsTopicMng cmsTopicMng;
+	private TopicService topicService;
 }

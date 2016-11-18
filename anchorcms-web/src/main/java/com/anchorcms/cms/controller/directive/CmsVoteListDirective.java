@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.anchorcms.cms.model.assist.CmsVoteTopic;
-import com.anchorcms.cms.service.assist.CmsVoteTopicMng;
+import com.anchorcms.cms.service.assist.VoteTopicService;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
 
@@ -50,7 +50,7 @@ public class CmsVoteListDirective implements TemplateDirectiveModel {
 			count=Integer.MAX_VALUE;
 		} 
 		Boolean def=getDef(params);
-		List<CmsVoteTopic>voteTopicList=cmsVoteTopicMng.getList(def,getSiteId(params), count);
+		List<CmsVoteTopic>voteTopicList= voteTopicService.getList(def,getSiteId(params), count);
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
 				params);
 		paramWrap.put(OUT_LIST, DefaultObjectWrapperBuilderFactory.getDefaultObjectWrapper().wrap(voteTopicList));
@@ -84,5 +84,5 @@ public class CmsVoteListDirective implements TemplateDirectiveModel {
 	
 
 	@Resource
-	private CmsVoteTopicMng cmsVoteTopicMng;
+	private VoteTopicService voteTopicService;
 }

@@ -2,7 +2,7 @@ package com.anchorcms.cms.directive.abs;
 
 import java.util.Map;
 
-import com.anchorcms.cms.service.assist.CmsGuestbookMng;
+import com.anchorcms.cms.service.assist.GuestbookService;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
 
 import freemarker.template.TemplateDirectiveModel;
@@ -68,6 +68,6 @@ public abstract class AbstractCmsGuestbookDirective implements
 	}
 
 	@Resource
-	protected CmsGuestbookMng cmsGuestbookMng;
+	protected GuestbookService guestbookService;
 
 }

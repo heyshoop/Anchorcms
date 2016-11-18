@@ -40,7 +40,7 @@ public class CmsCommentPageDirective extends AbstractCmsCommentDirective {
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		CmsSite site = FrontUtils.getSite(env);
-		Pagination page = cmsCommentMng.getPageForTag(null,
+		Pagination page = commentService.getPageForTag(null,
 				getContentId(params), getGreaterThen(params),
 				getChecked(params), getRecommend(params), getDesc(params),
 				FrontUtils.getPageNo(env), FrontUtils.getCount(params));

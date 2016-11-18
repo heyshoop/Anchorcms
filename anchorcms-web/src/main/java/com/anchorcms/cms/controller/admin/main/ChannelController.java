@@ -1,9 +1,9 @@
 package com.anchorcms.cms.controller.admin.main;
 
 import com.anchorcms.cms.model.main.*;
-import com.anchorcms.cms.service.main.ChannelMng;
-import com.anchorcms.cms.service.main.CmsModelItemMng;
-import com.anchorcms.cms.service.main.CmsModelMng;
+import com.anchorcms.cms.service.main.ChannelService;
+import com.anchorcms.cms.service.main.ModelItemService;
+import com.anchorcms.cms.service.main.ModelService;
 import com.anchorcms.common.utils.ChineseCharToEn;
 import com.anchorcms.common.utils.CmsUtils;
 import com.anchorcms.common.utils.CoreUtils;
@@ -12,16 +12,15 @@ import com.anchorcms.common.web.ResponseUtils;
 import com.anchorcms.core.model.CmsGroup;
 import com.anchorcms.core.model.CmsSite;
 import com.anchorcms.core.model.CmsUser;
-import com.anchorcms.core.service.CmsGroupMng;
-import com.anchorcms.core.service.CmsLogMng;
-import com.anchorcms.core.service.CmsUserMng;
+import com.anchorcms.core.service.GroupService;
+import com.anchorcms.core.service.LogService;
+import com.anchorcms.core.service.UserService;
 import com.anchorcms.core.service.TplService;
 import com.anchorcms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -93,7 +92,7 @@ public class ChannelController {
 		} else {
 			list = manager.getChildList(root, false);
 		}
-		model.addAttribute("modelList", cmsModelMng.getList(false,null,siteId));
+		model.addAttribute("modelList", modelService.getList(false,null,siteId));
 		model.addAttribute("root", root);
 		model.addAttribute("list", list);
 		return "channel/list";
@@ -111,12 +110,12 @@ public class ChannelController {
 			model.addAttribute("root", root);
 		}
 		// 模型
-		CmsModel m = cmsModelMng.findById(modelId);
+		CmsModel m = modelService.findById(modelId);
 		// 栏目模板列表
 		List<String> channelTplList = getTplChannel(site, m, null);
 		// 内容模板列表
 		List<String> contentTplList = getTplContent(site, m, null);
-		List<CmsModel> models=cmsModelMng.getList(false,true,site.getSiteId());
+		List<CmsModel> models= modelService.getList(false,true,site.getSiteId());
 		Map<String,List<String>>modelTplMap=new HashMap<String, List<String>>();
 		for(CmsModel tempModel:models){
 			List<String> modelTplList = getTplContent(site, tempModel, null);
@@ -131,9 +130,9 @@ public class ChannelController {
 			modelMobileTplMap.put(tempModel.getSiteId().toString(), modelMobileTplList);
 		}
 		// 模型项列表
-		List<CmsModelItem> itemList = cmsModelItemMng.getList(modelId, true,
+		List<CmsModelItem> itemList = modelItemService.getList(modelId, true,
 				false);
-		List<CmsGroup> groupList = cmsGroupMng.getList();
+		List<CmsGroup> groupList = groupService.getList();
 		// 浏览会员组列表
 		List<CmsGroup> viewGroups = groupList;
 		// 投稿会员组列表
@@ -148,7 +147,7 @@ public class ChannelController {
 		if (parent != null) {
 			users = parent.getUsers();
 		} else {
-			users = cmsUserMng.getAdminList(site.getSiteId(), false, false, null);
+			users = userService.getAdminList(site.getSiteId(), false, false, null);
 		}
 		model.addAttribute("site",CmsUtils.getSite(request));
 		model.addAttribute("channelTplList", channelTplList);
@@ -211,7 +210,7 @@ public class ChannelController {
 		// 内容模板列表
 		List<String> contentTplList = getTplContent(site, m, channel.getChannelExt().getTplContent());
 		//模型列表和各个模型模板
-		List<CmsModel> models=cmsModelMng.getList(false,true,site.getSiteId());
+		List<CmsModel> models= modelService.getList(false,true,site.getSiteId());
 		Map<String,List<String>>modelTplMap=new HashMap<String, List<String>>();
 		for(CmsModel tempModel:models){
 			List<String> modelTplList = getTplContent(site, tempModel, null);
@@ -225,9 +224,9 @@ public class ChannelController {
 			List<String> modelMobileTplList = getMobileTplContent(site, tempModel, null);
 			modelMobileTplMap.put(tempModel.getSiteId().toString(), modelMobileTplList);
 		}
-		List<CmsGroup> groupList = cmsGroupMng.getList();
+		List<CmsGroup> groupList = groupService.getList();
 		// 模型项列表
-		List<CmsModelItem> itemList = cmsModelItemMng.getList(m.getModelId(), true,
+		List<CmsModelItem> itemList = modelItemService.getList(m.getModelId(), true,
 				false);
 		// 浏览会员组列表、浏览会员组IDS
 		List<CmsGroup> viewGroups = groupList;
@@ -246,13 +245,13 @@ public class ChannelController {
 		if (parent != null) {
 			users = parent.getUsers();
 		} else {
-			users = cmsUserMng.getAdminList(site.getSiteId(), false, false, null);
+			users = userService.getAdminList(site.getSiteId(), false, false, null);
 		}
 		// 管理员IDS
 		Integer[] userIds = channel.getUserIds();
 		model.addAttribute("site",CmsUtils.getSite(request));
 		model.addAttribute("channelList", channelList);
-		model.addAttribute("modelList", cmsModelMng.getList(false,null,site.getSiteId()));
+		model.addAttribute("modelList", modelService.getList(false,null,site.getSiteId()));
 		model.addAttribute("tplChannel", tplChannel);
 		model.addAttribute("tplContent", tplContent);
 		model.addAttribute("channelTplList", channelTplList);
@@ -318,7 +317,7 @@ public class ChannelController {
 				userIds, CmsUtils.getSiteId(request), root, 
 				modelId,modelIds,tpls,mtpls);
 		log.info("save Channel id={}, name={}", bean.getChannelId(), bean.getChannelExt().getChannelName());
-		cmsLogMng.operating(request, "channel.log.save", "id=" + bean.getChannelId()
+		logService.operating(request, "channel.log.save", "id=" + bean.getChannelId()
 				+ ";title=" + bean.getChannelExt().getTitle());
 		model.addAttribute("root", root);
 		return "redirect:v_list.do";
@@ -365,7 +364,7 @@ public class ChannelController {
 		bean = manager.update(bean, ext, txt, viewGroupIds, contriGroupIds,
 				userIds, parentId,modelId,attr,modelIds,tpls,mtpls);
 		log.info("update Channel id={}.", bean.getChannelId());
-		cmsLogMng.operating(request, "channel.log.update", "id=" + bean.getChannelId()
+		logService.operating(request, "channel.log.update", "id=" + bean.getChannelId()
 				+ ";name=" + bean.getChannelExt().getChannelName());
 		return list(root, request, model);
 	}
@@ -381,7 +380,7 @@ public class ChannelController {
 		Channel[] beans = manager.deleteByIds(ids);
 		for (Channel bean : beans) {
 			log.info("delete Channel id={}", bean.getChannelId());
-			cmsLogMng.operating(request, "channel.log.delete", "id="
+			logService.operating(request, "channel.log.delete", "id="
 					+ bean.getChannelId() + ";title=" + bean.getChannelExt().getTitle());
 		}
 		return list(root, request, model);
@@ -551,17 +550,17 @@ public class ChannelController {
 	}
 
 	@Resource
-	private CmsUserMng cmsUserMng;
+	private UserService userService;
 	@Resource
-	private CmsModelMng cmsModelMng;
+	private ModelService modelService;
 	@Resource
-	private CmsModelItemMng cmsModelItemMng;
+	private ModelItemService modelItemService;
 	@Resource
-	private CmsGroupMng cmsGroupMng;
+	private GroupService groupService;
 	@Resource
 	private TplService tplManager;
 	@Resource
-	private CmsLogMng cmsLogMng;
+	private LogService logService;
 	@Resource(name = "ChannelService")
-	private ChannelMng manager;
+	private ChannelService manager;
 }

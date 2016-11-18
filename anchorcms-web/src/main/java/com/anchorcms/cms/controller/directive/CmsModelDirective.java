@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.anchorcms.cms.model.main.CmsModel;
-import com.anchorcms.cms.service.main.CmsModelMng;
+import com.anchorcms.cms.service.main.ModelService;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
 import com.anchorcms.common.web.freemarker.ParamsRequiredException;
@@ -63,5 +63,5 @@ public class CmsModelDirective implements TemplateDirectiveModel {
 	}
 
 	@Resource
-	private CmsModelMng modelMng;
+	private ModelService modelMng;
 }

@@ -2,7 +2,7 @@ package com.anchorcms.cms.directive.abs;
 
 import java.util.Map;
 
-import com.anchorcms.cms.service.main.ChannelMng;
+import com.anchorcms.cms.service.main.ChannelService;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
 
 
@@ -37,5 +37,5 @@ public abstract class AbstractChannelDirective implements
 	}
 
 	@Resource
-	protected ChannelMng channelMng;
+	protected ChannelService channelService;
 }

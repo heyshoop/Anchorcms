@@ -78,7 +78,7 @@ public class ContentListDirective extends AbstractContentDirective {
 			Environment env) throws TemplateException {
 		Integer[] ids = DirectiveUtils.getIntArray(PARAM_IDS, params);
 		if (ids != null) {
-			return contentMng.getListByIdsForTag(ids, getOrderBy(params));
+			return contentService.getListByIdsForTag(ids, getOrderBy(params));
 		} else {
 			return (List<Content>) super.getData(params, env);
 		}

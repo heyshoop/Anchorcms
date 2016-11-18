@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.anchorcms.cms.model.assist.CmsAdvertising;
-import com.anchorcms.cms.service.assist.CmsAdvertisingMng;
+import com.anchorcms.cms.service.assist.AdvertisingService;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
 
@@ -35,7 +35,7 @@ public class CmsAdvertisingDirective implements TemplateDirectiveModel {
 		Integer id = DirectiveUtils.getInt(PARAM_ID, params);
 		CmsAdvertising ad = null;
 		if (id != null) {
-			ad = cmsAdvertisingMng.findById(id);
+			ad = advertisingService.findById(id);
 		}
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
 				params);
@@ -47,5 +47,5 @@ public class CmsAdvertisingDirective implements TemplateDirectiveModel {
 	}
 
 	@Resource
-	private CmsAdvertisingMng cmsAdvertisingMng;
+	private AdvertisingService advertisingService;
 }

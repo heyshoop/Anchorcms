@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.anchorcms.cms.service.main.ContentTagMng;
+import com.anchorcms.cms.service.main.ContentTagService;
 import com.anchorcms.common.page.Pagination;
 import com.anchorcms.common.utils.FrontUtils;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
@@ -43,7 +43,7 @@ public class ContentTagPageDirective implements TemplateDirectiveModel {
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		CmsSite site = FrontUtils.getSite(env);
-		Pagination page = contentTagMng.getPageForTag(
+		Pagination page = contentTagService.getPageForTag(
 				FrontUtils.getPageNo(env), FrontUtils.getCount(params));
 
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
@@ -79,5 +79,5 @@ public class ContentTagPageDirective implements TemplateDirectiveModel {
 	}
 
 	@Resource
-	private ContentTagMng contentTagMng;
+	private ContentTagService contentTagService;
 }

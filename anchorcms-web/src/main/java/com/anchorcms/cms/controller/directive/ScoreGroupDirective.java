@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.anchorcms.cms.model.assist.CmsScoreGroup;
-import com.anchorcms.cms.service.assist.CmsScoreGroupMng;
+import com.anchorcms.cms.service.assist.ScoreGroupService;
 import com.anchorcms.common.utils.FrontUtils;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
@@ -69,5 +69,5 @@ public class ScoreGroupDirective implements TemplateDirectiveModel {
 	}
 
 	@Resource
-	private CmsScoreGroupMng scoreGroupMng;
+	private ScoreGroupService scoreGroupMng;
 }

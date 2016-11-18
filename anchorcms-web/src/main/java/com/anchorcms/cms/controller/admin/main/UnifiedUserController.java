@@ -4,7 +4,7 @@ import com.anchorcms.common.page.Pagination;
 import com.anchorcms.common.web.CookieUtils;
 import com.anchorcms.common.web.ResponseUtils;
 import com.anchorcms.core.model.UnifiedUser;
-import com.anchorcms.core.service.UnifiedUserMng;
+import com.anchorcms.core.service.UnifiedUserService;
 import com.anchorcms.core.web.WebErrors;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -165,5 +165,5 @@ public class UnifiedUserController {
 	}
 
 	@Resource
-	private UnifiedUserMng manager;
+	private UnifiedUserService manager;
 }

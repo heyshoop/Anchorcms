@@ -16,9 +16,9 @@ import com.anchorcms.common.web.session.SessionProvider;
 import com.anchorcms.core.model.CmsConfig;
 import com.anchorcms.core.model.CmsSite;
 import com.anchorcms.core.model.CmsUser;
-import com.anchorcms.core.service.CmsConfigMng;
-import com.anchorcms.core.service.CmsSiteMng;
-import com.anchorcms.core.service.CmsUserMng;
+import com.anchorcms.core.service.ConfigService;
+import com.anchorcms.core.service.SiteService;
+import com.anchorcms.core.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -38,7 +38,7 @@ public class FrontContextInterceptor extends HandlerInterceptorAdapter {
 			throws ServletException {
 		CmsConfig config=configMng.get();
 		CmsSite site = null;
-		List<CmsSite> list = cmsSiteMng.getListFromCache();
+		List<CmsSite> list = siteService.getListFromCache();
 		int size = list.size();
 		if (size == 0) {
 			throw new RuntimeException("no site record in database!");
@@ -91,7 +91,7 @@ public class FrontContextInterceptor extends HandlerInterceptorAdapter {
 		CmsUser user =null;
 		if (subject.isAuthenticated()|| subject.isRemembered()) {
 			String username =  (String) subject.getPrincipal();
-			user= cmsUserMng.findByUsername(username);
+			user= userService.findByUsername(username);
 			CmsUtils.setUser(request, user);
 			// Site加入线程变量
 			CmsThreadVariable.setUser(user);
@@ -131,7 +131,7 @@ public class FrontContextInterceptor extends HandlerInterceptorAdapter {
 			if (!StringUtils.isBlank(v)) {
 				try {
 					Integer siteId = Integer.parseInt(v);
-					return cmsSiteMng.findById(siteId);
+					return siteService.findById(siteId);
 				} catch (NumberFormatException e) {
 				}
 			}
@@ -140,11 +140,11 @@ public class FrontContextInterceptor extends HandlerInterceptorAdapter {
 	}
 
 	@Resource
-	private CmsSiteMng cmsSiteMng;
+	private SiteService siteService;
 	@Resource
-	private CmsUserMng cmsUserMng;
+	private UserService userService;
 	@Resource
-	private CmsConfigMng configMng;
+	private ConfigService configMng;
 	@Resource
 	private SessionProvider session;
 }

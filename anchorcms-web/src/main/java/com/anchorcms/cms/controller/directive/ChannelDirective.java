@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.anchorcms.cms.model.main.Channel;
-import com.anchorcms.cms.service.main.ChannelMng;
+import com.anchorcms.cms.service.main.ChannelService;
 import com.anchorcms.common.utils.FrontUtils;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
@@ -59,7 +59,7 @@ public class ChannelDirective implements TemplateDirectiveModel {
 		Channel channel;
 		boolean hasParam=true;
 		if (id != null) {
-			channel = channelMng.findById(id);
+			channel = channelService.findById(id);
 		} else {
 			String path = DirectiveUtils.getString(PARAM_PATH, params);
 			if (StringUtils.isBlank(path)) {
@@ -71,7 +71,7 @@ public class ChannelDirective implements TemplateDirectiveModel {
 			if (siteId == null) {
 				siteId = site.getSiteId();
 			}
-			channel = channelMng.findByPathForTag(path, siteId);
+			channel = channelService.findByPathForTag(path, siteId);
 		}
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
 				params);
@@ -92,5 +92,5 @@ public class ChannelDirective implements TemplateDirectiveModel {
 	}
 
 	@Resource
-	private ChannelMng channelMng;
+	private ChannelService channelService;
 }

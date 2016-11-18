@@ -7,8 +7,8 @@ import com.anchorcms.cms.web.CmsThreadVariable;
 import com.anchorcms.core.model.CmsSite;
 import com.anchorcms.core.model.CmsUser;
 import com.anchorcms.core.model.UnifiedUser;
-import com.anchorcms.core.service.CmsUserMng;
-import com.anchorcms.core.service.UnifiedUserMng;
+import com.anchorcms.core.service.UserService;
+import com.anchorcms.core.service.UnifiedUserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -36,9 +36,9 @@ public class CmsAuthorizingRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(
 			AuthenticationToken authcToken) throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-		CmsUser user = cmsUserMng.findByUsername(token.getUsername());
+		CmsUser user = userService.findByUsername(token.getUsername());
 		if (user != null) {
-			UnifiedUser unifiedUser = unifiedUserMng.findById(user.getUserId());
+			UnifiedUser unifiedUser = unifiedUserService.findById(user.getUserId());
 			return new SimpleAuthenticationInfo(user.getUsername(), unifiedUser.getPassword(), getName());
 		} else {
 			return null;
@@ -50,7 +50,7 @@ public class CmsAuthorizingRealm extends AuthorizingRealm {
 	 */
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		String username = (String) principals.getPrimaryPrincipal();
-		CmsUser user = cmsUserMng.findByUsername(username);
+		CmsUser user = userService.findByUsername(username);
 		CmsSite site= CmsThreadVariable.getSite();
 		SimpleAuthorizationInfo auth = new SimpleAuthorizationInfo();
 		if (user != null) {
@@ -71,7 +71,7 @@ public class CmsAuthorizingRealm extends AuthorizingRealm {
 	}
 
 	@Resource
-	protected CmsUserMng cmsUserMng;
+	protected UserService userService;
 	@Resource
-	protected UnifiedUserMng unifiedUserMng;
+	protected UnifiedUserService unifiedUserService;
 }

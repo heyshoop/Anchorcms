@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.anchorcms.cms.model.main.Channel;
 import com.anchorcms.cms.model.main.Content;
 import com.anchorcms.cms.model.main.ContentCheck;
-import com.anchorcms.cms.service.main.ChannelMng;
-import com.anchorcms.cms.service.main.CmsKeywordMng;
-import com.anchorcms.cms.service.main.ContentBuyMng;
-import com.anchorcms.cms.service.main.ContentMng;
+import com.anchorcms.cms.service.main.ChannelService;
+import com.anchorcms.cms.service.main.KeywordService;
+import com.anchorcms.cms.service.main.ContentBuyService;
+import com.anchorcms.cms.service.main.ContentService;
 import com.anchorcms.common.model.PageInfo;
 import com.anchorcms.common.page.Paginable;
 import com.anchorcms.common.page.SimplePage;
@@ -131,7 +131,7 @@ public class DynamicPageController {
 
 	public String channel(String path,boolean checkAlone, int pageNo, String[] params,PageInfo info, HttpServletRequest request,HttpServletResponse response, ModelMap model) {
 		CmsSite site = CmsUtils.getSite(request);
-		Channel channel = channelMng.findByPathForTag(path, site.getSiteId());
+		Channel channel = channelService.findByPathForTag(path, site.getSiteId());
 		if (channel == null) {
 			log.debug("Channel path not found: {}", path);
 			return FrontUtils.pageNotFound(request, response, model);
@@ -155,7 +155,7 @@ public class DynamicPageController {
 	public String content(Integer id, int pageNo, String[] params,
 			PageInfo info, HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
-		Content content = contentMng.findById(id);
+		Content content = contentService.findById(id);
 		if (content == null) {
 			log.debug("Content id not found: {}", id);
 			return FrontUtils.pageNotFound(request, response, model);
@@ -211,7 +211,7 @@ public class DynamicPageController {
 				//非作者且未购买
 				if(!content.getUser().equals(user)){
 					//用户已登录判断是否已经购买
-					boolean hasBuy=contentBuyMng.hasBuyContent(user.getUserId(), content.getContentId());
+					boolean hasBuy= contentBuyService.hasBuyContent(user.getUserId(), content.getContentId());
 					if(!hasBuy){
 						try {
 							String rediretUrl="/content/buy.jspx?contentId="+content.getContentId();
@@ -228,7 +228,7 @@ public class DynamicPageController {
 		}
 		String txt = content.getTxtByNo(pageNo);
 		// 内容加上关键字
-		txt = cmsKeywordMng.attachKeyword(site.getSiteId(), txt);
+		txt = keywordService.attachKeyword(site.getSiteId(), txt);
 		Paginable pagination = new SimplePage(pageNo, 1, content.getPageCount());
 		model.addAttribute("pagination", pagination);
 		FrontUtils.frontPageData(request, model);
@@ -282,15 +282,15 @@ public class DynamicPageController {
 	
 
 	@Resource
-	private ChannelMng channelMng;
+	private ChannelService channelService;
 	@Resource
-	private ContentMng contentMng;
+	private ContentService contentService;
 	@Resource
-	private CmsKeywordMng cmsKeywordMng;
+	private KeywordService keywordService;
 	@Resource
 	private RealPathResolver realPathResolver;
 	@Resource
-	private ContentBuyMng contentBuyMng;
+	private ContentBuyService contentBuyService;
 	@Resource(name = "httpSession")
 	private SessionProvider session;
 }

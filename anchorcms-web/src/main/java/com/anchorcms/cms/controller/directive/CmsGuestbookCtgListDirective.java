@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.anchorcms.cms.model.assist.CmsGuestbookCtg;
-import com.anchorcms.cms.service.assist.CmsGuestbookCtgMng;
+import com.anchorcms.cms.service.assist.GuestbookCtgService;
 import com.anchorcms.common.utils.FrontUtils;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
@@ -49,7 +49,7 @@ public class CmsGuestbookCtgListDirective implements TemplateDirectiveModel {
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		CmsSite site = FrontUtils.getSite(env);
 
-		List<CmsGuestbookCtg> list = cmsGuestbookCtgMng
+		List<CmsGuestbookCtg> list = guestbookCtgService
 				.getList(getSiteId(params));
 		
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
@@ -85,5 +85,5 @@ public class CmsGuestbookCtgListDirective implements TemplateDirectiveModel {
 	}
 
 	@Resource
-	private CmsGuestbookCtgMng cmsGuestbookCtgMng;
+	private GuestbookCtgService guestbookCtgService;
 }

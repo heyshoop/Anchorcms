@@ -2,7 +2,7 @@ package com.anchorcms.cms.directive.abs;
 
 import java.util.Map;
 
-import com.anchorcms.cms.service.assist.CmsCommentMng;
+import com.anchorcms.cms.service.assist.CommentService;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
 
 
@@ -81,6 +81,6 @@ public abstract class AbstractCmsCommentDirective implements
 	}
 
 	@Resource
-	protected CmsCommentMng cmsCommentMng;
+	protected CommentService commentService;
 
 }

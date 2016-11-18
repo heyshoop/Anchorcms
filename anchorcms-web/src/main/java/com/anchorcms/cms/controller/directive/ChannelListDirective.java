@@ -46,12 +46,12 @@ public class ChannelListDirective extends AbstractChannelDirective {
 
 		List<Channel> list;
 		if (parentId != null) {
-			list = channelMng.getChildListForTag(parentId, hasContentOnly);
+			list = channelService.getChildListForTag(parentId, hasContentOnly);
 		} else {
 			if (siteId == null) {
 				siteId = site.getSiteId();
 			}
-			list = channelMng.getTopListForTag(siteId, hasContentOnly);
+			list = channelService.getTopListForTag(siteId, hasContentOnly);
 		}
 
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(

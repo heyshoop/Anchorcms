@@ -42,7 +42,7 @@ public class CmsGuestbookPageDirective extends AbstractCmsGuestbookDirective {
 		CmsSite site = FrontUtils.getSite(env);
 		int pageNo = FrontUtils.getPageNo(env);
 		int count = FrontUtils.getCount(params);
-		Pagination page = cmsGuestbookMng.getPage(getSiteId(params),
+		Pagination page = guestbookService.getPage(getSiteId(params),
 				getCtgId(params),null,null, getRecommend(params), getChecked(params),
 				getDesc(params), true, pageNo, count);
 

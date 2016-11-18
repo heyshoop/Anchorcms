@@ -8,13 +8,13 @@ import java.util.Set;
 
 import com.anchorcms.cms.model.main.Channel;
 import com.anchorcms.cms.model.main.ContentTag;
-import com.anchorcms.cms.service.main.ChannelMng;
-import com.anchorcms.cms.service.main.ContentMng;
-import com.anchorcms.cms.service.main.ContentTagMng;
+import com.anchorcms.cms.service.main.ChannelService;
+import com.anchorcms.cms.service.main.ContentService;
+import com.anchorcms.cms.service.main.ContentTagService;
 import com.anchorcms.common.utils.FrontUtils;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
 import com.anchorcms.core.model.CmsSite;
-import com.anchorcms.core.service.CmsSiteMng;
+import com.anchorcms.core.service.SiteService;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -151,7 +151,7 @@ public abstract class AbstractContentDirective implements
 			Set<Integer> set = new HashSet<Integer>();
 			ContentTag tag;
 			for (String name : names) {
-				tag = contentTagMng.findByNameForTag(name);
+				tag = contentTagService.findByNameForTag(name);
 				if (tag != null) {
 					set.add(tag.getTagId());
 				}
@@ -192,7 +192,7 @@ public abstract class AbstractContentDirective implements
 		Set<Integer> set = new HashSet<Integer>();
 		Channel channel;
 		for (String path : paths) {
-			channel = channelMng.findByPathForTag(path, siteId);
+			channel = channelService.findByPathForTag(path, siteId);
 			if (channel != null) {
 				set.add(channel.getChannelId());
 			}
@@ -227,7 +227,7 @@ public abstract class AbstractContentDirective implements
 		Set<Integer> set = new HashSet<Integer>();
 		Channel channel;
 		if (siteIds == null) {
-			List<CmsSite> list = cmsSiteMng.getListFromCache();
+			List<CmsSite> list = siteService.getListFromCache();
 			siteIds = new Integer[list.size()];
 			int i = 0;
 			for (CmsSite site : list) {
@@ -236,7 +236,7 @@ public abstract class AbstractContentDirective implements
 		}
 		for (Integer siteId : siteIds) {
 			for (String path : paths) {
-				channel = channelMng.findByPathForTag(path, siteId);
+				channel = channelService.findByPathForTag(path, siteId);
 				if (channel != null) {
 					set.add(channel.getChannelId());
 				}
@@ -357,12 +357,12 @@ public abstract class AbstractContentDirective implements
 			Integer excludeId = DirectiveUtils.getInt(PARAM_EXCLUDE_ID, params);
 			if (isPage()) {
 				int pageNo = FrontUtils.getPageNo(env);
-				return contentMng.getPageByTagIdsForTag(tagIds, siteIds,
+				return contentService.getPageByTagIdsForTag(tagIds, siteIds,
 						channelIds, typeIds, excludeId, titleImg, recommend,
 						title,attr,orderBy, pageNo, count);
 			} else {
 				int first = FrontUtils.getFirst(params);
-				return contentMng.getListByTagIdsForTag(tagIds, siteIds,
+				return contentService.getListByTagIdsForTag(tagIds, siteIds,
 						channelIds, typeIds, excludeId, titleImg, recommend,
 						title,attr, orderBy, first, count);
 			}
@@ -372,12 +372,12 @@ public abstract class AbstractContentDirective implements
 			Integer[] channelIds = getChannelIdsOrPaths(params, siteIds);
 			if (isPage()) {
 				int pageNo = FrontUtils.getPageNo(env);
-				return contentMng.getPageByTopicIdForTag(topicId, siteIds,
+				return contentService.getPageByTopicIdForTag(topicId, siteIds,
 						channelIds, typeIds, titleImg, recommend, title,attr,
 						orderBy, pageNo, count);
 			} else {
 				int first = FrontUtils.getFirst(params);
-				return contentMng.getListByTopicIdForTag(topicId, siteIds,
+				return contentService.getListByTopicIdForTag(topicId, siteIds,
 						channelIds, typeIds, titleImg, recommend, title,attr,
 						orderBy, first, count);
 			}
@@ -387,12 +387,12 @@ public abstract class AbstractContentDirective implements
 			int option = getChannelOption(params);
 			if (isPage()) {
 				int pageNo = FrontUtils.getPageNo(env);
-				return contentMng.getPageByChannelIdsForTag(channelIds,
+				return contentService.getPageByChannelIdsForTag(channelIds,
 						typeIds, titleImg, recommend, title,attr, orderBy, option,
 						pageNo, count);
 			} else {
 				int first = FrontUtils.getFirst(params);
-				return contentMng.getListByChannelIdsForTag(channelIds,
+				return contentService.getListByChannelIdsForTag(channelIds,
 						typeIds, titleImg, recommend, title,attr,orderBy, option,
 						first, count);
 			}
@@ -404,7 +404,7 @@ public abstract class AbstractContentDirective implements
 			boolean pathsToIds = false;
 			Integer siteId = null;
 			if (siteIds == null || siteIds.length == 0) {
-				List<CmsSite> siteList = cmsSiteMng.getListFromCache();
+				List<CmsSite> siteList = siteService.getListFromCache();
 				if (siteList.size() == 1) {
 					pathsToIds = true;
 					siteId = siteList.get(0).getSiteId();
@@ -418,12 +418,12 @@ public abstract class AbstractContentDirective implements
 				if (channelIds != null) {
 					if (isPage()) {
 						int pageNo = FrontUtils.getPageNo(env);
-						return contentMng.getPageByChannelIdsForTag(channelIds,
+						return contentService.getPageByChannelIdsForTag(channelIds,
 								typeIds, titleImg, recommend, title,attr, orderBy,
 								option,pageNo, count);
 					} else {
 						int first = FrontUtils.getFirst(params);
-						return contentMng.getListByChannelIdsForTag(channelIds,
+						return contentService.getListByChannelIdsForTag(channelIds,
 								typeIds, titleImg, recommend, title,attr, orderBy,
 								option, first, count);
 					}
@@ -433,12 +433,12 @@ public abstract class AbstractContentDirective implements
 			} else {
 				if (isPage()) {
 					int pageNo = FrontUtils.getPageNo(env);
-					return contentMng.getPageByChannelPathsForTag(channelPaths,
+					return contentService.getPageByChannelPathsForTag(channelPaths,
 							siteIds, typeIds, titleImg, recommend, title,attr,
 							orderBy, pageNo, count);
 				} else {
 					int first = FrontUtils.getFirst(params);
-					return contentMng.getListByChannelPathsForTag(channelPaths,
+					return contentService.getListByChannelPathsForTag(channelPaths,
 							siteIds, typeIds, titleImg, recommend, title,attr,
 							orderBy, first, count);
 				}
@@ -447,11 +447,11 @@ public abstract class AbstractContentDirective implements
 		// 主要条件为空，则执行此处代码。
 		if (isPage()) {
 			int pageNo = FrontUtils.getPageNo(env);
-			return contentMng.getPageBySiteIdsForTag(siteIds, typeIds,
+			return contentService.getPageBySiteIdsForTag(siteIds, typeIds,
 					titleImg, recommend, title,attr,orderBy, pageNo, count);
 		} else {
 			int first = FrontUtils.getFirst(params);
-			return contentMng.getListBySiteIdsForTag(siteIds, typeIds,
+			return contentService.getListBySiteIdsForTag(siteIds, typeIds,
 					titleImg, recommend, title,attr,orderBy, first, count);
 		}
 	}
@@ -459,11 +459,11 @@ public abstract class AbstractContentDirective implements
 	abstract protected boolean isPage();
 
 	@Resource
-	protected ContentTagMng contentTagMng;
+	protected ContentTagService contentTagService;
 	@Resource
-	protected ChannelMng channelMng;
+	protected ChannelService channelService;
 	@Resource
-	protected CmsSiteMng cmsSiteMng;
+	protected SiteService siteService;
 	@Resource
-	protected ContentMng contentMng;
+	protected ContentService contentService;
 }

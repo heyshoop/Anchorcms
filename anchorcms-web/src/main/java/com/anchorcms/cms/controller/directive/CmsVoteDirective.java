@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.anchorcms.cms.model.assist.CmsVoteTopic;
-import com.anchorcms.cms.service.assist.CmsVoteTopicMng;
+import com.anchorcms.cms.service.assist.VoteTopicService;
 import com.anchorcms.common.utils.FrontUtils;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
@@ -43,13 +43,13 @@ public class CmsVoteDirective implements TemplateDirectiveModel {
 		CmsVoteTopic vote;
 		Integer id = getId(params);
 		if (id != null) {
-			vote = cmsVoteTopicMng.findById(id);
+			vote = voteTopicService.findById(id);
 		} else {
 			Integer siteId = getSiteId(params);
 			if (siteId == null) {
 				siteId = site.getSiteId();
 			}
-			vote = cmsVoteTopicMng.getDefTopic(siteId);
+			vote = voteTopicService.getDefTopic(siteId);
 		}
 
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
@@ -72,5 +72,5 @@ public class CmsVoteDirective implements TemplateDirectiveModel {
 	}
 
 	@Resource
-	private CmsVoteTopicMng cmsVoteTopicMng;
+	private VoteTopicService voteTopicService;
 }

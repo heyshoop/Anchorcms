@@ -8,8 +8,8 @@ import com.anchorcms.common.utils.CmsUtils;
 import com.anchorcms.common.web.ResponseUtils;
 import com.anchorcms.core.model.CmsUser;
 import com.anchorcms.core.model.CmsUserExt;
-import com.anchorcms.core.service.CmsUserExtMng;
-import com.anchorcms.core.service.CmsUserMng;
+import com.anchorcms.core.service.UserExtService;
+import com.anchorcms.core.service.UserService;
 import com.anchorcms.core.web.WebErrors;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
@@ -43,8 +43,8 @@ public class PersonalController {
 			ext = new CmsUserExt();
 		}
 		ext.setRealname(realname);
-		cmsUserExtMng.update(ext, user);
-		cmsUserMng.updatePwdEmail(user.getUserId(), newPwd, email);
+		userExtService.update(ext, user);
+		userService.updatePwdEmail(user.getUserId(), newPwd, email);
 		model.addAttribute("message", "global.success");
 		return profileEdit(request, model);
 	}
@@ -62,7 +62,7 @@ public class PersonalController {
 	public void checkPwd(String origPwd, HttpServletRequest request,
 			HttpServletResponse response) {
 		CmsUser user = CmsUtils.getUser(request);
-		boolean pass = cmsUserMng.isPasswordValid(user.getUserId(), origPwd);
+		boolean pass = userService.isPasswordValid(user.getUserId(), origPwd);
 		ResponseUtils.renderJson(response, pass ? "true" : "false");
 	}
 
@@ -82,7 +82,7 @@ public class PersonalController {
 		if (errors.ifMaxLength(realname, "realname", 100)) {
 			return errors;
 		}
-		if (!cmsUserMng.isPasswordValid(id, origPwd)) {
+		if (!userService.isPasswordValid(id, origPwd)) {
 			errors.addErrorCode("member.origPwdInvalid");
 			return errors;
 		}
@@ -90,7 +90,7 @@ public class PersonalController {
 	}
 
 	@Resource
-	private CmsUserMng cmsUserMng;
+	private UserService userService;
 	@Resource
-	private CmsUserExtMng cmsUserExtMng;
+	private UserExtService userExtService;
 }

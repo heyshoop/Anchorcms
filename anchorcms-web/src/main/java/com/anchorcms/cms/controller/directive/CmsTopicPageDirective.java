@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.anchorcms.cms.service.main.CmsTopicMng;
+import com.anchorcms.cms.service.main.TopicService;
 import com.anchorcms.common.page.Pagination;
 import com.anchorcms.common.utils.FrontUtils;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
@@ -51,7 +51,7 @@ public class CmsTopicPageDirective implements TemplateDirectiveModel {
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		CmsSite site = FrontUtils.getSite(env);
-		Pagination page = cmsTopicMng.getPageForTag(getChannelId(params),
+		Pagination page = topicService.getPageForTag(getChannelId(params),
 				getRecommend(params), FrontUtils.getPageNo(env), FrontUtils
 						.getCount(params));
 
@@ -100,5 +100,5 @@ public class CmsTopicPageDirective implements TemplateDirectiveModel {
 	}
 
 	@Resource
-	private CmsTopicMng cmsTopicMng;
+	private TopicService topicService;
 }

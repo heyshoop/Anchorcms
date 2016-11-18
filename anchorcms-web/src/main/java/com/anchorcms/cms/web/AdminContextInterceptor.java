@@ -14,8 +14,8 @@ import com.anchorcms.common.utils.CmsUtils;
 import com.anchorcms.common.web.CookieUtils;
 import com.anchorcms.core.model.CmsUserSite;
 import com.anchorcms.core.security.CmsAuthorizingRealm;
-import com.anchorcms.core.service.CmsSiteMng;
-import com.anchorcms.core.service.CmsUserMng;
+import com.anchorcms.core.service.SiteService;
+import com.anchorcms.core.service.UserService;
 import com.anchorcms.core.model.CmsSite;
 import com.anchorcms.core.model.CmsUser;
 import org.apache.commons.lang.StringUtils;
@@ -52,7 +52,7 @@ public class AdminContextInterceptor extends HandlerInterceptorAdapter {
 		Subject subject = SecurityUtils.getSubject();
 		if (subject.isAuthenticated()) {
 			String username =  (String) subject.getPrincipal();
-			user = cmsUserMng.findByUsername(username);
+			user = userService.findByUsername(username);
 		}
 		// 此时用户可以为null
 		CmsUtils.setUser(request, user);
@@ -148,7 +148,7 @@ public class AdminContextInterceptor extends HandlerInterceptorAdapter {
 		if (!StringUtils.isBlank(p)) {
 			try {
 				Integer siteId = Integer.parseInt(p);
-				CmsSite site = cmsSiteMng.findById(siteId);
+				CmsSite site = siteService.findById(siteId);
 				if (site != null) {
 					// 若使用参数选择站点，则应该把站点保存至cookie中才好。
 					CookieUtils.addCookie(request, response, SITE_COOKIE, site
@@ -169,7 +169,7 @@ public class AdminContextInterceptor extends HandlerInterceptorAdapter {
 			if (!StringUtils.isBlank(v)) {
 				try {
 					Integer siteId = Integer.parseInt(v);
-					return cmsSiteMng.findById(siteId);
+					return siteService.findById(siteId);
 				} catch (NumberFormatException e) {
 					log.warn("cookie site id format exception", e);
 				}
@@ -181,7 +181,7 @@ public class AdminContextInterceptor extends HandlerInterceptorAdapter {
 	private CmsSite getByDomain(HttpServletRequest request) {
 		String domain = request.getServerName();
 		if (!StringUtils.isBlank(domain)) {
-			return cmsSiteMng.findByDomain(domain);
+			return siteService.findByDomain(domain);
 		}
 		return null;
 	}
@@ -199,7 +199,7 @@ public class AdminContextInterceptor extends HandlerInterceptorAdapter {
 	}
 
 	private CmsSite getByDefault() {
-		List<CmsSite> list = cmsSiteMng.getListFromCache();
+		List<CmsSite> list = siteService.getListFromCache();
 		if (list.size() > 0) {
 			return list.get(0);
 		} else {
@@ -210,7 +210,7 @@ public class AdminContextInterceptor extends HandlerInterceptorAdapter {
 	private boolean hasRepeatDomainSite(HttpServletRequest request) {
 		String domain = request.getServerName();
 		if (!StringUtils.isBlank(domain)) {
-			return cmsSiteMng.hasRepeatByProperty("domain");
+			return siteService.hasRepeatByProperty("domain");
 		}
 		return false;
 	}
@@ -273,9 +273,9 @@ public class AdminContextInterceptor extends HandlerInterceptorAdapter {
 		return userPermission;
 	}
 	@Resource
-	private CmsSiteMng cmsSiteMng;
+	private SiteService siteService;
 	@Resource
-	private CmsUserMng cmsUserMng;
+	private UserService userService;
 	@Resource
 	private CmsAuthorizingRealm authorizingRealm;
 

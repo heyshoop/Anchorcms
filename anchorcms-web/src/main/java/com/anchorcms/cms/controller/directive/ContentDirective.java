@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.anchorcms.cms.model.main.Content;
-import com.anchorcms.cms.service.main.ContentMng;
+import com.anchorcms.cms.service.main.ContentService;
 import com.anchorcms.common.utils.FrontUtils;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
@@ -48,11 +48,11 @@ public class ContentDirective implements TemplateDirectiveModel {
 		Boolean next = DirectiveUtils.getBool(PRAMA_NEXT, params);
 		Content content;
 		if (next == null) {
-			content = contentMng.findById(id);
+			content = contentService.findById(id);
 		} else {
 			CmsSite site = FrontUtils.getSite(env);
 			Integer channelId = DirectiveUtils.getInt(PARAM_CHANNEL_ID, params);
-			content = contentMng.getSide(id, site.getSiteId(), channelId, next);
+			content = contentService.getSide(id, site.getSiteId(), channelId, next);
 		}
 
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
@@ -75,5 +75,5 @@ public class ContentDirective implements TemplateDirectiveModel {
 	}
 
 	@Resource
-	private ContentMng contentMng;
+	private ContentService contentService;
 }

@@ -65,7 +65,7 @@
                 <property name="hashIterations" value="1" />
             </bean>
         </property>
-        <!--<property name="cmsUserMng" ref="cmsUserMng" />-->
+        <!--<property name="userService" ref="userService" />-->
     </bean>
     <bean id="authcFilter" class="com.anchorcms.core.security.CmsAuthenticationFilter" parent="adminUrlBean">
         <property name="adminIndex" value="/cmsadmin/index.do"/>

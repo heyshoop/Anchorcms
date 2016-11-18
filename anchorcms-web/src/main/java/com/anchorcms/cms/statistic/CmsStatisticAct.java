@@ -15,11 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.anchorcms.cms.model.main.Channel;
 import com.anchorcms.cms.model.main.ContentCheck;
-import com.anchorcms.cms.service.assist.CmsSiteAccessCountMng;
-import com.anchorcms.cms.service.assist.CmsSiteAccessMng;
-import com.anchorcms.cms.service.assist.CmsSiteAccessPagesMng;
-import com.anchorcms.cms.service.assist.CmsSiteAccessStatisticMng;
-import com.anchorcms.cms.service.main.ChannelMng;
+import com.anchorcms.cms.service.assist.SiteAccessCountService;
+import com.anchorcms.cms.service.assist.SiteAccessService;
+import com.anchorcms.cms.service.assist.SiteAccessPagesService;
+import com.anchorcms.cms.service.assist.SiteAccessStatisticService;
+import com.anchorcms.cms.service.main.ChannelService;
 import com.anchorcms.common.page.Pagination;
 import com.anchorcms.common.utils.CmsUtils;
 import com.anchorcms.common.utils.DateUtils;
@@ -27,7 +27,7 @@ import com.anchorcms.common.web.CookieUtils;
 import com.anchorcms.common.web.RequestUtils;
 import com.anchorcms.common.web.mvc.MessageResolver;
 import com.anchorcms.core.model.CmsUser;
-import com.anchorcms.core.service.CmsUserMng;
+import com.anchorcms.core.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,7 +116,7 @@ public class CmsStatisticAct {
 				"queryInputUsername");
 		Integer queryInputUserId = null;
 		if (!StringUtils.isBlank(queryInputUsername)) {
-			CmsUser u = cmsUserMng.findByUsername(queryInputUsername);
+			CmsUser u = userService.findByUsername(queryInputUsername);
 			if (u != null) {
 				queryInputUserId = u.getUserId();
 			} else {
@@ -133,7 +133,7 @@ public class CmsStatisticAct {
 		CmsStatisticModel statisticModel = getStatisticModel(queryModel);
 		List<CmsStatistic> list = cmsStatisticSvc.statisticByModel(CONTENT,
 				statisticModel, year, month, day,null,null, restrictions);
-		List<Channel> topList = channelMng.getTopList(siteId, true);
+		List<Channel> topList = channelService.getTopList(siteId, true);
 		List<Channel> channelList = Channel.getListForSelect(topList, null,
 				true);
 		putCommonData(statisticModel, list, year, month, day, model);
@@ -293,10 +293,10 @@ public class CmsStatisticAct {
 		}
 		if(channelLevel.equals(1)){
 			//顶层栏目
-			list=channelMng.getTopList(siteId, false);
+			list= channelService.getTopList(siteId, false);
 		}else{
 			//底层栏目
-			list=channelMng.getBottomList(siteId, false);
+			list= channelService.getBottomList(siteId, false);
 		}
 		//view比较的列
 		Collections.sort(list, new ListChannelComparator(view));
@@ -744,17 +744,17 @@ public class CmsStatisticAct {
 	}
 
 	@Autowired
-	private ChannelMng channelMng;
+	private ChannelService channelService;
 	@Autowired
-	private CmsUserMng cmsUserMng;
+	private UserService userService;
 	@Autowired
 	private CmsStatisticSvc cmsStatisticSvc;
 	@Autowired
-	private CmsSiteAccessMng cmsAccessMng;
+	private SiteAccessService cmsAccessMng;
 	@Autowired
-	private CmsSiteAccessPagesMng cmsAccessPagesMng;
+	private SiteAccessPagesService cmsAccessPagesMng;
 	@Autowired
-	private CmsSiteAccessCountMng cmsAccessCountMng;
+	private SiteAccessCountService cmsAccessCountMng;
 	@Autowired
-	private CmsSiteAccessStatisticMng cmsAccessStatisticMng;
+	private SiteAccessStatisticService cmsAccessStatisticMng;
 }

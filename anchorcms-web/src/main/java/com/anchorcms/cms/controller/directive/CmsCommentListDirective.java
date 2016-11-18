@@ -46,7 +46,7 @@ public class CmsCommentListDirective extends AbstractCmsCommentDirective {
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		CmsSite site = FrontUtils.getSite(env);
 
-		List<CmsComment> list = cmsCommentMng.getListForTag(getSiteId(params),
+		List<CmsComment> list = commentService.getListForTag(getSiteId(params),
 				getContentId(params),getParentId(params), getGreaterThen(params),
 				getChecked(params), getRecommend(params), getDesc(params),
 				FrontUtils.getCount(params));
