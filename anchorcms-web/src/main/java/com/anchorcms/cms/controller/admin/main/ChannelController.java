@@ -119,7 +119,7 @@ public class ChannelController {
 		Map<String,List<String>>modelTplMap=new HashMap<String, List<String>>();
 		for(CmsModel tempModel:models){
 			List<String> modelTplList = getTplContent(site, tempModel, null);
-			modelTplMap.put(tempModel.getSiteId().toString(), modelTplList);
+			modelTplMap.put(tempModel.getModelId().toString(), modelTplList);
 		}
 		// 栏目移动版模板列表
 	    List<String> channelMobileTplList = getMobileTplChannel(site, m, null);
@@ -127,7 +127,7 @@ public class ChannelController {
 		Map<String,List<String>>modelMobileTplMap=new HashMap<String, List<String>>();
 		for(CmsModel tempModel:models){
 			List<String> modelMobileTplList = getMobileTplContent(site, tempModel, null);
-			modelMobileTplMap.put(tempModel.getSiteId().toString(), modelMobileTplList);
+			modelMobileTplMap.put(tempModel.getModelId().toString(), modelMobileTplList);
 		}
 		// 模型项列表
 		List<CmsModelItem> itemList = modelItemService.getList(modelId, true,

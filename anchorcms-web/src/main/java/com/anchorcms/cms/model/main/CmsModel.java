@@ -17,7 +17,7 @@ import static com.anchorcms.common.constants.Constants.*;
 @Table(name = "c_model")
 public class CmsModel implements Serializable{
     private static final long serialVersionUID = -4132299743911946924L;
-    private int modelId;
+    private Integer modelId;
     private String modelName;
     private String modelPath;
     private String tplChannelPrefix;
@@ -35,11 +35,11 @@ public class CmsModel implements Serializable{
 
     @Id
     @Column(name = "model_id")
-    public int getModelId() {
+    public Integer getModelId() {
         return modelId;
     }
 
-    public void setModelId(int modelId) {
+    public void setModelId(Integer modelId) {
         this.modelId = modelId;
     }
 

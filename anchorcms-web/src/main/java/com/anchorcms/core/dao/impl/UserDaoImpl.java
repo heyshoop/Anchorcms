@@ -118,25 +118,25 @@ public class UserDaoImpl extends HibernateBaseDao<CmsUser, Integer> implements U
 
 	@SuppressWarnings("unchecked")
 	public List<CmsUser> getAdminList(Integer siteId, Boolean allChannel,
-			Boolean disabled, Integer rank) {
+									  Boolean disabled, Integer rank) {
 		Finder f = Finder.create("select bean from CmsUser");
 		f.append(" bean join bean.userSites us");
-		f.append(" where us.site.id=:siteId");
+		f.append(" where us.siteId=:siteId");
 		f.setParam("siteId", siteId);
 		if (allChannel != null) {
-			f.append(" and us.allChannel=:allChannel");
+			f.append(" and us.isAllChannel=:allChannel");
 			f.setParam("allChannel", allChannel);
 		}
 		if (disabled != null) {
-			f.append(" and bean.disabled=:disabled");
+			f.append(" and bean.isDisabled=:disabled");
 			f.setParam("disabled", disabled);
 		}
 		if (rank != null) {
 			f.append(" and bean.rank<=:rank");
 			f.setParam("rank", rank);
 		}
-		f.append(" and bean.admin=true");
-		f.append(" order by bean.id asc");
+		f.append(" and bean.isSelfAdmin=true");
+		f.append(" order by bean.userId asc");
 		return find(f);
 	}
 	
