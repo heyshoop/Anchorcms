@@ -217,8 +217,8 @@ public class Channel implements Serializable{
     public void setAttr(Map<String, String> attr) {
         this.attr = attr;
     }
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "channel_id")
+    @OneToOne
+    @JoinColumn(name = "channel_id",referencedColumnName = "channel_id",unique = true)
     public ChannelCount getChannelCount() {
         return channelCount;
     }

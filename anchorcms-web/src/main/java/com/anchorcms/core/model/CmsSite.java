@@ -1,11 +1,13 @@
 package com.anchorcms.core.model;
 
+import com.anchorcms.cms.model.assist.CmsSiteAccessCount;
 import org.apache.commons.lang.StringUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 
 import static com.anchorcms.common.constants.Constants.*;
 
@@ -432,6 +434,18 @@ public class CmsSite implements Serializable {
 
     private CmsConfig config;
 
+    private Set<CmsSiteAccessCount> accessCounts;
+
+    @OneToMany
+    @JoinColumn(name = "site_id",insertable = false,unique = false)
+    public Set<CmsSiteAccessCount> getAccessCounts() {
+        return accessCounts;
+    }
+
+    public void setAccessCounts(Set<CmsSiteAccessCount> accessCounts) {
+        this.accessCounts = accessCounts;
+    }
+
     @ElementCollection(fetch= FetchType.LAZY, //加载策略,延迟加载
             targetClass=String.class) //指定集合中元素的类型
     @JoinTable(name="c_site_cfg", joinColumns={ @JoinColumn(nullable=false, name="site_id")})//指定集合生成的表
@@ -505,6 +519,88 @@ public class CmsSite implements Serializable {
 
     public void setUploadFtp(Ftp uploadFtp) {
         this.uploadFtp = uploadFtp;
+    }
+
+
+    public static final String PV_TOTAL="pvTotal";
+    public static final String VISITORS="visitors";
+    public static final String DAY_PV_TOTAL="dayPvTotal";
+    public static final String DAY_VISITORS="dayVisitors";
+    public static final String WEEK_PV_TOTAL="weekPvTotal";
+    public static final String WEEK_VISITORS="weekVisitors";
+    public static final String MONTH_PV_TOTAL="monthPvTotal";
+    public static final String MONTH_VISITORS="monthVisitors";
+    @Transient
+    public Long getPvTotal(){
+        String pv=getAttr().get(PV_TOTAL);
+        if(StringUtils.isNotBlank(pv)){
+            return Long.decode(pv);
+        }else{
+            return 0l;
+        }
+    }
+    @Transient
+    public Long getVisitorTotal(){
+        String visitorNum=getAttr().get(VISITORS);
+        if(StringUtils.isNotBlank(visitorNum)){
+            return Long.decode(visitorNum);
+        }else{
+            return 0l;
+        }
+    }
+    @Transient
+    public Long getDayPvTotal(){
+        String pv=getAttr().get(DAY_PV_TOTAL);
+        if(StringUtils.isNotBlank(pv)){
+            return Long.decode(pv);
+        }else{
+            return 0l;
+        }
+    }
+    @Transient
+    public Long getDayVisitorTotal(){
+        String visitorNum=getAttr().get(DAY_VISITORS);
+        if(StringUtils.isNotBlank(visitorNum)){
+            return Long.decode(visitorNum);
+        }else{
+            return 0l;
+        }
+    }
+    @Transient
+    public Long getWeekPvTotal(){
+        String pv=getAttr().get(WEEK_PV_TOTAL);
+        if(StringUtils.isNotBlank(pv)){
+            return Long.decode(pv);
+        }else{
+            return 0l;
+        }
+    }
+    @Transient
+    public Long getWeekVisitorTotal(){
+        String visitorNum=getAttr().get(WEEK_VISITORS);
+        if(StringUtils.isNotBlank(visitorNum)){
+            return Long.decode(visitorNum);
+        }else{
+            return 0l;
+        }
+    }
+    @Transient
+    public Long getMonthPvTotal(){
+        String pv=getAttr().get(MONTH_PV_TOTAL);
+        if(StringUtils.isNotBlank(pv)){
+            return Long.decode(pv);
+        }else{
+            return 0l;
+        }
+    }
+    @Transient
+    public Long getMonthVisitorTotal(){
+        String visitorNum=getAttr().get(MONTH_VISITORS);
+        if(StringUtils.isNotBlank(visitorNum)){
+            return Long.decode(visitorNum);
+        }else{
+            return 0l;
+        }
     }
     public void init() {
         if (StringUtils.isBlank(getProtocol())) {
