@@ -1,5 +1,6 @@
 package com.anchorcms.core.model;
 
+import com.anchorcms.common.utils.UploadUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.PrintCommandListener;
@@ -233,5 +234,16 @@ public class Ftp implements Serializable{
         ftp.setFileType(FTP.BINARY_FILE_TYPE);
         ftp.enterLocalPassiveMode();
         return ftp;
+    }
+    public String storeByExt(String path, String ext, InputStream in)
+            throws IOException {
+        String filename = UploadUtils.generateFilename(path, ext);
+        store(filename, in);
+        return filename;
+    }
+    public String storeByFilename(String filename, InputStream in)
+            throws IOException {
+        store(filename, in);
+        return filename;
     }
 }

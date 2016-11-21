@@ -2,6 +2,7 @@ package com.anchorcms.core.model;
 
 import com.anchorcms.cms.model.main.Channel;
 import com.anchorcms.common.hibernate.PriorityComparator;
+import org.apache.commons.lang.StringUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -232,5 +233,24 @@ public class CmsGroup implements Serializable{
             ids[i++] = g.getGroupId();
         }
         return ids;
+    }
+    /**
+     * 是否允许上传后缀
+     *
+     * @param ext
+     * @return
+     */
+    public boolean isAllowSuffix(String ext) {
+        String suffix = getAllowSuffix();
+        if (StringUtils.isBlank(suffix)) {
+            return true;
+        }
+        String[] attr = StringUtils.split(suffix, ",");
+        for (int i = 0, len = attr.length; i < len; i++) {
+            if (attr[i].equals(ext)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

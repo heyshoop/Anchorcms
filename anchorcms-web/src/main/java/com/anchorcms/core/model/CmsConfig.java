@@ -22,7 +22,7 @@ public class CmsConfig implements Serializable{
     private String servletPoint;
     private Integer port;
     private String dbFileUri;
-    private byte isUploadToDb;
+    private Boolean isUploadToDb;
     private String defImg;
     private String loginUrl;
     private String processUrl;
@@ -103,11 +103,11 @@ public class CmsConfig implements Serializable{
 
     @Basic
     @Column(name = "is_upload_to_db")
-    public byte getIsUploadToDb() {
+    public Boolean getIsUploadToDb() {
         return isUploadToDb;
     }
 
-    public void setIsUploadToDb(byte isUploadToDb) {
+    public void setIsUploadToDb(Boolean isUploadToDb) {
         this.isUploadToDb = isUploadToDb;
     }
 
@@ -443,7 +443,6 @@ public class CmsConfig implements Serializable{
         result = 31 * result + (servletPoint != null ? servletPoint.hashCode() : 0);
         result = 31 * result + (port != null ? port.hashCode() : 0);
         result = 31 * result + (dbFileUri != null ? dbFileUri.hashCode() : 0);
-        result = 31 * result + (int) isUploadToDb;
         result = 31 * result + (defImg != null ? defImg.hashCode() : 0);
         result = 31 * result + (loginUrl != null ? loginUrl.hashCode() : 0);
         result = 31 * result + (processUrl != null ? processUrl.hashCode() : 0);

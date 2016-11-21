@@ -569,4 +569,57 @@ public class CmsUser implements Serializable{
         Set<CmsSite> sites = getSites();
         return CmsSite.fetchIds(sites);
     }
+    @Transient
+    public Set<Channel> getChannels(Integer siteId) {
+        Set<Channel> set = getChannels();
+        Set<Channel> results = new HashSet<Channel>();
+        for (Channel c : set) {
+            if (c.getSite().getSiteId().equals(siteId)) {
+                results.add(c);
+            }
+        }
+        return results;
+    }
+    /**
+     * 是否允许上传后缀
+     *
+     * @param ext
+     * @return
+     */
+    public boolean isAllowSuffix(String ext) {
+        return getGroup().isAllowSuffix(ext);
+    }
+    /**
+     * 是否允许上传，根据文件大小
+     *
+     * @param size
+     *            文件大小，单位KB
+     * @return
+     */
+    public boolean isAllowMaxFile(int size) {
+        int allowPerFile = getGroup().getAllowMaxFile();
+        if (allowPerFile == 0) {
+            return true;
+        } else {
+            return allowPerFile >= size;
+        }
+    }
+    /**
+     * 是否允许上传，根据每日限额
+     *
+     * @param size
+     * @return
+     */
+    public boolean isAllowPerDay(int size) {
+        int allowPerDay = getGroup().getAllowPerDay();
+        if (allowPerDay == 0) {
+            return true;
+        }
+        if (getUploadDate() != null) {
+            if (isToday(getUploadDate())) {
+                size += getUploadSize();
+            }
+        }
+        return allowPerDay >= size;
+    }
 }

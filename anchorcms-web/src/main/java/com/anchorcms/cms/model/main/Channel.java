@@ -899,4 +899,62 @@ public class Channel implements Serializable{
         Set<CmsUser> users = getUsers();
         return CmsUser.fetchIds(users);
     }
+    @Transient
+    public List<CmsModel>getModels(List<CmsModel>allModels){
+        List<ChannelModel>list=getChannelModelsExtend();
+        //顶层栏目没有配置默认所有可用模型
+        if (list == null) {
+            return allModels;
+        }
+        List<CmsModel>models=new ArrayList<CmsModel>();
+        for(ChannelModel cm:list){
+            models.add(cm.getModel());
+        }
+        return models;
+    }
+    @Transient
+    public List<Channel> getListForSelect(Set<Channel> rights,
+                                          boolean hasContentOnly) {
+        return getListForSelect(rights, null, hasContentOnly);
+    }
+    @Transient
+    public List<Channel> getListForSelect(Set<Channel> rights, Channel exclude,
+                                          boolean hasContentOnly) {
+        List<Channel> list = new ArrayList<Channel>((getRgt() - getLft()) / 2);
+        addChildToList(list, this, rights, exclude, hasContentOnly);
+        return list;
+    }
+    @Transient
+    public List<String>getModelIds(){
+        List<String>ids=new ArrayList<String>();
+        List<CmsModel>models=getModels();
+        if(models!=null){
+            for(CmsModel model:models){
+                ids.add(model.getModelId()+"");
+            }
+        }
+        return ids;
+    }
+    @Transient
+    public List<CmsModel> getModels(){
+        List<ChannelModel>list=getChannelModelsExtend();
+        if (list == null) {
+            return null;
+        }
+        List<CmsModel>models=new ArrayList<CmsModel>();
+        for(ChannelModel cm:list){
+            models.add(cm.getModel());
+        }
+        return models;
+    }
+    @Transient
+    public String getName() {
+        ChannelExt ext = getChannelExt();
+        if (ext != null) {
+            return ext.getChannelName();
+        } else {
+            return null;
+        }
+    }
+
 }

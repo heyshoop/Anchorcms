@@ -1,5 +1,6 @@
 package com.anchorcms.cms.model.main;
 
+import com.anchorcms.cms.web.CmsThreadVariable;
 import com.anchorcms.common.utils.StaticPageUtils;
 import com.anchorcms.core.model.CmsGroup;
 import com.anchorcms.core.model.CmsSite;
@@ -1003,6 +1004,235 @@ public class Content implements Serializable{
         } else {
             return null;
         }
+    }
+    @Transient
+    public Content cloneWithoutSet() {
+        Content content = new Content();
+        content.setSortDate(getSortDate());
+        content.setTopLevel(getTopLevel());
+        content.setHasTitleImg(getHasTitleImg());
+        content.setIsRecommend(getIsRecommend());
+        content.setStatus(getStatus());
+        content.setViewsDay(getViewsDay());
+        content.setCommentsDay(getCommentsDay());
+        content.setDownloadsDay(getDownloadsDay());
+        content.setUpsDay(getUpsDay());
+        content.setType(getType());
+        content.setSite(getSite());
+        content.setUser(getUser());
+        content.setChannel(getChannel());
+        content.setModel(getModel());
+        Map<String,String>attrs=getAttr();
+        if(attrs!=null&&!attrs.isEmpty()){
+            Map<String,String>newAttrs=new HashMap<String, String>();
+            String key;
+            Set<String>keyset=attrs.keySet();
+            Iterator<String>keyIt=keyset.iterator();
+            while(keyIt.hasNext()){
+                key=keyIt.next();
+                newAttrs.put(key, attrs.get(key));
+            }
+            content.setAttr(newAttrs);
+        }
+        content.setContentExt(getContentExt());
+        return content;
+    }
+    @Transient
+    public Integer[]getTopicIds(){
+        Set<CmsTopic>topics=getTopics();
+        return CmsTopic.fetchIds(topics);
+    }
+
+    @Transient
+    public Integer[]getViewGroupIds(){
+        Set<CmsGroup>groups =getViewGroups();
+        return CmsGroup.fetchIds(groups);
+    }
+    @Transient
+    public String[]getTagArray(){
+        List<ContentTag>tags=getTags();
+        if(tags==null||tags.size()<=0){
+            return null;
+        }
+        String[]tagArrar=new String[tags.size()];
+        for(int i=0;i<tagArrar.length;i++){
+            tagArrar[i]=tags.get(i).getTagName();
+        }
+        return tagArrar;
+    }
+    @Transient
+    public String[]getAttachmentPaths(){
+        List<ContentAttachment>attList=getAttachments();
+        if(attList==null||attList.size()<=0){
+            return null;
+        }
+        String[]attachmentPaths=new String[attList.size()];
+        for(int i=0;i<attachmentPaths.length;i++){
+            attachmentPaths[i]=attList.get(i).getAttachmentPath();
+        }
+        return attachmentPaths;
+    }
+    @Transient
+    public String[]getAttachmentNames(){
+        List<ContentAttachment>attList=getAttachments();
+        if(attList==null||attList.size()<=0){
+            return null;
+        }
+        String[]attachmentNames=new String[attList.size()];
+        for(int i=0;i<attachmentNames.length;i++){
+            attachmentNames[i]=attList.get(i).getAttachmentName();
+        }
+        return attachmentNames;
+    }
+    @Transient
+    public String[]getAttachmentFileNames(){
+        List<ContentAttachment>attList=getAttachments();
+        if(attList==null||attList.size()<=0){
+            return null;
+        }
+        String[]attachmentFileNames=new String[attList.size()];
+        for(int i=0;i<attachmentFileNames.length;i++){
+            attachmentFileNames[i]=attList.get(i).getFilename();
+        }
+        return attachmentFileNames;
+    }
+    @Transient
+    public String[]getPicPaths(){
+        List<ContentPicture>pics=getPictures();
+        if(pics==null||pics.size()<=0){
+            return null;
+        }
+        String[]picPaths=new String[pics.size()];
+        for(int i=0;i<picPaths.length;i++){
+            picPaths[i]=pics.get(i).getImgPath();
+        }
+        return picPaths;
+    }
+
+    @Transient
+    public String[]getPicDescs(){
+        List<ContentPicture>pics=getPictures();
+        if(pics==null||pics.size()<=0){
+            return null;
+        }
+        String[]picDescs=new String[pics.size()];
+        for(int i=0;i<picDescs.length;i++){
+            picDescs[i]=pics.get(i).getDescription();
+        }
+        return picDescs;
+    }
+    @Transient
+    public Short getChargeModel() {
+        ContentCharge c=getContentCharge();
+        if(c==null){
+            return ContentCharge.MODEL_FREE;
+        }else{
+            return c.getChargeReward();
+        }
+    }
+    @Transient
+    public Double getChargeAmount() {
+        ContentCharge charge= getContentCharge();
+        if(charge!=null){
+            return charge.getChargeAmount();
+        }else{
+            return 0d;
+        }
+    }
+    /**
+     * 是否有审核后的编辑权限。从CmsThread中获得当前用户。
+     *
+     * @return
+     */
+    @Transient
+    public boolean isHasUpdateRight() {
+        CmsUser user = CmsThreadVariable.getUser();
+        if (user == null) {
+            throw new IllegalStateException("CmsUser not found in CmsThread");
+        }
+        return isHasUpdateRight(user);
+    }
+    /**
+     * 是否有审核后的编辑权限
+     *
+     * @param user
+     * @return
+     */
+    @Transient
+    public boolean isHasUpdateRight(CmsUser user) {
+        Channel.AfterCheckEnum after = getChannel().getAfterCheckEnum();
+        if (Channel.AfterCheckEnum.CANNOT_UPDATE == after) {
+            CmsSite site = getSite();
+            Byte userStep = user.getCheckStep(site.getSiteId()
+            );
+            Byte channelStep = getChannel().getFinalStepExtends();
+            boolean checked = getStatus() == ContentCheck.CHECKED;
+            // 如果内容审核级别大于用户审核级别，或者内容已经审核且用户审核级别小于栏目审核级别。
+            if (getCheckStep() > userStep
+                    || (checked && userStep < channelStep)) {
+                return false;
+            } else {
+                return true;
+            }
+        } else if (Channel.AfterCheckEnum.BACK_UPDATE == after
+                || Channel.AfterCheckEnum.KEEP_UPDATE == after) {
+            return true;
+        } else {
+            throw new RuntimeException("AfterCheckEnum '" + after
+                    + "' did not handled");
+        }
+    }
+    /**
+     * 是否有审核后的删除权限。从CmsThread中获得当前用户。
+     *
+     * @return
+     */
+    @Transient
+    public boolean isHasDeleteRight() {
+        CmsUser user = CmsThreadVariable.getUser();
+        if (user == null) {
+            throw new IllegalStateException("CmsUser not found in CmsThread");
+        }
+        return isHasDeleteRight(user);
+    }
+    /**
+     * 是否有审核后的删除权限
+     *
+     * @param user
+     * @return
+     */
+    @Transient
+    public boolean isHasDeleteRight(CmsUser user) {
+        Channel.AfterCheckEnum after = getChannel().getAfterCheckEnum();
+        if (Channel.AfterCheckEnum.CANNOT_UPDATE == after) {
+            CmsSite site = getSite();
+            Byte userStep = user.getCheckStep(site.getSiteId());
+            Byte channelStep = getChannel().getFinalStepExtends();
+            boolean checked = getStatus() == ContentCheck.CHECKED;
+            // 如果内容审核级别大于用户审核级别，或者内容已经审核且用户审核级别小于栏目审核级别。
+            if (getCheckStep() > userStep
+                    || (checked && userStep < channelStep)) {
+                return false;
+            } else {
+                return true;
+            }
+        } else if (Channel.AfterCheckEnum.BACK_UPDATE == after
+                || Channel.AfterCheckEnum.KEEP_UPDATE == after) {
+            return true;
+        } else {
+            throw new RuntimeException("AfterCheckEnum '" + after
+                    + "' did not handled");
+        }
+    }
+    @Transient
+    public void removeSelfAddToChannels(Channel channel) {
+        Set<Channel> channels = getChannels();
+        if (channels == null) {
+            channels = new HashSet<Channel>();
+            setChannels(channels);
+        }
+        channels.remove(getChannel());
+        channels.add(channel);
     }
 
 }

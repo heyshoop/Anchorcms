@@ -82,4 +82,20 @@ public class DbFile implements Serializable{
         result = 31 * result + Arrays.hashCode(content);
         return result;
     }
+    public DbFile (
+            java.lang.String id,
+            java.lang.Integer length,
+            java.lang.Long lastModified,
+            byte[] content) {
+        this.setFilename(id);
+        this.setLength(length);
+        this.setLastModified(lastModified);
+        this.setContent(content);
+        initialize();
+    }
+
+    public DbFile() {
+
+    }
+    protected void initialize () {}
 }

@@ -38,7 +38,7 @@ public class CmsSite implements Serializable {
     private Byte finalStep;
     private byte afterCheck;
     private Boolean isRelativePath;
-    private String isRecycleOn;
+    private Boolean isRecycleOn;
     private String domainAlias;
     private String domainRedirect;
     private String tplIndex;
@@ -223,11 +223,11 @@ public class CmsSite implements Serializable {
 
     @Basic
     @Column(name = "is_recycle_on")
-    public String getIsRecycleOn() {
+    public Boolean getIsRecycleOn() {
         return isRecycleOn;
     }
 
-    public void setIsRecycleOn(String isRecycleOn) {
+    public void setIsRecycleOn(Boolean isRecycleOn) {
         this.isRecycleOn = isRecycleOn;
     }
 
@@ -792,5 +792,14 @@ public class CmsSite implements Serializable {
             ids[i++] = s.getSiteId();
         }
         return ids;
+    }
+    /**
+     * 获得上传路径。
+     *
+     * @return
+     */
+    @Transient
+    public String getUploadPath() {
+        return UPLOAD_PATH + getSitePath();
     }
 }

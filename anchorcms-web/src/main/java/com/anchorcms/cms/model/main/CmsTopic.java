@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -239,5 +240,20 @@ public class CmsTopic implements Serializable{
             tplContent = tplContent.substring(tplPathLength);
         }
         return tplContent;
+    }
+    /**
+     * 从集合中获取ID数组
+     *
+     * @param topics
+     * @return
+     */
+    @Transient
+    public static Integer[] fetchIds(Collection<CmsTopic> topics) {
+        Integer[] ids = new Integer[topics.size()];
+        int i = 0;
+        for (CmsTopic g : topics) {
+            ids[i++] = g.getTopicId();
+        }
+        return ids;
     }
 }
