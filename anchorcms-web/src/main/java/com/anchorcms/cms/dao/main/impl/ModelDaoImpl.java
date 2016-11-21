@@ -15,9 +15,9 @@ public class ModelDaoImpl extends HibernateBaseDao<CmsModel, Integer>
 	@SuppressWarnings("unchecked")
 	public List<CmsModel> getList(boolean containDisabled,Boolean hasContent,Integer siteId) {
 		Finder f = Finder.create("select bean from CmsModel bean where "
-				+ "(bean.global=true or bean.site.id=:siteId)").setParam("siteId", siteId);
+				+ "(bean.isGlobal=true or bean.site.siteId=:siteId)").setParam("siteId", siteId);
 		if (!containDisabled) {
-			f.append(" and bean.disabled=false");
+			f.append(" and bean.isDisabled=false");
 		}
 		if(hasContent!=null){
 			if(hasContent){

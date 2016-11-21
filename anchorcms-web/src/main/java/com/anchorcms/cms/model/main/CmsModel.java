@@ -1,5 +1,6 @@
 package com.anchorcms.cms.model.main;
 
+import com.anchorcms.core.model.CmsSite;
 import org.apache.commons.lang.StringUtils;
 
 import javax.persistence.*;
@@ -30,7 +31,7 @@ public class CmsModel implements Serializable{
     private Boolean hasContent;
     private Boolean isDisabled;
     private Boolean isDef;
-    private byte isGlobal;
+    private Boolean isGlobal;
     private Integer siteId;
 
     @Id
@@ -165,11 +166,11 @@ public class CmsModel implements Serializable{
 
     @Basic
     @Column(name = "is_global")
-    public byte getIsGlobal() {
+    public Boolean getIsGlobal() {
         return isGlobal;
     }
 
-    public void setIsGlobal(byte isGlobal) {
+    public void setIsGlobal(Boolean isGlobal) {
         this.isGlobal = isGlobal;
     }
 
@@ -223,9 +224,20 @@ public class CmsModel implements Serializable{
         result = 31 * result + contentImgWidth;
         result = 31 * result + contentImgHeight;
         result = 31 * result + priority;
-        result = 31 * result + (int) isGlobal;
         result = 31 * result + (siteId != null ? siteId.hashCode() : 0);
         return result;
+    }
+
+    private CmsSite site;
+
+    @ManyToOne
+    @JoinColumn(name = "site_id",insertable = false,updatable = false)
+    public CmsSite getSite() {
+        return site;
+    }
+
+    public void setSite(CmsSite site) {
+        this.site = site;
     }
 
     public void init() {
