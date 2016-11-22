@@ -7,6 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -252,5 +253,27 @@ public class CmsGroup implements Serializable{
             }
         }
         return false;
+    }
+    @Transient
+    public Set<Integer> getViewChannelIds(Integer siteId) {
+        Set<Channel> channels = getViewChannels();
+        Set<Integer> ids = new HashSet<Integer>();
+        for (Channel c : channels) {
+            if (c.getSite().getSiteId().equals(siteId)) {
+                ids.add(c.getChannelId());
+            }
+        }
+        return ids;
+    }
+    @Transient
+    public Set<Integer> getContriChannelIds(Integer siteId) {
+        Set<Channel> channels = getContriChannels();
+        Set<Integer> ids = new HashSet<Integer>();
+        for (Channel c : channels) {
+            if (c.getSite().getSiteId().equals(siteId)) {
+                ids.add(c.getChannelId());
+            }
+        }
+        return ids;
     }
 }

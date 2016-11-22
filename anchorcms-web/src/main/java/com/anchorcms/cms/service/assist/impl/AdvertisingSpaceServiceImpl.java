@@ -1,7 +1,5 @@
 package com.anchorcms.cms.service.assist.impl;
 
-import java.util.List;
-
 import com.anchorcms.cms.dao.assist.AdvertisingSpaceDao;
 import com.anchorcms.cms.model.assist.CmsAdvertisingSpace;
 import com.anchorcms.cms.service.assist.AdvertisingSpaceService;
@@ -10,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 @Service
