@@ -4,6 +4,7 @@ import com.anchorcms.cms.model.main.Channel;
 import com.anchorcms.cms.model.main.ContentType;
 import com.anchorcms.core.model.CmsSite;
 import com.anchorcms.core.model.CmsUser;
+import org.apache.commons.lang.StringUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -804,5 +805,38 @@ public class CmsAcquisition implements Serializable{
         if(getQueue()==null){
             setQueue(0);
         }
+    }
+    @Transient
+    public String[] getAllPlans() {
+        String[] plans = getPlans();
+        Integer start = getDynamicStart();
+        Integer end = getDynamicEnd();
+        if (!StringUtils.isBlank(getDynamicAddr()) && start != null
+                && end != null && start >= 0 && end >= start) {
+            int plansLen = plans.length;
+            String[] allPlans = new String[plansLen + end - start + 1];
+            for (int i = 0; i < plansLen; i++) {
+                allPlans[i] = plans[i];
+            }
+            for (int i = 0, len = end - start + 1; i < len; i++) {
+                allPlans[plansLen + i] = getDynamicAddrByNum(start + i);
+            }
+            return allPlans;
+        } else {
+            return plans;
+        }
+    }
+    @Transient
+    public String[] getPlans() {
+        String plan = getPlanList();
+        if (!StringUtils.isBlank(plan)) {
+            return StringUtils.split(plan);
+        } else {
+            return new String[0];
+        }
+    }
+    @Transient
+    public String getDynamicAddrByNum(int num) {
+        return StringUtils.replace(getDynamicAddr(), PAGE, String.valueOf(num));
     }
 }
