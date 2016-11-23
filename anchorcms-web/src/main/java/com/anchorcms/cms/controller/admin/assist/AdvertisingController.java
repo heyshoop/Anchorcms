@@ -33,6 +33,12 @@ import java.util.Map.Entry;
 
 import static com.anchorcms.common.page.SimplePage.cpn;
 
+/**
+ * @Author 阁楼麻雀
+ * @Date 2016/11/23 15:14
+ * @Desc 广告controller
+ */
+
 @Controller
 public class AdvertisingController {
 	private static final Logger log = LoggerFactory

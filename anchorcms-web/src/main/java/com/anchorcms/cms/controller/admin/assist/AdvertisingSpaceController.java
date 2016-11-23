@@ -21,6 +21,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * @Author 阁楼麻雀
+ * @Date 2016/11/23 15:13
+ * @Desc 广告空间
+ */
+
 @Controller
 public class AdvertisingSpaceController {
 	private static final Logger log = LoggerFactory

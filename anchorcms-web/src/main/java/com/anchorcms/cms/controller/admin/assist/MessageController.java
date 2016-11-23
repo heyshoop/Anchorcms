@@ -36,6 +36,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import static com.anchorcms.common.page.SimplePage.cpn;
 
+/**
+ * @Author 阁楼麻雀
+ * @Date 2016/11/23 15:13
+ * @Desc 消息controller
+ */
+
 @Controller
 public class MessageController {
 	private static final Logger log = LoggerFactory

@@ -22,7 +22,7 @@ import static com.anchorcms.common.constants.Constants.TPLDIR_CSI;
  * 广告Action
  */
 @Controller
-public class AdvertisingController {
+public class FrontAdvertisingController {
 	// private static final Logger log = LoggerFactory
 	// .getLogger(AdvertisingAct.class);
 

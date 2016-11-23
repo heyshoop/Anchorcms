@@ -1,6 +1,7 @@
 package com.anchorcms.cms.model.assist;
 
 import com.anchorcms.cms.model.main.Content;
+import com.anchorcms.common.utils.StrUtil;
 import com.anchorcms.core.model.CmsSite;
 import com.anchorcms.core.model.CmsUser;
 
@@ -292,5 +293,13 @@ public class CmsComment implements Serializable{
         if (getCreateTime() == null) {
             setCreateTime(new Timestamp(System.currentTimeMillis()));
         }
+    }
+    @Transient
+    public String getReplayHtml() {
+        return StrUtil.txt2htm(getReply());
+    }
+    @Transient
+    public String getReply() {
+        return getCommentExt().getReply();
     }
 }
