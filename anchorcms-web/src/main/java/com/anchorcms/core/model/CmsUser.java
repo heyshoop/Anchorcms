@@ -278,6 +278,18 @@ public class CmsUser implements Serializable{
 
     private Set<CmsUserSite> userSites;
 
+    private Set<CmsUserAccount> userAccountSet;
+
+    @OneToMany
+    @JoinColumn(name = "user_id",insertable = false,unique = false)
+    public Set<CmsUserAccount> getUserAccountSet() {
+        return userAccountSet;
+    }
+
+    public void setUserAccountSet(Set<CmsUserAccount> userAccountSet) {
+        this.userAccountSet = userAccountSet;
+    }
+
     @OneToMany
     @JoinColumn(name="user_id",insertable = false,updatable = false)
     public Set<CmsUserSite> getUserSites() {
@@ -621,5 +633,41 @@ public class CmsUser implements Serializable{
             }
         }
         return allowPerDay >= size;
+    }
+    @Transient
+    public CmsUserAccount getUserAccount() {
+        Set<CmsUserAccount> set = getUserAccountSet();
+        if (set != null && set.size() > 0) {
+            return set.iterator().next();
+        } else {
+            return null;
+        }
+    }
+    @Transient
+    public Short getDrawAccount() {
+        CmsUserAccount ext = getUserAccount();
+        if (ext != null) {
+            return ext.getDrawAccount();
+        } else {
+            return 0;
+        }
+    }
+    @Transient
+    public String getAccountWeixin() {
+        CmsUserAccount ext = getUserAccount();
+        if (ext != null) {
+            return ext.getAccountWeixin();
+        } else {
+            return null;
+        }
+    }
+    @Transient
+    public String getAccountAlipy() {
+        CmsUserAccount ext = getUserAccount();
+        if (ext != null) {
+            return ext.getAccountAlipy();
+        } else {
+            return null;
+        }
     }
 }
