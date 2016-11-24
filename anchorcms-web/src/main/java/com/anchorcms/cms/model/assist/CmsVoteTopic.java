@@ -1,5 +1,7 @@
 package com.anchorcms.cms.model.assist;
 
+import com.anchorcms.core.model.CmsSite;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -293,5 +295,16 @@ public class CmsVoteTopic implements Serializable{
         if (getIsRestrictCookie() == null) {
             setIsRestrictCookie(true);
         }
+    }
+    private CmsSite site;
+
+    @ManyToOne
+    @JoinColumn(name = "site_id")
+    public CmsSite getSite() {
+        return site;
+    }
+
+    public void setSite(CmsSite site) {
+        this.site = site;
     }
 }
