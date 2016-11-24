@@ -14,17 +14,17 @@ import java.util.List;
 @Table(name = "c_content_tag")
 public class ContentTag implements Serializable{
     private static final long serialVersionUID = 7928904425697695411L;
-    private int tagId;
+    private Integer tagId;
     private String tagName;
     private Integer refCounter;
 
     @Id
     @Column(name = "tag_id")
-    public int getTagId() {
+    public Integer getTagId() {
         return tagId;
     }
 
-    public void setTagId(int tagId) {
+    public void setTagId(Integer tagId) {
         this.tagId = tagId;
     }
 
