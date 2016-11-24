@@ -24,6 +24,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+/**
+ * @Author 阁楼麻雀
+ * @Date 2016/11/24 16:44
+ * @Desc 样式controller
+ */
 
 @Controller
 public class SiteController {

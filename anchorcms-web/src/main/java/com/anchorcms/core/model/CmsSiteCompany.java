@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Table(name = "c_site_company")
 public class CmsSiteCompany implements Serializable{
     private static final long serialVersionUID = 7675721008971582865L;
-    private int siteId;
+    private Integer siteId;
     private String name;
     private String scale;
     private String nature;
@@ -26,11 +26,11 @@ public class CmsSiteCompany implements Serializable{
 
     @Id
     @Column(name = "site_id")
-    public int getSiteId() {
+    public Integer getSiteId() {
         return siteId;
     }
 
-    public void setSiteId(int siteId) {
+    public void setSiteId(Integer siteId) {
         this.siteId = siteId;
     }
 
