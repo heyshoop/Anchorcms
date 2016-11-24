@@ -1,6 +1,7 @@
 package com.anchorcms.core.model;
 
 import com.anchorcms.common.utils.UploadUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.PrintCommandListener;
@@ -11,10 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.io.Serializable;
+import java.io.*;
 import java.net.SocketException;
 
 /**
@@ -245,5 +243,22 @@ public class Ftp implements Serializable{
             throws IOException {
         store(filename, in);
         return filename;
+    }
+    public File retrieve(String name, String fileName) throws IOException {
+        String path = System.getProperty("java.io.tmpdir");
+        File file = new File(path, fileName);
+        file = UploadUtils.getUniqueFile(file);
+        FTPClient ftp = getClient();
+        OutputStream output = new FileOutputStream(file);
+        ftp.retrieveFile(getFtpPath() + name, output);
+        output.close();
+        ftp.logout();
+        ftp.disconnect();
+        return file;
+    }
+    public boolean restore(String name, File file) throws IOException {
+        store(name, FileUtils.openInputStream(file));
+        file.deleteOnExit();
+        return true;
     }
 }

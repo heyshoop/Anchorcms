@@ -18,10 +18,10 @@ import static org.apache.shiro.web.filter.authc.FormAuthenticationFilter.DEFAULT
  * @Author 阁楼麻雀
  * @Email netuser.orz@icloud.com
  * @Date 2016-11-8
- * @Desc 管理登录controller
+ * @Desc 登录controller
  */
 @Controller
-public class AdminLoginController {
+public class LoginController {
     /**
      * 站点id cookie
      */

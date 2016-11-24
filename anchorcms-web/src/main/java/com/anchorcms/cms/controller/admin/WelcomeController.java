@@ -38,9 +38,14 @@ import static com.anchorcms.cms.model.assist.CmsSiteAccessStatistic.STATISTIC_AL
 import static com.anchorcms.cms.statistic.CmsStatistic.SITEID;
 import static com.anchorcms.cms.statistic.CmsStatistic.STATUS;
 import static com.anchorcms.cms.statistic.CmsStatistic.TimeRange;
+/**
+ * @Author 阁楼麻雀
+ * @Date 2016/11/24 17:19
+ * @Desc 首页
+ */
 
 @Controller
-public class AdminIndexController {
+public class WelcomeController {
 	@RequiresPermissions("index")
 	@RequestMapping("/index.do")
 	public String index(HttpServletRequest request) {
