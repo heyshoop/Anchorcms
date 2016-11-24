@@ -4,7 +4,8 @@ package com.anchorcms.cms.controller.admin.assist;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.anchorcms.cms.model.assist.CmsScoreGroup;
+import com.anchorcms.cms.model.assist.CmsScoreItem;
+import com.anchorcms.cms.service.assist.ScoreItemService;
 import com.anchorcms.cms.service.assist.ScoreGroupService;
 import com.anchorcms.common.page.Pagination;
 import com.anchorcms.common.utils.CmsUtils;
@@ -22,87 +23,88 @@ import static com.anchorcms.common.page.SimplePage.cpn;
 
 /**
  * @Author 阁楼麻雀
- * @Date 2016/11/24 11:14
- * @Desc 评分分组controller
+ * @Date 2016/11/24 11:24
+ * @Desc 评分项controller
  */
 
 @Controller
-public class ScoreGroupController {
-	private static final Logger log = LoggerFactory.getLogger(ScoreGroupController.class);
+public class ScoreItemController {
+	private static final Logger log = LoggerFactory.getLogger(ScoreItemController.class);
 
-	@RequiresPermissions("scoregroup:v_list")
-	@RequestMapping("/scoregroup/v_list.do")
-	public String list(Integer pageNo, HttpServletRequest request, ModelMap model) {
-		Pagination pagination = scoreGroupService.getPage(cpn(pageNo), CookieUtils
+	@RequiresPermissions("scoreitem:v_list")
+	@RequestMapping("/scoreitem/v_list.do")
+	public String list(Integer groupId,Integer pageNo, HttpServletRequest request, ModelMap model) {
+		Pagination pagination = scoreItemService.getPage(groupId,cpn(pageNo), CookieUtils
 				.getPageSize(request));
 		model.addAttribute("pagination",pagination);
 		model.addAttribute("pageNo",pagination.getPageNo());
-		return "scoregroup/list";
+		model.addAttribute("groupId",groupId);
+		return "scoreitem/list";
 	}
 
-	@RequiresPermissions("scoregroup:v_add")
-	@RequestMapping("/scoregroup/v_add.do")
-	public String add(ModelMap model) {
-		return "scoregroup/add";
+	@RequiresPermissions("scoreitem:v_add")
+	@RequestMapping("/scoreitem/v_add.do")
+	public String add(Integer groupId,ModelMap model) {
+		model.addAttribute("groupId",groupId);
+		return "scoreitem/add";
 	}
 
-	@RequiresPermissions("scoregroup:v_edit")
-	@RequestMapping("/scoregroup/v_edit.do")
-	public String edit(Integer id, Integer pageNo, HttpServletRequest request, ModelMap model) {
+	@RequiresPermissions("scoreitem:v_edit")
+	@RequestMapping("/scoreitem/v_edit.do")
+	public String edit(Integer id, Integer groupId,Integer pageNo, HttpServletRequest request, ModelMap model) {
 		WebErrors errors = validateEdit(id, request);
 		if (errors.hasErrors()) {
 			return errors.showErrorPage(model);
 		}
-		model.addAttribute("group", scoreGroupService.findById(id));
+		model.addAttribute("item", scoreItemService.findById(id));
+		model.addAttribute("groupId",groupId);
 		model.addAttribute("pageNo",pageNo);
-		return "scoregroup/edit";
+		return "scoreitem/edit";
 	}
 
-	@RequiresPermissions("scoregroup:o_save")
-	@RequestMapping("/scoregroup/o_save.do")
-	public String save(CmsScoreGroup bean, HttpServletRequest request, ModelMap model) {
+	@RequiresPermissions("scoreitem:o_save")
+	@RequestMapping("/scoreitem/o_save.do")
+	public String save(CmsScoreItem bean, Integer groupId, HttpServletRequest request, ModelMap model) {
 		WebErrors errors = validateSave(bean, request);
 		if (errors.hasErrors()) {
 			return errors.showErrorPage(model);
 		}
-		bean.setSite(CmsUtils.getSite(request));
-		bean = scoreGroupService.save(bean);
-		log.info("save CmsScoreGroup id={}", bean.getScoreGroupId());
-		return "redirect:v_list.do";
+		bean.setGroup(scoreGroupService.findById(groupId));
+		bean = scoreItemService.save(bean);
+		log.info("save CmsScoreItem id={}", bean.getScoreItemId());
+		return "redirect:v_list.do?groupId="+groupId;
 	}
 
-	@RequiresPermissions("scoregroup:o_update")
-	@RequestMapping("/scoregroup/o_update.do")
-	public String update(CmsScoreGroup bean, Integer pageNo, HttpServletRequest request,
+	@RequiresPermissions("scoreitem:o_update")
+	@RequestMapping("/scoreitem/o_update.do")
+	public String update(CmsScoreItem bean,Integer groupId, Integer pageNo, HttpServletRequest request,
 			ModelMap model) {
-		WebErrors errors = validateUpdate(bean.getScoreGroupId(), request);
+		WebErrors errors = validateUpdate(bean.getScoreItemId(), request);
 		if (errors.hasErrors()) {
 			return errors.showErrorPage(model);
 		}
-		bean = scoreGroupService.update(bean);
-		log.info("update CmsScoreGroup id={}.", bean.getScoreGroupId());
-		return list(pageNo, request, model);
+		bean = scoreItemService.update(bean);
+		log.info("update CmsScoreItem id={}.", bean.getScoreItemId());
+		return list(groupId,pageNo, request, model);
 	}
 
-	@RequiresPermissions("scoregroup:o_delete")
-	@RequestMapping("/scoregroup/o_delete.do")
-	public String delete(Integer[] ids, Integer pageNo, HttpServletRequest request,
+	@RequiresPermissions("scoreitem:o_delete")
+	@RequestMapping("/scoreitem/o_delete.do")
+	public String delete(Integer groupId,Integer[] ids, Integer pageNo, HttpServletRequest request,
 			ModelMap model) {
 		WebErrors errors = validateDelete(ids, request);
 		if (errors.hasErrors()) {
 			return errors.showErrorPage(model);
 		}
-		CmsScoreGroup[] beans = scoreGroupService.deleteByIds(ids);
-		for (CmsScoreGroup bean : beans) {
-			log.info("delete CmsScoreGroup id={}", bean.getScoreGroupId());
+		CmsScoreItem[] beans = scoreItemService.deleteByIds(ids);
+		for (CmsScoreItem bean : beans) {
+			log.info("delete CmsScoreItem id={}", bean.getScoreItemId());
 		}
-		return list(pageNo, request, model);
+		return list(groupId,pageNo, request, model);
 	}
 
-	private WebErrors validateSave(CmsScoreGroup bean, HttpServletRequest request) {
+	private WebErrors validateSave(CmsScoreItem bean, HttpServletRequest request) {
 		WebErrors errors = WebErrors.create(request);
-		CmsSite site = CmsUtils.getSite(request);
-		bean.setSite(site);
 		return errors;
 	}
 	
@@ -140,17 +142,15 @@ public class ScoreGroupController {
 		if (errors.ifNull(id, "id")) {
 			return true;
 		}
-		CmsScoreGroup entity = scoreGroupService.findById(id);
-		if(errors.ifNotExist(entity, CmsScoreGroup.class, id)) {
-			return true;
-		}
-		if (!entity.getSite().getSiteId().equals(siteId)) {
-			errors.notInSite(CmsScoreGroup.class, id);
+		CmsScoreItem entity = scoreItemService.findById(id);
+		if(errors.ifNotExist(entity, CmsScoreItem.class, id)) {
 			return true;
 		}
 		return false;
 	}
 	
+	@Resource
+	private ScoreItemService scoreItemService;
 	@Resource
 	private ScoreGroupService scoreGroupService;
 }
