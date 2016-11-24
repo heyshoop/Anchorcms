@@ -475,8 +475,10 @@ public class Content implements Serializable{
     public void setTopics(Set<CmsTopic> topics) {
         this.topics = topics;
     }
-    @OneToMany
-    @JoinColumn(name="channel_id")
+    @ManyToMany
+    @JoinTable(name = "c_content_channel",
+            joinColumns = {@JoinColumn(name = "content_id")},
+            inverseJoinColumns = {@JoinColumn(name = "channel_id")})
     public Set<Channel> getChannels() {
         return channels;
     }

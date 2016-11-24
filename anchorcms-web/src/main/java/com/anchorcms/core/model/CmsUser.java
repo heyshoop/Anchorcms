@@ -1,9 +1,14 @@
 package com.anchorcms.core.model;
 
+import com.anchorcms.cms.model.assist.CmsUserResume;
 import com.anchorcms.cms.model.main.Channel;
 import com.anchorcms.cms.model.main.Content;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.*;
 
@@ -280,8 +285,21 @@ public class CmsUser implements Serializable{
 
     private Set<CmsUserAccount> userAccountSet;
 
+    private Set<CmsUserResume> userResumeSet;
+
     @OneToMany
-    @JoinColumn(name = "user_id",insertable = false,unique = false)
+    @JoinColumn(name = "user_id")
+    @Cascade(value = CascadeType.DELETE_ORPHAN)
+    public Set<CmsUserResume> getUserResumeSet() {
+        return userResumeSet;
+    }
+
+    public void setUserResumeSet(Set<CmsUserResume> userResumeSet) {
+        this.userResumeSet = userResumeSet;
+    }
+
+    @OneToMany
+    @JoinColumn(name = "user_id",insertable = false,updatable = false)
     public Set<CmsUserAccount> getUserAccountSet() {
         return userAccountSet;
     }
@@ -667,6 +685,15 @@ public class CmsUser implements Serializable{
         if (ext != null) {
             return ext.getAccountAlipy();
         } else {
+            return null;
+        }
+    }
+    @Transient
+    public CmsUserResume getUserResume(){
+        Set<CmsUserResume>set=getUserResumeSet();
+        if(set!=null&&set.size()>0){
+            return set.iterator().next();
+        }else{
             return null;
         }
     }
