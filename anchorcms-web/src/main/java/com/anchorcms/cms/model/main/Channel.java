@@ -195,7 +195,7 @@ public class Channel implements Serializable{
 
     private Map<String,String> attr;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "parent_id",insertable = false,updatable = false)
     public Set<Channel> getChild() {
         return child;

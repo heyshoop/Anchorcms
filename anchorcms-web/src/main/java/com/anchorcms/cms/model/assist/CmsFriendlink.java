@@ -1,5 +1,6 @@
 package com.anchorcms.cms.model.assist;
 
+import com.anchorcms.core.model.CmsSite;
 import org.apache.commons.lang.StringUtils;
 
 import javax.persistence.*;
@@ -201,5 +202,17 @@ public class CmsFriendlink implements Serializable{
         if (StringUtils.isBlank(getLogo())) {
             setLogo(null);
         }
+    }
+
+    private CmsSite site;
+
+    @ManyToOne
+    @JoinColumn(name = "site_id",insertable = false,updatable = false)
+    public CmsSite getSite() {
+        return site;
+    }
+
+    public void setSite(CmsSite site) {
+        this.site = site;
     }
 }

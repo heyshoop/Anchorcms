@@ -389,7 +389,7 @@ public class Content implements Serializable{
         this.site = site;
     }
     @ManyToOne
-    @JoinColumn(name="user_id",insertable = false,updatable = false)
+    @JoinColumn(name="user_id",insertable = true,updatable = true)
     public CmsUser getUser() {
         return user;
     }
@@ -398,7 +398,7 @@ public class Content implements Serializable{
         this.user = user;
     }
     @ManyToOne
-    @JoinColumn(name="type_id",insertable = false,updatable = false)
+    @JoinColumn(name="type_id",insertable = true,updatable = true)
     public ContentType getType() {
         return type;
     }
@@ -407,7 +407,7 @@ public class Content implements Serializable{
         this.type = type;
     }
     @ManyToOne
-    @JoinColumn(name="channel_id",insertable = false,updatable = false)
+    @JoinColumn(name="channel_id",insertable = true,updatable = true)
     public Channel getChannel() {
         return channel;
     }
