@@ -46,6 +46,12 @@ import java.util.*;
 
 import static com.anchorcms.common.page.SimplePage.cpn;
 
+/**
+ * @Author 阁楼麻雀
+ * @Date 2016/11/24 17:08
+ * @Desc 内容管理
+ */
+
 @Controller
 public class ContentController {
 	private static final Logger log = LoggerFactory.getLogger(ContentController.class);

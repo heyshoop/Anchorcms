@@ -23,7 +23,7 @@ import static com.anchorcms.common.page.SimplePage.cpn;
 /**
  * @Author 阁楼麻雀
  * @Date 2016/11/24 17:04
- * @Desc 文章付费
+ * @Desc 内容付费
  */
 
 @Controller
