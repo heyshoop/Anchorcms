@@ -1,5 +1,7 @@
 package com.anchorcms.cms.model.assist;
 
+import com.anchorcms.core.model.CmsSite;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -106,5 +108,16 @@ public class CmsScoreGroup implements Serializable{
         result = 31 * result + (int) def;
         result = 31 * result + siteId;
         return result;
+    }
+    private CmsSite site;
+
+    @ManyToOne
+    @JoinColumn(name = "site_id")
+    public CmsSite getSite() {
+        return site;
+    }
+
+    public void setSite(CmsSite site) {
+        this.site = site;
     }
 }
