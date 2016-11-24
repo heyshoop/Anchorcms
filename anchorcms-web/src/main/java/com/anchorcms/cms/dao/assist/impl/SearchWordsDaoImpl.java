@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 public class SearchWordsDaoImpl extends HibernateBaseDao<CmsSearchWords, Integer> implements SearchWordsDao {
 	public Pagination getPage(Integer siteId, String name, Integer recommend, Integer orderBy,
 							  int pageNo, int pageSize) {
-		 Finder f=Finder.create("from CmsSearchWords words where  words.site.id=:siteId")
+		 Finder f=Finder.create("from CmsSearchWords words where  words.site.siteId=:siteId")
 				.setParam("siteId", siteId);
 		 if(StringUtils.isNotBlank(name)){
 			 f.append(" and words.name like :name").setParam("name", "%"+name+"%");
@@ -49,7 +49,7 @@ public class SearchWordsDaoImpl extends HibernateBaseDao<CmsSearchWords, Integer
 	@SuppressWarnings("unchecked")
 	public List<CmsSearchWords> getList(Integer siteId,String name,
 			Integer recommend,Integer orderBy,Integer count,boolean cacheable){
-		Finder f=Finder.create("from CmsSearchWords words where  words.site.id=:siteId")
+		Finder f=Finder.create("from CmsSearchWords words where  words.site.siteId=:siteId")
 				.setParam("siteId", siteId);
 		if(StringUtils.isNotBlank(name)){
 			String chineseEn = ChineseCharToEn.getAllFirstLetter(name);
