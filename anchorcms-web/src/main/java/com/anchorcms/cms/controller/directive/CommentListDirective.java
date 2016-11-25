@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.anchorcms.cms.directive.abs.AbstractCmsGuestbookDirective;
-import com.anchorcms.cms.model.assist.CmsGuestbook;
+import com.anchorcms.cms.directive.abs.AbstractCmsCommentDirective;
+import com.anchorcms.cms.model.assist.CmsComment;
 import com.anchorcms.common.utils.FrontUtils;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
@@ -30,14 +30,14 @@ import static com.anchorcms.common.web.freemarker.DirectiveUtils.OUT_LIST;
 /**
  * 评论列表标签
  */
-public class CmsGuestbookListDirective extends AbstractCmsGuestbookDirective {
+public class CommentListDirective extends AbstractCmsCommentDirective {
 	/**
 	 * 模板名称
 	 */
-	public static final String TPL_NAME = "guestbook_list";
+	public static final String TPL_NAME = "comment_list";
 
 	/**
-	 * 输入参数，内容ID。
+	 * 输入参数，站点ID。
 	 */
 	public static final String PARAM_SITE_ID = "siteId";
 
@@ -45,11 +45,11 @@ public class CmsGuestbookListDirective extends AbstractCmsGuestbookDirective {
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		CmsSite site = FrontUtils.getSite(env);
-		int first = FrontUtils.getFirst(params);
-		int max = FrontUtils.getCount(params);
-		List<CmsGuestbook> list = guestbookService.getList(getSiteId(params),
-				getCtgId(params), getRecommend(params), getChecked(params),
-				getDesc(params), true, first, max);
+
+		List<CmsComment> list = commentService.getListForTag(getSiteId(params),
+				getContentId(params),getParentId(params), getGreaterThen(params),
+				getChecked(params), getRecommend(params), getDesc(params),
+				FrontUtils.getCount(params));
 
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
 				params);
@@ -77,4 +77,10 @@ public class CmsGuestbookListDirective extends AbstractCmsGuestbookDirective {
 		}
 		DirectiveUtils.removeParamsFromVariable(env, paramWrap, origMap);
 	}
+
+	protected Integer getSiteId(Map<String, TemplateModel> params)
+			throws TemplateException {
+		return DirectiveUtils.getInt(PARAM_SITE_ID, params);
+	}
+
 }

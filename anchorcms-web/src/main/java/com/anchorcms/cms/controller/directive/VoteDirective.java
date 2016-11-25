@@ -5,12 +5,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.anchorcms.cms.model.main.CmsModel;
-import com.anchorcms.cms.service.main.ModelService;
+import com.anchorcms.cms.model.assist.CmsVoteTopic;
+import com.anchorcms.cms.service.assist.VoteTopicService;
+import com.anchorcms.common.utils.FrontUtils;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
-import com.anchorcms.common.web.freemarker.ParamsRequiredException;
-import org.apache.commons.lang.StringUtils;
+import com.anchorcms.core.model.CmsSite;
 
 
 import freemarker.core.Environment;
@@ -24,44 +24,53 @@ import javax.annotation.Resource;
 import static com.anchorcms.common.web.freemarker.DirectiveUtils.OUT_BEAN;
 
 /**
- * 模型对象标签
- * 
+ * 投票标签
  */
-public class CmsModelDirective implements TemplateDirectiveModel {
+public class VoteDirective implements TemplateDirectiveModel {
 	/**
-	 * 输入参数，栏目ID。
+	 * 输入参数，投票ID。可以为空，为空则获取站点的默认投票。
 	 */
 	public static final String PARAM_ID = "id";
 	/**
-	 * 输入参数，栏目路径。
+	 * 输入参数，站点ID。默认为当前站点。
 	 */
-	public static final String PARAM_PATH = "path";
+	public static final String PARAM_SITE_ID = "siteId";
 
 	@SuppressWarnings("unchecked")
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
-		Integer id = DirectiveUtils.getInt(PARAM_ID, params);
-		CmsModel model;
+		CmsSite site = FrontUtils.getSite(env);
+		CmsVoteTopic vote;
+		Integer id = getId(params);
 		if (id != null) {
-			model = modelMng.findById(id);
+			vote = voteTopicService.findById(id);
 		} else {
-			String path = DirectiveUtils.getString(PARAM_PATH, params);
-			if (StringUtils.isBlank(path)) {
-				// 如果path不存在，那么id必须存在。
-				throw new ParamsRequiredException(PARAM_ID);
+			Integer siteId = getSiteId(params);
+			if (siteId == null) {
+				siteId = site.getSiteId();
 			}
-			model = modelMng.findByPath(path);
+			vote = voteTopicService.getDefTopic(siteId);
 		}
 
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
 				params);
-		paramWrap.put(OUT_BEAN, DefaultObjectWrapperBuilderFactory.getDefaultObjectWrapper().wrap(model));
+		paramWrap.put(OUT_BEAN, DefaultObjectWrapperBuilderFactory.getDefaultObjectWrapper().wrap(vote));
 		Map<String, TemplateModel> origMap = DirectiveUtils
 				.addParamsToVariable(env, paramWrap);
 		body.render(env.getOut());
 		DirectiveUtils.removeParamsFromVariable(env, paramWrap, origMap);
 	}
 
+	private Integer getId(Map<String, TemplateModel> params)
+			throws TemplateException {
+		return DirectiveUtils.getInt(PARAM_ID, params);
+	}
+
+	private Integer getSiteId(Map<String, TemplateModel> params)
+			throws TemplateException {
+		return DirectiveUtils.getInt(PARAM_SITE_ID, params);
+	}
+
 	@Resource
-	private ModelService modelMng;
+	private VoteTopicService voteTopicService;
 }

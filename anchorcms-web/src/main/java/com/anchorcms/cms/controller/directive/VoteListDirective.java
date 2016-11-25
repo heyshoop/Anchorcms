@@ -28,7 +28,7 @@ import static com.anchorcms.common.web.freemarker.DirectiveUtils.OUT_LIST;
  * @author tom
  * 
  */
-public class CmsVoteListDirective implements TemplateDirectiveModel {
+public class VoteListDirective implements TemplateDirectiveModel {
 	/**
 	 * 输入参数,调查数量。可以为空，为空则获取站点的所有调查。
 	 */

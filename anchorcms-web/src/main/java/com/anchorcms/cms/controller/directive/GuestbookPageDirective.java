@@ -30,7 +30,7 @@ import static com.anchorcms.common.web.freemarker.DirectiveUtils.OUT_PAGINATION;
 /**
  * 留言分页标签
  */
-public class CmsGuestbookPageDirective extends AbstractCmsGuestbookDirective {
+public class GuestbookPageDirective extends AbstractCmsGuestbookDirective {
 	/**
 	 * 模板名称
 	 */

@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.anchorcms.cms.model.assist.CmsFriendlinkCtg;
-import com.anchorcms.cms.service.assist.FriendlinkCtgService;
+import com.anchorcms.cms.model.assist.CmsFriendlink;
+import com.anchorcms.cms.service.assist.FriendlinkService;
 import com.anchorcms.common.utils.FrontUtils;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
@@ -26,11 +26,19 @@ import static com.anchorcms.common.web.freemarker.DirectiveUtils.OUT_LIST;
 /**
  * 友情链接类别列表标签
  */
-public class CmsFriendlinkCtgListDirective implements TemplateDirectiveModel {
+public class FriendlinkListDirective implements TemplateDirectiveModel {
 	/**
 	 * 输入参数，站点ID。
 	 */
 	public static final String PARAM_SITE_ID = "siteId";
+	/**
+	 * 输入参数，类别ID。
+	 */
+	public static final String PARAM_CTG_ID = "ctgId";
+	/**
+	 * 输入参数，是否显示。
+	 */
+	public static final String PARAM_ENABLED = "enabled";
 
 	@SuppressWarnings("unchecked")
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
@@ -39,7 +47,13 @@ public class CmsFriendlinkCtgListDirective implements TemplateDirectiveModel {
 		if (siteId == null) {
 			siteId = FrontUtils.getSite(env).getSiteId();
 		}
-		List<CmsFriendlinkCtg> list = friendlinkCtgService.getList(siteId);
+		Integer ctgId = getCtgId(params);
+		Boolean enabled = getEnabled(params);
+		if (enabled == null) {
+			enabled = true;
+		}
+		List<CmsFriendlink> list = friendlinkService.getList(siteId, ctgId,
+				enabled);
 
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
 				params);
@@ -55,6 +69,16 @@ public class CmsFriendlinkCtgListDirective implements TemplateDirectiveModel {
 		return DirectiveUtils.getInt(PARAM_SITE_ID, params);
 	}
 
+	private Integer getCtgId(Map<String, TemplateModel> params)
+			throws TemplateException {
+		return DirectiveUtils.getInt(PARAM_CTG_ID, params);
+	}
+
+	private Boolean getEnabled(Map<String, TemplateModel> params)
+			throws TemplateException {
+		return DirectiveUtils.getBool(PARAM_ENABLED, params);
+	}
+
 	@Resource
-	private FriendlinkCtgService friendlinkCtgService;
+	private FriendlinkService friendlinkService;
 }

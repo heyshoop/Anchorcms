@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.anchorcms.cms.model.main.CmsTopic;
-import com.anchorcms.cms.service.main.TopicService;
+import com.anchorcms.cms.directive.abs.AbstractCmsGuestbookDirective;
+import com.anchorcms.cms.model.assist.CmsGuestbook;
 import com.anchorcms.common.utils.FrontUtils;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
@@ -18,11 +18,8 @@ import org.apache.commons.lang.StringUtils;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
-import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
-
-import javax.annotation.Resource;
 
 import static com.anchorcms.common.constants.Constants.TPL_STYLE_LIST;
 import static com.anchorcms.common.constants.Constants.TPL_SUFFIX;
@@ -31,30 +28,28 @@ import static com.anchorcms.common.utils.FrontUtils.PARAM_STYLE_LIST;
 import static com.anchorcms.common.web.freemarker.DirectiveUtils.OUT_LIST;
 
 /**
- * 专题列表标签
+ * 评论列表标签
  */
-public class CmsTopicListDirective implements TemplateDirectiveModel {
+public class GuestbookListDirective extends AbstractCmsGuestbookDirective {
 	/**
 	 * 模板名称
 	 */
-	public static final String TPL_NAME = "topic_list";
+	public static final String TPL_NAME = "guestbook_list";
 
 	/**
-	 * 输入参数，栏目ID。
+	 * 输入参数，内容ID。
 	 */
-	public static final String PARAM_CHANNEL_ID = "channelId";
-
-	/**
-	 * 输入参数，是否推荐。
-	 */
-	public static final String PARAM_RECOMMEND = "recommend";
+	public static final String PARAM_SITE_ID = "siteId";
 
 	@SuppressWarnings("unchecked")
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		CmsSite site = FrontUtils.getSite(env);
-		List<CmsTopic> list = topicService.getListForTag(getChannelId(params),
-				getRecommend(params), FrontUtils.getCount(params));
+		int first = FrontUtils.getFirst(params);
+		int max = FrontUtils.getCount(params);
+		List<CmsGuestbook> list = guestbookService.getList(getSiteId(params),
+				getCtgId(params), getRecommend(params), getChecked(params),
+				getDesc(params), true, first, max);
 
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
 				params);
@@ -82,19 +77,4 @@ public class CmsTopicListDirective implements TemplateDirectiveModel {
 		}
 		DirectiveUtils.removeParamsFromVariable(env, paramWrap, origMap);
 	}
-
-	private Integer getChannelId(Map<String, TemplateModel> params)
-			throws TemplateException {
-		return DirectiveUtils.getInt(PARAM_CHANNEL_ID, params);
-	}
-
-	private boolean getRecommend(Map<String, TemplateModel> params)
-			throws TemplateException {
-		Boolean recommend = DirectiveUtils.getBool(PARAM_RECOMMEND, params);
-		return recommend != null ? recommend : false;
-
-	}
-
-	@Resource
-	private TopicService topicService;
 }

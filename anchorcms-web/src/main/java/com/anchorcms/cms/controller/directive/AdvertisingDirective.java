@@ -24,7 +24,7 @@ import static com.anchorcms.common.web.freemarker.DirectiveUtils.OUT_BEAN;
 /**
  * 广告对象标签
  */
-public class CmsAdvertisingDirective implements TemplateDirectiveModel {
+public class AdvertisingDirective implements TemplateDirectiveModel {
 	/**
 	 * 输入参数，广告ID。
 	 */

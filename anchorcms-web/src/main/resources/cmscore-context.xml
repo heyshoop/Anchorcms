@@ -35,39 +35,39 @@
     <!--TAG分页标签-->
     <bean id="cms_tag_page" class="com.anchorcms.cms.controller.directive.ContentTagPageDirective"/>
     <!--专题列表标签-->
-    <bean id="cms_topic_list" class="com.anchorcms.cms.controller.directive.CmsTopicListDirective"/>
+    <bean id="cms_topic_list" class="com.anchorcms.cms.controller.directive.TopicListDirective"/>
     <!--专题分页标签-->
-    <bean id="cms_topic_page" class="com.anchorcms.cms.controller.directive.CmsTopicPageDirective"/>
+    <bean id="cms_topic_page" class="com.anchorcms.cms.controller.directive.TopicPageDirective"/>
     <!--评论列表标签-->
-    <bean id="cms_comment_list" class="com.anchorcms.cms.controller.directive.CmsCommentListDirective"/>
+    <bean id="cms_comment_list" class="com.anchorcms.cms.controller.directive.CommentListDirective"/>
     <!--评论分页标签-->
-    <bean id="cms_comment_page" class="com.anchorcms.cms.controller.directive.CmsCommentPageDirective"/>
+    <bean id="cms_comment_page" class="com.anchorcms.cms.controller.directive.CommentPageDirective"/>
     <!--专题列表标签-->
-    <bean id="cms_guestbook_ctg_list" class="com.anchorcms.cms.controller.directive.CmsGuestbookCtgListDirective"/>
+    <bean id="cms_guestbook_ctg_list" class="com.anchorcms.cms.controller.directive.GuestbookCtgListDirective"/>
     <!--评论列表标签-->
-    <bean id="cms_guestbook_list" class="com.anchorcms.cms.controller.directive.CmsGuestbookListDirective"/>
+    <bean id="cms_guestbook_list" class="com.anchorcms.cms.controller.directive.GuestbookListDirective"/>
     <!--留言分页标签-->
-    <bean id="cms_guestbook_page" class="com.anchorcms.cms.controller.directive.CmsGuestbookPageDirective"/>
+    <bean id="cms_guestbook_page" class="com.anchorcms.cms.controller.directive.GuestbookPageDirective"/>
     <!--投票标签-->
-    <bean id="cms_vote" class="com.anchorcms.cms.controller.directive.CmsVoteDirective"/>
+    <bean id="cms_vote" class="com.anchorcms.cms.controller.directive.VoteDirective"/>
     <!--友情链接类别列表标签-->
-    <bean id="cms_friendlink_ctg_list" class="com.anchorcms.cms.controller.directive.CmsFriendlinkCtgListDirective"/>
+    <bean id="cms_friendlink_ctg_list" class="com.anchorcms.cms.controller.directive.FriendlinkCtgListDirective"/>
     <!--友情链接类别列表标签-->
-    <bean id="cms_friendlink_list" class="com.anchorcms.cms.controller.directive.CmsFriendlinkListDirective"/>
+    <bean id="cms_friendlink_list" class="com.anchorcms.cms.controller.directive.FriendlinkListDirective"/>
     <!--全文检索标签-->
     <bean id="cms_lucene_list" class="com.anchorcms.cms.lucene.LuceneDirectiveList"/>
     <!--全文检索分页标签-->
     <bean id="cms_lucene_page" class="com.anchorcms.cms.lucene.LuceneDirectivePage"/>
     <!--广告对象标签-->
-    <bean id="cms_advertising" class="com.anchorcms.cms.controller.directive.CmsAdvertisingDirective"/>
+    <bean id="cms_advertising" class="com.anchorcms.cms.controller.directive.AdvertisingDirective"/>
     <!--网上调查列表标签-->
-    <bean id="cms_vote_list" class="com.anchorcms.cms.controller.directive.CmsVoteListDirective"/>
+    <bean id="cms_vote_list" class="com.anchorcms.cms.controller.directive.VoteListDirective"/>
     <!--模型对象标签-->
-    <bean id="cms_model" class="com.anchorcms.cms.controller.directive.CmsModelDirective"/>
+    <bean id="cms_model" class="com.anchorcms.cms.controller.directive.ModelDirective"/>
     <!--评分组对象标签-->
     <bean id="cms_score_group" class="com.anchorcms.cms.controller.directive.ScoreGroupDirective"/>
     <!--搜索热词列表标签-->
-    <bean id="cms_searchword_list" class="com.anchorcms.cms.controller.directive.CmsSearchWordListDirective"/>
+    <bean id="cms_searchword_list" class="com.anchorcms.cms.controller.directive.SearchWordListDirective"/>
     <!--后台权限标签-->
     <bean id="cms_perm" class="com.anchorcms.cms.web.PermistionDirective"/>
     <!--=====================================================自定义标签=========================================================-->

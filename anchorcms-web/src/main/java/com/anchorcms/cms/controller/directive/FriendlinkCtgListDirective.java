@@ -3,14 +3,14 @@ package com.anchorcms.cms.controller.directive;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import com.anchorcms.cms.model.assist.CmsVoteTopic;
-import com.anchorcms.cms.service.assist.VoteTopicService;
+import com.anchorcms.cms.model.assist.CmsFriendlinkCtg;
+import com.anchorcms.cms.service.assist.FriendlinkCtgService;
 import com.anchorcms.common.utils.FrontUtils;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
-import com.anchorcms.core.model.CmsSite;
 
 
 import freemarker.core.Environment;
@@ -21,49 +21,33 @@ import freemarker.template.TemplateModel;
 
 import javax.annotation.Resource;
 
-import static com.anchorcms.common.web.freemarker.DirectiveUtils.OUT_BEAN;
+import static com.anchorcms.common.web.freemarker.DirectiveUtils.OUT_LIST;
 
 /**
- * 投票标签
+ * 友情链接类别列表标签
  */
-public class CmsVoteDirective implements TemplateDirectiveModel {
+public class FriendlinkCtgListDirective implements TemplateDirectiveModel {
 	/**
-	 * 输入参数，投票ID。可以为空，为空则获取站点的默认投票。
-	 */
-	public static final String PARAM_ID = "id";
-	/**
-	 * 输入参数，站点ID。默认为当前站点。
+	 * 输入参数，站点ID。
 	 */
 	public static final String PARAM_SITE_ID = "siteId";
 
 	@SuppressWarnings("unchecked")
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
-		CmsSite site = FrontUtils.getSite(env);
-		CmsVoteTopic vote;
-		Integer id = getId(params);
-		if (id != null) {
-			vote = voteTopicService.findById(id);
-		} else {
-			Integer siteId = getSiteId(params);
-			if (siteId == null) {
-				siteId = site.getSiteId();
-			}
-			vote = voteTopicService.getDefTopic(siteId);
+		Integer siteId = getSiteId(params);
+		if (siteId == null) {
+			siteId = FrontUtils.getSite(env).getSiteId();
 		}
+		List<CmsFriendlinkCtg> list = friendlinkCtgService.getList(siteId);
 
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
 				params);
-		paramWrap.put(OUT_BEAN, DefaultObjectWrapperBuilderFactory.getDefaultObjectWrapper().wrap(vote));
+		paramWrap.put(OUT_LIST, DefaultObjectWrapperBuilderFactory.getDefaultObjectWrapper().wrap(list));
 		Map<String, TemplateModel> origMap = DirectiveUtils
 				.addParamsToVariable(env, paramWrap);
 		body.render(env.getOut());
 		DirectiveUtils.removeParamsFromVariable(env, paramWrap, origMap);
-	}
-
-	private Integer getId(Map<String, TemplateModel> params)
-			throws TemplateException {
-		return DirectiveUtils.getInt(PARAM_ID, params);
 	}
 
 	private Integer getSiteId(Map<String, TemplateModel> params)
@@ -72,5 +56,5 @@ public class CmsVoteDirective implements TemplateDirectiveModel {
 	}
 
 	@Resource
-	private VoteTopicService voteTopicService;
+	private FriendlinkCtgService friendlinkCtgService;
 }

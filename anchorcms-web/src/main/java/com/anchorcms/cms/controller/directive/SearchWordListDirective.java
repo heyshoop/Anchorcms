@@ -26,7 +26,7 @@ import static com.anchorcms.common.web.freemarker.DirectiveUtils.OUT_LIST;
 /**
  * 搜索热词列表标签
  */
-public class CmsSearchWordListDirective implements TemplateDirectiveModel {
+public class SearchWordListDirective implements TemplateDirectiveModel {
 	/**
 	 * 输入参数siteId，站点ID。
 	 */

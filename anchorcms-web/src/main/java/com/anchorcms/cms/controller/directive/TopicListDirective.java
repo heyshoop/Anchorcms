@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.anchorcms.cms.model.assist.CmsGuestbookCtg;
-import com.anchorcms.cms.service.assist.GuestbookCtgService;
+import com.anchorcms.cms.model.main.CmsTopic;
+import com.anchorcms.cms.service.main.TopicService;
 import com.anchorcms.common.utils.FrontUtils;
 import com.anchorcms.common.web.freemarker.DefaultObjectWrapperBuilderFactory;
 import com.anchorcms.common.web.freemarker.DirectiveUtils;
@@ -33,25 +33,29 @@ import static com.anchorcms.common.web.freemarker.DirectiveUtils.OUT_LIST;
 /**
  * 专题列表标签
  */
-public class CmsGuestbookCtgListDirective implements TemplateDirectiveModel {
+public class TopicListDirective implements TemplateDirectiveModel {
 	/**
 	 * 模板名称
 	 */
-	public static final String TPL_NAME = "geustbook_ctg_list";
+	public static final String TPL_NAME = "topic_list";
 
 	/**
-	 * 输入参数，站点ID。
+	 * 输入参数，栏目ID。
 	 */
-	public static final String PARAM_SITE_ID = "siteId";
+	public static final String PARAM_CHANNEL_ID = "channelId";
+
+	/**
+	 * 输入参数，是否推荐。
+	 */
+	public static final String PARAM_RECOMMEND = "recommend";
 
 	@SuppressWarnings("unchecked")
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		CmsSite site = FrontUtils.getSite(env);
+		List<CmsTopic> list = topicService.getListForTag(getChannelId(params),
+				getRecommend(params), FrontUtils.getCount(params));
 
-		List<CmsGuestbookCtg> list = guestbookCtgService
-				.getList(getSiteId(params));
-		
 		Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(
 				params);
 		paramWrap.put(OUT_LIST, DefaultObjectWrapperBuilderFactory.getDefaultObjectWrapper().wrap(list));
@@ -79,11 +83,18 @@ public class CmsGuestbookCtgListDirective implements TemplateDirectiveModel {
 		DirectiveUtils.removeParamsFromVariable(env, paramWrap, origMap);
 	}
 
-	private Integer getSiteId(Map<String, TemplateModel> params)
+	private Integer getChannelId(Map<String, TemplateModel> params)
 			throws TemplateException {
-		return DirectiveUtils.getInt(PARAM_SITE_ID, params);
+		return DirectiveUtils.getInt(PARAM_CHANNEL_ID, params);
+	}
+
+	private boolean getRecommend(Map<String, TemplateModel> params)
+			throws TemplateException {
+		Boolean recommend = DirectiveUtils.getBool(PARAM_RECOMMEND, params);
+		return recommend != null ? recommend : false;
+
 	}
 
 	@Resource
-	private GuestbookCtgService guestbookCtgService;
+	private TopicService topicService;
 }

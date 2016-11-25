@@ -33,7 +33,7 @@ import static com.anchorcms.common.web.freemarker.DirectiveUtils.OUT_PAGINATION;
 /**
  * 专题分页标签
  */
-public class CmsTopicPageDirective implements TemplateDirectiveModel {
+public class TopicPageDirective implements TemplateDirectiveModel {
 	/**
 	 * 模板名称
 	 */
