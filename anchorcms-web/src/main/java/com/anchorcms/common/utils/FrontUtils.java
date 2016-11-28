@@ -29,7 +29,7 @@ import freemarker.template.TemplateNumberModel;
 
 import static com.anchorcms.common.constants.Constants.*;
 import static com.anchorcms.common.web.freemarker.DirectiveUtils.PARAM_TPL_SUB;
-import static com.anchorcms.core.controller.LoginController.PROCESS_URL;
+import static com.anchorcms.core.controller.CLoginController.PROCESS_URL;
 import static com.sun.org.glassfish.external.statistics.impl.StatisticImpl.START_TIME;
 
 /**

@@ -21,7 +21,7 @@ import static org.apache.shiro.web.filter.authc.FormAuthenticationFilter.DEFAULT
  * @Desc 登录controller
  */
 @Controller
-public class LoginController {
+public class ALoginController {
     /**
      * 站点id cookie
      */
