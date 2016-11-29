@@ -629,7 +629,7 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 				f.append(" and bean.type.typeId=:typeId");
 				f.setParam("typeId", typeIds[0]);
 			} else if (len > 1) {
-				f.append(" and bean.type.typeId (:typeIds)");
+				f.append(" and bean.type.typeId in (:typeIds)");
 				f.setParamList("typeIds", typeIds);
 			}
 		}
@@ -725,7 +725,7 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		switch (orderBy) {
 		case 1:
 			// ID升序
-			f.append(" order by bean.id asc");
+			f.append(" order by bean.contentId asc");
 			break;
 		case 2:
 			// 发布时间降序
@@ -745,78 +745,78 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 			break;
 		case 6:
 			// 日访问降序
-			f.append(" order by bean.contentCount.viewsDay desc, bean.id desc");
+			f.append(" order by bean.contentCount.viewsDay desc, bean.contentId desc");
 			break;
 		case 7:
 			// 周访问降序
 			f.append(" order by bean.contentCount.viewsWeek desc");
-			f.append(", bean.id desc");
+			f.append(", bean.contentId desc");
 			break;
 		case 8:
 			// 月访问降序
 			f.append(" order by bean.contentCount.viewsMonth desc");
-			f.append(", bean.id desc");
+			f.append(", bean.contentId desc");
 			break;
 		case 9:
 			// 总访问降序
 			f.append(" order by bean.contentCount.views desc");
-			f.append(", bean.id desc");
+			f.append(", bean.contentId desc");
 			break;
 		case 10:
 			// 日评论降序
-			f.append(" order by bean.commentsDay desc, bean.id desc");
+			f.append(" order by bean.commentsDay desc, bean.contentId desc");
 			break;
 		case 11:
 			// 周评论降序
 			f.append(" order by bean.contentCount.commentsWeek desc");
-			f.append(", bean.id desc");
+			f.append(", bean.contentId desc");
 			break;
 		case 12:
 			// 月评论降序
 			f.append(" order by bean.contentCount.commentsMonth desc");
-			f.append(", bean.id desc");
+			f.append(", bean.contentId desc");
 			break;
 		case 13:
 			// 总评论降序
 			f.append(" order by bean.contentCount.comments desc");
-			f.append(", bean.id desc");
+			f.append(", bean.contentId desc");
 			break;
 		case 14:
 			// 日下载降序
-			f.append(" order by bean.downloadsDay desc, bean.id desc");
+			f.append(" order by bean.downloadsDay desc, bean.contentId desc");
 			break;
 		case 15:
 			// 周下载降序
 			f.append(" order by bean.contentCount.downloadsWeek desc");
-			f.append(", bean.id desc");
+			f.append(", bean.contentId desc");
 			break;
 		case 16:
 			// 月下载降序
 			f.append(" order by bean.contentCount.downloadsMonth desc");
-			f.append(", bean.id desc");
+			f.append(", bean.contentId desc");
 			break;
 		case 17:
 			// 总下载降序
 			f.append(" order by bean.contentCount.downloads desc");
-			f.append(", bean.id desc");
+			f.append(", bean.contentId desc");
 			break;
 		case 18:
 			// 日顶降序
-			f.append(" order by bean.upsDay desc, bean.id desc");
+			f.append(" order by bean.upsDay desc, bean.contentId desc");
 			break;
 		case 19:
 			// 周顶降序
 			f.append(" order by bean.contentCount.upsWeek desc");
-			f.append(", bean.id desc");
+			f.append(", bean.contentId desc");
 			break;
 		case 20:
 			// 月顶降序
 			f.append(" order by bean.contentCount.upsMonth desc");
-			f.append(", bean.id desc");
+			f.append(", bean.contentId desc");
 			break;
 		case 21:
 			// 总顶降序
-			f.append(" order by bean.contentCount.ups desc, bean.id desc");
+			f.append(" order by bean.contentCount.ups desc, bean.contentId desc");
 			break;
 		case 22:
 			// 推荐级别降序、发布时间降序
@@ -828,7 +828,7 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 			break;
 		default:
 			// 默认： ID降序
-			f.append(" order by bean.id desc");
+			f.append(" order by bean.contentId desc");
 		}
 	}
 
@@ -836,8 +836,8 @@ public class ContentDaoImpl extends HibernateBaseDao<Content, Integer>
 		String hql = "select count(*) from Content bean"
 				+ " join bean.channel channel,Channel parent"
 				+ " where channel.lft between parent.lft and parent.rgt"
-				+ " and channel.site.id=parent.site.id"
-				+ " and parent.id=:parentId";
+				+ " and channel.site.siteId=parent.site.siteId"
+				+ " and parent.channelId=:parentId";
 		Query query = getSession().createQuery(hql);
 		query.setParameter("parentId", channelId);
 		return ((Number) (query.iterate().next())).intValue();

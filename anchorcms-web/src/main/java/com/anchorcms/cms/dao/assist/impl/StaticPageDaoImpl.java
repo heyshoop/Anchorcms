@@ -18,7 +18,7 @@ import com.anchorcms.cms.model.main.Channel;
 import com.anchorcms.cms.model.main.CmsModel;
 import com.anchorcms.cms.model.main.Content;
 import com.anchorcms.cms.model.main.ContentCheck;
-import com.anchorcms.cms.service.main.KeywordService;
+import com.anchorcms.cms.service.assist.KeywordService;
 import com.anchorcms.cms.service.main.ModelService;
 import com.anchorcms.cms.staticpage.DistributionThread;
 import com.anchorcms.common.constants.Constants;
@@ -449,20 +449,12 @@ public class StaticPageDaoImpl extends HibernateSimpleDao implements
 		}
 	}
 
+	@Resource
 	private KeywordService keywordService;
+	@Resource(name = "realPathResolver")
 	private RealPathResolver realPathResolver;
 	@Resource
 	private ModelService modelMng;
 	@Resource
 	private FtpService ftpService;
-
-	@Resource
-	public void setKeywordService(KeywordService keywordService) {
-		this.keywordService = keywordService;
-	}
-
-	@Resource(name = "realPathResolver")
-	public void setRealPathResolver(RealPathResolver realPathResolver) {
-		this.realPathResolver = realPathResolver;
-	}
 }

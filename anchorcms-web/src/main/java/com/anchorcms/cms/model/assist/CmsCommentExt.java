@@ -13,18 +13,18 @@ import java.io.Serializable;
 @Table(name = "c_comment_ext")
 public class CmsCommentExt implements Serializable{
     private static final long serialVersionUID = 8480038545660260991L;
-    private int commentId;
+    private Integer commentId;
     private String ip;
     private String text;
     private String reply;
 
-    @Basic
+    @Id
     @Column(name = "comment_id")
-    public int getCommentId() {
+    public Integer getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(int commentId) {
+    public void setCommentId(Integer commentId) {
         this.commentId = commentId;
     }
 
@@ -80,17 +80,6 @@ public class CmsCommentExt implements Serializable{
         result = 31 * result + (text != null ? text.hashCode() : 0);
         result = 31 * result + (reply != null ? reply.hashCode() : 0);
         return result;
-    }
-
-    private String id;
-
-    @Id
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     private CmsComment comment;

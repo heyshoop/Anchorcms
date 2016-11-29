@@ -136,15 +136,16 @@ public class CmsTopic implements Serializable{
 
     public void setPriority(int priority) {
         this.priority = priority;
-    }    private byte isRecommend;
+    }
+    private Boolean isRecommend;
 
     @Basic
     @Column(name = "is_recommend")
-    public byte getIsRecommend() {
+    public Boolean getIsRecommend() {
         return isRecommend;
     }
 
-    public void setIsRecommend(byte isRecommend) {
+    public void setIsRecommend(Boolean isRecommend) {
         this.isRecommend = isRecommend;
     }
 
@@ -182,7 +183,6 @@ public class CmsTopic implements Serializable{
         result = 31 * result + (contentImg != null ? contentImg.hashCode() : 0);
         result = 31 * result + (tplContent != null ? tplContent.hashCode() : 0);
         result = 31 * result + priority;
-        result = 31 * result + (int) isRecommend;
         return result;
     }
 

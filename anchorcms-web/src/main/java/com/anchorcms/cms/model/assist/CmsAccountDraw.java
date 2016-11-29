@@ -132,7 +132,7 @@ public class CmsAccountDraw implements Serializable{
     private CmsAccountPay accountPay;
 
     @ManyToOne
-    @JoinColumn(name = "account_pay_id")
+    @JoinColumn(name = "account_pay_id",insertable = false,updatable = false)
     public CmsAccountPay getAccountPay() {
         return accountPay;
     }
@@ -141,7 +141,7 @@ public class CmsAccountDraw implements Serializable{
         this.accountPay = accountPay;
     }
     @ManyToOne
-    @JoinColumn(name = "draw_user_id")
+    @JoinColumn(name = "draw_user_id",insertable = false,updatable = false)
     public CmsUser getDrawUser() {
         return drawUser;
     }

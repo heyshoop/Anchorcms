@@ -389,7 +389,7 @@ public class Content implements Serializable{
         this.site = site;
     }
     @ManyToOne
-    @JoinColumn(name="user_id",insertable = true,updatable = true)
+    @JoinColumn(name="user_id",insertable = false,updatable = false)
     public CmsUser getUser() {
         return user;
     }
@@ -398,7 +398,7 @@ public class Content implements Serializable{
         this.user = user;
     }
     @ManyToOne
-    @JoinColumn(name="type_id",insertable = true,updatable = true)
+    @JoinColumn(name="type_id",insertable = false,updatable = false)
     public ContentType getType() {
         return type;
     }
@@ -407,7 +407,7 @@ public class Content implements Serializable{
         this.type = type;
     }
     @ManyToOne
-    @JoinColumn(name="channel_id",insertable = true,updatable = true)
+    @JoinColumn(name="channel_id",insertable = false,updatable = false)
     public Channel getChannel() {
         return channel;
     }
@@ -1235,6 +1235,48 @@ public class Content implements Serializable{
         }
         channels.remove(getChannel());
         channels.add(channel);
+    }
+    @Transient
+    public String getUrl() {
+        if (!StringUtils.isBlank(getLink())) {
+            return getLink();
+        }
+        if (getStaticContent()) {
+            return getUrlStatic(false, 1);
+        } else if(!StringUtils.isBlank(getSite().getDomainAlias())){
+            return getUrlDynamic(null);
+        }else{
+            return getUrlDynamic(true);
+        }
+    }
+    @Transient
+    public Boolean getStaticContent() {
+        Channel channel = getChannel();
+        if (channel != null) {
+            return channel.getStaticContent();
+        } else {
+            return null;
+        }
+    }
+    @Transient
+    public String getUrlDynamic(Boolean whole) {
+        if (!StringUtils.isBlank(getLink())) {
+            return getLink();
+        }
+        CmsSite site = getSite();
+        StringBuilder url = site.getUrlBuffer(true, whole, false);
+        url.append(SPT).append(getChannel().getChannelPath());
+        url.append(SPT).append(getContentId()).append(site.getDynamicSuffix());
+        return url.toString();
+    }
+    @Transient
+    public String getTypeImg() {
+        ContentExt ext = getContentExt();
+        if (ext != null) {
+            return ext.getTypeImg();
+        } else {
+            return null;
+        }
     }
 
 }

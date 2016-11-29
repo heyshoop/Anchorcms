@@ -1,10 +1,11 @@
 package com.anchorcms.cms.ueditor.define;
 
+import com.anchorcms.cms.ueditor.Encoder;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import com.jeecms.cms.ueditor.Encoder;
 
 public class BaseState implements State {
 

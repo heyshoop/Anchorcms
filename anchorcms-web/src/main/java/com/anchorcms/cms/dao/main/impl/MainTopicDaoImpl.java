@@ -19,15 +19,15 @@ public class MainTopicDaoImpl extends HibernateBaseDao<CmsTopic, Integer>
 			Integer count, boolean cacheable) {
 		Finder f = Finder.create("select bean from CmsTopic bean ");
 		if (channelId != null) {
-			f.append(" join bean.channels channel where channel.id=:channelId");
+			f.append(" join bean.channels channel where channel.channelId=:channelId");
 			f.setParam("channelId", channelId);
 		}else{
 			f.append(" where 1=1 ");
 		}
 		if (recommend) {
-			f.append(" and bean.recommend=true");
+			f.append(" and bean.isRecommend=true");
 		}
-		f.append(" order by bean.priority asc,bean.id desc");
+		f.append(" order by bean.priority asc,bean.topicId desc");
 		if (count != null) {
 			f.setMaxResults(count);
 		}
@@ -39,21 +39,21 @@ public class MainTopicDaoImpl extends HibernateBaseDao<CmsTopic, Integer>
 							  int pageSize, boolean cacheable) {
 		Finder f = Finder.create("select bean from CmsTopic bean ");
 		if (channelId != null) {
-			f.append(" join bean.channels channel where channel.id=:channelId");
+			f.append(" join bean.channels channel where channel.channelId=:channelId");
 			f.setParam("channelId", channelId);
 		}else{
 			f.append(" where 1=1 ");
 		}
 		if (recommend) {
-			f.append(" and bean.recommend=true");
+			f.append(" and bean.isRecommend=true");
 		}
-		f.append(" order by bean.priority asc,bean.id desc");
+		f.append(" order by bean.priority asc,bean.topicId desc");
 		return find(f, pageNo, pageSize);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<CmsTopic> getListByChannelIds(Integer[] channelIds) {
-		String hql = "select bean from CmsTopic bean join bean.channels channel where channel.id in (:ids) order by bean.id asc";
+		String hql = "select bean from CmsTopic bean join bean.channels channel where channel.channelId in (:ids) order by bean.topicId asc";
 		return getSession().createQuery(hql)
 				.setParameterList("ids", channelIds).list();
 	}
@@ -62,15 +62,15 @@ public class MainTopicDaoImpl extends HibernateBaseDao<CmsTopic, Integer>
 	public List<CmsTopic> getListByChannelId(Integer channelId) {
 		String hql = "select bean from CmsTopic bean inner join bean.channels as node,Channel parent"
 				+ " where node.lft between parent.lft and parent.rgt"
-				+ " and parent.id=?"
-				+ " order by bean.priority asc,bean.id desc";
+				+ " and parent.channelId=?"
+				+ " order by bean.priority asc,bean.topicId desc";
 		return find(hql, channelId);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<CmsTopic> getGlobalTopicList() {
 		String hql = "select bean from CmsTopic bean left join bean.channels channel where  channel is null"
-				+ " order by bean.priority asc,bean.id desc";
+				+ " order by bean.priority asc,bean.topicId desc";
 		return find(hql);
 	}
 
@@ -93,13 +93,14 @@ public class MainTopicDaoImpl extends HibernateBaseDao<CmsTopic, Integer>
 	}
 
 	public int deleteContentRef(Integer id) {
-		Query query = getSession().getNamedQuery("CmsTopic.deleteContentRef");
+		String hql = "DELETE FROM ContentTopic WHERE topicId = ?";
+		Query query = getSession().createQuery(hql);
 		return query.setParameter(0, id).executeUpdate();
 	}
 
 	public int countByChannelId(Integer channelId) {
 		String hql = "select count(*) from CmsTopic bean join bean.channels channel"
-				+ " where channel.id=:channelId";
+				+ " where channel.channelId=:channelId";
 		Query query = getSession().createQuery(hql);
 		query.setParameter("channelId", channelId);
 		return ((Number) query.iterate().next()).hashCode();

@@ -112,7 +112,7 @@ public class CmsScoreGroup implements Serializable{
     private CmsSite site;
 
     @ManyToOne
-    @JoinColumn(name = "site_id")
+    @JoinColumn(name = "site_id",insertable = false,updatable = false)
     public CmsSite getSite() {
         return site;
     }

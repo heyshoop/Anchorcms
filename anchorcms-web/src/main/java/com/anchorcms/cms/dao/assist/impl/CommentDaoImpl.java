@@ -67,7 +67,7 @@ public class CommentDaoImpl extends HibernateBaseDao<CmsComment, Integer>
 			f.setParam("parentId", parentId);
 		}else if (contentId != null) {
 			//按照内容ID来查询对内容的直接评论
-			f.append(" and (bean.content.commentIdcontentId and bean.parent is null )");
+			f.append(" and (bean.content.commentId=:contentId and bean.parent is null )");
 			f.setParam("contentId", contentId);
 		} else if (siteId != null) {
 			f.append(" and bean.site.siteId=:siteId");
@@ -85,11 +85,11 @@ public class CommentDaoImpl extends HibernateBaseDao<CmsComment, Integer>
 			f.setParam("greatTo", greaterThen);
 		}
 		if (checked != null) {
-			f.append(" and bean.checked=:checked");
+			f.append(" and bean.isChecked=:checked");
 			f.setParam("checked", checked);
 		}
 		if(recommend!=null){
-			f.append(" and bean.recommend=:recommend");
+			f.append(" and bean.isRecommend=:recommend");
 			f.setParam("recommend", recommend);
 		}
 		if (desc) {
@@ -120,7 +120,7 @@ public class CommentDaoImpl extends HibernateBaseDao<CmsComment, Integer>
 	}
 
 	public int deleteByContentId(Integer contentId) {
-		String hql = "delete from CmsComment bean where bean.content.id=:contentId";
+		String hql = "delete from CmsComment bean where bean.content.contentId=:contentId";
 		return getSession().createQuery(hql).setParameter("contentId",
 				contentId).executeUpdate();
 	}

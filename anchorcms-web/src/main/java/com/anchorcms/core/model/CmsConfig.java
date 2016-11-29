@@ -553,4 +553,9 @@ public class CmsConfig implements Serializable{
         }
         return values;
     }
+    @Transient
+    public Boolean getFlowSwitch(){
+        CmsConfigAttr configAttr=getConfigAttr();
+        return configAttr.getFlowSwitch();
+    }
 }

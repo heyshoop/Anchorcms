@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Table(name = "c_guestbook_ext")
 public class CmsGuestbookExt implements Serializable{
     private static final long serialVersionUID = -8683662484276877098L;
-    private int guestbookId;
+    private Integer guestbookId;
     private String title;
     private String content;
     private String reply;
@@ -23,13 +23,13 @@ public class CmsGuestbookExt implements Serializable{
     private String phone;
     private String qq;
 
-    @Basic
+    @Id
     @Column(name = "guestbook_id")
-    public int getGuestbookId() {
+    public Integer getGuestbookId() {
         return guestbookId;
     }
 
-    public void setGuestbookId(int guestbookId) {
+    public void setGuestbookId(Integer guestbookId) {
         this.guestbookId = guestbookId;
     }
 
@@ -121,17 +121,6 @@ public class CmsGuestbookExt implements Serializable{
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (qq != null ? qq.hashCode() : 0);
         return result;
-    }
-
-    private String id;
-
-    @Id
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     private CmsGuestbook guestbook;

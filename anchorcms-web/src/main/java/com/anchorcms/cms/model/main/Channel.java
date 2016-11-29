@@ -956,5 +956,32 @@ public class Channel implements Serializable{
             return null;
         }
     }
+    @Transient
+    public String getUrl() {
+        if (!StringUtils.isBlank(getLink())) {
+            return getLink();
+        }
+        if (getStaticChannel()) {
+            return getUrlStatic(false, 1);
+        } else if(!StringUtils.isBlank(getSite().getDomainAlias())){
+            return getUrlDynamic(null);
+        }else {
+            return getUrlDynamic(true);
+        }
+    }
+    @Transient
+    public String getUrlDynamic(Boolean whole) {
+        if (!StringUtils.isBlank(getLink())) {
+            return getLink();
+        }
+        CmsSite site = getSite();
+        StringBuilder url = site.getUrlBuffer(true, whole, false);
+        url.append(SPT).append(getChannelPath());
+        if (getHasContent()) {
+            url.append(SPT).append(INDEX);
+        }
+        url.append(site.getDynamicSuffix());
+        return url.toString();
+    }
 
 }

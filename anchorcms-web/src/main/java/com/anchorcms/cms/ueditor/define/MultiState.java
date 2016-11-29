@@ -1,12 +1,13 @@
 package com.anchorcms.cms.ueditor.define;
 
+import com.anchorcms.cms.ueditor.Encoder;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.jeecms.cms.ueditor.Encoder;
 
 /**
  * 多状态集合状态

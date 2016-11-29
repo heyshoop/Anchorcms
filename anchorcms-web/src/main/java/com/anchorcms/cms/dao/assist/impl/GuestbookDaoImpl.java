@@ -36,33 +36,33 @@ public class GuestbookDaoImpl extends
 			Boolean recommend, Boolean checked, boolean desc, boolean cacheable) {
 		Finder f = Finder.create("from CmsGuestbook bean where 1=1");
 		if (siteId != null) {
-			f.append(" and bean.site.id=:siteId");
+			f.append(" and bean.site.siteId=:siteId");
 			f.setParam("siteId", siteId);
 		}
 		if (ctgId != null) {
-			f.append(" and bean.ctg.id =:ctgId");
+			f.append(" and bean.ctg.guestbookctgId =:ctgId");
 			f.setParam("ctgId", ctgId);
 		}
 		if(ctgIds!=null&&ctgIds.length>0){
-			f.append(" and bean.ctg.id in(:ctgIds)");
+			f.append(" and bean.ctg.guestbookctgId in(:ctgIds)");
 			f.setParamList("ctgIds", ctgIds);
 		}
 		if (userId != null) {
-			f.append(" and bean.member.id=:userId");
+			f.append(" and bean.member.userId=:userId");
 			f.setParam("userId", userId);
 		}
 		if (recommend != null) {
-			f.append(" and bean.recommend=:recommend");
+			f.append(" and bean.isRecommend=:recommend");
 			f.setParam("recommend", recommend);
 		}
 		if (checked != null) {
-			f.append(" and bean.checked=:checked");
+			f.append(" and bean.isChecked=:checked");
 			f.setParam("checked", checked);
 		}
 		if (desc) {
-			f.append(" order by bean.id desc");
+			f.append(" order by bean.guestbookId desc");
 		} else {
-			f.append(" order by bean.id asc");
+			f.append(" order by bean.guestbookId asc");
 		}
 		f.setCacheable(cacheable);
 		return f;
