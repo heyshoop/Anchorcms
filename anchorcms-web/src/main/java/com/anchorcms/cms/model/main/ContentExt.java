@@ -40,6 +40,7 @@ public class ContentExt implements Serializable{
     private Date pigeonholeDate;
 
     @Id
+    @GeneratedValue
     @Column(name = "content_id")
     public int getContentId() {
         return contentId;
@@ -310,6 +311,7 @@ public class ContentExt implements Serializable{
 
     private Content content;
     @OneToOne(cascade = CascadeType.ALL)
+    @MapsId
     @JoinColumn(name="content_id")
     public Content getContent() {
         return content;

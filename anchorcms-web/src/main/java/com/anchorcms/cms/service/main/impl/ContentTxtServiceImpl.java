@@ -28,7 +28,7 @@ public class ContentTxtServiceImpl implements ContentTxtService {
 	}
 
 	public ContentTxt update(ContentTxt txt, Content content) {
-		ContentTxt entity = dao.findById(content.getSiteId());
+		ContentTxt entity = dao.findById(content.getContentId());
 		if (entity == null) {
 			entity = save(txt, content);
 			content.getContentTxtSet().add(entity);

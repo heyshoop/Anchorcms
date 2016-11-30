@@ -28,11 +28,6 @@ import static com.anchorcms.common.constants.Constants.SPT;
 public class Content implements Serializable{
     private static final long serialVersionUID = 6895381296604577589L;
     private Integer contentId;
-    private int channelId;
-    private int userId;
-    private int typeId;
-    private int modelId;
-    private int siteId;
     private Date sortDate;
     private Byte topLevel;
     private Boolean hasTitleImg;
@@ -46,6 +41,7 @@ public class Content implements Serializable{
     private Byte recommendLevel;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "content_id")
     public Integer getContentId() {
         return contentId;
@@ -53,56 +49,6 @@ public class Content implements Serializable{
 
     public void setContentId(Integer contentId) {
         this.contentId = contentId;
-    }
-
-    @Basic
-    @Column(name = "channel_id")
-    public int getChannelId() {
-        return channelId;
-    }
-
-    public void setChannelId(int channelId) {
-        this.channelId = channelId;
-    }
-
-    @Basic
-    @Column(name = "user_id")
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    @Basic
-    @Column(name = "type_id")
-    public int getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
-    }
-
-    @Basic
-    @Column(name = "model_id")
-    public int getModelId() {
-        return modelId;
-    }
-
-    public void setModelId(int modelId) {
-        this.modelId = modelId;
-    }
-
-    @Basic
-    @Column(name = "site_id")
-    public int getSiteId() {
-        return siteId;
-    }
-
-    public void setSiteId(int siteId) {
-        this.siteId = siteId;
     }
 
     @Basic
@@ -223,11 +169,6 @@ public class Content implements Serializable{
         Content content = (Content) o;
 
         if (contentId != content.contentId) return false;
-        if (channelId != content.channelId) return false;
-        if (userId != content.userId) return false;
-        if (typeId != content.typeId) return false;
-        if (modelId != content.modelId) return false;
-        if (siteId != content.siteId) return false;
         if (topLevel != content.topLevel) return false;
         if (hasTitleImg != content.hasTitleImg) return false;
         if (isRecommend != content.isRecommend) return false;
@@ -246,11 +187,6 @@ public class Content implements Serializable{
     @Override
     public int hashCode() {
         int result = contentId;
-        result = 31 * result + channelId;
-        result = 31 * result + userId;
-        result = 31 * result + typeId;
-        result = 31 * result + modelId;
-        result = 31 * result + siteId;
         result = 31 * result + (sortDate != null ? sortDate.hashCode() : 0);
         result = 31 * result + (int) topLevel;
         result = 31 * result + (int) status;
@@ -312,7 +248,7 @@ public class Content implements Serializable{
         this.contentChargeSet = contentChargeSet;
     }
     @ManyToOne
-    @JoinColumn(name="model_id",insertable = false,updatable = false)
+    @JoinColumn(name="model_id",insertable = true,updatable = true)
     public CmsModel getModel() {
         return model;
     }
@@ -380,7 +316,7 @@ public class Content implements Serializable{
         this.attr = attr;
     }
     @ManyToOne
-    @JoinColumn(name="site_id",insertable = false,updatable = false)
+    @JoinColumn(name="site_id",insertable = true,updatable = true)
     public CmsSite getSite() {
         return site;
     }
@@ -389,7 +325,7 @@ public class Content implements Serializable{
         this.site = site;
     }
     @ManyToOne
-    @JoinColumn(name="user_id",insertable = false,updatable = false)
+    @JoinColumn(name="user_id",insertable = true,updatable = true)
     public CmsUser getUser() {
         return user;
     }
@@ -398,7 +334,7 @@ public class Content implements Serializable{
         this.user = user;
     }
     @ManyToOne
-    @JoinColumn(name="type_id",insertable = false,updatable = false)
+    @JoinColumn(name="type_id",insertable = true,updatable = true)
     public ContentType getType() {
         return type;
     }
@@ -407,7 +343,7 @@ public class Content implements Serializable{
         this.type = type;
     }
     @ManyToOne
-    @JoinColumn(name="channel_id",insertable = false,updatable = false)
+    @JoinColumn(name="channel_id",insertable = true,updatable = true)
     public Channel getChannel() {
         return channel;
     }
@@ -437,6 +373,7 @@ public class Content implements Serializable{
     @JoinTable(name = "c_contenttag",
             joinColumns = {@JoinColumn(name = "content_id")},
             inverseJoinColumns = {@JoinColumn(name = "tag_id")})
+    @OrderColumn(name = "priority")
     public List<ContentTag> getTags() {
         return tags;
     }
@@ -1286,6 +1223,10 @@ public class Content implements Serializable{
         } else {
             return null;
         }
+    }
+    @Transient
+    public Integer getSiteId() {
+        return getSite().getSiteId();
     }
 
 }

@@ -28,7 +28,7 @@ public class ChannelCountDaoImpl extends
 				+ " set bean.views=bean.views+:views"
 				+ ",bean.viewsMonth=bean.viewsMonth+:views"
 				+ ",bean.viewsWeek=bean.viewsWeek+:views"
-				+ ",bean.viewsDay=bean.viewsDay+:views" + " where bean.id=:id";
+				+ ",bean.viewsDay=bean.viewsDay+:views" + " where bean.channelId=:id";
 		Query query = getSession().createQuery(hql);
 		for (Integer id : keys) {
 			e = cache.get(id);
@@ -57,18 +57,18 @@ public class ChannelCountDaoImpl extends
 	}
 	
 	public int clearContentCount(boolean day,boolean week, boolean month,boolean year){
-		StringBuilder hql = new StringBuilder("update ChannelCount bean set bean.id=bean.id ");
+		StringBuilder hql = new StringBuilder("update ChannelCount bean set bean.channelId=bean.channelId ");
 		if(day){
-			hql.append(",bean.contentDay=0");
+			hql.append(",bean.contentCountDay=0");
 		}
 		if (week) {
-			hql.append(",bean.contentWeek=0");
+			hql.append(",bean.contentCountWeek=0");
 		}
 		if (month) {
-			hql.append(",bean.contentMonth=0");
+			hql.append(",bean.contentCountMonth=0");
 		}
 		if (year) {
-			hql.append(",bean.contentYear=0");
+			hql.append(",bean.contentCountYear=0");
 		}
 		return getSession().createQuery(hql.toString()).executeUpdate();
 	}

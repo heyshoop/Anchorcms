@@ -238,7 +238,7 @@ public abstract class AbstractContentDirective implements
 			for (String path : paths) {
 				channel = channelService.findByPathForTag(path, siteId);
 				if (channel != null) {
-					set.add(channel.getSiteId());
+					set.add(channel.getChannelId());
 				}
 			}
 		}

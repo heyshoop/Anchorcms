@@ -578,12 +578,17 @@ public class CmsUser implements Serializable{
         }
     }
     @Transient
+    public Integer[] getChannelIds() {
+        Set<Channel> channels = getChannels();
+        return Channel.fetchIds(channels);
+    }
+    @Transient
     public Set<Integer> getChannelIds(Integer siteId) {
         Set<Channel> channels = getChannels();
         Set<Integer> ids = new HashSet<Integer>();
         for (Channel c : channels) {
             if (c.getSite().getSiteId().equals(siteId)) {
-                ids.add(c.getSiteId());
+                ids.add(c.getChannelId());
             }
         }
         return ids;

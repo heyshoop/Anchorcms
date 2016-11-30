@@ -18,13 +18,13 @@ public class ContentCharge implements Serializable{
     public static final Short MODEL_CHARGE=1;
     public static final Short MODEL_REWARD=2;
     private int contentId;
-    private Double chargeAmount;
-    private Double totalAmount;
-    private Double yearAmount;
-    private Double monthAmount;
-    private Double dayAmount;
+    private Double chargeAmount = 0.0;
+    private Double totalAmount = 0.0;
+    private Double yearAmount = 0.0;
+    private Double monthAmount = 0.0;
+    private Double dayAmount = 0.0;
     private Date lastBuyTime;
-    private Short chargeReward;
+    private Short chargeReward = 0;
 
     @Id
     @Column(name = "content_id")
@@ -147,6 +147,7 @@ public class ContentCharge implements Serializable{
 
     private Content content;
     @OneToOne(cascade = CascadeType.ALL)
+    @MapsId
     @JoinColumn(name="content_id")
     public Content getContent() {
         return content;

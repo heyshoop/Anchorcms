@@ -138,6 +138,7 @@ public class ContentCheck implements Serializable{
 
     private Content content;
     @OneToOne(cascade = CascadeType.ALL)
+    @MapsId
     @JoinColumn(name="content_id")
     public Content getContent() {
         return content;

@@ -26,9 +26,6 @@ import static com.anchorcms.common.constants.Constants.SPT;
 public class Channel implements Serializable{
     private static final long serialVersionUID = -9066154332731793820L;
     private Integer channelId;
-    private int modelId;
-    private int siteId;
-    private Integer parentId;
     private String channelPath;
     private int lft;
     private int rgt;
@@ -37,6 +34,7 @@ public class Channel implements Serializable{
     private Boolean isDisplay;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "channel_id")
     public Integer getChannelId() {
         return channelId;
@@ -44,36 +42,6 @@ public class Channel implements Serializable{
 
     public void setChannelId(Integer channelId) {
         this.channelId = channelId;
-    }
-
-    @Basic
-    @Column(name = "model_id")
-    public int getModelId() {
-        return modelId;
-    }
-
-    public void setModelId(int modelId) {
-        this.modelId = modelId;
-    }
-
-    @Basic
-    @Column(name = "site_id")
-    public int getSiteId() {
-        return siteId;
-    }
-
-    public void setSiteId(int siteId) {
-        this.siteId = siteId;
-    }
-
-    @Basic
-    @Column(name = "parent_id")
-    public Integer getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
     }
 
     @Basic
@@ -144,14 +112,11 @@ public class Channel implements Serializable{
         Channel channel = (Channel) o;
 
         if (channelId != channel.channelId) return false;
-        if (modelId != channel.modelId) return false;
-        if (siteId != channel.siteId) return false;
         if (lft != channel.lft) return false;
         if (rgt != channel.rgt) return false;
         if (priority != channel.priority) return false;
         if (hasContent != channel.hasContent) return false;
         if (isDisplay != channel.isDisplay) return false;
-        if (parentId != null ? !parentId.equals(channel.parentId) : channel.parentId != null) return false;
         if (channelPath != null ? !channelPath.equals(channel.channelPath) : channel.channelPath != null)
             return false;
 
@@ -161,9 +126,6 @@ public class Channel implements Serializable{
     @Override
     public int hashCode() {
         int result = channelId;
-        result = 31 * result + modelId;
-        result = 31 * result + siteId;
-        result = 31 * result + (parentId != null ? parentId.hashCode() : 0);
         result = 31 * result + (channelPath != null ? channelPath.hashCode() : 0);
         result = 31 * result + lft;
         result = 31 * result + rgt;
@@ -1051,6 +1013,18 @@ public class Channel implements Serializable{
         } else {
             return null;
         }
+    }
+    @Transient
+    public static Integer[] fetchIds(Collection<Channel> channels) {
+        if (channels == null) {
+            return null;
+        }
+        Integer[] ids = new Integer[channels.size()];
+        int i = 0;
+        for (Channel c : channels) {
+            ids[i++] = c.getChannelId();
+        }
+        return ids;
     }
 
 }

@@ -19,6 +19,7 @@ public class ContentTag implements Serializable{
     private Integer refCounter;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "tag_id")
     public Integer getTagId() {
         return tagId;
@@ -74,7 +75,7 @@ public class ContentTag implements Serializable{
             setRefCounter(1);
         }
     }
-    private List<Content> contents;
+   /* private List<Content> contents;
     @ManyToMany
     @JoinTable(name = "c_contenttag",
             joinColumns = {@JoinColumn(name = "tag_id")},
@@ -85,5 +86,5 @@ public class ContentTag implements Serializable{
 
     public void setContents(List<Content> contents) {
         this.contents = contents;
-    }
+    }*/
 }

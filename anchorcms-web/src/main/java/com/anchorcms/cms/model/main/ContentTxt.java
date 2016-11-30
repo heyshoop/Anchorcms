@@ -103,6 +103,7 @@ public class ContentTxt implements Serializable{
     public static String PAGE_START = "[NextPage]";
     public static String PAGE_END = "[/NextPage]";
     @OneToOne(cascade = CascadeType.ALL)
+    @MapsId
     @JoinColumn(name="content_id")
     public Content getContent() {
         return content;
