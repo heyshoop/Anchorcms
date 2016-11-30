@@ -59,9 +59,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
  */
 
 @Controller
-public class UeditorAct {
+public class UeditorController {
 
-	private static final Logger log = LoggerFactory.getLogger(UeditorAct.class);
+	private static final Logger log = LoggerFactory.getLogger(UeditorController.class);
 
 	// 状态
 	private static final String STATE = "state";

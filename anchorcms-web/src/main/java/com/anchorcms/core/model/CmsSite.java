@@ -802,4 +802,8 @@ public class CmsSite implements Serializable {
     public String getUploadPath() {
         return UPLOAD_PATH + getSitePath();
     }
+    @Transient
+    public Boolean getMark(){
+        return getConfig().getMarkConfig().getOn();
+    }
 }

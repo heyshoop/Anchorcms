@@ -5,6 +5,10 @@ import org.apache.commons.lang.StringUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import static com.anchorcms.common.constants.Constants.*;
 
@@ -229,6 +233,17 @@ public class CmsModel implements Serializable{
     }
 
     private CmsSite site;
+    private Set<CmsModelItem> items;
+
+    @OneToMany
+    @JoinColumn(name = "model_id",insertable = false,updatable = false)
+    public Set<CmsModelItem> getItems() {
+        return items;
+    }
+
+    public void setItems(Set<CmsModelItem> items) {
+        this.items = items;
+    }
 
     @ManyToOne
     @JoinColumn(name = "site_id",insertable = false,updatable = false)
@@ -248,6 +263,7 @@ public class CmsModel implements Serializable{
             setIsDef(false);
         }
     }
+    @Transient
     public String getTplContent(String solution, boolean def) {
         StringBuilder t = new StringBuilder();
         t.append(solution).append("/");
@@ -269,6 +285,7 @@ public class CmsModel implements Serializable{
         return t.toString();
 
     }
+    @Transient
     public String getTplChannel(String solution, boolean def) {
         StringBuilder t = new StringBuilder();
         t.append(solution).append("/");
@@ -292,5 +309,15 @@ public class CmsModel implements Serializable{
             }
         }
         return t.toString();
+    }
+    @Transient
+    public List<String> getModelItems(){
+        Set<CmsModelItem>items=getItems();
+        List<String>fileList=new ArrayList<String>();
+        Iterator<CmsModelItem> it=items.iterator();
+        while(it.hasNext()){
+            fileList.add(it.next().getField());
+        }
+        return fileList;
     }
 }

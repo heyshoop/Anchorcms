@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
  
 @Controller
-public class SwfUploadAct extends CommonUpload {
+public class SwfUploadController extends CommonUpload {
 	/**
 	 * 错误信息参数
 	 */

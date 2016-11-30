@@ -853,6 +853,15 @@ public class Content implements Serializable{
             return null;
         }
     }
+    @Transient
+    public Boolean getNeedRegenerate() {
+        ContentExt ext = getContentExt();
+        if (ext != null) {
+            return ext.getNeedRegenerate();
+        } else {
+            return null;
+        }
+    }
     public void setNeedRegenerate(Boolean isNeed) {
         ContentExt ext = getContentExt();
         if (ext != null) {

@@ -1,7 +1,6 @@
 package com.anchorcms.core.model;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -26,17 +25,6 @@ public class CmsConfig implements Serializable{
     private String defImg;
     private String loginUrl;
     private String processUrl;
-    private byte markOn;
-    private int markWidth;
-    private int markHeight;
-    private String markImage;
-    private String markContent;
-    private int markSize;
-    private String markColor;
-    private int markAlpha;
-    private int markPosition;
-    private int markOffsetX;
-    private int markOffsetY;
     private Date countClearTime;
     private Date countCopyTime;
     private String downloadCode;
@@ -139,116 +127,6 @@ public class CmsConfig implements Serializable{
 
     public void setProcessUrl(String processUrl) {
         this.processUrl = processUrl;
-    }
-
-    @Basic
-    @Column(name = "mark_on")
-    public byte getMarkOn() {
-        return markOn;
-    }
-
-    public void setMarkOn(byte markOn) {
-        this.markOn = markOn;
-    }
-
-    @Basic
-    @Column(name = "mark_width")
-    public int getMarkWidth() {
-        return markWidth;
-    }
-
-    public void setMarkWidth(int markWidth) {
-        this.markWidth = markWidth;
-    }
-
-    @Basic
-    @Column(name = "mark_height")
-    public int getMarkHeight() {
-        return markHeight;
-    }
-
-    public void setMarkHeight(int markHeight) {
-        this.markHeight = markHeight;
-    }
-
-    @Basic
-    @Column(name = "mark_image")
-    public String getMarkImage() {
-        return markImage;
-    }
-
-    public void setMarkImage(String markImage) {
-        this.markImage = markImage;
-    }
-
-    @Basic
-    @Column(name = "mark_content")
-    public String getMarkContent() {
-        return markContent;
-    }
-
-    public void setMarkContent(String markContent) {
-        this.markContent = markContent;
-    }
-
-    @Basic
-    @Column(name = "mark_size")
-    public int getMarkSize() {
-        return markSize;
-    }
-
-    public void setMarkSize(int markSize) {
-        this.markSize = markSize;
-    }
-
-    @Basic
-    @Column(name = "mark_color")
-    public String getMarkColor() {
-        return markColor;
-    }
-
-    public void setMarkColor(String markColor) {
-        this.markColor = markColor;
-    }
-
-    @Basic
-    @Column(name = "mark_alpha")
-    public int getMarkAlpha() {
-        return markAlpha;
-    }
-
-    public void setMarkAlpha(int markAlpha) {
-        this.markAlpha = markAlpha;
-    }
-
-    @Basic
-    @Column(name = "mark_position")
-    public int getMarkPosition() {
-        return markPosition;
-    }
-
-    public void setMarkPosition(int markPosition) {
-        this.markPosition = markPosition;
-    }
-
-    @Basic
-    @Column(name = "mark_offset_x")
-    public int getMarkOffsetX() {
-        return markOffsetX;
-    }
-
-    public void setMarkOffsetX(int markOffsetX) {
-        this.markOffsetX = markOffsetX;
-    }
-
-    @Basic
-    @Column(name = "mark_offset_y")
-    public int getMarkOffsetY() {
-        return markOffsetY;
-    }
-
-    public void setMarkOffsetY(int markOffsetY) {
-        this.markOffsetY = markOffsetY;
     }
 
     @Basic
@@ -390,14 +268,6 @@ public class CmsConfig implements Serializable{
 
         if (configId != cmsConfig.configId) return false;
         if (isUploadToDb != cmsConfig.isUploadToDb) return false;
-        if (markOn != cmsConfig.markOn) return false;
-        if (markWidth != cmsConfig.markWidth) return false;
-        if (markHeight != cmsConfig.markHeight) return false;
-        if (markSize != cmsConfig.markSize) return false;
-        if (markAlpha != cmsConfig.markAlpha) return false;
-        if (markPosition != cmsConfig.markPosition) return false;
-        if (markOffsetX != cmsConfig.markOffsetX) return false;
-        if (markOffsetY != cmsConfig.markOffsetY) return false;
         if (downloadTime != cmsConfig.downloadTime) return false;
         if (viewOnlyChecked != cmsConfig.viewOnlyChecked) return false;
         if (contextPath != null ? !contextPath.equals(cmsConfig.contextPath) : cmsConfig.contextPath != null) return false;
@@ -408,9 +278,6 @@ public class CmsConfig implements Serializable{
         if (defImg != null ? !defImg.equals(cmsConfig.defImg) : cmsConfig.defImg != null) return false;
         if (loginUrl != null ? !loginUrl.equals(cmsConfig.loginUrl) : cmsConfig.loginUrl != null) return false;
         if (processUrl != null ? !processUrl.equals(cmsConfig.processUrl) : cmsConfig.processUrl != null) return false;
-        if (markImage != null ? !markImage.equals(cmsConfig.markImage) : cmsConfig.markImage != null) return false;
-        if (markContent != null ? !markContent.equals(cmsConfig.markContent) : cmsConfig.markContent != null) return false;
-        if (markColor != null ? !markColor.equals(cmsConfig.markColor) : cmsConfig.markColor != null) return false;
         if (countClearTime != null ? !countClearTime.equals(cmsConfig.countClearTime) : cmsConfig.countClearTime != null)
             return false;
         if (countCopyTime != null ? !countCopyTime.equals(cmsConfig.countCopyTime) : cmsConfig.countCopyTime != null)
@@ -443,20 +310,10 @@ public class CmsConfig implements Serializable{
         result = 31 * result + (servletPoint != null ? servletPoint.hashCode() : 0);
         result = 31 * result + (port != null ? port.hashCode() : 0);
         result = 31 * result + (dbFileUri != null ? dbFileUri.hashCode() : 0);
+       // result = 31 * result + (int) isUploadToDb;
         result = 31 * result + (defImg != null ? defImg.hashCode() : 0);
         result = 31 * result + (loginUrl != null ? loginUrl.hashCode() : 0);
         result = 31 * result + (processUrl != null ? processUrl.hashCode() : 0);
-        result = 31 * result + (int) markOn;
-        result = 31 * result + markWidth;
-        result = 31 * result + markHeight;
-        result = 31 * result + (markImage != null ? markImage.hashCode() : 0);
-        result = 31 * result + (markContent != null ? markContent.hashCode() : 0);
-        result = 31 * result + markSize;
-        result = 31 * result + (markColor != null ? markColor.hashCode() : 0);
-        result = 31 * result + markAlpha;
-        result = 31 * result + markPosition;
-        result = 31 * result + markOffsetX;
-        result = 31 * result + markOffsetY;
         result = 31 * result + (countClearTime != null ? countClearTime.hashCode() : 0);
         result = 31 * result + (countCopyTime != null ? countCopyTime.hashCode() : 0);
         result = 31 * result + (downloadCode != null ? downloadCode.hashCode() : 0);
@@ -475,7 +332,7 @@ public class CmsConfig implements Serializable{
     private Map<String,String> attr;
 
     private MarkConfig m_markConfig;
-    @Transient
+    @Embedded
     public MarkConfig getMarkConfig() {
         return m_markConfig;
     }
@@ -484,11 +341,10 @@ public class CmsConfig implements Serializable{
         this.m_markConfig = m_markConfig;
     }
 
-    @ElementCollection(fetch= FetchType.LAZY, //加载策略,延迟加载
-            targetClass=String.class) //指定集合中元素的类型
-    @JoinTable(name="c_config_attr", joinColumns={ @JoinColumn(nullable=false, name="config_id")})//指定集合生成的表
+    @ElementCollection
+    @CollectionTable(name = "c_config_attr",joinColumns={ @JoinColumn(nullable=false, name="config_id")})
     @MapKeyColumn(name="attr_name")//指定map的key生成的列
-    @Column(name = "attr_value")
+    @Column(name ="attr_value")
     public Map<String, String> getAttr() {
         return attr;
     }
@@ -553,9 +409,26 @@ public class CmsConfig implements Serializable{
         }
         return values;
     }
+
     @Transient
     public Boolean getFlowSwitch(){
         CmsConfigAttr configAttr=getConfigAttr();
         return configAttr.getFlowSwitch();
+    }
+
+    @Transient
+    public Boolean getWeixinEnable(){
+        CmsConfigAttr configAttr=getConfigAttr();
+        return configAttr.getWeixinEnable();
+    }
+    @Transient
+    public String getWeixinID(){
+        CmsConfigAttr configAttr=getConfigAttr();
+        return configAttr.getWeixinID();
+    }
+    @Transient
+    public String getWeixinKey(){
+        CmsConfigAttr configAttr=getConfigAttr();
+        return configAttr.getWeixinKey();
     }
 }

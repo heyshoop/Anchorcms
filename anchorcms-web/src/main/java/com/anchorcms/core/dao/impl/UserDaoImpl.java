@@ -28,7 +28,7 @@ public class UserDaoImpl extends HibernateBaseDao<CmsUser, Integer> implements U
 		}
 		f.append(" where 1=1");
 		if(siteId!=null){
-			f.append(" and  userSite.site.id=:siteId");
+			f.append(" and  userSite.site.siteId=:siteId");
 			f.setParam("siteId", siteId);
 		}
 		if (!StringUtils.isBlank(username)) {
@@ -40,15 +40,15 @@ public class UserDaoImpl extends HibernateBaseDao<CmsUser, Integer> implements U
 			f.setParam("email", "%" + email + "%");
 		}
 		if (groupId != null) {
-			f.append(" and bean.group.id=:groupId");
+			f.append(" and bean.group.groupId=:groupId");
 			f.setParam("groupId", groupId);
 		}
 		if (disabled != null) {
-			f.append(" and bean.disabled=:disabled");
+			f.append(" and bean.isDisabled=:disabled");
 			f.setParam("disabled", disabled);
 		}
 		if (admin != null) {
-			f.append(" and bean.admin=:admin");
+			f.append(" and bean.isAdmin=:admin");
 			f.setParam("admin", admin);
 		}
 		if (rank != null) {
@@ -60,11 +60,11 @@ public class UserDaoImpl extends HibernateBaseDao<CmsUser, Integer> implements U
 			f.setParam("realname", "%" + realName + "%");
 		}
 		if(roleId!=null){
-			f.append(" and role.id=:roleId");
+			f.append(" and role.roleId=:roleId");
 			f.setParam("roleId", roleId);
 		}
 		if (allChannel != null) {
-			f.append(" and userSite.allChannel=:allChannel");
+			f.append(" and userSite.isAllChannel=:allChannel");
 			f.setParam("allChannel", allChannel);
 		}
 		//用户有多个站的管理权限需要去重复
@@ -73,7 +73,7 @@ public class UserDaoImpl extends HibernateBaseDao<CmsUser, Integer> implements U
 			f.append(" group by bean having count(bean)=1");
 		}
 		*/
-		f.append(" order by bean.id desc");
+		f.append(" order by bean.userId desc");
 		return find(f, pageNo, pageSize);
 	}
 	
@@ -83,7 +83,7 @@ public class UserDaoImpl extends HibernateBaseDao<CmsUser, Integer> implements U
 		Finder f = Finder.create("select bean from CmsUser bean");
 		if (siteId != null) {
 			f.append(" join bean.userSites userSite");
-			f.append(" where userSite.site.id=:siteId");
+			f.append(" where userSite.site.siteId=:siteId");
 			f.setParam("siteId", siteId);
 		} else {
 			f.append(" where 1=1");
@@ -97,22 +97,22 @@ public class UserDaoImpl extends HibernateBaseDao<CmsUser, Integer> implements U
 			f.setParam("email", "%" + email + "%");
 		}
 		if (groupId != null) {
-			f.append(" and bean.group.id=:groupId");
+			f.append(" and bean.group.groupId=:groupId");
 			f.setParam("groupId", groupId);
 		}
 		if (disabled != null) {
-			f.append(" and bean.disabled=:disabled");
+			f.append(" and bean.isDisabled=:disabled");
 			f.setParam("disabled", disabled);
 		}
 		if (admin != null) {
-			f.append(" and bean.admin=:admin");
+			f.append(" and bean.isAdmin=:admin");
 			f.setParam("admin", admin);
 		}
 		if (rank != null) {
 			f.append(" and bean.rank<=:rank");
 			f.setParam("rank", rank);
 		}
-		f.append(" order by bean.id desc");
+		f.append(" order by bean.userId desc");
 		return find(f);
 	}
 
@@ -135,7 +135,7 @@ public class UserDaoImpl extends HibernateBaseDao<CmsUser, Integer> implements U
 			f.append(" and bean.rank<=:rank");
 			f.setParam("rank", rank);
 		}
-		f.append(" and bean.isSelfAdmin=true");
+		f.append(" and bean.isAdmin=true");
 		f.append(" order by bean.userId asc");
 		return find(f);
 	}
@@ -143,10 +143,10 @@ public class UserDaoImpl extends HibernateBaseDao<CmsUser, Integer> implements U
 	public Pagination getAdminsByRoleId(Integer roleId, int pageNo, int pageSize){
 		Finder f = Finder.create("select bean from CmsUser");
 		f.append(" bean join bean.roles role");
-		f.append(" where role.id=:roleId");
+		f.append(" where role.roleId=:roleId");
 		f.setParam("roleId", roleId);
-		f.append(" and bean.admin=true");
-		f.append(" order by bean.id asc");
+		f.append(" and bean.isAdmin=true");
+		f.append(" order by bean.userId asc");
 		return find(f,pageNo,pageSize);
 	}
 
@@ -166,7 +166,7 @@ public class UserDaoImpl extends HibernateBaseDao<CmsUser, Integer> implements U
 		return ((Number) query.iterate().next()).intValue();
 	}
 	public int countMemberByUsername(String username) {
-		String hql = "select count(*) from CmsUser bean where bean.username=:username and bean.admin=false";
+		String hql = "select count(*) from CmsUser bean where bean.username=:username and bean.isAdmin=false";
 		Query query = getSession().createQuery(hql);
 		query.setParameter("username", username);
 		return ((Number) query.iterate().next()).intValue();

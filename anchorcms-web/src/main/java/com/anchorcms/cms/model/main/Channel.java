@@ -983,5 +983,74 @@ public class Channel implements Serializable{
         url.append(site.getDynamicSuffix());
         return url.toString();
     }
+    /**
+     * 获得深度
+     *
+     * @return 第一层为0，第二层为1，以此类推。
+     */
+    @Transient
+    public int getDeep() {
+        int deep = 0;
+        Channel parent = getParent();
+        while (parent != null) {
+            deep++;
+            parent = parent.getParent();
+        }
+        return deep;
+    }
+    @Transient
+    public Boolean getHasTitleImg() {
+        ChannelExt ext = getChannelExt();
+        if (ext != null) {
+            return ext.getHasTitleImg();
+        } else {
+            return null;
+        }
+    }
+    @Transient
+    public Integer getTitleImgHeight() {
+        ChannelExt ext = getChannelExt();
+        if (ext != null) {
+            return ext.getTitleImgHeight();
+        } else {
+            return null;
+        }
+    }
+    @Transient
+    public Boolean getHasContentImg() {
+        ChannelExt ext = getChannelExt();
+        if (ext != null) {
+            return ext.getHasContentImg();
+        } else {
+            return null;
+        }
+    }
+    @Transient
+    public Integer getContentImgWidth() {
+        ChannelExt ext = getChannelExt();
+        if (ext != null) {
+            return ext.getContentImgWidth();
+        } else {
+            return null;
+        }
+    }
+    @Transient
+    public Integer getContentImgHeight() {
+        ChannelExt ext = getChannelExt();
+        if (ext != null) {
+            return ext.getContentImgHeight();
+        } else {
+            return null;
+        }
+    }
+    @Transient
+    public Integer getTitleImgWidth() {
+        ChannelExt ext = getChannelExt();
+        if (ext != null) {
+            return ext.getTitleImgWidth();
+        } else {
+            return null;
+        }
+    }
 
 }

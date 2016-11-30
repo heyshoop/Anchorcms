@@ -1,12 +1,19 @@
 package com.anchorcms.core.model;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import java.io.Serializable;
+
 /**
  * @Author 阁楼麻雀
  * @Email netuser.orz@icloud.com
  * @Date 2016-11-4
  * @Desc
  */
-public class MarkConfig {
+@Embeddable
+public class MarkConfig implements Serializable {
+    private static final long serialVersionUID = -1815270820905097569L;
     // fields
     private Boolean on;
     private Integer minWidth;
@@ -20,6 +27,8 @@ public class MarkConfig {
     private Integer offsetX;
     private Integer offsetY;
 
+    @Basic
+    @Column(name = "mark_on")
     public Boolean getOn() {
         return on;
     }
@@ -28,6 +37,8 @@ public class MarkConfig {
         this.on = on;
     }
 
+    @Basic
+    @Column(name = "mark_width")
     public Integer getMinWidth() {
         return minWidth;
     }
@@ -36,6 +47,8 @@ public class MarkConfig {
         this.minWidth = minWidth;
     }
 
+    @Basic
+    @Column(name = "mark_height")
     public Integer getMinHeight() {
         return minHeight;
     }
@@ -44,6 +57,8 @@ public class MarkConfig {
         this.minHeight = minHeight;
     }
 
+    @Basic
+    @Column(name = "mark_image")
     public String getImagePath() {
         return imagePath;
     }
@@ -52,6 +67,8 @@ public class MarkConfig {
         this.imagePath = imagePath;
     }
 
+    @Basic
+    @Column(name = "mark_content")
     public String getContent() {
         return content;
     }
@@ -60,6 +77,8 @@ public class MarkConfig {
         this.content = content;
     }
 
+    @Basic
+    @Column(name = "mark_size")
     public Integer getSize() {
         return size;
     }
@@ -68,6 +87,8 @@ public class MarkConfig {
         this.size = size;
     }
 
+    @Basic
+    @Column(name = "mark_color")
     public String getColor() {
         return color;
     }
@@ -76,6 +97,8 @@ public class MarkConfig {
         this.color = color;
     }
 
+    @Basic
+    @Column(name = "mark_alpha")
     public Integer getAlpha() {
         return alpha;
     }
@@ -84,6 +107,8 @@ public class MarkConfig {
         this.alpha = alpha;
     }
 
+    @Basic
+    @Column(name = "mark_position")
     public Integer getPos() {
         return pos;
     }
@@ -92,6 +117,8 @@ public class MarkConfig {
         this.pos = pos;
     }
 
+    @Basic
+    @Column(name = "mark_offset_x")
     public Integer getOffsetX() {
         return offsetX;
     }
@@ -100,6 +127,8 @@ public class MarkConfig {
         this.offsetX = offsetX;
     }
 
+    @Basic
+    @Column(name = "mark_offset_y")
     public Integer getOffsetY() {
         return offsetY;
     }

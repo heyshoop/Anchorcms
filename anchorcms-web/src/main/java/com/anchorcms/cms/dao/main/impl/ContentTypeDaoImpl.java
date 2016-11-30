@@ -17,15 +17,15 @@ public class ContentTypeDaoImpl extends HibernateBaseDao<ContentType, Integer>
 	public List<ContentType> getList(boolean containDisabled) {
 		Finder f = Finder.create("from ContentType bean");
 		if (!containDisabled) {
-			f.append(" where bean.disabled=false");
+			f.append(" where bean.isDisabled=false");
 		}
-		f.append(" order by bean.id asc");
+		f.append(" order by bean.typeId asc");
 		return find(f);
 	}
 
 	public ContentType getDef() {
 		String hql = "from ContentType bean"
-				+ " where bean.isDisabled=false order by bean.id asc";
+				+ " where bean.isDisabled=false order by bean.typeId asc";
 		Query query = getSession().createQuery(hql).setMaxResults(1);
 		List<?> list = query.list();
 		if (list.size() > 0) {

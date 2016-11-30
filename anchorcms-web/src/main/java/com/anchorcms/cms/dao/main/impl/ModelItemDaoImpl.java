@@ -14,9 +14,9 @@ public class ModelItemDaoImpl extends
 	public List<CmsModelItem> getList(Integer modelId, boolean isChannel,
 									  boolean hasDisabled) {
 		StringBuilder sb = new StringBuilder(
-				"from CmsModelItem bean where bean.model.modelId=? and bean.channel=?");
+				"from CmsModelItem bean where bean.model.modelId=? and bean.isChannel=?");
 		if (!hasDisabled) {
-			sb.append(" and bean.display=true");
+			sb.append(" and bean.isDisplay=true");
 		}
 		sb.append(" order by bean.priority asc,bean.modelitemId asc");
 		return find(sb.toString(), modelId, isChannel);
