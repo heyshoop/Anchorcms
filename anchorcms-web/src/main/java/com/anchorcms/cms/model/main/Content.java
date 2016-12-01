@@ -238,6 +238,16 @@ public class Content implements Serializable{
 
     private Set<ContentCharge> contentChargeSet;
 
+    private Set<ContentRecord> contentRecord;
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "content",orphanRemoval = true)
+    public Set<ContentRecord> getContentRecord() {
+        return contentRecord;
+    }
+    public void setContentRecord(Set<ContentRecord> contentRecord) {
+        this.contentRecord = contentRecord;
+    }
+
     @OneToMany
     @JoinColumn(name="content_id")
     public Set<ContentCharge> getContentChargeSet() {

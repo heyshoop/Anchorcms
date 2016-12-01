@@ -3,6 +3,7 @@ package com.anchorcms.core.model;
 import com.anchorcms.cms.model.assist.CmsUserResume;
 import com.anchorcms.cms.model.main.Channel;
 import com.anchorcms.cms.model.main.Content;
+import com.anchorcms.cms.model.main.ContentRecord;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.CascadeType;
 
@@ -286,6 +287,16 @@ public class CmsUser implements Serializable{
     private Set<CmsUserAccount> userAccountSet;
 
     private Set<CmsUserResume> userResumeSet;
+
+    private Set<ContentRecord> contentRecord;
+
+    @OneToMany(cascade = javax.persistence.CascadeType.ALL,mappedBy = "user",orphanRemoval = true)
+    public Set<ContentRecord> getContentRecord() {
+        return contentRecord;
+    }
+    public void setContentRecord(Set<ContentRecord> contentRecord) {
+        this.contentRecord = contentRecord;
+    }
 
     @OneToMany
     @JoinColumn(name = "user_id")

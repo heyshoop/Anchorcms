@@ -17,12 +17,11 @@ import java.util.Date;
 public class ContentRecord implements Serializable{
     private static final long serialVersionUID = -6494448955871009821L;
     private long contentRecordId;
-    private int contentId;
-    private int userId;
     private Date operateTime;
     private byte operateType;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "content_record_id")
     public long getContentRecordId() {
         return contentRecordId;
@@ -30,26 +29,6 @@ public class ContentRecord implements Serializable{
 
     public void setContentRecordId(long contentRecordId) {
         this.contentRecordId = contentRecordId;
-    }
-
-    @Basic
-    @Column(name = "content_id")
-    public int getContentId() {
-        return contentId;
-    }
-
-    public void setContentId(int contentId) {
-        this.contentId = contentId;
-    }
-
-    @Basic
-    @Column(name = "user_id")
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     @Basic
@@ -80,8 +59,6 @@ public class ContentRecord implements Serializable{
         ContentRecord that = (ContentRecord) o;
 
         if (contentRecordId != that.contentRecordId) return false;
-        if (contentId != that.contentId) return false;
-        if (userId != that.userId) return false;
         if (operateType != that.operateType) return false;
         if (operateTime != null ? !operateTime.equals(that.operateTime) : that.operateTime != null) return false;
 
@@ -91,8 +68,6 @@ public class ContentRecord implements Serializable{
     @Override
     public int hashCode() {
         int result = (int) (contentRecordId ^ (contentRecordId >>> 32));
-        result = 31 * result + contentId;
-        result = 31 * result + userId;
         result = 31 * result + (operateTime != null ? operateTime.hashCode() : 0);
         result = 31 * result + (int) operateType;
         return result;
@@ -102,7 +77,7 @@ public class ContentRecord implements Serializable{
 
     private CmsUser user;
     @ManyToOne
-    @JoinColumn(name="user_id",insertable = false,updatable = false)
+    @JoinColumn(name="user_id",insertable = true,updatable = true)
     public CmsUser getUser() {
         return user;
     }
@@ -111,7 +86,7 @@ public class ContentRecord implements Serializable{
         this.user = user;
     }
     @ManyToOne
-    @JoinColumn(name="content_id",insertable = false,updatable = false)
+    @JoinColumn(name="content_id",insertable = true,updatable = true)
     public Content getContent() {
         return content;
     }
