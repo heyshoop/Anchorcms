@@ -1228,5 +1228,36 @@ public class Content implements Serializable{
     public Integer getSiteId() {
         return getSite().getSiteId();
     }
+    @Transient
+    public String getUrlDynamic() {
+        return getUrlDynamic(null);
+    }
+    @Transient
+    public Integer getViews() {
+        ContentCount count = getContentCount();
+        if (count != null) {
+            return count.getViews();
+        } else {
+            return null;
+        }
+    }
+    @Transient
+    public Boolean getBold() {
+        ContentExt ext = getContentExt();
+        if (ext != null) {
+            return ext.getIsBold();
+        } else {
+            return null;
+        }
+    }
+    /**
+     * 是否草稿
+     *
+     * @return
+     */
+    @Transient
+    public boolean isDraft() {
+        return ContentCheck.DRAFT == getStatus();
+    }
 
 }

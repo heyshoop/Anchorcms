@@ -31,15 +31,6 @@ public class ContentAttachment implements Serializable {
     }
 
     @Id
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    @Basic
     @Column(name = "content_id")
     public int getContentId() {
         return contentId;

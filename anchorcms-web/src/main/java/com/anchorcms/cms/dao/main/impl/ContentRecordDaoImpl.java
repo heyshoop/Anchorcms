@@ -20,7 +20,7 @@ public class ContentRecordDaoImpl extends HibernateBaseDao<ContentRecord, Long> 
 	}
 
 	public List<ContentRecord> getListByContentId(Integer contentId) {
-		String hql=" select bean from ContentRecord bean where bean.content.id=:contentId";
+		String hql=" select bean from ContentRecord bean where bean.content.contentId=:contentId";
 		Finder f=Finder.create(hql).setParam("contentId", contentId);
 		f.setCacheable(true);
 		List<ContentRecord>list=find(f);
