@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.cms.sheetanchor</groupId>
-    <artifactId>SheetAnchor</artifactId>
+    <artifactId>Anchorcms</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
