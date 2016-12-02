@@ -362,7 +362,7 @@ public class Content implements Serializable{
         this.channel = channel;
     }
     @OneToMany
-    @JoinColumn(name="content_id",insertable = false,updatable = false)
+    @JoinColumn(name="content_id",insertable = true,updatable = true)
     public List<ContentPicture> getPictures() {
         return pictures;
     }
