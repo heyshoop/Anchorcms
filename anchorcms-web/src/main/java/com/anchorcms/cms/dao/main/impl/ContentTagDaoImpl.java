@@ -30,10 +30,10 @@ public class ContentTagDaoImpl extends HibernateBaseDao<ContentTag, Integer>
 							  boolean cacheable) {
 		Finder f = Finder.create("from ContentTag bean");
 		if (!StringUtils.isBlank(name)) {
-			f.append(" where bean.name like :name");
+			f.append(" where bean.tagName like :name");
 			f.setParam("name", "%" + name + "%");
 		}
-		f.append(" order by bean.count desc");
+		f.append(" order by bean.refCounter desc");
 		f.setCacheable(cacheable);
 		return find(f, pageNo, pageSize);
 	}

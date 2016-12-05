@@ -17,13 +17,13 @@ public class KeywordDaoImpl extends HibernateBaseDao<CmsKeyword, Integer>
 			boolean cacheable) {
 		Finder f = Finder.create("from CmsKeyword bean where 1=1");
 		if (siteId != null) {
-			f.append(" and bean.site.id=:siteId");
+			f.append(" and bean.site.siteId=:siteId");
 			f.setParam("siteId", siteId);
 		}
 		if (onlyEnabled) {
-			f.append(" and bean.disabled=false");
+			f.append(" and bean.isDisabled=false");
 		}
-		f.append(" order by bean.id desc");
+		f.append(" order by bean.keywordId desc");
 		f.setCacheable(cacheable);
 		return find(f);
 	}
@@ -31,11 +31,11 @@ public class KeywordDaoImpl extends HibernateBaseDao<CmsKeyword, Integer>
 	@SuppressWarnings("unchecked")
 	public List<CmsKeyword> getListGlobal(boolean onlyEnabled, boolean cacheable) {
 		Finder f = Finder
-				.create("from CmsKeyword bean where bean.site.id is null");
+				.create("from CmsKeyword bean where bean.site.siteId is null");
 		if (onlyEnabled) {
-			f.append(" and bean.disabled=false");
+			f.append(" and bean.isDisabled=false");
 		}
-		f.append(" order by bean.id desc");
+		f.append(" order by bean.keywordId desc");
 		f.setCacheable(cacheable);
 		return find(f);
 	}

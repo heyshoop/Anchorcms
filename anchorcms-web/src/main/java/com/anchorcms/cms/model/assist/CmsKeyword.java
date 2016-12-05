@@ -1,5 +1,7 @@
 package com.anchorcms.cms.model.assist;
 
+import com.anchorcms.core.model.CmsSite;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -98,5 +100,17 @@ public class CmsKeyword implements Serializable{
         if (getIsDisabled() == null) {
             setIsDisabled(false);
         }
+    }
+
+    private CmsSite site;
+
+    @ManyToOne
+    @JoinColumn(name = "site_id",insertable = false,updatable = false)
+    public CmsSite getSite() {
+        return site;
+    }
+
+    public void setSite(CmsSite site) {
+        this.site = site;
     }
 }

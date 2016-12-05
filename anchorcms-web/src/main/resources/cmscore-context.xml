@@ -10,7 +10,7 @@
     <!--=====================================================自定义标签=========================================================-->
     <!--UUID生成器-->
     <bean id="uuid" class="com.anchorcms.common.web.freemarker.UUIDDirective"/>
-    <!--执行时间:暂时废弃-->
+    <!--执行时间-->
     <bean id="process_time" class="com.anchorcms.common.web.freemarker.ProcessTimeDirective"/>
     <!--文本剪切-->
     <bean id="text_cut" class="com.anchorcms.common.web.freemarker.TextCutDirective"/>

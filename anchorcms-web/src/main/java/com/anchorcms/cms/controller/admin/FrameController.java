@@ -9,13 +9,19 @@ import java.util.Map;
 import java.util.Set;
 
 import com.anchorcms.common.utils.MapUtil;
+import com.anchorcms.common.utils.PropertyUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+/**
+ * @Author 阁楼麻雀
+ * @Date 2016/12/2 16:59
+ * @Desc 数据库备份controller
+ */
 
-@Controller
+@Controller("FrameController")
 public class FrameController {
 	@RequiresPermissions("frame:config_main")
 	@RequestMapping("/frame/config_main.do")
@@ -159,15 +165,24 @@ public class FrameController {
 	private Map<String,String>menuUrls;
 	private Map<String,String>menuPerms;
 	private Map<String,Map<String,String>>menuNames;
+	private PropertyUtil propertyUtil;
 	//数据库种类(mysql、oracle、sqlserver、db2)
 	private String db;
+
+	public PropertyUtil getPropertyUtil() {
+		return propertyUtil;
+	}
+
+	public void setPropertyUtil(PropertyUtil propertyUtil) {
+		this.propertyUtil = propertyUtil;
+	}
 
 	public Map<String, String> getMenus() {
 		return menus;
 	}
 
 	public void setMenus(Map<String, String> menus) {
-		this.menus = menus;
+		this.menus = propertyUtil.getMap("plug.menu.");
 	}
 	
 	public Map<String, String> getTops() {
@@ -175,7 +190,7 @@ public class FrameController {
 	}
 
 	public void setTops(Map<String, String> tops) {
-		this.tops = tops;
+		this.tops = propertyUtil.getMap("plug.top.");
 	}
 
 	public String getDb() {
@@ -183,7 +198,7 @@ public class FrameController {
 	}
 
 	public void setDb(String db) {
-		this.db = db;
+		this.db = propertyUtil.getPropertiesString("hibernate.db");
 	}
 
 	public Map<String, String> getMenuUrls() {
