@@ -21,7 +21,6 @@ public class CmsSearchWords implements Serializable{
     private int priority;
     private String nameInitial;
     private Boolean isRecommend;
-    private int siteId;
 
     @Id
     @Column(name = "word_id")
@@ -83,16 +82,6 @@ public class CmsSearchWords implements Serializable{
         this.isRecommend = isRecommend;
     }
 
-    @Basic
-    @Column(name = "site_id")
-    public int getSiteId() {
-        return siteId;
-    }
-
-    public void setSiteId(int siteId) {
-        this.siteId = siteId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -104,7 +93,6 @@ public class CmsSearchWords implements Serializable{
         if (hitCount != that.hitCount) return false;
         if (priority != that.priority) return false;
         if (isRecommend != that.isRecommend) return false;
-        if (siteId != that.siteId) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (nameInitial != null ? !nameInitial.equals(that.nameInitial) : that.nameInitial != null) return false;
 
@@ -118,13 +106,12 @@ public class CmsSearchWords implements Serializable{
         result = 31 * result + hitCount;
         result = 31 * result + priority;
         result = 31 * result + (nameInitial != null ? nameInitial.hashCode() : 0);
-        result = 31 * result + siteId;
         return result;
     }
 
     private CmsSite site;
     @ManyToOne
-    @JoinColumn(name = "site_id",insertable = false,updatable = false)
+    @JoinColumn(name = "site_id")
     public CmsSite getSite() {
         return site;
     }
