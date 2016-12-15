@@ -34,7 +34,7 @@ public class CmsConfig implements Serializable{
     private String emailUsername;
     private String emailPassword;
     private String emailPersonal;
-    private Byte emailValidate;
+    private Boolean emailValidate;
     private Boolean viewOnlyChecked;
     private Date flowClearTime;
     private Date channelCountClearTime;
@@ -221,11 +221,11 @@ public class CmsConfig implements Serializable{
 
     @Basic
     @Column(name = "email_validate")
-    public Byte getEmailValidate() {
+    public Boolean getEmailValidate() {
         return emailValidate;
     }
 
-    public void setEmailValidate(Byte emailValidate) {
+    public void setEmailValidate(Boolean emailValidate) {
         this.emailValidate = emailValidate;
     }
 
