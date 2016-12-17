@@ -1,5 +1,6 @@
 package com.anchorcms.cms.model.main;
 
+import com.anchorcms.cms.model.assist.CmsComment;
 import com.anchorcms.cms.web.CmsThreadVariable;
 import com.anchorcms.common.utils.StaticPageUtils;
 import com.anchorcms.core.model.CmsGroup;
@@ -239,6 +240,17 @@ public class Content implements Serializable{
     private Set<ContentCharge> contentChargeSet;
 
     private Set<ContentRecord> contentRecord;
+
+    private Set<CmsComment> comments;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="content_id",insertable = true,updatable = true)
+    public Set<CmsComment> getComments() {
+        return comments;
+    }
+    public void setComments(Set<CmsComment> comments) {
+        this.comments = comments;
+    }
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "content",orphanRemoval = true)
     public Set<ContentRecord> getContentRecord() {
@@ -1268,6 +1280,20 @@ public class Content implements Serializable{
     @Transient
     public boolean isDraft() {
         return ContentCheck.DRAFT == getStatus();
+    }
+    public boolean hasCommentUser(CmsUser user){
+        Set<CmsComment>comments=getComments();
+        if(comments==null){
+            return false;
+        }
+        Iterator<CmsComment>it=comments.iterator();
+        while(it.hasNext()){
+            CmsComment comment=it.next();
+            if(comment.getCommentUser()!=null&&comment.getCommentUser().equals(user)){
+                return true;
+            }
+        }
+        return false;
     }
 
 }

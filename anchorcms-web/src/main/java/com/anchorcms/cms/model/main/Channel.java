@@ -1026,5 +1026,14 @@ public class Channel implements Serializable{
         }
         return ids;
     }
+    @Transient
+    public Integer getCommentControl() {
+        ChannelExt ext = getChannelExt();
+        if (ext != null) {
+            return ext.getCommentControl();
+        } else {
+            return null;
+        }
+    }
 
 }

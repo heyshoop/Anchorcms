@@ -23,8 +23,8 @@ public class CmsGroup implements Serializable{
     private Integer groupId;
     private String groupName;
     private int priority;
-    private byte needCaptcha;
-    private byte needCheck;
+    private Boolean needCaptcha;
+    private Boolean needCheck;
     private int allowPerDay;
     private int allowMaxFile;
     private String allowSuffix;
@@ -62,21 +62,21 @@ public class CmsGroup implements Serializable{
 
     @Basic
     @Column(name = "need_captcha")
-    public byte getNeedCaptcha() {
+    public Boolean getNeedCaptcha() {
         return needCaptcha;
     }
 
-    public void setNeedCaptcha(byte needCaptcha) {
+    public void setNeedCaptcha(Boolean needCaptcha) {
         this.needCaptcha = needCaptcha;
     }
 
     @Basic
     @Column(name = "need_check")
-    public byte getNeedCheck() {
+    public Boolean getNeedCheck() {
         return needCheck;
     }
 
-    public void setNeedCheck(byte needCheck) {
+    public void setNeedCheck(Boolean needCheck) {
         this.needCheck = needCheck;
     }
 
@@ -145,8 +145,6 @@ public class CmsGroup implements Serializable{
         int result = groupId;
         result = 31 * result + (groupName != null ? groupName.hashCode() : 0);
         result = 31 * result + priority;
-        result = 31 * result + (int) needCaptcha;
-        result = 31 * result + (int) needCheck;
         result = 31 * result + allowPerDay;
         result = 31 * result + allowMaxFile;
         result = 31 * result + (allowSuffix != null ? allowSuffix.hashCode() : 0);
