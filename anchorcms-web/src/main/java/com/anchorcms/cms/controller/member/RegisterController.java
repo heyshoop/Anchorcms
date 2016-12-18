@@ -2,7 +2,7 @@ package com.anchorcms.cms.controller.member;
 
 
 import com.anchorcms.cms.model.assist.CmsWebservice;
-import com.anchorcms.cms.service.assist.WebserviceService;
+import com.anchorcms.cms.service.main.WebserviceService;
 import com.anchorcms.common.email.EmailSender;
 import com.anchorcms.common.email.MessageTemplate;
 import com.anchorcms.common.utils.CmsUtils;
