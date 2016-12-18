@@ -42,8 +42,8 @@ import static com.anchorcms.common.constants.Constants.TPLDIR_SPECIAL;
  */
 
 @Controller
-public class CommentController {
-	private static final Logger log = LoggerFactory.getLogger(CommentController.class);
+public class FrontCommentController {
+	private static final Logger log = LoggerFactory.getLogger(FrontCommentController.class);
 
 	public static final String COMMENT_PAGE = "tpl.commentPage";
 	public static final String COMMENT_LIST = "tpl.commentList";
